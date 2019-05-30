@@ -1,0 +1,6 @@
+.gitignore
+LICENSE
+*.md
+reference/
+.mypy_cache/
+.pytest_cache/

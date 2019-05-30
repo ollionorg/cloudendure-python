@@ -126,8 +126,8 @@ pages:
     - UserApi: api/UserApi.md << docs/UserApi.md
 theme:
   name: material
-  logo: 'http://chittagongit.com/images/cloud-png-icon/cloud-png-icon-3.jpg'
-  favicon: 'http://chittagongit.com/images/cloud-png-icon/cloud-png-icon-3.jpg'
+  logo: 'https://www.iconsdb.com/icons/download/caribbean-blue/cloud-6-64.png'
+  favicon: 'https://www.iconsdb.com/icons/download/caribbean-blue/cloud-6-64.png'
   feature:
     tabs: true
 

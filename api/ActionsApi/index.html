@@ -1,0 +1,799 @@
+<!doctype html><html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="lang:clipboard.copy" content="Copy to clipboard"><meta name="lang:clipboard.copied" content="Copied to clipboard"><meta name="lang:search.language" content="en"><meta name="lang:search.pipeline.stopwords" content="True"><meta name="lang:search.pipeline.trimmer" content="True"><meta name="lang:search.result.none" content="No matching documents"><meta name="lang:search.result.one" content="1 matching document"><meta name="lang:search.result.other" content="# matching documents"><meta name="lang:search.tokenizer" content="[\s\-]+"><link rel="shortcut icon" href="http://chittagongit.com/images/cloud-png-icon/cloud-png-icon-3.jpg"><meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.3.1"><title>ActionsApi - CloudEndure Python Client and CLI</title><link rel="stylesheet" href="../../assets/stylesheets/application.4031d38b.css"><script src="../../assets/javascripts/modernizr.74668098.js"></script><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=swap"><style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style><link rel="stylesheet" href="../../assets/fonts/material-icons.css"></head><body dir="ltr"><svg class="md-svg"><defs><svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg></defs></svg> <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off"> <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off"> <label class="md-overlay" data-md-component="overlay" for="__drawer"></label><a href="#cloudendure_apiactionsapi" tabindex="1" class="md-skip">Skip to content </a><header class="md-header" data-md-component="header"><nav class="md-header-nav md-grid"><div class="md-flex"><div class="md-flex__cell md-flex__cell--shrink"><a href="../.." title="CloudEndure Python Client and CLI" class="md-header-nav__button md-logo"><img src="http://chittagongit.com/images/cloud-png-icon/cloud-png-icon-3.jpg" width="24" height="24"></a></div><div class="md-flex__cell md-flex__cell--shrink"><label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label></div><div class="md-flex__cell md-flex__cell--stretch"><div class="md-flex__ellipsis md-header-nav__title" data-md-component="title"><span class="md-header-nav__topic">CloudEndure Python Client and CLI</span><span class="md-header-nav__topic">ActionsApi</span></div></div><div class="md-flex__cell md-flex__cell--shrink"><label class="md-icon md-icon--search md-header-nav__button" for="__search"></label><div class="md-search" data-md-component="search" role="dialog"><label class="md-search__overlay" for="__search"></label><div class="md-search__inner" role="search"><form class="md-search__form" name="search"><input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active"> <label class="md-icon md-search__icon" for="__search"></label> <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">&#xE5CD;</button></form><div class="md-search__output"><div class="md-search__scrollwrap" data-md-scrollfix><div class="md-search-result" data-md-component="result"><div class="md-search-result__meta">Type to start searching</div><ol class="md-search-result__list"></ol></div></div></div></div></div></div><div class="md-flex__cell md-flex__cell--shrink"><div class="md-header-nav__source"><a href="https://github.com/mbeacom/cloudendure-py/" title="Go to repository" class="md-source" data-md-source="github"><div class="md-source__icon"><svg viewBox="0 0 24 24" width="24" height="24"><use xlink:href="#__github" width="24" height="24"></use></svg></div><div class="md-source__repository">GitHub</div></a></div></div></div></nav></header><div class="md-container"><nav class="md-tabs md-tabs--active" data-md-component="tabs"><div class="md-tabs__inner md-grid"><ul class="md-tabs__list"><li class="md-tabs__item"><a href="../.." title="General" class="md-tabs__link">General</a></li><li class="md-tabs__item"><a href="../../code/cloudendure/api.md" title="Code" class="md-tabs__link">Code</a></li><li class="md-tabs__item"><a href="../API_README/" title="API Documentation" class="md-tabs__link md-tabs__link--active">API Documentation</a></li></ul></div></nav><main class="md-main"><div class="md-main__inner md-grid" data-md-component="container"><div class="md-sidebar md-sidebar--primary" data-md-component="navigation"><div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner"><nav class="md-nav md-nav--primary" data-md-level="0"><label class="md-nav__title md-nav__title--site" for="__drawer"><a href="../.." title="CloudEndure Python Client and CLI" class="md-nav__button md-logo"><img src="http://chittagongit.com/images/cloud-png-icon/cloud-png-icon-3.jpg" width="48" height="48"></a>CloudEndure Python Client and CLI</label><div class="md-nav__source"><a href="https://github.com/mbeacom/cloudendure-py/" title="Go to repository" class="md-source" data-md-source="github"><div class="md-source__icon"><svg viewBox="0 0 24 24" width="24" height="24"><use xlink:href="#__github" width="24" height="24"></use></svg></div><div class="md-source__repository">GitHub</div></a></div><ul class="md-nav__list" data-md-scrollfix><li class="md-nav__item md-nav__item--nested"><input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1"><label class="md-nav__link" for="nav-1">General</label><nav class="md-nav" data-md-component="collapsible" data-md-level="1"><label class="md-nav__title" for="nav-1">General</label><ul class="md-nav__list" data-md-scrollfix><li class="md-nav__item"><a href="../.." title="Home" class="md-nav__link">Home</a></li><li class="md-nav__item"><a href="../../references/" title="References" class="md-nav__link">References</a></li></ul></nav></li><li class="md-nav__item md-nav__item--nested"><input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2"><label class="md-nav__link" for="nav-2">Code</label><nav class="md-nav" data-md-component="collapsible" data-md-level="1"><label class="md-nav__title" for="nav-2">Code</label><ul class="md-nav__list" data-md-scrollfix><li class="md-nav__item md-nav__item--nested"><input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1"><label class="md-nav__link" for="nav-2-1">CloudEndure</label><nav class="md-nav" data-md-component="collapsible" data-md-level="2"><label class="md-nav__title" for="nav-2-1">CloudEndure</label><ul class="md-nav__list" data-md-scrollfix><li class="md-nav__item"><a href="../../code/cloudendure/api.md" title="API" class="md-nav__link">API</a></li><li class="md-nav__item"><a href="../../code/cloudendure/cloudendure.md" title="Main" class="md-nav__link">Main</a></li><li class="md-nav__item"><a href="../../code/cloudendure/config.md" title="Config" class="md-nav__link">Config</a></li><li class="md-nav__item"><a href="../../code/cloudendure/exceptions.md" title="Exceptions" class="md-nav__link">Exceptions</a></li><li class="md-nav__item"><a href="../../code/cloudendure/models.md" title="Models" class="md-nav__link">Models</a></li><li class="md-nav__item"><a href="../../code/cloudendure/utils.md" title="Utilities" class="md-nav__link">Utilities</a></li></ul></nav></li></ul></nav></li><li class="md-nav__item md-nav__item--active md-nav__item--nested"><input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked><label class="md-nav__link" for="nav-3">API Documentation</label><nav class="md-nav" data-md-component="collapsible" data-md-level="1"><label class="md-nav__title" for="nav-3">API Documentation</label><ul class="md-nav__list" data-md-scrollfix><li class="md-nav__item"><a href="../API_README/" title="MAIN" class="md-nav__link">MAIN</a></li><li class="md-nav__item"><a href="../AccountApi/" title="AccountApi" class="md-nav__link">AccountApi</a></li><li class="md-nav__item md-nav__item--active"><input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc"><a href="./" title="ActionsApi" class="md-nav__link md-nav__link--active">ActionsApi</a></li><li class="md-nav__item"><a href="../AuthenticationApi/" title="AuthenticationApi" class="md-nav__link">AuthenticationApi</a></li><li class="md-nav__item"><a href="../BlueprintApi/" title="BlueprintApi" class="md-nav__link">BlueprintApi</a></li><li class="md-nav__item"><a href="../CloudApi/" title="CloudApi" class="md-nav__link">CloudApi</a></li><li class="md-nav__item"><a href="../CloudCredentialsApi/" title="CloudCredentialsApi" class="md-nav__link">CloudCredentialsApi</a></li><li class="md-nav__item"><a href="../CloudEndureAccount/" title="CloudEndureAccount" class="md-nav__link">CloudEndureAccount</a></li><li class="md-nav__item"><a href="../CloudEndureAccountRequest/" title="CloudEndureAccountRequest" class="md-nav__link">CloudEndureAccountRequest</a></li><li class="md-nav__item"><a href="../CloudEndureAccountRequestList/" title="CloudEndureAccountRequestList" class="md-nav__link">CloudEndureAccountRequestList</a></li><li class="md-nav__item"><a href="../CloudEndureAccountsList/" title="CloudEndureAccountsList" class="md-nav__link">CloudEndureAccountsList</a></li><li class="md-nav__item"><a href="../CloudEndureAgentNextReplicationInitRequest/" title="CloudEndureAgentNextReplicationInitRequest" class="md-nav__link">CloudEndureAgentNextReplicationInitRequest</a></li><li class="md-nav__item"><a href="../CloudEndureAllProjectFeatures/" title="CloudEndureAllProjectFeatures" class="md-nav__link">CloudEndureAllProjectFeatures</a></li><li class="md-nav__item"><a href="../CloudEndureAuditLog/" title="CloudEndureAuditLog" class="md-nav__link">CloudEndureAuditLog</a></li><li class="md-nav__item"><a href="../CloudEndureAuditLogChangedField/" title="CloudEndureAuditLogChangedField" class="md-nav__link">CloudEndureAuditLogChangedField</a></li><li class="md-nav__item"><a href="../CloudEndureAuditLogEntry/" title="CloudEndureAuditLogEntry" class="md-nav__link">CloudEndureAuditLogEntry</a></li><li class="md-nav__item"><a href="../CloudEndureAuditLogEntry/" title="CloudEndureAuditLogEntry" class="md-nav__link">CloudEndureAuditLogEntry</a></li><li class="md-nav__item"><a href="../CloudEndureBandwidthThrottling/" title="CloudEndureBandwidthThrottling" class="md-nav__link">CloudEndureBandwidthThrottling</a></li><li class="md-nav__item"><a href="../CloudEndureBlueprint/" title="CloudEndureBlueprint" class="md-nav__link">CloudEndureBlueprint</a></li><li class="md-nav__item"><a href="../CloudEndureBlueprintList/" title="CloudEndureBlueprintList" class="md-nav__link">CloudEndureBlueprintList</a></li><li class="md-nav__item"><a href="../CloudEndureCloud/" title="CloudEndureCloud" class="md-nav__link">CloudEndureCloud</a></li><li class="md-nav__item"><a href="../CloudEndureCloudCredentials/" title="CloudEndureCloudCredentials" class="md-nav__link">CloudEndureCloudCredentials</a></li><li class="md-nav__item"><a href="../CloudEndureCloudCredentialsList/" title="CloudEndureCloudCredentialsList" class="md-nav__link">CloudEndureCloudCredentialsList</a></li><li class="md-nav__item"><a href="../CloudEndureCloudCredentialsRequest/" title="CloudEndureCloudCredentialsRequest" class="md-nav__link">CloudEndureCloudCredentialsRequest</a></li><li class="md-nav__item"><a href="../CloudEndureCloudsList/" title="CloudEndureCloudsList" class="md-nav__link">CloudEndureCloudsList</a></li><li class="md-nav__item"><a href="../CloudEndureComputeLocation/" title="CloudEndureComputeLocation" class="md-nav__link">CloudEndureComputeLocation</a></li><li class="md-nav__item"><a href="../CloudEndureConfigurations/" title="CloudEndureConfigurations" class="md-nav__link">CloudEndureConfigurations</a></li><li class="md-nav__item"><a href="../CloudEndureConfigurationsList/" title="CloudEndureConfigurationsList" class="md-nav__link">CloudEndureConfigurationsList</a></li><li class="md-nav__item"><a href="../CloudEndureError/" title="CloudEndureError" class="md-nav__link">CloudEndureError</a></li><li class="md-nav__item"><a href="../CloudEndureExtendedAccountInfo/" title="CloudEndureExtendedAccountInfo" class="md-nav__link">CloudEndureExtendedAccountInfo</a></li><li class="md-nav__item"><a href="../CloudEndureFindFilesParameters/" title="CloudEndureFindFilesParameters" class="md-nav__link">CloudEndureFindFilesParameters</a></li><li class="md-nav__item"><a href="../CloudEndureFindFilesResult/" title="CloudEndureFindFilesResult" class="md-nav__link">CloudEndureFindFilesResult</a></li><li class="md-nav__item"><a href="../CloudEndureFindFilesResultPit/" title="CloudEndureFindFilesResultPit" class="md-nav__link">CloudEndureFindFilesResultPit</a></li><li class="md-nav__item"><a href="../CloudEndureFindFilesResults/" title="CloudEndureFindFilesResults" class="md-nav__link">CloudEndureFindFilesResults</a></li><li class="md-nav__item"><a href="../CloudEndureGcpMachinesFinanceData/" title="CloudEndureGcpMachinesFinanceData" class="md-nav__link">CloudEndureGcpMachinesFinanceData</a></li><li class="md-nav__item"><a href="../CloudEndureIdentityProviderRedirectResponse/" title="CloudEndureIdentityProviderRedirectResponse" class="md-nav__link">CloudEndureIdentityProviderRedirectResponse</a></li><li class="md-nav__item"><a href="../CloudEndureInitializationStep/" title="CloudEndureInitializationStep" class="md-nav__link">CloudEndureInitializationStep</a></li><li class="md-nav__item"><a href="../CloudEndureJob/" title="CloudEndureJob" class="md-nav__link">CloudEndureJob</a></li><li class="md-nav__item"><a href="../CloudEndureJobsList/" title="CloudEndureJobsList" class="md-nav__link">CloudEndureJobsList</a></li><li class="md-nav__item"><a href="../CloudEndureKeyValueList/" title="CloudEndureKeyValueList" class="md-nav__link">CloudEndureKeyValueList</a></li><li class="md-nav__item"><a href="../CloudEndureLaunchMachinesParameters/" title="CloudEndureLaunchMachinesParameters" class="md-nav__link">CloudEndureLaunchMachinesParameters</a></li><li class="md-nav__item"><a href="../CloudEndureLicense/" title="CloudEndureLicense" class="md-nav__link">CloudEndureLicense</a></li><li class="md-nav__item"><a href="../CloudEndureLicenseFeatures/" title="CloudEndureLicenseFeatures" class="md-nav__link">CloudEndureLicenseFeatures</a></li><li class="md-nav__item"><a href="../CloudEndureLicenseList/" title="CloudEndureLicenseList" class="md-nav__link">CloudEndureLicenseList</a></li><li class="md-nav__item"><a href="../CloudEndureListUsersResult/" title="CloudEndureListUsersResult" class="md-nav__link">CloudEndureListUsersResult</a></li><li class="md-nav__item"><a href="../CloudEndureListUsersResults/" title="CloudEndureListUsersResults" class="md-nav__link">CloudEndureListUsersResults</a></li><li class="md-nav__item"><a href="../CloudEndureLogicalLocation/" title="CloudEndureLogicalLocation" class="md-nav__link">CloudEndureLogicalLocation</a></li><li class="md-nav__item"><a href="../CloudEndureMachine/" title="CloudEndureMachine" class="md-nav__link">CloudEndureMachine</a></li><li class="md-nav__item"><a href="../CloudEndureMachineAndPathAndPointInTime/" title="CloudEndureMachineAndPathAndPointInTime" class="md-nav__link">CloudEndureMachineAndPathAndPointInTime</a></li><li class="md-nav__item"><a href="../CloudEndureMachineAndPointInTime/" title="CloudEndureMachineAndPointInTime" class="md-nav__link">CloudEndureMachineAndPointInTime</a></li><li class="md-nav__item"><a href="../CloudEndureMachineReplicationConfiguration/" title="CloudEndureMachineReplicationConfiguration" class="md-nav__link">CloudEndureMachineReplicationConfiguration</a></li><li class="md-nav__item"><a href="../CloudEndureMachineSnapshotCredits/" title="CloudEndureMachineSnapshotCredits" class="md-nav__link">CloudEndureMachineSnapshotCredits</a></li><li class="md-nav__item"><a href="../CloudEndureMachineThrottleTimeSeconds/" title="CloudEndureMachineThrottleTimeSeconds" class="md-nav__link">CloudEndureMachineThrottleTimeSeconds</a></li><li class="md-nav__item"><a href="../CloudEndureMachinesList/" title="CloudEndureMachinesList" class="md-nav__link">CloudEndureMachinesList</a></li><li class="md-nav__item"><a href="../CloudEndureMachinesListInvalidIDsAndJob/" title="CloudEndureMachinesListInvalidIDsAndJob" class="md-nav__link">CloudEndureMachinesListInvalidIDsAndJob</a></li><li class="md-nav__item"><a href="../CloudEndureNetworkInterface/" title="CloudEndureNetworkInterface" class="md-nav__link">CloudEndureNetworkInterface</a></li><li class="md-nav__item"><a href="../CloudEndurePointInTime/" title="CloudEndurePointInTime" class="md-nav__link">CloudEndurePointInTime</a></li><li class="md-nav__item"><a href="../CloudEndurePointInTimeList/" title="CloudEndurePointInTimeList" class="md-nav__link">CloudEndurePointInTimeList</a></li><li class="md-nav__item"><a href="../CloudEndureProject/" title="CloudEndureProject" class="md-nav__link">CloudEndureProject</a></li><li class="md-nav__item"><a href="../CloudEndureProjectStorage/" title="CloudEndureProjectStorage" class="md-nav__link">CloudEndureProjectStorage</a></li><li class="md-nav__item"><a href="../CloudEndureProjectsAndUsers/" title="CloudEndureProjectsAndUsers" class="md-nav__link">CloudEndureProjectsAndUsers</a></li><li class="md-nav__item"><a href="../CloudEndureProjectsList/" title="CloudEndureProjectsList" class="md-nav__link">CloudEndureProjectsList</a></li><li class="md-nav__item"><a href="../CloudEndureRecoveryPlan/" title="CloudEndureRecoveryPlan" class="md-nav__link">CloudEndureRecoveryPlan</a></li><li class="md-nav__item"><a href="../CloudEndureRecoveryPlanList/" title="CloudEndureRecoveryPlanList" class="md-nav__link">CloudEndureRecoveryPlanList</a></li><li class="md-nav__item"><a href="../CloudEndureRecoveryPlanStep/" title="CloudEndureRecoveryPlanStep" class="md-nav__link">CloudEndureRecoveryPlanStep</a></li><li class="md-nav__item"><a href="../CloudEndureRecoveryPlanSteps/" title="CloudEndureRecoveryPlanSteps" class="md-nav__link">CloudEndureRecoveryPlanSteps</a></li><li class="md-nav__item"><a href="../CloudEndureRegion/" title="CloudEndureRegion" class="md-nav__link">CloudEndureRegion</a></li><li class="md-nav__item"><a href="../CloudEndureRegionsList/" title="CloudEndureRegionsList" class="md-nav__link">CloudEndureRegionsList</a></li><li class="md-nav__item"><a href="../CloudEndureReplica/" title="CloudEndureReplica" class="md-nav__link">CloudEndureReplica</a></li><li class="md-nav__item"><a href="../CloudEndureReplicationConfiguration/" title="CloudEndureReplicationConfiguration" class="md-nav__link">CloudEndureReplicationConfiguration</a></li><li class="md-nav__item"><a href="../CloudEndureReplicationConfigurationList/" title="CloudEndureReplicationConfigurationList" class="md-nav__link">CloudEndureReplicationConfigurationList</a></li><li class="md-nav__item"><a href="../CloudEndureReplicationServerConfig/" title="CloudEndureReplicationServerConfig" class="md-nav__link">CloudEndureReplicationServerConfig</a></li><li class="md-nav__item"><a href="../CloudEndureRestoreFilesParameters/" title="CloudEndureRestoreFilesParameters" class="md-nav__link">CloudEndureRestoreFilesParameters</a></li><li class="md-nav__item"><a href="../CloudEndureSamlSettings/" title="CloudEndureSamlSettings" class="md-nav__link">CloudEndureSamlSettings</a></li><li class="md-nav__item"><a href="../CloudEndureSecurityGroup/" title="CloudEndureSecurityGroup" class="md-nav__link">CloudEndureSecurityGroup</a></li><li class="md-nav__item"><a href="../CloudEndureStorageLocation/" title="CloudEndureStorageLocation" class="md-nav__link">CloudEndureStorageLocation</a></li><li class="md-nav__item"><a href="../CloudEndureSubnet/" title="CloudEndureSubnet" class="md-nav__link">CloudEndureSubnet</a></li><li class="md-nav__item"><a href="../CloudEndureTime/" title="CloudEndureTime" class="md-nav__link">CloudEndureTime</a></li><li class="md-nav__item"><a href="../CloudEndureUpdateableScripts/" title="CloudEndureUpdateableScripts" class="md-nav__link">CloudEndureUpdateableScripts</a></li><li class="md-nav__item"><a href="../CloudEndureUpgradeCounterDelay/" title="CloudEndureUpgradeCounterDelay" class="md-nav__link">CloudEndureUpgradeCounterDelay</a></li><li class="md-nav__item"><a href="../CloudEndureUsage/" title="CloudEndureUsage" class="md-nav__link">CloudEndureUsage</a></li><li class="md-nav__item"><a href="../CloudEndureUsageList/" title="CloudEndureUsageList" class="md-nav__link">CloudEndureUsageList</a></li><li class="md-nav__item"><a href="../CloudEndureUser/" title="CloudEndureUser" class="md-nav__link">CloudEndureUser</a></li><li class="md-nav__item"><a href="../CloudEndureUserReport/" title="CloudEndureUserReport" class="md-nav__link">CloudEndureUserReport</a></li><li class="md-nav__item"><a href="../CloudEndureUserReports/" title="CloudEndureUserReports" class="md-nav__link">CloudEndureUserReports</a></li><li class="md-nav__item"><a href="../CloudEndureUsersAndRoles/" title="CloudEndureUsersAndRoles" class="md-nav__link">CloudEndureUsersAndRoles</a></li><li class="md-nav__item"><a href="../CloudEndureUsersList/" title="CloudEndureUsersList" class="md-nav__link">CloudEndureUsersList</a></li><li class="md-nav__item"><a href="../CloudEndureVCenterSubnet/" title="CloudEndureVCenterSubnet" class="md-nav__link">CloudEndureVCenterSubnet</a></li><li class="md-nav__item"><a href="../DefaultApi/" title="DefaultApi" class="md-nav__link">DefaultApi</a></li><li class="md-nav__item"><a href="../LicensingApi/" title="LicensingApi" class="md-nav__link">LicensingApi</a></li><li class="md-nav__item"><a href="../MachinesApi/" title="MachinesApi" class="md-nav__link">MachinesApi</a></li><li class="md-nav__item"><a href="../ProjectApi/" title="ProjectApi" class="md-nav__link">ProjectApi</a></li><li class="md-nav__item"><a href="../RecoveryPlansApi/" title="RecoveryPlansApi" class="md-nav__link">RecoveryPlansApi</a></li><li class="md-nav__item"><a href="../ReplicationApi/" title="ReplicationApi" class="md-nav__link">ReplicationApi</a></li><li class="md-nav__item"><a href="../UserApi/" title="UserApi" class="md-nav__link">UserApi</a></li></ul></nav></li></ul></nav></div></div></div><div class="md-sidebar md-sidebar--secondary" data-md-component="toc"><div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner"><nav class="md-nav md-nav--secondary"></nav></div></div></div><div class="md-content"><article class="md-content__inner md-typeset"><a href="https://github.com/mbeacom/cloudendure-py/edit/master/docs/api/ActionsApi.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a><h1 id="cloudendure_apiactionsapi">cloudendure_api.ActionsApi</h1>
+<p>All URIs are relative to <em>https://console.cloudendure.com/api/latest</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>HTTP request</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="./#projects_project_id_find_files_post"><strong>projects_project_id_find_files_post</strong></a></td>
+<td><strong>POST</strong> /projects/{projectId}/findFiles</td>
+<td>Search for files in a backup project</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_jobs_get"><strong>projects_project_id_jobs_get</strong></a></td>
+<td><strong>GET</strong> /projects/{projectId}/jobs</td>
+<td>List Jobs</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_jobs_job_id_get"><strong>projects_project_id_jobs_job_id_get</strong></a></td>
+<td><strong>GET</strong> /projects/{projectId}/jobs/{jobId}</td>
+<td>Get Job</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_launch_machines_post"><strong>projects_project_id_launch_machines_post</strong></a></td>
+<td><strong>POST</strong> /projects/{projectId}/launchMachines</td>
+<td>Launch target machines</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_launch_restore_servers_post"><strong>projects_project_id_launch_restore_servers_post</strong></a></td>
+<td><strong>POST</strong> /projects/{projectId}/launchRestoreServers</td>
+<td>Launch restore servers @todo</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_move_machines_post"><strong>projects_project_id_move_machines_post</strong></a></td>
+<td><strong>POST</strong> /projects/{projectId}/moveMachines</td>
+<td>Moves machines to another project</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_pause_replication_post"><strong>projects_project_id_pause_replication_post</strong></a></td>
+<td><strong>POST</strong> /projects/{projectId}/pauseReplication</td>
+<td>Pause replication</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_replicas_delete"><strong>projects_project_id_replicas_delete</strong></a></td>
+<td><strong>DELETE</strong> /projects/{projectId}/replicas</td>
+<td>Perform Cleanup</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_restore_files_post"><strong>projects_project_id_restore_files_post</strong></a></td>
+<td><strong>POST</strong> /projects/{projectId}/restoreFiles</td>
+<td>Restore selected files in a backup project</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_reverse_replication_post"><strong>projects_project_id_reverse_replication_post</strong></a></td>
+<td><strong>POST</strong> /projects/{projectId}/reverseReplication</td>
+<td>Reverse replication direction</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_start_replication_post"><strong>projects_project_id_start_replication_post</strong></a></td>
+<td><strong>POST</strong> /projects/{projectId}/startReplication</td>
+<td>Start replication</td>
+</tr>
+<tr>
+<td><a href="./#projects_project_id_stop_replication_post"><strong>projects_project_id_stop_replication_post</strong></a></td>
+<td><strong>POST</strong> /projects/{projectId}/stopReplication</td>
+<td>Stop replication</td>
+</tr>
+</tbody>
+</table>
+<h1 id="projects_project_id_find_files_post"><strong>projects_project_id_find_files_post</strong></h1>
+<blockquote>
+<p>CloudEndureFindFilesResults projects_project_id_find_files_post(body, project_id)</p>
+</blockquote>
+<p>Search for files in a backup project</p>
+<h3 id="example">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+body = cloudendure_api.CloudEndureFindFilesParameters() # CloudEndureFindFilesParameters | The query string and the machine id's to use it in
+project_id = 'project_id_example' # str |
+
+try:
+    # Search for files in a backup project
+    api_response = api_instance.projects_project_id_find_files_post(body, project_id)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_find_files_post: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>body</strong></td>
+<td><a href="../CloudEndureFindFilesParameters/"><strong>CloudEndureFindFilesParameters</strong></a></td>
+<td>The query string and the machine id&#x27;s to use it in</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type">Return type</h3>
+<p><a href="../CloudEndureFindFilesResults/"><strong>CloudEndureFindFilesResults</strong></a></p>
+<h3 id="authorization">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_jobs_get"><strong>projects_project_id_jobs_get</strong></h1>
+<blockquote>
+<p>CloudEndureJobsList projects_project_id_jobs_get(project_id, offset=offset, limit=limit)</p>
+</blockquote>
+<p>List Jobs</p>
+<p>Returns the list of jobs in the project.</p>
+<h3 id="example_1">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+project_id = 'project_id_example' # str |
+offset = 56 # int | With which item to start (0 based). (optional)
+limit = 56 # int | A number specifying how many entries to return. (optional)
+
+try:
+    # List Jobs
+    api_response = api_instance.projects_project_id_jobs_get(project_id, offset=offset, limit=limit)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_jobs_get: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_1">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>offset</strong></td>
+<td><strong>int</strong></td>
+<td>With which item to start (0 based).</td>
+<td>[optional]</td>
+</tr>
+<tr>
+<td><strong>limit</strong></td>
+<td><strong>int</strong></td>
+<td>A number specifying how many entries to return.</td>
+<td>[optional]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_1">Return type</h3>
+<p><a href="../CloudEndureJobsList/"><strong>CloudEndureJobsList</strong></a></p>
+<h3 id="authorization_1">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_1">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: Not defined</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_jobs_job_id_get"><strong>projects_project_id_jobs_job_id_get</strong></h1>
+<blockquote>
+<p>CloudEndureJob projects_project_id_jobs_job_id_get(project_id, job_id)</p>
+</blockquote>
+<p>Get Job</p>
+<h3 id="example_2">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+project_id = 'project_id_example' # str |
+job_id = 'job_id_example' # str |
+
+try:
+    # Get Job
+    api_response = api_instance.projects_project_id_jobs_job_id_get(project_id, job_id)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_jobs_job_id_get: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_2">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>job_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_2">Return type</h3>
+<p><a href="../CloudEndureJob/"><strong>CloudEndureJob</strong></a></p>
+<h3 id="authorization_2">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_2">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: Not defined</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_launch_machines_post"><strong>projects_project_id_launch_machines_post</strong></h1>
+<blockquote>
+<p>CloudEndureJob projects_project_id_launch_machines_post(body, project_id)</p>
+</blockquote>
+<p>Launch target machines</p>
+<p>Launch target machines for test, recovery or cutover (by passing enum value to launchType param)</p>
+<h3 id="example_3">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+body = cloudendure_api.CloudEndureLaunchMachinesParameters() # CloudEndureLaunchMachinesParameters | Machines to launch
+project_id = 'project_id_example' # str |
+
+try:
+    # Launch target machines
+    api_response = api_instance.projects_project_id_launch_machines_post(body, project_id)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_launch_machines_post: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_3">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>body</strong></td>
+<td><a href="../CloudEndureLaunchMachinesParameters/"><strong>CloudEndureLaunchMachinesParameters</strong></a></td>
+<td>Machines to launch</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_3">Return type</h3>
+<p><a href="../CloudEndureJob/"><strong>CloudEndureJob</strong></a></p>
+<h3 id="authorization_3">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_3">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_launch_restore_servers_post"><strong>projects_project_id_launch_restore_servers_post</strong></h1>
+<blockquote>
+<p>CloudEndureJob projects_project_id_launch_restore_servers_post(body, project_id)</p>
+</blockquote>
+<p>Launch restore servers @todo</p>
+<p>todo</p>
+<h3 id="example_4">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+body = cloudendure_api.CloudEndureLaunchMachinesParameters() # CloudEndureLaunchMachinesParameters | todo
+project_id = 'project_id_example' # str |
+
+try:
+    # Launch restore servers @todo
+    api_response = api_instance.projects_project_id_launch_restore_servers_post(body, project_id)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_launch_restore_servers_post: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_4">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>body</strong></td>
+<td><a href="../CloudEndureLaunchMachinesParameters/"><strong>CloudEndureLaunchMachinesParameters</strong></a></td>
+<td>todo</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_4">Return type</h3>
+<p><a href="../CloudEndureJob/"><strong>CloudEndureJob</strong></a></p>
+<h3 id="authorization_4">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_4">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_move_machines_post"><strong>projects_project_id_move_machines_post</strong></h1>
+<blockquote>
+<p>projects_project_id_move_machines_post(body, project_id)</p>
+</blockquote>
+<p>Moves machines to another project</p>
+<p>TBC</p>
+<h3 id="example_5">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+body = NULL # object |
+project_id = 'project_id_example' # str |
+
+try:
+    # Moves machines to another project
+    api_instance.projects_project_id_move_machines_post(body, project_id)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_move_machines_post: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_5">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>body</strong></td>
+<td><a href="object.md"><strong>object</strong></a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_5">Return type</h3>
+<p>void (empty response body)</p>
+<h3 id="authorization_5">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_5">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_pause_replication_post"><strong>projects_project_id_pause_replication_post</strong></h1>
+<blockquote>
+<p>CloudEndureMachinesListInvalidIDsAndJob projects_project_id_pause_replication_post(body, project_id)</p>
+</blockquote>
+<p>Pause replication</p>
+<p>Pause replication for given machines</p>
+<h3 id="example_6">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+body = NULL # object | The machine IDs for which to pause replication.
+project_id = 'project_id_example' # str |
+
+try:
+    # Pause replication
+    api_response = api_instance.projects_project_id_pause_replication_post(body, project_id)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_pause_replication_post: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_6">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>body</strong></td>
+<td><a href="object.md"><strong>object</strong></a></td>
+<td>The machine IDs for which to pause replication.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_6">Return type</h3>
+<p><a href="../CloudEndureMachinesListInvalidIDsAndJob/"><strong>CloudEndureMachinesListInvalidIDsAndJob</strong></a></p>
+<h3 id="authorization_6">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_6">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_replicas_delete"><strong>projects_project_id_replicas_delete</strong></h1>
+<blockquote>
+<p>CloudEndureJob projects_project_id_replicas_delete(body, project_id)</p>
+</blockquote>
+<p>Perform Cleanup</p>
+<p>Spawns a cleanup job to remove the specified target machines from the cloud. Returns the job information.</p>
+<h3 id="example_7">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+body = NULL # object | The list of replica IDs to delete (corresponding to the 'replica' field in the machine object.
+project_id = 'project_id_example' # str |
+
+try:
+    # Perform Cleanup
+    api_response = api_instance.projects_project_id_replicas_delete(body, project_id)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_replicas_delete: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_7">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>body</strong></td>
+<td><a href="object.md"><strong>object</strong></a></td>
+<td>The list of replica IDs to delete (corresponding to the &#x27;replica&#x27; field in the machine object.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_7">Return type</h3>
+<p><a href="../CloudEndureJob/"><strong>CloudEndureJob</strong></a></p>
+<h3 id="authorization_7">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_7">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_restore_files_post"><strong>projects_project_id_restore_files_post</strong></h1>
+<blockquote>
+<p>CloudEndureJob projects_project_id_restore_files_post(body, project_id)</p>
+</blockquote>
+<p>Restore selected files in a backup project</p>
+<h3 id="example_8">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+body = cloudendure_api.CloudEndureRestoreFilesParameters() # CloudEndureRestoreFilesParameters | A list of file origins, each origin includes file path, machine id, and pit id.
+project_id = 'project_id_example' # str |
+
+try:
+    # Restore selected files in a backup project
+    api_response = api_instance.projects_project_id_restore_files_post(body, project_id)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_restore_files_post: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_8">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>body</strong></td>
+<td><a href="../CloudEndureRestoreFilesParameters/"><strong>CloudEndureRestoreFilesParameters</strong></a></td>
+<td>A list of file origins, each origin includes file path, machine id, and pit id.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_8">Return type</h3>
+<p><a href="../CloudEndureJob/"><strong>CloudEndureJob</strong></a></p>
+<h3 id="authorization_8">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_8">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_reverse_replication_post"><strong>projects_project_id_reverse_replication_post</strong></h1>
+<blockquote>
+<p>projects_project_id_reverse_replication_post(project_id)</p>
+</blockquote>
+<p>Reverse replication direction</p>
+<h3 id="example_9">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+project_id = 'project_id_example' # str |
+
+try:
+    # Reverse replication direction
+    api_instance.projects_project_id_reverse_replication_post(project_id)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_reverse_replication_post: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_9">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_9">Return type</h3>
+<p>void (empty response body)</p>
+<h3 id="authorization_9">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_9">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: Not defined</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_start_replication_post"><strong>projects_project_id_start_replication_post</strong></h1>
+<blockquote>
+<p>CloudEndureMachinesListInvalidIDsAndJob projects_project_id_start_replication_post(body, project_id)</p>
+</blockquote>
+<p>Start replication</p>
+<p>Start replication of the specified source machines. Returns the machine for which replication has been successfully started, and the IDs for which replication could not be started.</p>
+<h3 id="example_10">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+body = NULL # object | Specification of the machines for which replication will start.
+project_id = 'project_id_example' # str |
+
+try:
+    # Start replication
+    api_response = api_instance.projects_project_id_start_replication_post(body, project_id)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_start_replication_post: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_10">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>body</strong></td>
+<td><a href="object.md"><strong>object</strong></a></td>
+<td>Specification of the machines for which replication will start.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_10">Return type</h3>
+<p><a href="../CloudEndureMachinesListInvalidIDsAndJob/"><strong>CloudEndureMachinesListInvalidIDsAndJob</strong></a></p>
+<h3 id="authorization_10">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_10">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p>
+<h1 id="projects_project_id_stop_replication_post"><strong>projects_project_id_stop_replication_post</strong></h1>
+<blockquote>
+<p>CloudEndureMachinesListInvalidIDsAndJob projects_project_id_stop_replication_post(body, project_id)</p>
+</blockquote>
+<p>Stop replication</p>
+<p>Stop replication of the specified source machines. Returns the machine for which replication has been successfully stopped, and the IDs for which replication could not be stopped.</p>
+<h3 id="example_11">Example</h3>
+<pre><code class="python">from __future__ import print_function
+import time
+from cloudendure import cloudendure_api
+from cloudendure.cloudendure_api.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = cloudendure_api.ActionsApi()
+body = NULL # object | Specification of the machines for which replication will stop.
+project_id = 'project_id_example' # str |
+
+try:
+    # Stop replication
+    api_response = api_instance.projects_project_id_stop_replication_post(body, project_id)
+    pprint(api_response)
+except ApiException as e:
+    print(&quot;Exception when calling ActionsApi-&gt;projects_project_id_stop_replication_post: %s\n&quot; % e)
+</code></pre>
+
+<h3 id="parameters_11">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>body</strong></td>
+<td><a href="object.md"><strong>object</strong></a></td>
+<td>Specification of the machines for which replication will stop.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>project_id</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="return-type_11">Return type</h3>
+<p><a href="../CloudEndureMachinesListInvalidIDsAndJob/"><strong>CloudEndureMachinesListInvalidIDsAndJob</strong></a></p>
+<h3 id="authorization_11">Authorization</h3>
+<p>No authorization required</p>
+<h3 id="http-request-headers_11">HTTP request headers</h3>
+<ul>
+<li><strong>Content-Type</strong>: application/json</li>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p><a href="#">[Back to top]</a> <a href="../API_README/#documentation-for-api-endpoints">[Back to API list]</a> <a href="../API_README/#documentation-for-models">[Back to Model list]</a> <a href="../API_README/">[Back to README]</a></p></article></div></div></main><footer class="md-footer"><div class="md-footer-nav"><nav class="md-footer-nav__inner md-grid"><a href="../AccountApi/" title="AccountApi" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev"><div class="md-flex__cell md-flex__cell--shrink"><i class="md-icon md-icon--arrow-back md-footer-nav__button"></i></div><div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span class="md-flex__ellipsis"><span class="md-footer-nav__direction">Previous</span>AccountApi</span></div></a><a href="../AuthenticationApi/" title="AuthenticationApi" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next"><div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span class="md-flex__ellipsis"><span class="md-footer-nav__direction">Next</span>AuthenticationApi</span></div><div class="md-flex__cell md-flex__cell--shrink"><i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i></div></a></nav></div><div class="md-footer-meta md-typeset"><div class="md-footer-meta__inner md-grid"><div class="md-footer-copyright">powered by <a href="https://www.mkdocs.org">MkDocs</a> and <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a></div></div></div></footer></div><script src="../../assets/javascripts/application.b260a35d.js"></script><script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script></body></html>

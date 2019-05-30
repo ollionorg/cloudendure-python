@@ -40,7 +40,9 @@ jobs:
     #   script: codecov
     - stage: build-docs
       python: '3.7'
-      script: pydocmd build
+      script:
+        - pipenv install --dev
+        - pydocmd build
       deploy:
         provider: pages
         skip-cleanup: true

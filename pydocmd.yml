@@ -3,17 +3,17 @@ repo_name: 'mbeacom/cloudendure-py'
 repo_url: 'https://github.com/mbeacom/cloudendure-py'
 
 generate:
-  - cloudendure/api.md:
+  - code/cloudendure/api.md:
     - cloudendure.api++
-  - cloudendure/cloudendure.md:
+  - code/cloudendure/cloudendure.md:
     - cloudendure.cloudendure++
-  - cloudendure/config.md:
+  - code/cloudendure/config.md:
     - cloudendure.config++
-  - cloudendure/exceptions.md:
+  - code/cloudendure/exceptions.md:
     - cloudendure.exceptions++
-  - cloudendure/models.md:
+  - code/cloudendure/models.md:
     - cloudendure.models++
-  - cloudendure/utils.md:
+  - code/cloudendure/utils.md:
     - cloudendure.utils++
 
 pages:

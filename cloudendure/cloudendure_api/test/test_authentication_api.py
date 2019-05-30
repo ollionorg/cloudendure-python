@@ -3,9 +3,10 @@ from __future__ import absolute_import
 
 import unittest
 
-from ..api.authentication_api import AuthenticationApi  # noqa: E501
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
+
+from ..api.authentication_api import AuthenticationApi  # noqa: E501
 
 
 class TestAuthenticationApi(unittest.TestCase):

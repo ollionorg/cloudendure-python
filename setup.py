@@ -23,7 +23,7 @@ URL: str = 'https://github.com/mbeacom/cloudendure-py'
 EMAIL: str = 'markvbeacom@gmail.com'
 AUTHOR: str = 'Mark Beacom'
 REQUIRES_PYTHON: str = '>=3.6.0'
-VERSION: str = '0.1.0'
+VERSION: str = '0.0.1'
 
 REQUIRED: List[str] = ['requests', 'boto3', ]
 EXTRAS: Dict[str, List[str]] = {
@@ -76,9 +76,9 @@ class UploadCommand(Command):
         except OSError:
             pass
 
-        self.status('Building Source and Wheel (universal) distribution…')
+        self.status('Building Source and Wheel distribution…')
         sys_exec: str = sys.executable
-        os.system(f'{sys_exec} setup.pdy sdist bdist_wheel --universal')
+        os.system(f'{sys_exec} setup.py sdist bdist_wheel')
 
         self.status('Uploading the package to PyPI via Twine…')
         os.system('twine upload dist/*')

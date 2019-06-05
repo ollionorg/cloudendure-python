@@ -38,7 +38,7 @@ coverage: ## Generate a test coverage report.
 	pipenv run py.test --cov-config .coveragerc --verbose --cov-report term --cov-report xml --cov=cloudendure tests
 
 publish: ## Publish the package to PyPi.
-	pipenv run python3 setup.py sdist bdist_wheel --universal
+	pipenv run python3 setup.py sdist bdist_wheel
 	pipenv run twine upload dist/*
 	rm -fr build dist .egg requests.egg-info
 
@@ -54,13 +54,13 @@ update_fork: ## Update the current fork master branch with upstream master.
 	@echo "Updated!"
 
 gen_client: ## Generate the swagger client from the API config.
-	@swagger-codegen generate -i https://console.cloudendure.com/api_doc/apis.json -l python --model-name-prefix CloudEndure --git-user-id mbeacom --git-repo-id cloudendure-py -c reference/swagger_config.json -o gen/
+	@swagger-codegen generate -i https://console.cloudendure.com/api_doc/apis.json -l python --model-name-prefix CloudEndure --git-user-id mbeacom --git-repo-id cloudendure-python -c reference/swagger_config.json -o gen/
 
 update_deps: update_prereqs ## Update the package dependencies via pipenv.
 	@pipenv update --pre --dev
 
 build: update_deps ## Build and package the project for PyPi source and wheel distribution.
-	@pipenv run python3 setup.py sdist bdist_wheel --universal
+	@pipenv run python3 setup.py sdist bdist_wheel
 
 install: isort build ## Install the local development version of the module.
 	@pipenv install .

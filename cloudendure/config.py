@@ -50,7 +50,7 @@ class CloudEndureConfig:
             except yaml.YAMLError as e:
                 logger.error('YAMLError during read_yaml_config: %s', str(e))
                 config = {}
-                print(e)
+                # print(e)
         return config
 
     def write_yaml_config(self, config):
@@ -80,7 +80,6 @@ class CloudEndureConfig:
             x[0].lower().lstrip(prefix.lower()).strip('_'): x[1]
             for x in os.environ.items() if x[0].lower().startswith(prefix.lower())
         }
-        print(env_vars)
         return env_vars
 
     def update_config(self):

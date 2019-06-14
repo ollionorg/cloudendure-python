@@ -9,20 +9,22 @@ Attributes:
 
 """
 import datetime
+import json
 import logging
 import os
 from typing import Any, Dict, List
 from webbrowser import open_new_tab
 
 import requests
+from requests.models import Response
 
 from .config import CloudEndureConfig
 from .exceptions import CloudEndureException, CloudEndureUnauthorized
-from .models import Machine, Project
 
 HOST: str = os.environ.get('CLOUDENDURE_HOST', 'https://console.cloudendure.com')
 API_VERSION: str = os.environ.get('CLOUDENDURE_API_VERSION', 'latest').lower()
 AUTH_TTL = datetime.timedelta(seconds=int(os.environ.get('CLOUDENDURE_AUTH_TTL', '3600')))  # Default to 60 minutes.
+METHOD_TYPES = ['get', 'post', 'patch', 'delete', 'put']
 
 logger = logging.getLogger(__name__)
 
@@ -49,26 +51,8 @@ class CloudEndureAPI:
         """
         time_now = datetime.datetime.utcnow()
 
-        # if config is None:
-        #     config = {
-        #         'host': os.environ.get('CLOUDENDURE_HOST', 'https://console.cloudendure.com').lower(),
-        #         'api_version': os.environ.get('CLOUDENDURE_API_VERSION', 'latest').lower(),
-        #         'auth_ttl': datetime.timedelta(seconds=int(os.environ.get('CLOUDENDURE_AUTH_TTL', '3600'))),
-        #     }
-
         self.api_endpoint: str = f'{HOST}/api/{API_VERSION}'
         self.config = CloudEndureConfig()
-        # self.credentials = {
-        #     'username': os.environ.get('CLOUDENDURE_USERNAME', ''),
-        #     'password': os.environ.get('CLOUDENDURE_PASSWORD', ''),
-        #     'token': os.environ.get('CLOUDENDURE_TOKEN', ''),
-        #     'last_updated': time_now,
-        # }
-
-        # params = ['username', 'password', 'token']
-        # for param in params:
-        #     if not self.credentials.get(param, ''):
-        #         self.credentials[param] = self.config.get(param, '')
 
         self.projects: List[str] = []
         self.session = requests.Session()
@@ -103,8 +87,8 @@ class CloudEndureAPI:
         _auth: Dict[str, str] = {'username': _username, 'password': _password}
 
         # Attempt to login to the CloudEndure API via a POST request.
-        response: requests.Response = self.session.post(f'{self.api_endpoint}/{endpoint}', json=_auth)
-        print('response: ', response, response.status_code)
+        response: requests.Response = self.api_call('login', 'post', data=json.dumps(_auth))
+        # response: requests.Response = self.session.post(f'{self.api_endpoint}/{endpoint}', json=_auth)
 
         # Check whether or not the request was successful.
         if response.status_code not in [200, 307]:
@@ -116,7 +100,7 @@ class CloudEndureAPI:
                 logger.error('CloudEndure authentication failure limit reached! Please try again later!')
             raise CloudEndureUnauthorized()
 
-        print('response: ', response, response.cookies)
+        # print('response: ', response, response.cookies)
         _xsrf_token: str = str(response.cookies['XSRF-TOKEN'])
 
         # Strip the XSRF token of wrapping double-quotes from the cookie.
@@ -130,6 +114,52 @@ class CloudEndureAPI:
         self.timestamps['last_call'] = time_now
         return True
 
+    @staticmethod
+    def get_endpoint(path: str, api_version: str = 'latest', host: str = 'https://console.cloudendure.com') -> str:
+        """Build the endpoint path.
+
+        Returns:
+            str: The CloudEndure API endpoint to be used.
+
+        """
+        return f'{host}/api/{api_version}/{path}'
+
+    def api_call(self, path: str, method: str = 'get', data=None) -> Response:
+        """Handle CloudEndure API calls based on the defined parameters.
+
+        Args:
+            path (str): The path to be used to perform the call.
+
+        Keyword Args:
+            method (str): The API method call to be performed. i.e.: get,
+            data (dict): The data dictionary to be used to perform the request.
+
+        Returns:
+            requests.models.Response: The CloudEndure API response.
+
+        """
+        method = method.lower()  # Ensure the provided method is lowercase.
+
+        if data is None:
+            data = {}
+
+        if method not in METHOD_TYPES:
+            print('Please specify a valid method type! Must be one of: ', METHOD_TYPES)
+            return Response()
+
+        if method not in ['get', 'delete'] and data is None:
+            print('Paramater mismatch! If calling anything other than get or delete provide data!')
+            return Response()
+
+        # Attempt to call the CloudEndure API.
+        try:
+            ce_call = getattr(self.session, method)
+            _path = self.get_endpoint(path)
+            return ce_call(_path, data=data)
+        except Exception as e:
+            print(f'Exception encountered in CloudEndure API call: ({e})')
+        return Response()
+
     def check_creds(self, login=True):
         threshold = datetime.datetime.utcnow() - AUTH_TTL
 
@@ -141,16 +171,6 @@ class CloudEndureAPI:
             return {'status': 'expired'}
         return {'status': 'valid'}
 
-    def get_endpoint(self, path='', child_key='items'):
-        response: requests.Response = self.session.get(f'{self.api_endpoint}/{path}')
-        data: Dict[str, Any] = response.json()
-        status_code: int = response.status_code
-        print('status: ', status_code)
-        print('data: ', data)
-        if status_code not in [200, ]:
-            raise CloudEndureException()
-        return data.get(child_key, [])
-
     def post_endpoint(self, path=''):
         response: requests.Response = self.session.post(f'{self.api_endpoint}/{path}')
         return response
@@ -161,7 +181,7 @@ class CloudEndureAPI:
         response: requests.Response = self.session.get(f'{self.api_endpoint}/projects')
         data: Dict[str, Any] = response.json()
         status_code: int = response.status_code
-        print('Status: ', status_code)
+
         if status_code not in [200, ]:
             raise CloudEndureException()
         projects: List[Any] = data['items']
@@ -172,57 +192,9 @@ class CloudEndureAPI:
 
         return projects
 
-    def get_project(self, project):
-        found_projects: List[Any] = self.get_endpoint(path='projects')
-        if not project:
-            return found_projects[0]
-        try:
-            return next(found_project for found_project in found_projects if found_project['name'] == project)
-        except Exception as e:
-            # Cowardly catch all Exception here.
-            logger.error(f'{e} - get_project - attempting to find the provided project in account projects.')
-            return {}
-
-    def get_token(self, project=''):
-        """Get the CloudEndure project installation token."""
-        found_project: Dict[str, Any] = self.get_project(project)
-        return found_project[0]['agentInstallationToken']
-
     @classmethod
     def docs(self):
         """Open the CloudEndure API documentation page."""
         docs_url: str = os.environ.get('CLOUDENDURE_API_DOCS', 'https://console.cloudendure.com/api_doc/apis.html')
         open_new_tab(docs_url)
         return docs_url
-
-    # def get_token(args):
-    #     # This function fetch the project installation token
-    #     # Usage: get_token(args)
-    #     #       'args' is script user input (args.user, args.password, args.agentname)
-    #     #
-    #     # Returns:      -1 on failure
-    #     print "Fetching the installation token..."
-    #     session, resp, endpoint = login(args)
-    #     if session == -1:
-    #         print "Failed to login"
-    #         return -1
-
-    #     project_name = args.project
-
-    #     projects_resp = session.get(url=HOST+endpoint+'projects')
-    #     projects = json.loads(projects_resp.content)['items']
-
-    #     project = [p for p in projects if project_name==p['name']]
-    #     if not project:
-    #         print 'Error! No project with name ' + args.project+ ' found'
-    #         return -1
-
-    #     return project[0]['agentInstallationToken']
-
-
-# class CloudEndureCredentials:
-#     """Define the CloudEndure Credentials object."""
-
-#     def __init__(self, *args, **kwargs):
-#         """Initialize the CloudEndure credentials."""
-#         self.

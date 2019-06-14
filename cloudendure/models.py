@@ -69,7 +69,6 @@ class CloudEndureModel:
 #             'resource_type': '',
 #         }
 
-
 # class CloudEndureBlueprint(CloudEndureResource):
 #     """Define the CloudEndure Blueprint schema."""
 

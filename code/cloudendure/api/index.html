@@ -39,17 +39,33 @@ The argument must be an iterable if specified.
     _auth (dict): The CloudEndure API username/password dictionary map.
     response (requests.Response): The CloudEndure API login request response object.
     _xsrf_token (str): The XSRF token to be used for subsequent API requests.</p>
+<h3 id="cloudendure.api.CloudEndureAPI.get_endpoint">get_endpoint</h3>
+
+<pre><code class="python">CloudEndureAPI.get_endpoint(path: str, api_version: str = 'latest', host: str = 'https://console.cloudendure.com') -&gt; str
+</code></pre>
+
+<p>Build the endpoint path.</p>
+<p>Returns:
+    str: The CloudEndure API endpoint to be used.</p>
+<h3 id="cloudendure.api.CloudEndureAPI.api_call">api_call</h3>
+
+<pre><code class="python">CloudEndureAPI.api_call(self, path: str, method: str = 'get', data=None) -&gt; requests.models.Response
+</code></pre>
+
+<p>Handle CloudEndure API calls based on the defined parameters.</p>
+<p>Args:
+    path (str): The path to be used to perform the call.</p>
+<p>Keyword Args:
+    method (str): The API method call to be performed. i.e.: get,
+    data (dict): The data dictionary to be used to perform the request.</p>
+<p>Returns:
+    requests.models.Response: The CloudEndure API response.</p>
 <h3 id="cloudendure.api.CloudEndureAPI.get_projects">get_projects</h3>
 
 <pre><code class="python">CloudEndureAPI.get_projects(self, current_project='')
 </code></pre>
 
 <p>Get the CloudEndure projects associated with the authenticated account.
-<h3 id="cloudendure.api.CloudEndureAPI.get_token">get_token</h3></p>
-<pre><code class="python">CloudEndureAPI.get_token(self, project='')
-</code></pre>
-
-<p>Get the CloudEndure project installation token.
 <h3 id="cloudendure.api.CloudEndureAPI.docs">docs</h3></p>
 <pre><code class="python">CloudEndureAPI.docs()
 </code></pre>

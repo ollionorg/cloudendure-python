@@ -6,6 +6,34 @@
 </code></pre>
 
 <p>Define the CloudEndure general object.
+<h3 id="cloudendure.cloudendure.CloudEndure.get_endpoint">get_endpoint</h3></p>
+<pre><code class="python">CloudEndure.get_endpoint(path: str, api_version: str = 'latest', host: str = 'https://console.cloudendure.com') -&gt; str
+</code></pre>
+
+<p>Build the endpoint path.</p>
+<p>Returns:
+    str: The CloudEndure API endpoint to be used.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.check">check</h3>
+
+<pre><code class="python">CloudEndure.check(self, project_name='', launch_type='test', dry_run=False)
+</code></pre>
+
+<p>Check the status of machines in the provided project.
+<h3 id="cloudendure.cloudendure.CloudEndure.execute">execute</h3></p>
+<pre><code class="python">CloudEndure.execute(self, project_name='', launch_type='test', dry_run=False)
+</code></pre>
+
+<p>Start the migration project my checking and launching the migration wave.
+<h3 id="cloudendure.cloudendure.CloudEndure.share_image">share_image</h3></p>
+<pre><code class="python">CloudEndure.share_image(self, image_id, dest_accounts=None, image_name='CloudEndureImage')
+</code></pre>
+
+<p>Share the generated AMIs to the provided destination accounts.
+<h3 id="cloudendure.cloudendure.CloudEndure.create_ami">create_ami</h3></p>
+<pre><code class="python">CloudEndure.create_ami(self, instance_ids=None, project_id='', project_name='')
+</code></pre>
+
+<p>Create an AMI from the specified instance.
 <h2 id="cloudendure.cloudendure.main">main</h2></p>
 <pre><code class="python">main()
 </code></pre>

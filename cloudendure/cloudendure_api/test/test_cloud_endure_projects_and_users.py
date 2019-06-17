@@ -16,7 +16,9 @@ import unittest
 
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
-from models.cloud_endure_projects_and_users import CloudEndureProjectsAndUsers  # noqa: E501
+from models.cloud_endure_projects_and_users import (
+    CloudEndureProjectsAndUsers
+)  # noqa: E501
 
 
 class TestCloudEndureProjectsAndUsers(unittest.TestCase):
@@ -35,5 +37,5 @@ class TestCloudEndureProjectsAndUsers(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

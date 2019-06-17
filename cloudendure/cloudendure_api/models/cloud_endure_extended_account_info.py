@@ -15,14 +15,27 @@ import re  # noqa: F401
 
 import six
 
-from cloudendure.cloudendure_api.models.cloud_endure_account import CloudEndureAccount  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_clouds_list import CloudEndureCloudsList  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_projects_list import CloudEndureProjectsList  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_region import CloudEndureRegion  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_replication_configuration_list import \
-    CloudEndureReplicationConfigurationList  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_time import CloudEndureTime  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_user import CloudEndureUser  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_account import (
+    CloudEndureAccount
+)  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_clouds_list import (
+    CloudEndureCloudsList
+)  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_projects_list import (
+    CloudEndureProjectsList
+)  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_region import (
+    CloudEndureRegion
+)  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_replication_configuration_list import (  # noqa: F401,E501
+    CloudEndureReplicationConfigurationList
+)
+from cloudendure.cloudendure_api.models.cloud_endure_time import (
+    CloudEndureTime
+)  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_user import (
+    CloudEndureUser
+)  # noqa: F401,E501
 
 
 class CloudEndureExtendedAccountInfo:
@@ -30,6 +43,7 @@ class CloudEndureExtendedAccountInfo:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -38,28 +52,38 @@ class CloudEndureExtendedAccountInfo:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'account': 'CloudEndureAccount',
-        'clouds': 'CloudEndureCloudsList',
-        'generic_region': 'CloudEndureRegion',
-        'date_time': 'CloudEndureTime',
-        'user': 'CloudEndureUser',
-        'projects': 'CloudEndureProjectsList',
-        'is_newly_registered': 'bool',
-        'replication_configurations': 'CloudEndureReplicationConfigurationList'
+        "account": "CloudEndureAccount",
+        "clouds": "CloudEndureCloudsList",
+        "generic_region": "CloudEndureRegion",
+        "date_time": "CloudEndureTime",
+        "user": "CloudEndureUser",
+        "projects": "CloudEndureProjectsList",
+        "is_newly_registered": "bool",
+        "replication_configurations": "CloudEndureReplicationConfigurationList",
     }
 
     attribute_map = {
-        'account': 'account',
-        'clouds': 'clouds',
-        'generic_region': 'genericRegion',
-        'date_time': 'dateTime',
-        'user': 'user',
-        'projects': 'projects',
-        'is_newly_registered': 'isNewlyRegistered',
-        'replication_configurations': 'replicationConfigurations'
+        "account": "account",
+        "clouds": "clouds",
+        "generic_region": "genericRegion",
+        "date_time": "dateTime",
+        "user": "user",
+        "projects": "projects",
+        "is_newly_registered": "isNewlyRegistered",
+        "replication_configurations": "replicationConfigurations",
     }
 
-    def __init__(self, account=None, clouds=None, generic_region=None, date_time=None, user=None, projects=None, is_newly_registered=None, replication_configurations=None):  # noqa: E501
+    def __init__(
+        self,
+        account=None,
+        clouds=None,
+        generic_region=None,
+        date_time=None,
+        user=None,
+        projects=None,
+        is_newly_registered=None,
+        replication_configurations=None,
+    ):  # noqa: E501
         """CloudEndureExtendedAccountInfo - a model defined in Swagger"""  # noqa: E501
         self._account = None
         self._clouds = None
@@ -262,18 +286,20 @@ class CloudEndureExtendedAccountInfo:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureExtendedAccountInfo, dict):

@@ -15,8 +15,9 @@ import re  # noqa: F401
 
 import six
 
-from cloudendure.cloudendure_api.models.cloud_endure_machine_and_point_in_time import \
-    CloudEndureMachineAndPointInTime  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_machine_and_point_in_time import (  # noqa: F401,E501
+    CloudEndureMachineAndPointInTime
+)
 
 
 class CloudEndureLaunchMachinesParameters:
@@ -24,6 +25,7 @@ class CloudEndureLaunchMachinesParameters:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -32,15 +34,15 @@ class CloudEndureLaunchMachinesParameters:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'items': 'list[CloudEndureMachineAndPointInTime]',
-        'launch_type': 'str',
-        'debug_scripts': 'object'
+        "items": "list[CloudEndureMachineAndPointInTime]",
+        "launch_type": "str",
+        "debug_scripts": "object",
     }
 
     attribute_map = {
-        'items': 'items',
-        'launch_type': 'launchType',
-        'debug_scripts': 'debugScripts'
+        "items": "items",
+        "launch_type": "launchType",
+        "debug_scripts": "debugScripts",
     }
 
     def __init__(self, items=None, launch_type=None, debug_scripts=None):  # noqa: E501
@@ -95,12 +97,15 @@ class CloudEndureLaunchMachinesParameters:
         :type: str
         """
         if launch_type is None:
-            raise ValueError("Invalid value for `launch_type`, must not be `None`")  # noqa: E501
+            raise ValueError(
+                "Invalid value for `launch_type`, must not be `None`"
+            )  # noqa: E501
         allowed_values = ["TEST", "RECOVERY", "CUTOVER", "DEBUG"]  # noqa: E501
         if launch_type not in allowed_values:
             raise ValueError(
-                "Invalid value for `launch_type` ({0}), must be one of {1}"  # noqa: E501
-                .format(launch_type, allowed_values)
+                "Invalid value for `launch_type` ({0}), must be one of {1}".format(  # noqa: E501
+                    launch_type, allowed_values
+                )
             )
 
         self._launch_type = launch_type
@@ -133,18 +138,20 @@ class CloudEndureLaunchMachinesParameters:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureLaunchMachinesParameters, dict):

@@ -21,6 +21,7 @@ class CloudEndureMachineAndPathAndPointInTime:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -28,19 +29,17 @@ class CloudEndureMachineAndPathAndPointInTime:
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {
-        'machine_id': 'str',
-        'point_in_time_id': 'str',
-        'file_path': 'str'
-    }
+    swagger_types = {"machine_id": "str", "point_in_time_id": "str", "file_path": "str"}
 
     attribute_map = {
-        'machine_id': 'machineId',
-        'point_in_time_id': 'pointInTimeId',
-        'file_path': 'filePath'
+        "machine_id": "machineId",
+        "point_in_time_id": "pointInTimeId",
+        "file_path": "filePath",
     }
 
-    def __init__(self, machine_id=None, point_in_time_id=None, file_path=None):  # noqa: E501
+    def __init__(
+        self, machine_id=None, point_in_time_id=None, file_path=None
+    ):  # noqa: E501
         """CloudEndureMachineAndPathAndPointInTime - a model defined in Swagger"""  # noqa: E501
         self._machine_id = None
         self._point_in_time_id = None
@@ -70,7 +69,9 @@ class CloudEndureMachineAndPathAndPointInTime:
         :type: str
         """
         if machine_id is None:
-            raise ValueError("Invalid value for `machine_id`, must not be `None`")  # noqa: E501
+            raise ValueError(
+                "Invalid value for `machine_id`, must not be `None`"
+            )  # noqa: E501
 
         self._machine_id = machine_id
 
@@ -114,7 +115,9 @@ class CloudEndureMachineAndPathAndPointInTime:
         :type: str
         """
         if file_path is None:
-            raise ValueError("Invalid value for `file_path`, must not be `None`")  # noqa: E501
+            raise ValueError(
+                "Invalid value for `file_path`, must not be `None`"
+            )  # noqa: E501
 
         self._file_path = file_path
 
@@ -125,18 +128,20 @@ class CloudEndureMachineAndPathAndPointInTime:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureMachineAndPathAndPointInTime, dict):

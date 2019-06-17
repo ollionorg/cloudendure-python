@@ -32,7 +32,9 @@ class MachinesApi:
             api_client = ApiClient()
         self.api_client = api_client
 
-    def projects_project_id_machines_delete(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_machines_delete(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Uninstall agent  # noqa: E501
 
         Stops replication and removes the cloudendure agent from the specified machines. All cloud artifacts associated with those machines with the exception of launched target machines are deleted.  # noqa: E501
@@ -48,14 +50,20 @@ class MachinesApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_machines_delete_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_machines_delete_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_machines_delete_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_machines_delete_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_machines_delete_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_machines_delete_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Uninstall agent  # noqa: E501
 
         Stops replication and removes the cloudendure agent from the specified machines. All cloud artifacts associated with those machines with the exception of launched target machines are deleted.  # noqa: E501
@@ -72,35 +80,37 @@ class MachinesApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_machines_delete" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_machines_delete`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_machines_delete`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_machines_delete`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_machines_delete`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -110,17 +120,21 @@ class MachinesApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/machines', 'DELETE',
+            "/projects/{projectId}/machines",
+            "DELETE",
             path_params,
             query_params,
             header_params,
@@ -129,11 +143,12 @@ class MachinesApi:
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def projects_project_id_machines_get(self, project_id, **kwargs):  # noqa: E501
         """List Machines  # noqa: E501
@@ -154,14 +169,20 @@ class MachinesApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_machines_get_with_http_info(project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_machines_get_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_machines_get_with_http_info(project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_machines_get_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_machines_get_with_http_info(self, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_machines_get_with_http_info(
+        self, project_id, **kwargs
+    ):  # noqa: E501
         """List Machines  # noqa: E501
 
         Returns the list of all source machines in the Project (i.e. machines that have an Agent installed).  # noqa: E501
@@ -181,41 +202,42 @@ class MachinesApi:
                  returns the request thread.
         """
 
-        all_params = ['project_id', 'offset', 'limit', 'all', 'types']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["project_id", "offset", "limit", "all", "types"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_machines_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_machines_get`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_machines_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
-        if 'offset' in params:
-            query_params.append(('offset', params['offset']))  # noqa: E501
-        if 'limit' in params:
-            query_params.append(('limit', params['limit']))  # noqa: E501
-        if 'all' in params:
-            query_params.append(('all', params['all']))  # noqa: E501
-        if 'types' in params:
-            query_params.append(('types', params['types']))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "all" in params:
+            query_params.append(("all", params["all"]))  # noqa: E501
+        if "types" in params:
+            query_params.append(("types", params["types"]))  # noqa: E501
 
         header_params = {}
 
@@ -224,29 +246,34 @@ class MachinesApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/machines', 'GET',
+            "/projects/{projectId}/machines",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureMachinesList',  # noqa: E501
+            response_type="CloudEndureMachinesList",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_machines_machine_id_get(self, project_id, machine_id, **kwargs):  # noqa: E501
+    def projects_project_id_machines_machine_id_get(
+        self, project_id, machine_id, **kwargs
+    ):  # noqa: E501
         """Get a specific machine.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -261,14 +288,20 @@ class MachinesApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_machines_machine_id_get_with_http_info(project_id, machine_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_machines_machine_id_get_with_http_info(
+                project_id, machine_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_machines_machine_id_get_with_http_info(project_id, machine_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_machines_machine_id_get_with_http_info(
+                project_id, machine_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_machines_machine_id_get_with_http_info(self, project_id, machine_id, **kwargs):  # noqa: E501
+    def projects_project_id_machines_machine_id_get_with_http_info(
+        self, project_id, machine_id, **kwargs
+    ):  # noqa: E501
         """Get a specific machine.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -284,37 +317,39 @@ class MachinesApi:
                  returns the request thread.
         """
 
-        all_params = ['project_id', 'machine_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["project_id", "machine_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_machines_machine_id_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_machines_machine_id_get`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_machines_machine_id_get`"
+            )  # noqa: E501
         # verify the required parameter 'machine_id' is set
-        if ('machine_id' not in params or
-                params['machine_id'] is None):
-            raise ValueError("Missing the required parameter `machine_id` when calling `projects_project_id_machines_machine_id_get`")  # noqa: E501
+        if "machine_id" not in params or params["machine_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `machine_id` when calling `projects_project_id_machines_machine_id_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
-        if 'machine_id' in params:
-            path_params['machineId'] = params['machine_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
+        if "machine_id" in params:
+            path_params["machineId"] = params["machine_id"]  # noqa: E501
 
         query_params = []
 
@@ -325,29 +360,34 @@ class MachinesApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/machines/{machineId}', 'GET',
+            "/projects/{projectId}/machines/{machineId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureMachine',  # noqa: E501
+            response_type="CloudEndureMachine",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_machines_machine_id_patch(self, body, project_id, machine_id, **kwargs):  # noqa: E501
+    def projects_project_id_machines_machine_id_patch(
+        self, body, project_id, machine_id, **kwargs
+    ):  # noqa: E501
         """Update a machine. Accepts only Launch time updates.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -363,14 +403,20 @@ class MachinesApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_machines_machine_id_patch_with_http_info(body, project_id, machine_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_machines_machine_id_patch_with_http_info(
+                body, project_id, machine_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_machines_machine_id_patch_with_http_info(body, project_id, machine_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_machines_machine_id_patch_with_http_info(
+                body, project_id, machine_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_machines_machine_id_patch_with_http_info(self, body, project_id, machine_id, **kwargs):  # noqa: E501
+    def projects_project_id_machines_machine_id_patch_with_http_info(
+        self, body, project_id, machine_id, **kwargs
+    ):  # noqa: E501
         """Update a machine. Accepts only Launch time updates.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -387,41 +433,44 @@ class MachinesApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id', 'machine_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id", "machine_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_machines_machine_id_patch" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_machines_machine_id_patch`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_machines_machine_id_patch`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_machines_machine_id_patch`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_machines_machine_id_patch`"
+            )  # noqa: E501
         # verify the required parameter 'machine_id' is set
-        if ('machine_id' not in params or
-                params['machine_id'] is None):
-            raise ValueError("Missing the required parameter `machine_id` when calling `projects_project_id_machines_machine_id_patch`")  # noqa: E501
+        if "machine_id" not in params or params["machine_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `machine_id` when calling `projects_project_id_machines_machine_id_patch`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
-        if 'machine_id' in params:
-            path_params['machineId'] = params['machine_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
+        if "machine_id" in params:
+            path_params["machineId"] = params["machine_id"]  # noqa: E501
 
         query_params = []
 
@@ -431,36 +480,44 @@ class MachinesApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/machines/{machineId}', 'PATCH',
+            "/projects/{projectId}/machines/{machineId}",
+            "PATCH",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureMachine',  # noqa: E501
+            response_type="CloudEndureMachine",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_machines_patch(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_machines_patch(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Batch-update multiple machines  # noqa: E501
 
         todo must allow update of tags, update of replicationConfiguration; may allow update of launch times  # noqa: E501
@@ -476,14 +533,20 @@ class MachinesApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_machines_patch_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_machines_patch_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_machines_patch_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_machines_patch_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_machines_patch_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_machines_patch_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Batch-update multiple machines  # noqa: E501
 
         todo must allow update of tags, update of replicationConfiguration; may allow update of launch times  # noqa: E501
@@ -500,35 +563,37 @@ class MachinesApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_machines_patch" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_machines_patch`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_machines_patch`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_machines_patch`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_machines_patch`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -538,36 +603,44 @@ class MachinesApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/machines', 'PATCH',
+            "/projects/{projectId}/machines",
+            "PATCH",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureMachinesList',  # noqa: E501
+            response_type="CloudEndureMachinesList",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_replicas_replica_id_get(self, project_id, replica_id, **kwargs):  # noqa: E501
+    def projects_project_id_replicas_replica_id_get(
+        self, project_id, replica_id, **kwargs
+    ):  # noqa: E501
         """Get Target Machine  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -582,14 +655,20 @@ class MachinesApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_replicas_replica_id_get_with_http_info(project_id, replica_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_replicas_replica_id_get_with_http_info(
+                project_id, replica_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_replicas_replica_id_get_with_http_info(project_id, replica_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_replicas_replica_id_get_with_http_info(
+                project_id, replica_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_replicas_replica_id_get_with_http_info(self, project_id, replica_id, **kwargs):  # noqa: E501
+    def projects_project_id_replicas_replica_id_get_with_http_info(
+        self, project_id, replica_id, **kwargs
+    ):  # noqa: E501
         """Get Target Machine  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -605,37 +684,39 @@ class MachinesApi:
                  returns the request thread.
         """
 
-        all_params = ['project_id', 'replica_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["project_id", "replica_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_replicas_replica_id_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_replicas_replica_id_get`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_replicas_replica_id_get`"
+            )  # noqa: E501
         # verify the required parameter 'replica_id' is set
-        if ('replica_id' not in params or
-                params['replica_id'] is None):
-            raise ValueError("Missing the required parameter `replica_id` when calling `projects_project_id_replicas_replica_id_get`")  # noqa: E501
+        if "replica_id" not in params or params["replica_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `replica_id` when calling `projects_project_id_replicas_replica_id_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
-        if 'replica_id' in params:
-            path_params['replicaId'] = params['replica_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
+        if "replica_id" in params:
+            path_params["replicaId"] = params["replica_id"]  # noqa: E501
 
         query_params = []
 
@@ -646,24 +727,27 @@ class MachinesApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/replicas/{replicaId}', 'GET',
+            "/projects/{projectId}/replicas/{replicaId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureReplica',  # noqa: E501
+            response_type="CloudEndureReplica",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )

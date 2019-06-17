@@ -21,6 +21,7 @@ class CloudEndureJob:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,28 +30,38 @@ class CloudEndureJob:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'status': 'str',
-        'participating_machines': 'list[str]',
-        'log': 'list[object]',
-        'type': 'str',
-        'end_date_time': 'datetime',
-        'creation_date_time': 'datetime',
-        'id': 'str',
-        'initiated_by': 'str'
+        "status": "str",
+        "participating_machines": "list[str]",
+        "log": "list[object]",
+        "type": "str",
+        "end_date_time": "datetime",
+        "creation_date_time": "datetime",
+        "id": "str",
+        "initiated_by": "str",
     }
 
     attribute_map = {
-        'status': 'status',
-        'participating_machines': 'participatingMachines',
-        'log': 'log',
-        'type': 'type',
-        'end_date_time': 'endDateTime',
-        'creation_date_time': 'creationDateTime',
-        'id': 'id',
-        'initiated_by': 'initiatedBy'
+        "status": "status",
+        "participating_machines": "participatingMachines",
+        "log": "log",
+        "type": "type",
+        "end_date_time": "endDateTime",
+        "creation_date_time": "creationDateTime",
+        "id": "id",
+        "initiated_by": "initiatedBy",
     }
 
-    def __init__(self, status=None, participating_machines=None, log=None, type=None, end_date_time=None, creation_date_time=None, id=None, initiated_by=None):  # noqa: E501
+    def __init__(
+        self,
+        status=None,
+        participating_machines=None,
+        log=None,
+        type=None,
+        end_date_time=None,
+        creation_date_time=None,
+        id=None,
+        initiated_by=None,
+    ):  # noqa: E501
         """CloudEndureJob - a model defined in Swagger"""  # noqa: E501
         self._status = None
         self._participating_machines = None
@@ -99,8 +110,9 @@ class CloudEndureJob:
         allowed_values = ["PENDING", "STARTED", "COMPLETED", "FAILED"]  # noqa: E501
         if status not in allowed_values:
             raise ValueError(
-                "Invalid value for `status` ({0}), must be one of {1}"  # noqa: E501
-                .format(status, allowed_values)
+                "Invalid value for `status` ({0}), must be one of {1}".format(  # noqa: E501
+                    status, allowed_values
+                )
             )
 
         self._status = status
@@ -167,11 +179,24 @@ class CloudEndureJob:
         :param type: The type of this CloudEndureJob.  # noqa: E501
         :type: str
         """
-        allowed_values = ["CLEANUP", "CUTOVER_LAUNCH", "RECOVERY_LAUNCH", "RESTORE_LAUNCH", "TEST_LAUNCH", "CONSOLIDATE_VMDKS", "FILE_RESTORE", "RECOVERY_PLAN_RECOVERY", "RECOVERY_PLAN_TEST", "RECOVERY_PLAN_CUTOVER", "RECOVERY_PLAN_CLEANUP"]  # noqa: E501
+        allowed_values = [
+            "CLEANUP",
+            "CUTOVER_LAUNCH",
+            "RECOVERY_LAUNCH",
+            "RESTORE_LAUNCH",
+            "TEST_LAUNCH",
+            "CONSOLIDATE_VMDKS",
+            "FILE_RESTORE",
+            "RECOVERY_PLAN_RECOVERY",
+            "RECOVERY_PLAN_TEST",
+            "RECOVERY_PLAN_CUTOVER",
+            "RECOVERY_PLAN_CLEANUP",
+        ]  # noqa: E501
         if type not in allowed_values:
             raise ValueError(
-                "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
-                .format(type, allowed_values)
+                "Invalid value for `type` ({0}), must be one of {1}".format(  # noqa: E501
+                    type, allowed_values
+                )
             )
 
         self._type = type
@@ -269,18 +294,20 @@ class CloudEndureJob:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureJob, dict):

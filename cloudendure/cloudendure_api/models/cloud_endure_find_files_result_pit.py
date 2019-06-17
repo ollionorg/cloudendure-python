@@ -21,6 +21,7 @@ class CloudEndureFindFilesResultPit:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -28,15 +29,9 @@ class CloudEndureFindFilesResultPit:
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {
-        'id': 'str',
-        'date_time': 'datetime'
-    }
+    swagger_types = {"id": "str", "date_time": "datetime"}
 
-    attribute_map = {
-        'id': 'id',
-        'date_time': 'dateTime'
-    }
+    attribute_map = {"id": "id", "date_time": "dateTime"}
 
     def __init__(self, id=None, date_time=None):  # noqa: E501
         """CloudEndureFindFilesResultPit - a model defined in Swagger"""  # noqa: E501
@@ -88,7 +83,9 @@ class CloudEndureFindFilesResultPit:
         :type: datetime
         """
         if date_time is None:
-            raise ValueError("Invalid value for `date_time`, must not be `None`")  # noqa: E501
+            raise ValueError(
+                "Invalid value for `date_time`, must not be `None`"
+            )  # noqa: E501
 
         self._date_time = date_time
 
@@ -99,18 +96,20 @@ class CloudEndureFindFilesResultPit:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureFindFilesResultPit, dict):

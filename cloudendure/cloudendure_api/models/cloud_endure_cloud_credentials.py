@@ -21,6 +21,7 @@ class CloudEndureCloudCredentials:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,22 +30,24 @@ class CloudEndureCloudCredentials:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'id': 'str',
-        'public_key': 'str',
-        'account_identifier': 'str',
-        'cloud': 'str',
-        'name': 'str'
+        "id": "str",
+        "public_key": "str",
+        "account_identifier": "str",
+        "cloud": "str",
+        "name": "str",
     }
 
     attribute_map = {
-        'id': 'id',
-        'public_key': 'publicKey',
-        'account_identifier': 'accountIdentifier',
-        'cloud': 'cloud',
-        'name': 'name'
+        "id": "id",
+        "public_key": "publicKey",
+        "account_identifier": "accountIdentifier",
+        "cloud": "cloud",
+        "name": "name",
     }
 
-    def __init__(self, id=None, public_key=None, account_identifier=None, cloud=None, name=None):  # noqa: E501
+    def __init__(
+        self, id=None, public_key=None, account_identifier=None, cloud=None, name=None
+    ):  # noqa: E501
         """CloudEndureCloudCredentials - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._public_key = None
@@ -181,18 +184,20 @@ class CloudEndureCloudCredentials:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureCloudCredentials, dict):

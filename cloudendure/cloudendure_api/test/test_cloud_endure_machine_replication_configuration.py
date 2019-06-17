@@ -16,8 +16,9 @@ import unittest
 
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
-from models.cloud_endure_machine_replication_configuration import \
-    CloudEndureMachineReplicationConfiguration  # noqa: E501
+from models.cloud_endure_machine_replication_configuration import (  # noqa: E501
+    CloudEndureMachineReplicationConfiguration
+)
 
 
 class TestCloudEndureMachineReplicationConfiguration(unittest.TestCase):
@@ -36,5 +37,5 @@ class TestCloudEndureMachineReplicationConfiguration(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

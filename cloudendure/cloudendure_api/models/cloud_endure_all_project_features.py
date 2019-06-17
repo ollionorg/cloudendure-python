@@ -21,6 +21,7 @@ class CloudEndureAllProjectFeatures:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,76 +30,110 @@ class CloudEndureAllProjectFeatures:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'google': 'bool',
-        'is_demo': 'bool',
-        'windows_converters': 'bool',
-        'force_reversed_handshake_direction': 'bool',
-        'no_converters': 'bool',
-        'vio': 'bool',
-        'no_cloud': 'bool',
-        'consistent_snapshot_creation_interval_min': 'int',
-        'no_public_ips': 'bool',
-        'daily_pit_number': 'int',
-        'mtu_size': 'int',
-        'allow_byol_on_dedicated_instance': 'bool',
-        'max_converter_volumes': 'int',
-        'azurearm': 'bool',
-        'vcenter': 'bool',
-        'subnet_filter': 'str',
-        'no_snapshot_considered_lag_milliseconds': 'int',
-        'no_converters_windows': 'bool',
-        'disable_replica_creation': 'bool',
-        'aws': 'bool',
-        'max_replicator_volumes': 'int',
-        'allow_recovery_plans': 'bool',
-        'snapshot_creation_interval_min': 'int',
-        'snapshot_on_demand_timeout': 'int',
-        'allow_archiving': 'bool',
-        'custom_replicator_instance_type': 'str',
-        'disable_snapshot_on_demand': 'bool',
-        'disable_install': 'bool',
-        'hdd': 'bool',
-        'snapshot_creation_interval_max': 'int',
-        'ce_admin_properties': 'object',
-        'azure': 'bool'
+        "google": "bool",
+        "is_demo": "bool",
+        "windows_converters": "bool",
+        "force_reversed_handshake_direction": "bool",
+        "no_converters": "bool",
+        "vio": "bool",
+        "no_cloud": "bool",
+        "consistent_snapshot_creation_interval_min": "int",
+        "no_public_ips": "bool",
+        "daily_pit_number": "int",
+        "mtu_size": "int",
+        "allow_byol_on_dedicated_instance": "bool",
+        "max_converter_volumes": "int",
+        "azurearm": "bool",
+        "vcenter": "bool",
+        "subnet_filter": "str",
+        "no_snapshot_considered_lag_milliseconds": "int",
+        "no_converters_windows": "bool",
+        "disable_replica_creation": "bool",
+        "aws": "bool",
+        "max_replicator_volumes": "int",
+        "allow_recovery_plans": "bool",
+        "snapshot_creation_interval_min": "int",
+        "snapshot_on_demand_timeout": "int",
+        "allow_archiving": "bool",
+        "custom_replicator_instance_type": "str",
+        "disable_snapshot_on_demand": "bool",
+        "disable_install": "bool",
+        "hdd": "bool",
+        "snapshot_creation_interval_max": "int",
+        "ce_admin_properties": "object",
+        "azure": "bool",
     }
 
     attribute_map = {
-        'google': 'google',
-        'is_demo': 'is_demo',
-        'windows_converters': 'windows_converters',
-        'force_reversed_handshake_direction': 'force_reversed_handshake_direction',
-        'no_converters': 'no_converters',
-        'vio': 'vio',
-        'no_cloud': 'no_cloud',
-        'consistent_snapshot_creation_interval_min': 'consistent_snapshot_creation_interval_min',
-        'no_public_ips': 'no_public_ips',
-        'daily_pit_number': 'daily_pit_number',
-        'mtu_size': 'mtu_size',
-        'allow_byol_on_dedicated_instance': 'allow_byol_on_dedicated_instance',
-        'max_converter_volumes': 'max_converter_volumes',
-        'azurearm': 'azurearm',
-        'vcenter': 'vcenter',
-        'subnet_filter': 'subnet_filter',
-        'no_snapshot_considered_lag_milliseconds': 'no_snapshot_considered_lag_milliseconds',
-        'no_converters_windows': 'no_converters_windows',
-        'disable_replica_creation': 'disable_replica_creation',
-        'aws': 'aws',
-        'max_replicator_volumes': 'max_replicator_volumes',
-        'allow_recovery_plans': 'allow_recovery_plans',
-        'snapshot_creation_interval_min': 'snapshot_creation_interval_min',
-        'snapshot_on_demand_timeout': 'snapshot_on_demand_timeout',
-        'allow_archiving': 'allow_archiving',
-        'custom_replicator_instance_type': 'custom_replicator_instance_type',
-        'disable_snapshot_on_demand': 'disable_snapshot_on_demand',
-        'disable_install': 'disable_install',
-        'hdd': 'hdd',
-        'snapshot_creation_interval_max': 'snapshot_creation_interval_max',
-        'ce_admin_properties': 'ceAdminProperties',
-        'azure': 'azure'
+        "google": "google",
+        "is_demo": "is_demo",
+        "windows_converters": "windows_converters",
+        "force_reversed_handshake_direction": "force_reversed_handshake_direction",
+        "no_converters": "no_converters",
+        "vio": "vio",
+        "no_cloud": "no_cloud",
+        "consistent_snapshot_creation_interval_min": "consistent_snapshot_creation_interval_min",
+        "no_public_ips": "no_public_ips",
+        "daily_pit_number": "daily_pit_number",
+        "mtu_size": "mtu_size",
+        "allow_byol_on_dedicated_instance": "allow_byol_on_dedicated_instance",
+        "max_converter_volumes": "max_converter_volumes",
+        "azurearm": "azurearm",
+        "vcenter": "vcenter",
+        "subnet_filter": "subnet_filter",
+        "no_snapshot_considered_lag_milliseconds": "no_snapshot_considered_lag_milliseconds",
+        "no_converters_windows": "no_converters_windows",
+        "disable_replica_creation": "disable_replica_creation",
+        "aws": "aws",
+        "max_replicator_volumes": "max_replicator_volumes",
+        "allow_recovery_plans": "allow_recovery_plans",
+        "snapshot_creation_interval_min": "snapshot_creation_interval_min",
+        "snapshot_on_demand_timeout": "snapshot_on_demand_timeout",
+        "allow_archiving": "allow_archiving",
+        "custom_replicator_instance_type": "custom_replicator_instance_type",
+        "disable_snapshot_on_demand": "disable_snapshot_on_demand",
+        "disable_install": "disable_install",
+        "hdd": "hdd",
+        "snapshot_creation_interval_max": "snapshot_creation_interval_max",
+        "ce_admin_properties": "ceAdminProperties",
+        "azure": "azure",
     }
 
-    def __init__(self, google=None, is_demo=None, windows_converters=None, force_reversed_handshake_direction=None, no_converters=None, vio=None, no_cloud=None, consistent_snapshot_creation_interval_min=None, no_public_ips=None, daily_pit_number=None, mtu_size=None, allow_byol_on_dedicated_instance=None, max_converter_volumes=None, azurearm=None, vcenter=None, subnet_filter=None, no_snapshot_considered_lag_milliseconds=None, no_converters_windows=None, disable_replica_creation=None, aws=None, max_replicator_volumes=None, allow_recovery_plans=None, snapshot_creation_interval_min=None, snapshot_on_demand_timeout=None, allow_archiving=None, custom_replicator_instance_type=None, disable_snapshot_on_demand=None, disable_install=None, hdd=None, snapshot_creation_interval_max=None, ce_admin_properties=None, azure=None):  # noqa: E501
+    def __init__(
+        self,
+        google=None,
+        is_demo=None,
+        windows_converters=None,
+        force_reversed_handshake_direction=None,
+        no_converters=None,
+        vio=None,
+        no_cloud=None,
+        consistent_snapshot_creation_interval_min=None,
+        no_public_ips=None,
+        daily_pit_number=None,
+        mtu_size=None,
+        allow_byol_on_dedicated_instance=None,
+        max_converter_volumes=None,
+        azurearm=None,
+        vcenter=None,
+        subnet_filter=None,
+        no_snapshot_considered_lag_milliseconds=None,
+        no_converters_windows=None,
+        disable_replica_creation=None,
+        aws=None,
+        max_replicator_volumes=None,
+        allow_recovery_plans=None,
+        snapshot_creation_interval_min=None,
+        snapshot_on_demand_timeout=None,
+        allow_archiving=None,
+        custom_replicator_instance_type=None,
+        disable_snapshot_on_demand=None,
+        disable_install=None,
+        hdd=None,
+        snapshot_creation_interval_max=None,
+        ce_admin_properties=None,
+        azure=None,
+    ):  # noqa: E501
         """CloudEndureAllProjectFeatures - a model defined in Swagger"""  # noqa: E501
         self._google = None
         self._is_demo = None
@@ -148,7 +183,9 @@ class CloudEndureAllProjectFeatures:
         if no_cloud is not None:
             self.no_cloud = no_cloud
         if consistent_snapshot_creation_interval_min is not None:
-            self.consistent_snapshot_creation_interval_min = consistent_snapshot_creation_interval_min
+            self.consistent_snapshot_creation_interval_min = (
+                consistent_snapshot_creation_interval_min
+            )
         if no_public_ips is not None:
             self.no_public_ips = no_public_ips
         if daily_pit_number is not None:
@@ -166,7 +203,9 @@ class CloudEndureAllProjectFeatures:
         if subnet_filter is not None:
             self.subnet_filter = subnet_filter
         if no_snapshot_considered_lag_milliseconds is not None:
-            self.no_snapshot_considered_lag_milliseconds = no_snapshot_considered_lag_milliseconds
+            self.no_snapshot_considered_lag_milliseconds = (
+                no_snapshot_considered_lag_milliseconds
+            )
         if no_converters_windows is not None:
             self.no_converters_windows = no_converters_windows
         if disable_replica_creation is not None:
@@ -356,7 +395,9 @@ class CloudEndureAllProjectFeatures:
         return self._consistent_snapshot_creation_interval_min
 
     @consistent_snapshot_creation_interval_min.setter
-    def consistent_snapshot_creation_interval_min(self, consistent_snapshot_creation_interval_min):
+    def consistent_snapshot_creation_interval_min(
+        self, consistent_snapshot_creation_interval_min
+    ):
         """Sets the consistent_snapshot_creation_interval_min of this CloudEndureAllProjectFeatures.
 
 
@@ -364,7 +405,9 @@ class CloudEndureAllProjectFeatures:
         :type: int
         """
 
-        self._consistent_snapshot_creation_interval_min = consistent_snapshot_creation_interval_min
+        self._consistent_snapshot_creation_interval_min = (
+            consistent_snapshot_creation_interval_min
+        )
 
     @property
     def no_public_ips(self):
@@ -545,7 +588,9 @@ class CloudEndureAllProjectFeatures:
         return self._no_snapshot_considered_lag_milliseconds
 
     @no_snapshot_considered_lag_milliseconds.setter
-    def no_snapshot_considered_lag_milliseconds(self, no_snapshot_considered_lag_milliseconds):
+    def no_snapshot_considered_lag_milliseconds(
+        self, no_snapshot_considered_lag_milliseconds
+    ):
         """Sets the no_snapshot_considered_lag_milliseconds of this CloudEndureAllProjectFeatures.
 
 
@@ -553,7 +598,9 @@ class CloudEndureAllProjectFeatures:
         :type: int
         """
 
-        self._no_snapshot_considered_lag_milliseconds = no_snapshot_considered_lag_milliseconds
+        self._no_snapshot_considered_lag_milliseconds = (
+            no_snapshot_considered_lag_milliseconds
+        )
 
     @property
     def no_converters_windows(self):
@@ -879,18 +926,20 @@ class CloudEndureAllProjectFeatures:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureAllProjectFeatures, dict):

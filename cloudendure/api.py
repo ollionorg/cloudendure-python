@@ -21,10 +21,12 @@ from requests.models import Response
 from .config import CloudEndureConfig
 from .exceptions import CloudEndureException, CloudEndureUnauthorized
 
-HOST: str = os.environ.get('CLOUDENDURE_HOST', 'https://console.cloudendure.com')
-API_VERSION: str = os.environ.get('CLOUDENDURE_API_VERSION', 'latest').lower()
-AUTH_TTL = datetime.timedelta(seconds=int(os.environ.get('CLOUDENDURE_AUTH_TTL', '3600')))  # Default to 60 minutes.
-METHOD_TYPES = ['get', 'post', 'patch', 'delete', 'put']
+HOST: str = os.environ.get("CLOUDENDURE_HOST", "https://console.cloudendure.com")
+API_VERSION: str = os.environ.get("CLOUDENDURE_API_VERSION", "latest").lower()
+AUTH_TTL = datetime.timedelta(
+    seconds=int(os.environ.get("CLOUDENDURE_AUTH_TTL", "3600"))
+)  # Default to 60 minutes.
+METHOD_TYPES = ["get", "post", "patch", "delete", "put"]
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +42,7 @@ class CloudEndureAPI:
 
     """
 
-    TOP_LEVEL: List[str] = ['projects', 'blueprints']
+    TOP_LEVEL: List[str] = ["projects", "blueprints"]
 
     def __init__(self, *args, **kwargs):
         """Initialize the CloudEndure API client.
@@ -51,19 +53,26 @@ class CloudEndureAPI:
         """
         time_now = datetime.datetime.utcnow()
 
-        self.api_endpoint: str = f'{HOST}/api/{API_VERSION}'
+        self.api_endpoint: str = f"{HOST}/api/{API_VERSION}"
         self.config = CloudEndureConfig()
 
         self.projects: List[str] = []
         self.session = requests.Session()
-        _xsrf_token: str = self.config.active_config.get('token', '')
-        self.session.headers: Dict[str, str] = {'Content-Type': 'application/json', 'Accept': 'text/plain', }
-        self.timestamps: Dict[str, Any] = {'created': time_now, 'updated': time_now, 'last_call': time_now}
+        _xsrf_token: str = self.config.active_config.get("token", "")
+        self.session.headers: Dict[str, str] = {
+            "Content-Type": "application/json",
+            "Accept": "text/plain",
+        }
+        self.timestamps: Dict[str, Any] = {
+            "created": time_now,
+            "updated": time_now,
+            "last_call": time_now,
+        }
 
         if _xsrf_token:
-            self.session.headers.update({'X-XSRF-TOKEN': _xsrf_token})
+            self.session.headers.update({"X-XSRF-TOKEN": _xsrf_token})
 
-    def login(self, username='', password=''):
+    def login(self, username="", password=""):
         """Login to the CloudEndure API console.
 
         Args:
@@ -81,27 +90,35 @@ class CloudEndureAPI:
             _xsrf_token (str): The XSRF token to be used for subsequent API requests.
 
         """
-        endpoint: str = 'login'
-        _username: str = self.config.active_config['username'] or username
-        _password: str = self.config.active_config['password'] or password
-        _auth: Dict[str, str] = {'username': _username, 'password': _password}
+        endpoint: str = "login"
+        _username: str = self.config.active_config["username"] or username
+        _password: str = self.config.active_config["password"] or password
+        _auth: Dict[str, str] = {"username": _username, "password": _password}
 
         # Attempt to login to the CloudEndure API via a POST request.
-        response: requests.Response = self.api_call('login', 'post', data=json.dumps(_auth))
+        response: requests.Response = self.api_call(
+            "login", "post", data=json.dumps(_auth)
+        )
         # response: requests.Response = self.session.post(f'{self.api_endpoint}/{endpoint}', json=_auth)
 
         # Check whether or not the request was successful.
         if response.status_code not in [200, 307]:
             if response.status_code == 401:
-                logger.error('Bad CloudEndure Credentials! Check your username/password and try again!')
+                logger.error(
+                    "Bad CloudEndure Credentials! Check your username/password and try again!"
+                )
             elif response.status_code == 402:
-                logger.error('No CloudEndure License! Please configure your account and try again!')
+                logger.error(
+                    "No CloudEndure License! Please configure your account and try again!"
+                )
             elif response.status_code == 429:
-                logger.error('CloudEndure authentication failure limit reached! Please try again later!')
+                logger.error(
+                    "CloudEndure authentication failure limit reached! Please try again later!"
+                )
             raise CloudEndureUnauthorized()
 
         # print('response: ', response, response.cookies)
-        _xsrf_token: str = str(response.cookies['XSRF-TOKEN'])
+        _xsrf_token: str = str(response.cookies["XSRF-TOKEN"])
 
         # Strip the XSRF token of wrapping double-quotes from the cookie.
         if _xsrf_token.startswith('"') and _xsrf_token.endswith('"'):
@@ -110,21 +127,25 @@ class CloudEndureAPI:
         # Set the XSRF token data on the CloudEndureAPI object.
         time_now = datetime.datetime.utcnow()
         self.config.update_token(_xsrf_token)
-        self.session.headers.update({'X-XSRF-TOKEN': _xsrf_token})
-        self.timestamps['last_call'] = time_now
+        self.session.headers.update({"X-XSRF-TOKEN": _xsrf_token})
+        self.timestamps["last_call"] = time_now
         return True
 
     @staticmethod
-    def get_endpoint(path: str, api_version: str = 'latest', host: str = 'https://console.cloudendure.com') -> str:
+    def get_endpoint(
+        path: str,
+        api_version: str = "latest",
+        host: str = "https://console.cloudendure.com",
+    ) -> str:
         """Build the endpoint path.
 
         Returns:
             str: The CloudEndure API endpoint to be used.
 
         """
-        return f'{host}/api/{api_version}/{path}'
+        return f"{host}/api/{api_version}/{path}"
 
-    def api_call(self, path: str, method: str = 'get', data=None) -> Response:
+    def api_call(self, path: str, method: str = "get", data=None) -> Response:
         """Handle CloudEndure API calls based on the defined parameters.
 
         Args:
@@ -144,11 +165,13 @@ class CloudEndureAPI:
             data = {}
 
         if method not in METHOD_TYPES:
-            print('Please specify a valid method type! Must be one of: ', METHOD_TYPES)
+            print("Please specify a valid method type! Must be one of: ", METHOD_TYPES)
             return Response()
 
-        if method not in ['get', 'delete'] and data is None:
-            print('Paramater mismatch! If calling anything other than get or delete provide data!')
+        if method not in ["get", "delete"] and data is None:
+            print(
+                "Paramater mismatch! If calling anything other than get or delete provide data!"
+            )
             return Response()
 
         # Attempt to call the CloudEndure API.
@@ -157,44 +180,48 @@ class CloudEndureAPI:
             _path = self.get_endpoint(path)
             return ce_call(_path, data=data)
         except Exception as e:
-            print(f'Exception encountered in CloudEndure API call: ({e})')
+            print(f"Exception encountered in CloudEndure API call: ({e})")
         return Response()
 
     def check_creds(self, login=True):
         threshold = datetime.datetime.utcnow() - AUTH_TTL
 
-        if threshold < self.config.active_config.get('last_updated', 0):
+        if threshold < self.config.active_config.get("last_updated", 0):
             if login:
                 is_valid: bool = self.login()
                 if is_valid:
-                    return {'status': 'updated'}
-            return {'status': 'expired'}
-        return {'status': 'valid'}
+                    return {"status": "updated"}
+            return {"status": "expired"}
+        return {"status": "valid"}
 
-    def post_endpoint(self, path=''):
-        response: requests.Response = self.session.post(f'{self.api_endpoint}/{path}')
+    def post_endpoint(self, path=""):
+        response: requests.Response = self.session.post(f"{self.api_endpoint}/{path}")
         return response
 
-    def get_projects(self, current_project=''):
+    def get_projects(self, current_project=""):
         """Get the CloudEndure projects associated with the authenticated account."""
         self.login()
-        response: requests.Response = self.session.get(f'{self.api_endpoint}/projects')
+        response: requests.Response = self.session.get(f"{self.api_endpoint}/projects")
         data: Dict[str, Any] = response.json()
         status_code: int = response.status_code
 
-        if status_code not in [200, ]:
+        if status_code not in [200]:
             raise CloudEndureException()
-        projects: List[Any] = data['items']
+        projects: List[Any] = data["items"]
         self.projects: List[Any] = projects
 
         if current_project:
-            return list(filter(lambda project: project['name'] == current_project, projects))
+            return list(
+                filter(lambda project: project["name"] == current_project, projects)
+            )
 
         return projects
 
     @classmethod
     def docs(self):
         """Open the CloudEndure API documentation page."""
-        docs_url: str = os.environ.get('CLOUDENDURE_API_DOCS', 'https://console.cloudendure.com/api_doc/apis.html')
+        docs_url: str = os.environ.get(
+            "CLOUDENDURE_API_DOCS", "https://console.cloudendure.com/api_doc/apis.html"
+        )
         open_new_tab(docs_url)
         return docs_url

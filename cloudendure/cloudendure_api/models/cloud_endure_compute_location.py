@@ -21,6 +21,7 @@ class CloudEndureComputeLocation:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,18 +30,20 @@ class CloudEndureComputeLocation:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'is_encryption_supported': 'bool',
-        'location_id': 'str',
-        'name': 'str'
+        "is_encryption_supported": "bool",
+        "location_id": "str",
+        "name": "str",
     }
 
     attribute_map = {
-        'is_encryption_supported': 'isEncryptionSupported',
-        'location_id': 'locationId',
-        'name': 'name'
+        "is_encryption_supported": "isEncryptionSupported",
+        "location_id": "locationId",
+        "name": "name",
     }
 
-    def __init__(self, is_encryption_supported=None, location_id=None, name=None):  # noqa: E501
+    def __init__(
+        self, is_encryption_supported=None, location_id=None, name=None
+    ):  # noqa: E501
         """CloudEndureComputeLocation - a model defined in Swagger"""  # noqa: E501
         self._is_encryption_supported = None
         self._location_id = None
@@ -123,18 +126,20 @@ class CloudEndureComputeLocation:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureComputeLocation, dict):

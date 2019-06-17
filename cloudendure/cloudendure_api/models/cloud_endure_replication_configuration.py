@@ -21,6 +21,7 @@ class CloudEndureReplicationConfiguration:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,52 +30,74 @@ class CloudEndureReplicationConfiguration:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'volume_encryption_key': 'str',
-        'replication_tags': 'list[object]',
-        'subnet_host_project': 'str',
-        'replication_server_type': 'str',
-        'compute_location_id': 'str',
-        'cloud_credentials': 'str',
-        'subnet_id': 'str',
-        'logical_location_id': 'str',
-        'bandwidth_throttling': 'int',
-        'storage_location_id': 'str',
-        'use_dedicated_server': 'bool',
-        'zone': 'str',
-        'replicator_security_group_i_ds': 'list[str]',
-        'use_private_ip': 'bool',
-        'region': 'str',
-        'id': 'str',
-        'proxy_url': 'str',
-        'volume_encryption_allowed': 'bool',
-        'archiving_enabled': 'bool',
-        'object_storage_location': 'str'
+        "volume_encryption_key": "str",
+        "replication_tags": "list[object]",
+        "subnet_host_project": "str",
+        "replication_server_type": "str",
+        "compute_location_id": "str",
+        "cloud_credentials": "str",
+        "subnet_id": "str",
+        "logical_location_id": "str",
+        "bandwidth_throttling": "int",
+        "storage_location_id": "str",
+        "use_dedicated_server": "bool",
+        "zone": "str",
+        "replicator_security_group_i_ds": "list[str]",
+        "use_private_ip": "bool",
+        "region": "str",
+        "id": "str",
+        "proxy_url": "str",
+        "volume_encryption_allowed": "bool",
+        "archiving_enabled": "bool",
+        "object_storage_location": "str",
     }
 
     attribute_map = {
-        'volume_encryption_key': 'volumeEncryptionKey',
-        'replication_tags': 'replicationTags',
-        'subnet_host_project': 'subnetHostProject',
-        'replication_server_type': 'replicationServerType',
-        'compute_location_id': 'computeLocationId',
-        'cloud_credentials': 'cloudCredentials',
-        'subnet_id': 'subnetId',
-        'logical_location_id': 'logicalLocationId',
-        'bandwidth_throttling': 'bandwidthThrottling',
-        'storage_location_id': 'storageLocationId',
-        'use_dedicated_server': 'useDedicatedServer',
-        'zone': 'zone',
-        'replicator_security_group_i_ds': 'replicatorSecurityGroupIDs',
-        'use_private_ip': 'usePrivateIp',
-        'region': 'region',
-        'id': 'id',
-        'proxy_url': 'proxyUrl',
-        'volume_encryption_allowed': 'volumeEncryptionAllowed',
-        'archiving_enabled': 'archivingEnabled',
-        'object_storage_location': 'objectStorageLocation'
+        "volume_encryption_key": "volumeEncryptionKey",
+        "replication_tags": "replicationTags",
+        "subnet_host_project": "subnetHostProject",
+        "replication_server_type": "replicationServerType",
+        "compute_location_id": "computeLocationId",
+        "cloud_credentials": "cloudCredentials",
+        "subnet_id": "subnetId",
+        "logical_location_id": "logicalLocationId",
+        "bandwidth_throttling": "bandwidthThrottling",
+        "storage_location_id": "storageLocationId",
+        "use_dedicated_server": "useDedicatedServer",
+        "zone": "zone",
+        "replicator_security_group_i_ds": "replicatorSecurityGroupIDs",
+        "use_private_ip": "usePrivateIp",
+        "region": "region",
+        "id": "id",
+        "proxy_url": "proxyUrl",
+        "volume_encryption_allowed": "volumeEncryptionAllowed",
+        "archiving_enabled": "archivingEnabled",
+        "object_storage_location": "objectStorageLocation",
     }
 
-    def __init__(self, volume_encryption_key=None, replication_tags=None, subnet_host_project=None, replication_server_type=None, compute_location_id=None, cloud_credentials=None, subnet_id=None, logical_location_id=None, bandwidth_throttling=None, storage_location_id=None, use_dedicated_server=None, zone=None, replicator_security_group_i_ds=None, use_private_ip=None, region=None, id=None, proxy_url=None, volume_encryption_allowed=None, archiving_enabled=None, object_storage_location=None):  # noqa: E501
+    def __init__(
+        self,
+        volume_encryption_key=None,
+        replication_tags=None,
+        subnet_host_project=None,
+        replication_server_type=None,
+        compute_location_id=None,
+        cloud_credentials=None,
+        subnet_id=None,
+        logical_location_id=None,
+        bandwidth_throttling=None,
+        storage_location_id=None,
+        use_dedicated_server=None,
+        zone=None,
+        replicator_security_group_i_ds=None,
+        use_private_ip=None,
+        region=None,
+        id=None,
+        proxy_url=None,
+        volume_encryption_allowed=None,
+        archiving_enabled=None,
+        object_storage_location=None,
+    ):  # noqa: E501
         """CloudEndureReplicationConfiguration - a model defined in Swagger"""  # noqa: E501
         self._volume_encryption_key = None
         self._replication_tags = None
@@ -595,18 +618,20 @@ class CloudEndureReplicationConfiguration:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureReplicationConfiguration, dict):

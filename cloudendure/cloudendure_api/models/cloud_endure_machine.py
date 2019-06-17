@@ -15,9 +15,12 @@ import re  # noqa: F401
 
 import six
 
-from cloudendure.cloudendure_api.models.cloud_endure_machine_replication_configuration import \
-    CloudEndureMachineReplicationConfiguration  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_point_in_time import CloudEndurePointInTime  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_machine_replication_configuration import (  # noqa: F401,E501
+    CloudEndureMachineReplicationConfiguration
+)
+from cloudendure.cloudendure_api.models.cloud_endure_point_in_time import (
+    CloudEndurePointInTime
+)  # noqa: F401,E501
 
 
 class CloudEndureMachine:
@@ -25,6 +28,7 @@ class CloudEndureMachine:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -33,36 +37,50 @@ class CloudEndureMachine:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'source_properties': 'object',
-        'replication_info': 'object',
-        'license': 'object',
-        'tags': 'list[str]',
-        'restore_servers': 'list[str]',
-        'from_point_in_time': 'CloudEndurePointInTime',
-        'replication_status': 'str',
-        'replica': 'str',
-        'id': 'str',
-        'replication_configuration': 'CloudEndureMachineReplicationConfiguration',
-        'life_cycle': 'object',
-        'is_agent_installed': 'bool'
+        "source_properties": "object",
+        "replication_info": "object",
+        "license": "object",
+        "tags": "list[str]",
+        "restore_servers": "list[str]",
+        "from_point_in_time": "CloudEndurePointInTime",
+        "replication_status": "str",
+        "replica": "str",
+        "id": "str",
+        "replication_configuration": "CloudEndureMachineReplicationConfiguration",
+        "life_cycle": "object",
+        "is_agent_installed": "bool",
     }
 
     attribute_map = {
-        'source_properties': 'sourceProperties',
-        'replication_info': 'replicationInfo',
-        'license': 'license',
-        'tags': 'tags',
-        'restore_servers': 'restoreServers',
-        'from_point_in_time': 'fromPointInTime',
-        'replication_status': 'replicationStatus',
-        'replica': 'replica',
-        'id': 'id',
-        'replication_configuration': 'replicationConfiguration',
-        'life_cycle': 'lifeCycle',
-        'is_agent_installed': 'isAgentInstalled'
+        "source_properties": "sourceProperties",
+        "replication_info": "replicationInfo",
+        "license": "license",
+        "tags": "tags",
+        "restore_servers": "restoreServers",
+        "from_point_in_time": "fromPointInTime",
+        "replication_status": "replicationStatus",
+        "replica": "replica",
+        "id": "id",
+        "replication_configuration": "replicationConfiguration",
+        "life_cycle": "lifeCycle",
+        "is_agent_installed": "isAgentInstalled",
     }
 
-    def __init__(self, source_properties=None, replication_info=None, license=None, tags=None, restore_servers=None, from_point_in_time=None, replication_status=None, replica=None, id=None, replication_configuration=None, life_cycle=None, is_agent_installed=None):  # noqa: E501
+    def __init__(
+        self,
+        source_properties=None,
+        replication_info=None,
+        license=None,
+        tags=None,
+        restore_servers=None,
+        from_point_in_time=None,
+        replication_status=None,
+        replica=None,
+        id=None,
+        replication_configuration=None,
+        life_cycle=None,
+        is_agent_installed=None,
+    ):  # noqa: E501
         """CloudEndureMachine - a model defined in Swagger"""  # noqa: E501
         self._source_properties = None
         self._replication_info = None
@@ -259,8 +277,9 @@ class CloudEndureMachine:
         allowed_values = ["STOPPED", "PAUSED", "STARTED"]  # noqa: E501
         if replication_status not in allowed_values:
             raise ValueError(
-                "Invalid value for `replication_status` ({0}), must be one of {1}"  # noqa: E501
-                .format(replication_status, allowed_values)
+                "Invalid value for `replication_status` ({0}), must be one of {1}".format(  # noqa: E501
+                    replication_status, allowed_values
+                )
             )
 
         self._replication_status = replication_status
@@ -383,18 +402,20 @@ class CloudEndureMachine:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureMachine, dict):

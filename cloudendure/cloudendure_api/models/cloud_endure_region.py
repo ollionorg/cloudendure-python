@@ -15,16 +15,24 @@ import re  # noqa: F401
 
 import six
 
-from cloudendure.cloudendure_api.models.cloud_endure_compute_location import \
-    CloudEndureComputeLocation  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_logical_location import \
-    CloudEndureLogicalLocation  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_network_interface import \
-    CloudEndureNetworkInterface  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_security_group import CloudEndureSecurityGroup  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_storage_location import \
-    CloudEndureStorageLocation  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_subnet import CloudEndureSubnet  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_compute_location import (  # noqa: F401,E501
+    CloudEndureComputeLocation
+)
+from cloudendure.cloudendure_api.models.cloud_endure_logical_location import (  # noqa: F401,E501
+    CloudEndureLogicalLocation
+)
+from cloudendure.cloudendure_api.models.cloud_endure_network_interface import (  # noqa: F401,E501
+    CloudEndureNetworkInterface
+)
+from cloudendure.cloudendure_api.models.cloud_endure_security_group import (
+    CloudEndureSecurityGroup
+)  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_storage_location import (  # noqa: F401,E501
+    CloudEndureStorageLocation
+)
+from cloudendure.cloudendure_api.models.cloud_endure_subnet import (
+    CloudEndureSubnet
+)  # noqa: F401,E501
 
 
 class CloudEndureRegion:
@@ -32,6 +40,7 @@ class CloudEndureRegion:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -40,54 +49,77 @@ class CloudEndureRegion:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'subnets': 'list[CloudEndureSubnet]',
-        'placement_groups': 'list[str]',
-        'scsi_adapter_types': 'list[str]',
-        'instance_types': 'list[str]',
-        'zones': 'list[str]',
-        'volume_encryption_keys': 'list[str]',
-        'cloud': 'str',
-        'security_groups': 'list[CloudEndureSecurityGroup]',
-        'logical_locations': 'list[CloudEndureLogicalLocation]',
-        'static_ips': 'list[str]',
-        'max_cpus_per_machine': 'int',
-        'network_interfaces': 'list[CloudEndureNetworkInterface]',
-        'compute_locations': 'list[CloudEndureComputeLocation]',
-        'name': 'str',
-        'storage_locations': 'list[CloudEndureStorageLocation]',
-        'iam_roles': 'list[str]',
-        'id': 'str',
-        'max_cores_per_machine_cpu': 'int',
-        'dedicated_hosts': 'list[str]',
-        'network_adapter_types': 'list[str]',
-        'max_mb_ram_per_machine': 'int'
+        "subnets": "list[CloudEndureSubnet]",
+        "placement_groups": "list[str]",
+        "scsi_adapter_types": "list[str]",
+        "instance_types": "list[str]",
+        "zones": "list[str]",
+        "volume_encryption_keys": "list[str]",
+        "cloud": "str",
+        "security_groups": "list[CloudEndureSecurityGroup]",
+        "logical_locations": "list[CloudEndureLogicalLocation]",
+        "static_ips": "list[str]",
+        "max_cpus_per_machine": "int",
+        "network_interfaces": "list[CloudEndureNetworkInterface]",
+        "compute_locations": "list[CloudEndureComputeLocation]",
+        "name": "str",
+        "storage_locations": "list[CloudEndureStorageLocation]",
+        "iam_roles": "list[str]",
+        "id": "str",
+        "max_cores_per_machine_cpu": "int",
+        "dedicated_hosts": "list[str]",
+        "network_adapter_types": "list[str]",
+        "max_mb_ram_per_machine": "int",
     }
 
     attribute_map = {
-        'subnets': 'subnets',
-        'placement_groups': 'placementGroups',
-        'scsi_adapter_types': 'scsiAdapterTypes',
-        'instance_types': 'instanceTypes',
-        'zones': 'zones',
-        'volume_encryption_keys': 'volumeEncryptionKeys',
-        'cloud': 'cloud',
-        'security_groups': 'securityGroups',
-        'logical_locations': 'logicalLocations',
-        'static_ips': 'staticIps',
-        'max_cpus_per_machine': 'maxCpusPerMachine',
-        'network_interfaces': 'networkInterfaces',
-        'compute_locations': 'computeLocations',
-        'name': 'name',
-        'storage_locations': 'storageLocations',
-        'iam_roles': 'iamRoles',
-        'id': 'id',
-        'max_cores_per_machine_cpu': 'maxCoresPerMachineCpu',
-        'dedicated_hosts': 'dedicatedHosts',
-        'network_adapter_types': 'networkAdapterTypes',
-        'max_mb_ram_per_machine': 'maxMbRamPerMachine'
+        "subnets": "subnets",
+        "placement_groups": "placementGroups",
+        "scsi_adapter_types": "scsiAdapterTypes",
+        "instance_types": "instanceTypes",
+        "zones": "zones",
+        "volume_encryption_keys": "volumeEncryptionKeys",
+        "cloud": "cloud",
+        "security_groups": "securityGroups",
+        "logical_locations": "logicalLocations",
+        "static_ips": "staticIps",
+        "max_cpus_per_machine": "maxCpusPerMachine",
+        "network_interfaces": "networkInterfaces",
+        "compute_locations": "computeLocations",
+        "name": "name",
+        "storage_locations": "storageLocations",
+        "iam_roles": "iamRoles",
+        "id": "id",
+        "max_cores_per_machine_cpu": "maxCoresPerMachineCpu",
+        "dedicated_hosts": "dedicatedHosts",
+        "network_adapter_types": "networkAdapterTypes",
+        "max_mb_ram_per_machine": "maxMbRamPerMachine",
     }
 
-    def __init__(self, subnets=None, placement_groups=None, scsi_adapter_types=None, instance_types=None, zones=None, volume_encryption_keys=None, cloud=None, security_groups=None, logical_locations=None, static_ips=None, max_cpus_per_machine=None, network_interfaces=None, compute_locations=None, name=None, storage_locations=None, iam_roles=None, id=None, max_cores_per_machine_cpu=None, dedicated_hosts=None, network_adapter_types=None, max_mb_ram_per_machine=None):  # noqa: E501
+    def __init__(
+        self,
+        subnets=None,
+        placement_groups=None,
+        scsi_adapter_types=None,
+        instance_types=None,
+        zones=None,
+        volume_encryption_keys=None,
+        cloud=None,
+        security_groups=None,
+        logical_locations=None,
+        static_ips=None,
+        max_cpus_per_machine=None,
+        network_interfaces=None,
+        compute_locations=None,
+        name=None,
+        storage_locations=None,
+        iam_roles=None,
+        id=None,
+        max_cores_per_machine_cpu=None,
+        dedicated_hosts=None,
+        network_adapter_types=None,
+        max_mb_ram_per_machine=None,
+    ):  # noqa: E501
         """CloudEndureRegion - a model defined in Swagger"""  # noqa: E501
         self._subnets = None
         self._placement_groups = None
@@ -616,18 +648,20 @@ class CloudEndureRegion:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureRegion, dict):

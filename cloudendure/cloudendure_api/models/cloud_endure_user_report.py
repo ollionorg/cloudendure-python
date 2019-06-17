@@ -21,6 +21,7 @@ class CloudEndureUserReport:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,32 +30,44 @@ class CloudEndureUserReport:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'n_protected_machines': 'int',
-        'project_name': 'str',
-        'is_activated': 'bool',
-        'n_license_usages': 'int',
-        'gcp_machines_finance_data': 'object',
-        'total_tested_or_cutover': 'int',
-        'owner_name': 'str',
-        'n_lagging_machines': 'int',
-        'n_active_target_machines': 'int',
-        'n_test_machines': 'int'
+        "n_protected_machines": "int",
+        "project_name": "str",
+        "is_activated": "bool",
+        "n_license_usages": "int",
+        "gcp_machines_finance_data": "object",
+        "total_tested_or_cutover": "int",
+        "owner_name": "str",
+        "n_lagging_machines": "int",
+        "n_active_target_machines": "int",
+        "n_test_machines": "int",
     }
 
     attribute_map = {
-        'n_protected_machines': 'n_protected_machines',
-        'project_name': 'project_name',
-        'is_activated': 'is_activated',
-        'n_license_usages': 'n_license_usages',
-        'gcp_machines_finance_data': 'gcp_machines_finance_data',
-        'total_tested_or_cutover': 'total_tested_or_cutover',
-        'owner_name': 'owner_name',
-        'n_lagging_machines': 'n_lagging_machines',
-        'n_active_target_machines': 'n_active_target_machines',
-        'n_test_machines': 'n_test_machines'
+        "n_protected_machines": "n_protected_machines",
+        "project_name": "project_name",
+        "is_activated": "is_activated",
+        "n_license_usages": "n_license_usages",
+        "gcp_machines_finance_data": "gcp_machines_finance_data",
+        "total_tested_or_cutover": "total_tested_or_cutover",
+        "owner_name": "owner_name",
+        "n_lagging_machines": "n_lagging_machines",
+        "n_active_target_machines": "n_active_target_machines",
+        "n_test_machines": "n_test_machines",
     }
 
-    def __init__(self, n_protected_machines=None, project_name=None, is_activated=None, n_license_usages=None, gcp_machines_finance_data=None, total_tested_or_cutover=None, owner_name=None, n_lagging_machines=None, n_active_target_machines=None, n_test_machines=None):  # noqa: E501
+    def __init__(
+        self,
+        n_protected_machines=None,
+        project_name=None,
+        is_activated=None,
+        n_license_usages=None,
+        gcp_machines_finance_data=None,
+        total_tested_or_cutover=None,
+        owner_name=None,
+        n_lagging_machines=None,
+        n_active_target_machines=None,
+        n_test_machines=None,
+    ):  # noqa: E501
         """CloudEndureUserReport - a model defined in Swagger"""  # noqa: E501
         self._n_protected_machines = None
         self._project_name = None
@@ -305,18 +318,20 @@ class CloudEndureUserReport:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureUserReport, dict):

@@ -21,6 +21,7 @@ class CloudEndureProjectStorage:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,22 +30,29 @@ class CloudEndureProjectStorage:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'project_id': 'str',
-        'points_in_time_total_bytes': 'int',
-        'running_machines_total_bytes': 'int',
-        'working_storage': 'object',
-        'calculation_date_time': 'datetime'
+        "project_id": "str",
+        "points_in_time_total_bytes": "int",
+        "running_machines_total_bytes": "int",
+        "working_storage": "object",
+        "calculation_date_time": "datetime",
     }
 
     attribute_map = {
-        'project_id': 'projectId',
-        'points_in_time_total_bytes': 'pointsInTimeTotalBytes',
-        'running_machines_total_bytes': 'runningMachinesTotalBytes',
-        'working_storage': 'workingStorage',
-        'calculation_date_time': 'calculationDateTime'
+        "project_id": "projectId",
+        "points_in_time_total_bytes": "pointsInTimeTotalBytes",
+        "running_machines_total_bytes": "runningMachinesTotalBytes",
+        "working_storage": "workingStorage",
+        "calculation_date_time": "calculationDateTime",
     }
 
-    def __init__(self, project_id=None, points_in_time_total_bytes=None, running_machines_total_bytes=None, working_storage=None, calculation_date_time=None):  # noqa: E501
+    def __init__(
+        self,
+        project_id=None,
+        points_in_time_total_bytes=None,
+        running_machines_total_bytes=None,
+        working_storage=None,
+        calculation_date_time=None,
+    ):  # noqa: E501
         """CloudEndureProjectStorage - a model defined in Swagger"""  # noqa: E501
         self._project_id = None
         self._points_in_time_total_bytes = None
@@ -175,18 +183,20 @@ class CloudEndureProjectStorage:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureProjectStorage, dict):

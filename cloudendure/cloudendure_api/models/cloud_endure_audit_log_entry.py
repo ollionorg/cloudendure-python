@@ -15,8 +15,9 @@ import re  # noqa: F401
 
 import six
 
-from cloudendure.cloudendure_api.models.cloud_endure_audit_log_changed_field import \
-    CloudEndureAuditLogChangedField  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_audit_log_changed_field import (  # noqa: F401,E501
+    CloudEndureAuditLogChangedField
+)
 
 
 class CloudEndureAuditLogEntry:
@@ -24,6 +25,7 @@ class CloudEndureAuditLogEntry:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -32,26 +34,35 @@ class CloudEndureAuditLogEntry:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'username': 'str',
-        'event_name': 'str',
-        'participating_machines': 'list[object]',
-        'description': 'str',
-        'changed_fields': 'list[CloudEndureAuditLogChangedField]',
-        'timestamp': 'datetime',
-        'job_id': 'str'
+        "username": "str",
+        "event_name": "str",
+        "participating_machines": "list[object]",
+        "description": "str",
+        "changed_fields": "list[CloudEndureAuditLogChangedField]",
+        "timestamp": "datetime",
+        "job_id": "str",
     }
 
     attribute_map = {
-        'username': 'username',
-        'event_name': 'eventName',
-        'participating_machines': 'participatingMachines',
-        'description': 'description',
-        'changed_fields': 'changedFields',
-        'timestamp': 'timestamp',
-        'job_id': 'jobId'
+        "username": "username",
+        "event_name": "eventName",
+        "participating_machines": "participatingMachines",
+        "description": "description",
+        "changed_fields": "changedFields",
+        "timestamp": "timestamp",
+        "job_id": "jobId",
     }
 
-    def __init__(self, username=None, event_name=None, participating_machines=None, description=None, changed_fields=None, timestamp=None, job_id=None):  # noqa: E501
+    def __init__(
+        self,
+        username=None,
+        event_name=None,
+        participating_machines=None,
+        description=None,
+        changed_fields=None,
+        timestamp=None,
+        job_id=None,
+    ):  # noqa: E501
         """CloudEndureAuditLogEntry - a model defined in Swagger"""  # noqa: E501
         self._username = None
         self._event_name = None
@@ -244,18 +255,20 @@ class CloudEndureAuditLogEntry:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureAuditLogEntry, dict):

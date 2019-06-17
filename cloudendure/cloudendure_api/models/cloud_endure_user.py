@@ -21,6 +21,7 @@ class CloudEndureUser:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,32 +30,44 @@ class CloudEndureUser:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'username': 'str',
-        'status': 'str',
-        'account': 'str',
-        'roles': 'list[str]',
-        'settings': 'object',
-        'api_token': 'str',
-        'has_password': 'bool',
-        'terms_accepted': 'bool',
-        'id': 'str',
-        'self_link': 'str'
+        "username": "str",
+        "status": "str",
+        "account": "str",
+        "roles": "list[str]",
+        "settings": "object",
+        "api_token": "str",
+        "has_password": "bool",
+        "terms_accepted": "bool",
+        "id": "str",
+        "self_link": "str",
     }
 
     attribute_map = {
-        'username': 'username',
-        'status': 'status',
-        'account': 'account',
-        'roles': 'roles',
-        'settings': 'settings',
-        'api_token': 'apiToken',
-        'has_password': 'hasPassword',
-        'terms_accepted': 'termsAccepted',
-        'id': 'id',
-        'self_link': 'selfLink'
+        "username": "username",
+        "status": "status",
+        "account": "account",
+        "roles": "roles",
+        "settings": "settings",
+        "api_token": "apiToken",
+        "has_password": "hasPassword",
+        "terms_accepted": "termsAccepted",
+        "id": "id",
+        "self_link": "selfLink",
     }
 
-    def __init__(self, username=None, status=None, account=None, roles=None, settings=None, api_token=None, has_password=None, terms_accepted=None, id=None, self_link=None):  # noqa: E501
+    def __init__(
+        self,
+        username=None,
+        status=None,
+        account=None,
+        roles=None,
+        settings=None,
+        api_token=None,
+        has_password=None,
+        terms_accepted=None,
+        id=None,
+        self_link=None,
+    ):  # noqa: E501
         """CloudEndureUser - a model defined in Swagger"""  # noqa: E501
         self._username = None
         self._status = None
@@ -130,8 +143,9 @@ class CloudEndureUser:
         allowed_values = ["PENDING", "CONFIRMED", "DELETED"]  # noqa: E501
         if status not in allowed_values:
             raise ValueError(
-                "Invalid value for `status` ({0}), must be one of {1}"  # noqa: E501
-                .format(status, allowed_values)
+                "Invalid value for `status` ({0}), must be one of {1}".format(  # noqa: E501
+                    status, allowed_values
+                )
             )
 
         self._status = status
@@ -175,12 +189,18 @@ class CloudEndureUser:
         :param roles: The roles of this CloudEndureUser.  # noqa: E501
         :type: list[str]
         """
-        allowed_values = ["USER", "ACCOUNT_ADMIN", "ACCOUNT_OWNER", "GLOBAL_READONLY"]  # noqa: E501
+        allowed_values = [
+            "USER",
+            "ACCOUNT_ADMIN",
+            "ACCOUNT_OWNER",
+            "GLOBAL_READONLY",
+        ]  # noqa: E501
         if not set(roles).issubset(set(allowed_values)):
             raise ValueError(
-                "Invalid values for `roles` [{0}], must be a subset of [{1}]"  # noqa: E501
-                .format(", ".join(map(str, set(roles) - set(allowed_values))),  # noqa: E501
-                        ", ".join(map(str, allowed_values)))
+                "Invalid values for `roles` [{0}], must be a subset of [{1}]".format(  # noqa: E501
+                    ", ".join(map(str, set(roles) - set(allowed_values))),  # noqa: E501
+                    ", ".join(map(str, allowed_values)),
+                )
             )
 
         self._roles = roles
@@ -320,18 +340,20 @@ class CloudEndureUser:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureUser, dict):

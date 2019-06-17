@@ -16,7 +16,9 @@ import unittest
 
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
-from models.cloud_endure_find_files_parameters import CloudEndureFindFilesParameters  # noqa: E501
+from models.cloud_endure_find_files_parameters import (
+    CloudEndureFindFilesParameters
+)  # noqa: E501
 
 
 class TestCloudEndureFindFilesParameters(unittest.TestCase):
@@ -35,5 +37,5 @@ class TestCloudEndureFindFilesParameters(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

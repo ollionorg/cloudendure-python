@@ -21,6 +21,7 @@ class CloudEndureProject:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,42 +30,59 @@ class CloudEndureProject:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'target_cloud_id': 'str',
-        'agent_installation_token': 'str',
-        'name': 'str',
-        'users_i_ds': 'list[str]',
-        'type': 'str',
-        'replication_reversed': 'bool',
-        'source_cloud_credentials_id': 'str',
-        'cloud_credentials_i_ds': 'list[str]',
-        'source_region': 'str',
-        'licenses_i_ds': 'list[str]',
-        'ce_admin_properties': 'object',
-        'replication_configuration': 'str',
-        'source_cloud_id': 'str',
-        'id': 'str',
-        'features': 'object'
+        "target_cloud_id": "str",
+        "agent_installation_token": "str",
+        "name": "str",
+        "users_i_ds": "list[str]",
+        "type": "str",
+        "replication_reversed": "bool",
+        "source_cloud_credentials_id": "str",
+        "cloud_credentials_i_ds": "list[str]",
+        "source_region": "str",
+        "licenses_i_ds": "list[str]",
+        "ce_admin_properties": "object",
+        "replication_configuration": "str",
+        "source_cloud_id": "str",
+        "id": "str",
+        "features": "object",
     }
 
     attribute_map = {
-        'target_cloud_id': 'targetCloudId',
-        'agent_installation_token': 'agentInstallationToken',
-        'name': 'name',
-        'users_i_ds': 'usersIDs',
-        'type': 'type',
-        'replication_reversed': 'replicationReversed',
-        'source_cloud_credentials_id': 'sourceCloudCredentialsId',
-        'cloud_credentials_i_ds': 'cloudCredentialsIDs',
-        'source_region': 'sourceRegion',
-        'licenses_i_ds': 'licensesIDs',
-        'ce_admin_properties': 'ceAdminProperties',
-        'replication_configuration': 'replicationConfiguration',
-        'source_cloud_id': 'sourceCloudId',
-        'id': 'id',
-        'features': 'features'
+        "target_cloud_id": "targetCloudId",
+        "agent_installation_token": "agentInstallationToken",
+        "name": "name",
+        "users_i_ds": "usersIDs",
+        "type": "type",
+        "replication_reversed": "replicationReversed",
+        "source_cloud_credentials_id": "sourceCloudCredentialsId",
+        "cloud_credentials_i_ds": "cloudCredentialsIDs",
+        "source_region": "sourceRegion",
+        "licenses_i_ds": "licensesIDs",
+        "ce_admin_properties": "ceAdminProperties",
+        "replication_configuration": "replicationConfiguration",
+        "source_cloud_id": "sourceCloudId",
+        "id": "id",
+        "features": "features",
     }
 
-    def __init__(self, target_cloud_id=None, agent_installation_token=None, name=None, users_i_ds=None, type=None, replication_reversed=None, source_cloud_credentials_id=None, cloud_credentials_i_ds=None, source_region=None, licenses_i_ds=None, ce_admin_properties=None, replication_configuration=None, source_cloud_id=None, id=None, features=None):  # noqa: E501
+    def __init__(
+        self,
+        target_cloud_id=None,
+        agent_installation_token=None,
+        name=None,
+        users_i_ds=None,
+        type=None,
+        replication_reversed=None,
+        source_cloud_credentials_id=None,
+        cloud_credentials_i_ds=None,
+        source_region=None,
+        licenses_i_ds=None,
+        ce_admin_properties=None,
+        replication_configuration=None,
+        source_cloud_id=None,
+        id=None,
+        features=None,
+    ):  # noqa: E501
         """CloudEndureProject - a model defined in Swagger"""  # noqa: E501
         self._target_cloud_id = None
         self._agent_installation_token = None
@@ -219,8 +237,9 @@ class CloudEndureProject:
         allowed_values = ["MIGRATION", "DR", "BACKUP"]  # noqa: E501
         if type not in allowed_values:
             raise ValueError(
-                "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
-                .format(type, allowed_values)
+                "Invalid value for `type` ({0}), must be one of {1}".format(  # noqa: E501
+                    type, allowed_values
+                )
             )
 
         self._type = type
@@ -452,18 +471,20 @@ class CloudEndureProject:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureProject, dict):

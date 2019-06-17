@@ -6,7 +6,7 @@ Python wrapper and CLI for CloudEndure
 
 [Documentation](https://mbeacom.github.io/cloudendure-python/)
 
-Package version: `0.0.1`
+Package version: `0.0.2`
 
 ## Requirements
 
@@ -90,7 +90,7 @@ or
 ce api login --token=<your_ce_token>
 ```
 
-Logging in for the first time will generate the `~/.cloudnendure.yml` file.
+Logging in for the first time will generate the `~/.cloudendure.yml` file.
 
 ## Coming Soon
 

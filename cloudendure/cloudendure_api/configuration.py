@@ -18,7 +18,6 @@ from six.moves import http_client as httplib
 
 
 class TypeWithDefault(type):
-
     def __init__(cls, name, bases, dct):
         super(TypeWithDefault, cls).__init__(name, bases, dct)
         cls._default = None
@@ -44,20 +43,23 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         self.active_config = {}
 
         # Default Base url
-        _config_path = os.environ.get('CLOUDENDURE_CONFIG_PATH', '~/.cloudendure.yaml')
-        if _config_path.startswith('~'):
+        _config_path = os.environ.get("CLOUDENDURE_CONFIG_PATH", "~/.cloudendure.yaml")
+        if _config_path.startswith("~"):
             self.config_path = os.path.expanduser(_config_path)
         _config = Path(self.config_path)
         if not _config.exists():
-            print('No CloudEndure YAML configuration found! Creating it at: (%s)', self.config_path)
+            print(
+                "No CloudEndure YAML configuration found! Creating it at: (%s)",
+                self.config_path,
+            )
             self.write_yaml_config(
                 config={
-                    'host': 'https://console.cloudendure.com',
-                    'api_version': 'latest',
-                    'auth_ttl': '3600',
-                    'username': '',
-                    'password': '',
-                    'token': '',
+                    "host": "https://console.cloudendure.com",
+                    "api_version": "latest",
+                    "auth_ttl": "3600",
+                    "username": "",
+                    "password": "",
+                    "token": "",
                 }
             )
         self.update_config()
@@ -68,7 +70,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
 
         # Authentication Settings
         # dict to store API key(s)
-        self.api_key = {'X-XSRF-TOKEN': 'Ykua549wkGxHPsV4fnncbw==\012'}
+        self.api_key = {"X-XSRF-TOKEN": "Ykua549wkGxHPsV4fnncbw==\012"}
         # dict to store API prefix (e.g. Bearer)
         self.api_key_prefix = {}
         # Logging Settings
@@ -76,7 +78,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         self.logger["package_logger"] = logging.getLogger("cloudendure_api")
         self.logger["urllib3_logger"] = logging.getLogger("urllib3")
         # Log format
-        self.logger_format = '%(asctime)s %(levelname)s %(message)s'
+        self.logger_format = "%(asctime)s %(levelname)s %(message)s"
         # Log stream handler
         self.logger_stream_handler = None
         # Log file handler
@@ -109,7 +111,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         # Proxy URL
         self.proxy = None
         # Safe chars for path_param
-        self.safe_chars_for_path_param = ''
+        self.safe_chars_for_path_param = ""
 
     @property
     def logger_file(self):
@@ -220,10 +222,12 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
 
         """
         if self.api_key.get(identifier) and self.api_key_prefix.get(identifier):
-            return f'{self.api_key_prefix[identifier]} {self.api_key[identifier]}'  # noqa: E501
+            return (
+                f"{self.api_key_prefix[identifier]} {self.api_key[identifier]}"
+            )  # noqa: E501
         if self.api_key.get(identifier):
             return self.api_key[identifier]
-        return ''
+        return ""
 
     def get_basic_auth_token(self):
         """Get HTTP basic authentication header (string).
@@ -233,7 +237,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         """
         return urllib3.util.make_headers(
             basic_auth=f'{self.active_config.get("username", "")}:{self.active_config.get("password", "")}'
-        ).get('authorization')
+        ).get("authorization")
 
     def auth_settings(self) -> Dict[str, Any]:
         """Get the Auth Settings dict for api client.
@@ -242,12 +246,12 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
 
         """
         return {
-            'api_key': {
-                'type': 'api_key',
-                'in': 'header',
-                'key': 'X-XSRF-TOKEN',
-                'value': self.get_api_key_with_prefix('X-XSRF-TOKEN')
-            },
+            "api_key": {
+                "type": "api_key",
+                "in": "header",
+                "key": "X-XSRF-TOKEN",
+                "value": self.get_api_key_with_prefix("X-XSRF-TOKEN"),
+            }
         }
 
     def to_debug_report(self) -> str:
@@ -256,15 +260,11 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         :return: The report for debugging.
 
         """
-        return "Python SDK Debug Report:\n"\
-               f"OS: {sys.platform}\n"\
-               f"Python Version: {sys.version}\n"\
-               "Version of the API: 5\n"\
-               "SDK Package Version: 0.1.0"
+        return "Python SDK Debug Report:\n" f"OS: {sys.platform}\n" f"Python Version: {sys.version}\n" "Version of the API: 5\n" "SDK Package Version: 0.1.0"
 
     def read_yaml_config(self):
         """Read the CloudEndure YAML configuration file."""
-        with open(self.config_path, 'r') as yaml_stream:
+        with open(self.config_path, "r") as yaml_stream:
             try:
                 config = yaml.safe_load(yaml_stream)
             except yaml.YAMLError as e:
@@ -274,12 +274,14 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
 
     def write_yaml_config(self, config):
         """Write to the CloudEndure YAML configuration file."""
-        with open(self.config_path, 'w') as yaml_file:
+        with open(self.config_path, "w") as yaml_file:
             try:
                 yaml.dump(config, yaml_file, default_flow_style=False)
                 return True
             except Exception as e:
-                print(f'Exception encountered while writing the CloudEndure YAML configuration file - ({e})')
+                print(
+                    f"Exception encountered while writing the CloudEndure YAML configuration file - ({e})"
+                )
         return False
 
     def update_yaml_config(self, kwargs):
@@ -288,17 +290,18 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         self.write_yaml_config(_config)
         self.update_config()
 
-    def get_env_vars(self, prefix='cloudendure'):
+    def get_env_vars(self, prefix="cloudendure"):
         """Get all environment variables starting with CLOUDENDURE_."""
-        prefix = prefix.strip('_')
+        prefix = prefix.strip("_")
         env_vars = {
-            x[0].lower().lstrip(prefix.lower()).strip('_'): x[1]
-            for x in os.environ.items() if x[0].lower().startswith(prefix.lower())
+            x[0].lower().lstrip(prefix.lower()).strip("_"): x[1]
+            for x in os.environ.items()
+            if x[0].lower().startswith(prefix.lower())
         }
         print(env_vars)
         return env_vars
 
-    def refresh_auth(self, username='', password=''):
+    def refresh_auth(self, username="", password=""):
         """Refresh the authentication token with the CloudEndure API.
 
         Args:
@@ -316,21 +319,23 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
             _xsrf_token (str): The XSRF token to be used for subsequent API requests.
 
         """
-        endpoint: str = 'login'
-        _username: str = self.active_config.get('username', '') or username
-        _password: str = self.active_config.get('password', '') or password
-        _auth: Dict[str, str] = {'username': _username, 'password': _password}
+        endpoint: str = "login"
+        _username: str = self.active_config.get("username", "") or username
+        _password: str = self.active_config.get("password", "") or password
+        _auth: Dict[str, str] = {"username": _username, "password": _password}
 
         # Attempt to login to the CloudEndure API via a POST request.
-        response: requests.Response = requests.post(f'{self.host}/{endpoint}', json=_auth)
-        print('response: ', response, response.status_code)
+        response: requests.Response = requests.post(
+            f"{self.host}/{endpoint}", json=_auth
+        )
+        print("response: ", response, response.status_code)
 
         # Check whether or not the request was successful.
         if response.status_code not in [200, 307]:
             raise Exception()
 
-        print('response: ', response, response.cookies)
-        _xsrf_token: str = str(response.cookies['XSRF-TOKEN'])
+        print("response: ", response, response.cookies)
+        _xsrf_token: str = str(response.cookies["XSRF-TOKEN"])
 
         # Strip the XSRF token of wrapping double-quotes from the cookie.
         if _xsrf_token.startswith('"') and _xsrf_token.endswith('"'):
@@ -345,13 +350,13 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         self.active_config = {**self.yaml_config_contents, **self.env_config}
 
     def update_token(self, token):
-        self.update_yaml_config({'token': token})
+        self.update_yaml_config({"token": token})
 
     def get_var(self, var):
         """Get the specified environment or config variable."""
-        env_var = os.environ.get(var.upper(), '')
+        env_var = os.environ.get(var.upper(), "")
 
         if not env_var:
-            env_var = self.yaml_config_contents.get(var.lower(), '')
+            env_var = self.yaml_config_contents.get(var.lower(), "")
 
         return env_var

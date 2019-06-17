@@ -32,7 +32,9 @@ class ActionsApi:
             api_client = ApiClient()
         self.api_client = api_client
 
-    def projects_project_id_find_files_post(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_find_files_post(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Search for files in a backup project  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -47,14 +49,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_find_files_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_find_files_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_find_files_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_find_files_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_find_files_post_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_find_files_post_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Search for files in a backup project  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -70,35 +78,37 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_find_files_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_find_files_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_find_files_post`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_find_files_post`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_find_files_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -108,34 +118,40 @@ class ActionsApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/findFiles', 'POST',
+            "/projects/{projectId}/findFiles",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureFindFilesResults',  # noqa: E501
+            response_type="CloudEndureFindFilesResults",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def projects_project_id_jobs_get(self, project_id, **kwargs):  # noqa: E501
         """List Jobs  # noqa: E501
@@ -154,14 +170,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_jobs_get_with_http_info(project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_jobs_get_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_jobs_get_with_http_info(project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_jobs_get_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_jobs_get_with_http_info(self, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_jobs_get_with_http_info(
+        self, project_id, **kwargs
+    ):  # noqa: E501
         """List Jobs  # noqa: E501
 
         Returns the list of jobs in the project.  # noqa: E501
@@ -179,37 +201,38 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['project_id', 'offset', 'limit']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["project_id", "offset", "limit"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_jobs_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_jobs_get`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_jobs_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
-        if 'offset' in params:
-            query_params.append(('offset', params['offset']))  # noqa: E501
-        if 'limit' in params:
-            query_params.append(('limit', params['limit']))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
 
         header_params = {}
 
@@ -218,29 +241,34 @@ class ActionsApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/jobs', 'GET',
+            "/projects/{projectId}/jobs",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureJobsList',  # noqa: E501
+            response_type="CloudEndureJobsList",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_jobs_job_id_get(self, project_id, job_id, **kwargs):  # noqa: E501
+    def projects_project_id_jobs_job_id_get(
+        self, project_id, job_id, **kwargs
+    ):  # noqa: E501
         """Get Job  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -255,14 +283,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_jobs_job_id_get_with_http_info(project_id, job_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_jobs_job_id_get_with_http_info(
+                project_id, job_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_jobs_job_id_get_with_http_info(project_id, job_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_jobs_job_id_get_with_http_info(
+                project_id, job_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_jobs_job_id_get_with_http_info(self, project_id, job_id, **kwargs):  # noqa: E501
+    def projects_project_id_jobs_job_id_get_with_http_info(
+        self, project_id, job_id, **kwargs
+    ):  # noqa: E501
         """Get Job  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -278,37 +312,39 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['project_id', 'job_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["project_id", "job_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_jobs_job_id_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_jobs_job_id_get`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_jobs_job_id_get`"
+            )  # noqa: E501
         # verify the required parameter 'job_id' is set
-        if ('job_id' not in params or
-                params['job_id'] is None):
-            raise ValueError("Missing the required parameter `job_id` when calling `projects_project_id_jobs_job_id_get`")  # noqa: E501
+        if "job_id" not in params or params["job_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `job_id` when calling `projects_project_id_jobs_job_id_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
-        if 'job_id' in params:
-            path_params['jobId'] = params['job_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
+        if "job_id" in params:
+            path_params["jobId"] = params["job_id"]  # noqa: E501
 
         query_params = []
 
@@ -319,29 +355,34 @@ class ActionsApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/jobs/{jobId}', 'GET',
+            "/projects/{projectId}/jobs/{jobId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureJob',  # noqa: E501
+            response_type="CloudEndureJob",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_launch_machines_post(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_launch_machines_post(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Launch target machines  # noqa: E501
 
         Launch target machines for test, recovery or cutover (by passing enum value to launchType param)  # noqa: E501
@@ -357,14 +398,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_launch_machines_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_launch_machines_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_launch_machines_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_launch_machines_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_launch_machines_post_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_launch_machines_post_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Launch target machines  # noqa: E501
 
         Launch target machines for test, recovery or cutover (by passing enum value to launchType param)  # noqa: E501
@@ -381,35 +428,37 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_launch_machines_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_launch_machines_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_launch_machines_post`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_launch_machines_post`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_launch_machines_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -419,36 +468,44 @@ class ActionsApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/launchMachines', 'POST',
+            "/projects/{projectId}/launchMachines",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureJob',  # noqa: E501
+            response_type="CloudEndureJob",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_launch_restore_servers_post(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_launch_restore_servers_post(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Launch restore servers @todo  # noqa: E501
 
         todo  # noqa: E501
@@ -464,14 +521,22 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_launch_restore_servers_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_launch_restore_servers_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_launch_restore_servers_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (
+                data
+            ) = self.projects_project_id_launch_restore_servers_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_launch_restore_servers_post_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_launch_restore_servers_post_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Launch restore servers @todo  # noqa: E501
 
         todo  # noqa: E501
@@ -488,35 +553,37 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_launch_restore_servers_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_launch_restore_servers_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_launch_restore_servers_post`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_launch_restore_servers_post`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_launch_restore_servers_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -526,36 +593,44 @@ class ActionsApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/launchRestoreServers', 'POST',
+            "/projects/{projectId}/launchRestoreServers",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureJob',  # noqa: E501
+            response_type="CloudEndureJob",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_move_machines_post(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_move_machines_post(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Moves machines to another project  # noqa: E501
 
         TBC   # noqa: E501
@@ -571,14 +646,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_move_machines_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_move_machines_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_move_machines_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_move_machines_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_move_machines_post_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_move_machines_post_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Moves machines to another project  # noqa: E501
 
         TBC   # noqa: E501
@@ -595,35 +676,37 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_move_machines_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_move_machines_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_move_machines_post`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_move_machines_post`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_move_machines_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -633,21 +716,26 @@ class ActionsApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/moveMachines', 'POST',
+            "/projects/{projectId}/moveMachines",
+            "POST",
             path_params,
             query_params,
             header_params,
@@ -656,13 +744,16 @@ class ActionsApi:
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_pause_replication_post(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_pause_replication_post(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Pause replication  # noqa: E501
 
         Pause replication for given machines  # noqa: E501
@@ -678,14 +769,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_pause_replication_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_pause_replication_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_pause_replication_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_pause_replication_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_pause_replication_post_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_pause_replication_post_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Pause replication  # noqa: E501
 
         Pause replication for given machines  # noqa: E501
@@ -702,35 +799,37 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_pause_replication_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_pause_replication_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_pause_replication_post`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_pause_replication_post`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_pause_replication_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -740,36 +839,44 @@ class ActionsApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/pauseReplication', 'POST',
+            "/projects/{projectId}/pauseReplication",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureMachinesListInvalidIDsAndJob',  # noqa: E501
+            response_type="CloudEndureMachinesListInvalidIDsAndJob",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_replicas_delete(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_replicas_delete(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Perform Cleanup  # noqa: E501
 
         Spawns a cleanup job to remove the specified target machines from the cloud. Returns the job information.  # noqa: E501
@@ -785,14 +892,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_replicas_delete_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_replicas_delete_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_replicas_delete_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_replicas_delete_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_replicas_delete_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_replicas_delete_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Perform Cleanup  # noqa: E501
 
         Spawns a cleanup job to remove the specified target machines from the cloud. Returns the job information.  # noqa: E501
@@ -809,35 +922,37 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_replicas_delete" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_replicas_delete`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_replicas_delete`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_replicas_delete`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_replicas_delete`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -847,36 +962,44 @@ class ActionsApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/replicas', 'DELETE',
+            "/projects/{projectId}/replicas",
+            "DELETE",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureJob',  # noqa: E501
+            response_type="CloudEndureJob",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_restore_files_post(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_restore_files_post(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Restore selected files in a backup project  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -891,14 +1014,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_restore_files_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_restore_files_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_restore_files_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_restore_files_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_restore_files_post_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_restore_files_post_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Restore selected files in a backup project  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -914,35 +1043,37 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_restore_files_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_restore_files_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_restore_files_post`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_restore_files_post`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_restore_files_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -952,36 +1083,44 @@ class ActionsApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/restoreFiles', 'POST',
+            "/projects/{projectId}/restoreFiles",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureJob',  # noqa: E501
+            response_type="CloudEndureJob",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_reverse_replication_post(self, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_reverse_replication_post(
+        self, project_id, **kwargs
+    ):  # noqa: E501
         """Reverse replication direction  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -995,14 +1134,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_reverse_replication_post_with_http_info(project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_reverse_replication_post_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_reverse_replication_post_with_http_info(project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_reverse_replication_post_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_reverse_replication_post_with_http_info(self, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_reverse_replication_post_with_http_info(
+        self, project_id, **kwargs
+    ):  # noqa: E501
         """Reverse replication direction  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -1017,31 +1162,32 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_reverse_replication_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_reverse_replication_post`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_reverse_replication_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -1052,14 +1198,16 @@ class ActionsApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/reverseReplication', 'POST',
+            "/projects/{projectId}/reverseReplication",
+            "POST",
             path_params,
             query_params,
             header_params,
@@ -1068,13 +1216,16 @@ class ActionsApi:
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_start_replication_post(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_start_replication_post(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Start replication  # noqa: E501
 
         Start replication of the specified source machines. Returns the machine for which replication has been successfully started, and the IDs for which replication could not be started.  # noqa: E501
@@ -1090,14 +1241,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_start_replication_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_start_replication_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_start_replication_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_start_replication_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_start_replication_post_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_start_replication_post_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Start replication  # noqa: E501
 
         Start replication of the specified source machines. Returns the machine for which replication has been successfully started, and the IDs for which replication could not be started.  # noqa: E501
@@ -1114,35 +1271,37 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_start_replication_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_start_replication_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_start_replication_post`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_start_replication_post`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_start_replication_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -1152,36 +1311,44 @@ class ActionsApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/startReplication', 'POST',
+            "/projects/{projectId}/startReplication",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureMachinesListInvalidIDsAndJob',  # noqa: E501
+            response_type="CloudEndureMachinesListInvalidIDsAndJob",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def projects_project_id_stop_replication_post(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_stop_replication_post(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Stop replication  # noqa: E501
 
         Stop replication of the specified source machines. Returns the machine for which replication has been successfully stopped, and the IDs for which replication could not be stopped.  # noqa: E501
@@ -1197,14 +1364,20 @@ class ActionsApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_stop_replication_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_stop_replication_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_stop_replication_post_with_http_info(body, project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_stop_replication_post_with_http_info(
+                body, project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_stop_replication_post_with_http_info(self, body, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_stop_replication_post_with_http_info(
+        self, body, project_id, **kwargs
+    ):  # noqa: E501
         """Stop replication  # noqa: E501
 
         Stop replication of the specified source machines. Returns the machine for which replication has been successfully stopped, and the IDs for which replication could not be stopped.  # noqa: E501
@@ -1221,35 +1394,37 @@ class ActionsApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_stop_replication_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_project_id_stop_replication_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_project_id_stop_replication_post`"
+            )  # noqa: E501
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_stop_replication_post`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_stop_replication_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -1259,31 +1434,37 @@ class ActionsApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/stopReplication', 'POST',
+            "/projects/{projectId}/stopReplication",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureMachinesListInvalidIDsAndJob',  # noqa: E501
+            response_type="CloudEndureMachinesListInvalidIDsAndJob",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )

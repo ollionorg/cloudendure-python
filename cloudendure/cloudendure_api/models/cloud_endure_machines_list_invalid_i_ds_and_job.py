@@ -15,8 +15,12 @@ import re  # noqa: F401
 
 import six
 
-from cloudendure.cloudendure_api.models.cloud_endure_job import CloudEndureJob  # noqa: F401,E501
-from cloudendure.cloudendure_api.models.cloud_endure_machine import CloudEndureMachine  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_job import (
+    CloudEndureJob
+)  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_machine import (
+    CloudEndureMachine
+)  # noqa: F401,E501
 
 
 class CloudEndureMachinesListInvalidIDsAndJob:
@@ -24,6 +28,7 @@ class CloudEndureMachinesListInvalidIDsAndJob:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -32,15 +37,15 @@ class CloudEndureMachinesListInvalidIDsAndJob:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'items': 'list[CloudEndureMachine]',
-        'job': 'CloudEndureJob',
-        'invalid_machine_i_ds': 'list[str]'
+        "items": "list[CloudEndureMachine]",
+        "job": "CloudEndureJob",
+        "invalid_machine_i_ds": "list[str]",
     }
 
     attribute_map = {
-        'items': 'items',
-        'job': 'job',
-        'invalid_machine_i_ds': 'invalidMachineIDs'
+        "items": "items",
+        "job": "job",
+        "invalid_machine_i_ds": "invalidMachineIDs",
     }
 
     def __init__(self, items=None, job=None, invalid_machine_i_ds=None):  # noqa: E501
@@ -128,18 +133,20 @@ class CloudEndureMachinesListInvalidIDsAndJob:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureMachinesListInvalidIDsAndJob, dict):

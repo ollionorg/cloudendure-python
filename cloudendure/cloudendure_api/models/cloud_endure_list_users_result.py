@@ -21,6 +21,7 @@ class CloudEndureListUsersResult:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,22 +30,29 @@ class CloudEndureListUsersResult:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'username': 'str',
-        'is_account_owner': 'bool',
-        'state': 'str',
-        'version': 'str',
-        'account_uuid': 'str'
+        "username": "str",
+        "is_account_owner": "bool",
+        "state": "str",
+        "version": "str",
+        "account_uuid": "str",
     }
 
     attribute_map = {
-        'username': 'username',
-        'is_account_owner': 'is_account_owner',
-        'state': 'state',
-        'version': 'version',
-        'account_uuid': 'account_uuid'
+        "username": "username",
+        "is_account_owner": "is_account_owner",
+        "state": "state",
+        "version": "version",
+        "account_uuid": "account_uuid",
     }
 
-    def __init__(self, username=None, is_account_owner=None, state=None, version=None, account_uuid=None):  # noqa: E501
+    def __init__(
+        self,
+        username=None,
+        is_account_owner=None,
+        state=None,
+        version=None,
+        account_uuid=None,
+    ):  # noqa: E501
         """CloudEndureListUsersResult - a model defined in Swagger"""  # noqa: E501
         self._username = None
         self._is_account_owner = None
@@ -175,18 +183,20 @@ class CloudEndureListUsersResult:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureListUsersResult, dict):

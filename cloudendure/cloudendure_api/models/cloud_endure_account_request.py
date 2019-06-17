@@ -21,6 +21,7 @@ class CloudEndureAccountRequest:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,22 +30,29 @@ class CloudEndureAccountRequest:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'id': 'str',
-        'request_type': 'str',
-        'email': 'str',
-        'request_link': 'str',
-        'registration_token': 'str'
+        "id": "str",
+        "request_type": "str",
+        "email": "str",
+        "request_link": "str",
+        "registration_token": "str",
     }
 
     attribute_map = {
-        'id': 'id',
-        'request_type': 'request_type',
-        'email': 'email',
-        'request_link': 'request_link',
-        'registration_token': 'registration_token'
+        "id": "id",
+        "request_type": "request_type",
+        "email": "email",
+        "request_link": "request_link",
+        "registration_token": "registration_token",
     }
 
-    def __init__(self, id=None, request_type=None, email=None, request_link=None, registration_token=None):  # noqa: E501
+    def __init__(
+        self,
+        id=None,
+        request_type=None,
+        email=None,
+        request_link=None,
+        registration_token=None,
+    ):  # noqa: E501
         """CloudEndureAccountRequest - a model defined in Swagger"""  # noqa: E501
         self._id = None
         self._request_type = None
@@ -105,8 +113,9 @@ class CloudEndureAccountRequest:
         allowed_values = ["REGISTER", "RESET_PASSWORD"]  # noqa: E501
         if request_type not in allowed_values:
             raise ValueError(
-                "Invalid value for `request_type` ({0}), must be one of {1}"  # noqa: E501
-                .format(request_type, allowed_values)
+                "Invalid value for `request_type` ({0}), must be one of {1}".format(  # noqa: E501
+                    request_type, allowed_values
+                )
             )
 
         self._request_type = request_type
@@ -181,18 +190,20 @@ class CloudEndureAccountRequest:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureAccountRequest, dict):

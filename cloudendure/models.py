@@ -81,14 +81,14 @@ class CloudEndureModel:
 class Cloud(CloudEndureModel):
     """Define the CloudEndure Cloud model schema."""
 
-    endpoint: str = 'clouds'
+    endpoint: str = "clouds"
     _valid_properties: Dict[str, Any] = {
         # Standard Schema
-        'id': '',
-        'roles': [],
-        'name': '',
+        "id": "",
+        "roles": [],
+        "name": "",
         # Instantiation Datetimes
-        'fetched_datetime': datetime.now(tzlocal()),
+        "fetched_datetime": datetime.now(tzlocal()),
     }
 
     def __init__(self, **kwargs):
@@ -106,29 +106,29 @@ class Cloud(CloudEndureModel):
 class Project(CloudEndureModel):
     """Define the CloudEndure Project model schema."""
 
-    endpoint: str = 'projects'
+    endpoint: str = "projects"
     _valid_properties: Dict[str, Any] = {
         # Standard Schema
-        'agentInstallationToken': '',
-        'cloudCredentialsIDs': [],
-        'features': {
-            'allowArchiving': False,
-            'allowByolOnDedicatedInstance': False,
-            'allowRecoveryPlans': False,
-            'awsExtendedHddTypes': False,
-            'drTier2': False,
-            'isDemo': False,
-            'pit': False,
+        "agentInstallationToken": "",
+        "cloudCredentialsIDs": [],
+        "features": {
+            "allowArchiving": False,
+            "allowByolOnDedicatedInstance": False,
+            "allowRecoveryPlans": False,
+            "awsExtendedHddTypes": False,
+            "drTier2": False,
+            "isDemo": False,
+            "pit": False,
         },
-        'id': '',
-        'licensesIDs': [],
-        'name': '',
-        'replicationReversed': False,
-        'targetCloudId': '',
-        'type': '',
-        'userIDs': [],
+        "id": "",
+        "licensesIDs": [],
+        "name": "",
+        "replicationReversed": False,
+        "targetCloudId": "",
+        "type": "",
+        "userIDs": [],
         # Instantiation Datetimes
-        'fetched_datetime': datetime.now(tzlocal()),
+        "fetched_datetime": datetime.now(tzlocal()),
     }
 
     def __init__(self, **kwargs):
@@ -147,99 +147,80 @@ class Machine(CloudEndureModel):
     """Define the CloudEndure Machine model schema."""
 
     parent: Project = Project()
-    endpoint: str = 'projects/{}/machines'
+    endpoint: str = "projects/{}/machines"
     _valid_properties: Dict[str, Any] = {
         # Standard Schema
-        'sourceProperties': {
-            'name': '',
-            'installedApplications': {
-                'items': [{
-                    'applicationName': ''
-                }],
-                'lastUpdatedDateTime': ''
+        "sourceProperties": {
+            "name": "",
+            "installedApplications": {
+                "items": [{"applicationName": ""}],
+                "lastUpdatedDateTime": "",
             },
-            'disks': [{
-                'isProtected': False,
-                'name': '',
-                'size': 0
-            }],
-            'machineCloudState': '',
-            'publicIps': [],
-            'memory': 0,
-            'os': '',
-            'cpu': [{
-                'cores': 0,
-                'modelName': ''
-            }],
-            'runningServices': {
-                'items': [{
-                    'serviceName': ''
-                }],
-                'lastUpdatedDateTime': ''
+            "disks": [{"isProtected": False, "name": "", "size": 0}],
+            "machineCloudState": "",
+            "publicIps": [],
+            "memory": 0,
+            "os": "",
+            "cpu": [{"cores": 0, "modelName": ""}],
+            "runningServices": {
+                "items": [{"serviceName": ""}],
+                "lastUpdatedDateTime": "",
             },
-            'machineCloudId': ''
+            "machineCloudId": "",
         },
-        'replicationInfo': {
-            'lastConsistencyDateTime': '',
-            'nextConsistencyEstimatedDateTime': '',
-            'rescannedStorageBytes': 0,
-            'backloggedStorageBytes': 0,
-            'initiationStates': {
-                'items': [{
-                    'steps': [{
-                        'status': '',
-                        'message': '',
-                        'name': ''
-                    }],
-                    'startDateTime': ''
-                }],
-                'estimatedNextAttemptDateTime': ''
+        "replicationInfo": {
+            "lastConsistencyDateTime": "",
+            "nextConsistencyEstimatedDateTime": "",
+            "rescannedStorageBytes": 0,
+            "backloggedStorageBytes": 0,
+            "initiationStates": {
+                "items": [
+                    {
+                        "steps": [{"status": "", "message": "", "name": ""}],
+                        "startDateTime": "",
+                    }
+                ],
+                "estimatedNextAttemptDateTime": "",
             },
-            'replicatedStorageBytes': 0,
-            'totalStorageBytes': 0
+            "replicatedStorageBytes": 0,
+            "totalStorageBytes": 0,
         },
-        'license': {
-            'startOfUseDateTime': '',
-            'licenseId': 'string'
+        "license": {"startOfUseDateTime": "", "licenseId": "string"},
+        "tags": [],
+        "restoreServers": [],
+        "fromPointInTime": {"id": "", "dateTime": ""},
+        "replicationStatus": "",
+        "replica": "",
+        "id": "",
+        "replicationConfiguration": {
+            "volumeEncryptionKey": "",
+            "replicationTags": [],
+            "subnetHostProject": "",
+            "replicationServerType": "",
+            "computeLocationId": "",
+            "subnetId": "",
+            "logicalLocationId": "",
+            "bandwidthThrottling": 0,
+            "storageLocationId": "",
+            "useDedicatedServer": False,
+            "zone": "",
+            "replicatorSecurityGroupIDs": [],
+            "usePrivateIp": False,
+            "proxyUrl": "",
+            "volumeEncryptionAllowed": False,
+            "archivingEnabled": False,
+            "objectStorageLocation": "",
         },
-        'tags': [],
-        'restoreServers': [],
-        'fromPointInTime': {
-            'id': '',
-            'dateTime': ''
+        "lifeCycle": {
+            "lastTestLaunchDateTime": "",
+            "connectionEstablishedDateTime": "",
+            "agentInstallationDateTime": "",
+            "lastCutoverDateTime": "",
+            "lastRecoveryLaunchDateTime": "",
         },
-        'replicationStatus': '',
-        'replica': '',
-        'id': '',
-        'replicationConfiguration': {
-            'volumeEncryptionKey': '',
-            'replicationTags': [],
-            'subnetHostProject': '',
-            'replicationServerType': '',
-            'computeLocationId': '',
-            'subnetId': '',
-            'logicalLocationId': '',
-            'bandwidthThrottling': 0,
-            'storageLocationId': '',
-            'useDedicatedServer': False,
-            'zone': '',
-            'replicatorSecurityGroupIDs': [],
-            'usePrivateIp': False,
-            'proxyUrl': '',
-            'volumeEncryptionAllowed': False,
-            'archivingEnabled': False,
-            'objectStorageLocation': ''
-        },
-        'lifeCycle': {
-            'lastTestLaunchDateTime': '',
-            'connectionEstablishedDateTime': '',
-            'agentInstallationDateTime': '',
-            'lastCutoverDateTime': '',
-            'lastRecoveryLaunchDateTime': ''
-        },
-        'isAgentInstalled': False,
+        "isAgentInstalled": False,
         # Instantiation Datetimes
-        'fetched_datetime': datetime.now(tzlocal()),
+        "fetched_datetime": datetime.now(tzlocal()),
     }
 
     def __init__(self, **kwargs):

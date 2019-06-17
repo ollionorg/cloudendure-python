@@ -16,7 +16,9 @@ import unittest
 
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
-from models.cloud_endure_machine_snapshot_credits import CloudEndureMachineSnapshotCredits  # noqa: E501
+from models.cloud_endure_machine_snapshot_credits import (
+    CloudEndureMachineSnapshotCredits
+)  # noqa: E501
 
 
 class TestCloudEndureMachineSnapshotCredits(unittest.TestCase):
@@ -35,5 +37,5 @@ class TestCloudEndureMachineSnapshotCredits(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

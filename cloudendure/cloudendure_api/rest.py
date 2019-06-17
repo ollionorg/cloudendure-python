@@ -9,13 +9,14 @@ import re
 import ssl
 
 import certifi
+
 # python 2 and python 3 compatibility library
 from six.moves.urllib.parse import urlencode
 
 try:
     import urllib3
 except ImportError:
-    raise ImportError('Swagger python client requires urllib3.')
+    raise ImportError("Swagger python client requires urllib3.")
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +65,9 @@ class RESTClientObject:
 
         addition_pool_args = {}
         if configuration.assert_hostname is not None:
-            addition_pool_args['assert_hostname'] = configuration.assert_hostname  # noqa: E501
+            addition_pool_args[
+                "assert_hostname"
+            ] = configuration.assert_hostname  # noqa: E501
 
         if maxsize is None:
             if configuration.connection_pool_maxsize is not None:
@@ -82,7 +85,7 @@ class RESTClientObject:
                 cert_file=configuration.cert_file,
                 key_file=configuration.key_file,
                 proxy_url=configuration.proxy,
-                **addition_pool_args
+                **addition_pool_args,
             )
         else:
             self.pool_manager = urllib3.PoolManager(
@@ -92,7 +95,7 @@ class RESTClientObject:
                 ca_certs=ca_certs,
                 cert_file=configuration.cert_file,
                 key_file=configuration.key_file,
-                **addition_pool_args
+                **addition_pool_args,
             )
 
     def request(
@@ -104,7 +107,7 @@ class RESTClientObject:
         body=None,
         post_params=None,
         _preload_content=True,
-        _request_timeout=None
+        _request_timeout=None,
     ):
         """Perform requests.
 
@@ -125,34 +128,38 @@ class RESTClientObject:
                                  (connection, read) timeouts.
         """
         method = method.upper()
-        if method not in ['GET', 'HEAD', 'DELETE', 'POST', 'PUT', 'PATCH', 'OPTIONS']:
-            raise Exception(f'Unsupported method: ({method})')
+        if method not in ["GET", "HEAD", "DELETE", "POST", "PUT", "PATCH", "OPTIONS"]:
+            raise Exception(f"Unsupported method: ({method})")
 
         if post_params and body:
-            raise ValueError("body parameter cannot be used with post_params parameter.")
+            raise ValueError(
+                "body parameter cannot be used with post_params parameter."
+            )
 
         post_params = post_params or {}
         headers = headers or {}
 
         timeout = None
         if _request_timeout:
-            if isinstance(_request_timeout, (int, )):  # noqa: E501,F821
+            if isinstance(_request_timeout, (int,)):  # noqa: E501,F821
                 timeout = urllib3.Timeout(total=_request_timeout)
-            elif (isinstance(_request_timeout, tuple) and len(_request_timeout) == 2):
-                timeout = urllib3.Timeout(connect=_request_timeout[0], read=_request_timeout[1])
+            elif isinstance(_request_timeout, tuple) and len(_request_timeout) == 2:
+                timeout = urllib3.Timeout(
+                    connect=_request_timeout[0], read=_request_timeout[1]
+                )
 
-        if 'Content-Type' not in headers:
-            headers['Content-Type'] = 'application/json'
+        if "Content-Type" not in headers:
+            headers["Content-Type"] = "application/json"
 
         headers = {k: v for k, v in headers.items() if v is not None}
-        headers['X-XSRF-TOKEN'] = 'Ykua549wkGxHPsV4fnncbw==\\012'
+        headers["X-XSRF-TOKEN"] = "Ykua549wkGxHPsV4fnncbw==\\012"
 
         try:
             # For `POST`, `PUT`, `PATCH`, `OPTIONS`, `DELETE`
-            if method in ['POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE']:
+            if method in ["POST", "PUT", "PATCH", "OPTIONS", "DELETE"]:
                 if query_params:
-                    url += '?' + urlencode(query_params)
-                if re.search('json', headers['Content-Type'], re.IGNORECASE):
+                    url += "?" + urlencode(query_params)
+                if re.search("json", headers["Content-Type"], re.IGNORECASE):
                     request_body = None
                     if body is not None:
                         request_body = json.dumps(body)
@@ -162,9 +169,11 @@ class RESTClientObject:
                         body=request_body,
                         preload_content=_preload_content,
                         timeout=timeout,
-                        headers=headers
+                        headers=headers,
                     )
-                elif headers['Content-Type'] == 'application/x-www-form-urlencoded':  # noqa: E501
+                elif (
+                    headers["Content-Type"] == "application/x-www-form-urlencoded"
+                ):  # noqa: E501
                     r = self.pool_manager.request(
                         method,
                         url,
@@ -172,13 +181,13 @@ class RESTClientObject:
                         encode_multipart=False,
                         preload_content=_preload_content,
                         timeout=timeout,
-                        headers=headers
+                        headers=headers,
                     )
-                elif headers['Content-Type'] == 'multipart/form-data':
+                elif headers["Content-Type"] == "multipart/form-data":
                     # must del headers['Content-Type'], or the correct
                     # Content-Type which generated by urllib3 will be
                     # overwritten.
-                    del headers['Content-Type']
+                    del headers["Content-Type"]
                     r = self.pool_manager.request(
                         method,
                         url,
@@ -186,7 +195,7 @@ class RESTClientObject:
                         encode_multipart=True,
                         preload_content=_preload_content,
                         timeout=timeout,
-                        headers=headers
+                        headers=headers,
                     )
                 # Pass a `string` parameter directly in the body to support
                 # other content types than Json when `body` argument is
@@ -199,7 +208,7 @@ class RESTClientObject:
                         body=request_body,
                         preload_content=_preload_content,
                         timeout=timeout,
-                        headers=headers
+                        headers=headers,
                     )
                 else:
                     # Cannot generate the request from given parameters
@@ -209,8 +218,8 @@ class RESTClientObject:
                     raise ApiException(status=0, reason=msg)
             # For `GET`, `HEAD`
             else:
-                print('\n\nHEADERS IN REST: ', headers)
-                print('\nPARAMS IN REST: ', query_params)
+                print("\n\nHEADERS IN REST: ", headers)
+                print("\nPARAMS IN REST: ", query_params)
                 r = self.pool_manager.request(
                     method,
                     url,
@@ -228,7 +237,7 @@ class RESTClientObject:
 
             # In the python 3, the response.data is bytes.
             # we need to decode it to string.
-            r.data = r.data.decode('utf8')
+            r.data = r.data.decode("utf8")
 
             # log response body
             logger.debug("response body: %s", r.data)
@@ -238,7 +247,14 @@ class RESTClientObject:
 
         return r
 
-    def GET(self, url, headers=None, query_params=None, _preload_content=True, _request_timeout=None):
+    def GET(
+        self,
+        url,
+        headers=None,
+        query_params=None,
+        _preload_content=True,
+        _request_timeout=None,
+    ):
         return self.request(
             "GET",
             url,
@@ -248,7 +264,14 @@ class RESTClientObject:
             query_params=query_params,
         )
 
-    def HEAD(self, url, headers=None, query_params=None, _preload_content=True, _request_timeout=None):
+    def HEAD(
+        self,
+        url,
+        headers=None,
+        query_params=None,
+        _preload_content=True,
+        _request_timeout=None,
+    ):
         return self.request(
             "HEAD",
             url,
@@ -266,7 +289,7 @@ class RESTClientObject:
         post_params=None,
         body=None,
         _preload_content=True,
-        _request_timeout=None
+        _request_timeout=None,
     ):
         return self.request(
             "OPTIONS",
@@ -276,10 +299,18 @@ class RESTClientObject:
             post_params=post_params,
             _preload_content=_preload_content,
             _request_timeout=_request_timeout,
-            body=body
+            body=body,
         )
 
-    def DELETE(self, url, headers=None, query_params=None, body=None, _preload_content=True, _request_timeout=None):
+    def DELETE(
+        self,
+        url,
+        headers=None,
+        query_params=None,
+        body=None,
+        _preload_content=True,
+        _request_timeout=None,
+    ):
         return self.request(
             "DELETE",
             url,
@@ -287,7 +318,7 @@ class RESTClientObject:
             query_params=query_params,
             _preload_content=_preload_content,
             _request_timeout=_request_timeout,
-            body=body
+            body=body,
         )
 
     def POST(
@@ -298,7 +329,7 @@ class RESTClientObject:
         post_params=None,
         body=None,
         _preload_content=True,
-        _request_timeout=None
+        _request_timeout=None,
     ):
         return self.request(
             "POST",
@@ -308,7 +339,7 @@ class RESTClientObject:
             post_params=post_params,
             _preload_content=_preload_content,
             _request_timeout=_request_timeout,
-            body=body
+            body=body,
         )
 
     def PUT(
@@ -319,7 +350,7 @@ class RESTClientObject:
         post_params=None,
         body=None,
         _preload_content=True,
-        _request_timeout=None
+        _request_timeout=None,
     ):
         return self.request(
             "PUT",
@@ -329,7 +360,7 @@ class RESTClientObject:
             post_params=post_params,
             _preload_content=_preload_content,
             _request_timeout=_request_timeout,
-            body=body
+            body=body,
         )
 
     def PATCH(
@@ -340,7 +371,7 @@ class RESTClientObject:
         post_params=None,
         body=None,
         _preload_content=True,
-        _request_timeout=None
+        _request_timeout=None,
     ):
         return self.request(
             "PATCH",
@@ -350,12 +381,11 @@ class RESTClientObject:
             post_params=post_params,
             _preload_content=_preload_content,
             _request_timeout=_request_timeout,
-            body=body
+            body=body,
         )
 
 
 class ApiException(Exception):
-
     def __init__(self, status=None, reason=None, http_resp=None):
         if http_resp:
             self.status = http_resp.status

@@ -49,14 +49,20 @@ class CloudApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.cloud_credentials_creds_id_regions_get_with_http_info(creds_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.cloud_credentials_creds_id_regions_get_with_http_info(
+                creds_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.cloud_credentials_creds_id_regions_get_with_http_info(creds_id, **kwargs)  # noqa: E501
+            (data) = self.cloud_credentials_creds_id_regions_get_with_http_info(
+                creds_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def cloud_credentials_creds_id_regions_get_with_http_info(self, creds_id, **kwargs):  # noqa: E501
+    def cloud_credentials_creds_id_regions_get_with_http_info(
+        self, creds_id, **kwargs
+    ):  # noqa: E501
         """List Regions  # noqa: E501
 
         Returns the list of regions these credentials provide access to.  # noqa: E501
@@ -74,37 +80,38 @@ class CloudApi:
                  returns the request thread.
         """
 
-        all_params = ['creds_id', 'offset', 'limit']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["creds_id", "offset", "limit"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method cloud_credentials_creds_id_regions_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'creds_id' is set
-        if ('creds_id' not in params or
-                params['creds_id'] is None):
-            raise ValueError("Missing the required parameter `creds_id` when calling `cloud_credentials_creds_id_regions_get`")  # noqa: E501
+        if "creds_id" not in params or params["creds_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `creds_id` when calling `cloud_credentials_creds_id_regions_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'creds_id' in params:
-            path_params['credsId'] = params['creds_id']  # noqa: E501
+        if "creds_id" in params:
+            path_params["credsId"] = params["creds_id"]  # noqa: E501
 
         query_params = []
-        if 'offset' in params:
-            query_params.append(('offset', params['offset']))  # noqa: E501
-        if 'limit' in params:
-            query_params.append(('limit', params['limit']))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
 
         header_params = {}
 
@@ -113,29 +120,34 @@ class CloudApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/cloudCredentials/{credsId}/regions', 'GET',
+            "/cloudCredentials/{credsId}/regions",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureRegionsList',  # noqa: E501
+            response_type="CloudEndureRegionsList",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def cloud_credentials_creds_id_regions_region_id_delete(self, creds_id, region_id, **kwargs):  # noqa: E501
+    def cloud_credentials_creds_id_regions_region_id_delete(
+        self, creds_id, region_id, **kwargs
+    ):  # noqa: E501
         """Delete region (VCenter)  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -150,14 +162,22 @@ class CloudApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.cloud_credentials_creds_id_regions_region_id_delete_with_http_info(creds_id, region_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.cloud_credentials_creds_id_regions_region_id_delete_with_http_info(
+                creds_id, region_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.cloud_credentials_creds_id_regions_region_id_delete_with_http_info(creds_id, region_id, **kwargs)  # noqa: E501
+            (
+                data
+            ) = self.cloud_credentials_creds_id_regions_region_id_delete_with_http_info(
+                creds_id, region_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def cloud_credentials_creds_id_regions_region_id_delete_with_http_info(self, creds_id, region_id, **kwargs):  # noqa: E501
+    def cloud_credentials_creds_id_regions_region_id_delete_with_http_info(
+        self, creds_id, region_id, **kwargs
+    ):  # noqa: E501
         """Delete region (VCenter)  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -173,37 +193,40 @@ class CloudApi:
                  returns the request thread.
         """
 
-        all_params = ['creds_id', 'region_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["creds_id", "region_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method cloud_credentials_creds_id_regions_region_id_delete" % key
+                    " to method cloud_credentials_creds_id_regions_region_id_delete"
+                    % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'creds_id' is set
-        if ('creds_id' not in params or
-                params['creds_id'] is None):
-            raise ValueError("Missing the required parameter `creds_id` when calling `cloud_credentials_creds_id_regions_region_id_delete`")  # noqa: E501
+        if "creds_id" not in params or params["creds_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `creds_id` when calling `cloud_credentials_creds_id_regions_region_id_delete`"
+            )  # noqa: E501
         # verify the required parameter 'region_id' is set
-        if ('region_id' not in params or
-                params['region_id'] is None):
-            raise ValueError("Missing the required parameter `region_id` when calling `cloud_credentials_creds_id_regions_region_id_delete`")  # noqa: E501
+        if "region_id" not in params or params["region_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `region_id` when calling `cloud_credentials_creds_id_regions_region_id_delete`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'creds_id' in params:
-            path_params['credsId'] = params['creds_id']  # noqa: E501
-        if 'region_id' in params:
-            path_params['regionId'] = params['region_id']  # noqa: E501
+        if "creds_id" in params:
+            path_params["credsId"] = params["creds_id"]  # noqa: E501
+        if "region_id" in params:
+            path_params["regionId"] = params["region_id"]  # noqa: E501
 
         query_params = []
 
@@ -217,7 +240,8 @@ class CloudApi:
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/cloudCredentials/{credsId}/regions/{regionId}', 'DELETE',
+            "/cloudCredentials/{credsId}/regions/{regionId}",
+            "DELETE",
             path_params,
             query_params,
             header_params,
@@ -226,13 +250,16 @@ class CloudApi:
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def cloud_credentials_creds_id_regions_region_id_get(self, creds_id, region_id, **kwargs):  # noqa: E501
+    def cloud_credentials_creds_id_regions_region_id_get(
+        self, creds_id, region_id, **kwargs
+    ):  # noqa: E501
         """Get Region  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -247,14 +274,22 @@ class CloudApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.cloud_credentials_creds_id_regions_region_id_get_with_http_info(creds_id, region_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.cloud_credentials_creds_id_regions_region_id_get_with_http_info(
+                creds_id, region_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.cloud_credentials_creds_id_regions_region_id_get_with_http_info(creds_id, region_id, **kwargs)  # noqa: E501
+            (
+                data
+            ) = self.cloud_credentials_creds_id_regions_region_id_get_with_http_info(
+                creds_id, region_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def cloud_credentials_creds_id_regions_region_id_get_with_http_info(self, creds_id, region_id, **kwargs):  # noqa: E501
+    def cloud_credentials_creds_id_regions_region_id_get_with_http_info(
+        self, creds_id, region_id, **kwargs
+    ):  # noqa: E501
         """Get Region  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -270,37 +305,39 @@ class CloudApi:
                  returns the request thread.
         """
 
-        all_params = ['creds_id', 'region_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["creds_id", "region_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method cloud_credentials_creds_id_regions_region_id_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'creds_id' is set
-        if ('creds_id' not in params or
-                params['creds_id'] is None):
-            raise ValueError("Missing the required parameter `creds_id` when calling `cloud_credentials_creds_id_regions_region_id_get`")  # noqa: E501
+        if "creds_id" not in params or params["creds_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `creds_id` when calling `cloud_credentials_creds_id_regions_region_id_get`"
+            )  # noqa: E501
         # verify the required parameter 'region_id' is set
-        if ('region_id' not in params or
-                params['region_id'] is None):
-            raise ValueError("Missing the required parameter `region_id` when calling `cloud_credentials_creds_id_regions_region_id_get`")  # noqa: E501
+        if "region_id" not in params or params["region_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `region_id` when calling `cloud_credentials_creds_id_regions_region_id_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'creds_id' in params:
-            path_params['credsId'] = params['creds_id']  # noqa: E501
-        if 'region_id' in params:
-            path_params['regionId'] = params['region_id']  # noqa: E501
+        if "creds_id" in params:
+            path_params["credsId"] = params["creds_id"]  # noqa: E501
+        if "region_id" in params:
+            path_params["regionId"] = params["region_id"]  # noqa: E501
 
         query_params = []
 
@@ -311,29 +348,34 @@ class CloudApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/cloudCredentials/{credsId}/regions/{regionId}', 'GET',
+            "/cloudCredentials/{credsId}/regions/{regionId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureRegion',  # noqa: E501
+            response_type="CloudEndureRegion",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
-    def cloud_credentials_creds_id_regions_region_id_patch(self, body, creds_id, region_id, **kwargs):  # noqa: E501
+    def cloud_credentials_creds_id_regions_region_id_patch(
+        self, body, creds_id, region_id, **kwargs
+    ):  # noqa: E501
         """Patch region (rename)  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -349,14 +391,22 @@ class CloudApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.cloud_credentials_creds_id_regions_region_id_patch_with_http_info(body, creds_id, region_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.cloud_credentials_creds_id_regions_region_id_patch_with_http_info(
+                body, creds_id, region_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.cloud_credentials_creds_id_regions_region_id_patch_with_http_info(body, creds_id, region_id, **kwargs)  # noqa: E501
+            (
+                data
+            ) = self.cloud_credentials_creds_id_regions_region_id_patch_with_http_info(
+                body, creds_id, region_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def cloud_credentials_creds_id_regions_region_id_patch_with_http_info(self, body, creds_id, region_id, **kwargs):  # noqa: E501
+    def cloud_credentials_creds_id_regions_region_id_patch_with_http_info(
+        self, body, creds_id, region_id, **kwargs
+    ):  # noqa: E501
         """Patch region (rename)  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -373,41 +423,45 @@ class CloudApi:
                  returns the request thread.
         """
 
-        all_params = ['body', 'creds_id', 'region_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body", "creds_id", "region_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method cloud_credentials_creds_id_regions_region_id_patch" % key
+                    " to method cloud_credentials_creds_id_regions_region_id_patch"
+                    % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `cloud_credentials_creds_id_regions_region_id_patch`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `cloud_credentials_creds_id_regions_region_id_patch`"
+            )  # noqa: E501
         # verify the required parameter 'creds_id' is set
-        if ('creds_id' not in params or
-                params['creds_id'] is None):
-            raise ValueError("Missing the required parameter `creds_id` when calling `cloud_credentials_creds_id_regions_region_id_patch`")  # noqa: E501
+        if "creds_id" not in params or params["creds_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `creds_id` when calling `cloud_credentials_creds_id_regions_region_id_patch`"
+            )  # noqa: E501
         # verify the required parameter 'region_id' is set
-        if ('region_id' not in params or
-                params['region_id'] is None):
-            raise ValueError("Missing the required parameter `region_id` when calling `cloud_credentials_creds_id_regions_region_id_patch`")  # noqa: E501
+        if "region_id" not in params or params["region_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `region_id` when calling `cloud_credentials_creds_id_regions_region_id_patch`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'creds_id' in params:
-            path_params['credsId'] = params['creds_id']  # noqa: E501
-        if 'region_id' in params:
-            path_params['regionId'] = params['region_id']  # noqa: E501
+        if "creds_id" in params:
+            path_params["credsId"] = params["creds_id"]  # noqa: E501
+        if "region_id" in params:
+            path_params["regionId"] = params["region_id"]  # noqa: E501
 
         query_params = []
 
@@ -417,34 +471,40 @@ class CloudApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/cloudCredentials/{credsId}/regions/{regionId}', 'PATCH',
+            "/cloudCredentials/{credsId}/regions/{regionId}",
+            "PATCH",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureRegion',  # noqa: E501
+            response_type="CloudEndureRegion",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def clouds_get(self, **kwargs):  # noqa: E501
         """List Clouds  # noqa: E501
@@ -462,8 +522,8 @@ class CloudApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.clouds_get_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.clouds_get_with_http_info(**kwargs)  # noqa: E501
@@ -486,31 +546,31 @@ class CloudApi:
                  returns the request thread.
         """
 
-        all_params = ['offset', 'limit']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["offset", "limit"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method clouds_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
         path_params = {}
 
         query_params = []
-        if 'offset' in params:
-            query_params.append(('offset', params['offset']))  # noqa: E501
-        if 'limit' in params:
-            query_params.append(('limit', params['limit']))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
 
         header_params = {}
 
@@ -519,24 +579,27 @@ class CloudApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/clouds', 'GET',
+            "/clouds",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureCloudsList',  # noqa: E501
+            response_type="CloudEndureCloudsList",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )

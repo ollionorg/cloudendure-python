@@ -15,8 +15,9 @@ import re  # noqa: F401
 
 import six
 
-from cloudendure.cloudendure_api.models.cloud_endure_find_files_result import \
-    CloudEndureFindFilesResult  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_find_files_result import (  # noqa: F401,E501
+    CloudEndureFindFilesResult
+)
 
 
 class CloudEndureFindFilesResults:
@@ -24,6 +25,7 @@ class CloudEndureFindFilesResults:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -32,20 +34,22 @@ class CloudEndureFindFilesResults:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'count': 'int',
-        'query': 'str',
-        'items': 'list[CloudEndureFindFilesResult]',
-        'invalid_machine_i_ds': 'list[str]'
+        "count": "int",
+        "query": "str",
+        "items": "list[CloudEndureFindFilesResult]",
+        "invalid_machine_i_ds": "list[str]",
     }
 
     attribute_map = {
-        'count': 'count',
-        'query': 'query',
-        'items': 'items',
-        'invalid_machine_i_ds': 'invalidMachineIDs'
+        "count": "count",
+        "query": "query",
+        "items": "items",
+        "invalid_machine_i_ds": "invalidMachineIDs",
     }
 
-    def __init__(self, count=None, query=None, items=None, invalid_machine_i_ds=None):  # noqa: E501
+    def __init__(
+        self, count=None, query=None, items=None, invalid_machine_i_ds=None
+    ):  # noqa: E501
         """CloudEndureFindFilesResults - a model defined in Swagger"""  # noqa: E501
         self._count = None
         self._query = None
@@ -78,7 +82,9 @@ class CloudEndureFindFilesResults:
         :type: int
         """
         if count is None:
-            raise ValueError("Invalid value for `count`, must not be `None`")  # noqa: E501
+            raise ValueError(
+                "Invalid value for `count`, must not be `None`"
+            )  # noqa: E501
 
         self._count = count
 
@@ -101,7 +107,9 @@ class CloudEndureFindFilesResults:
         :type: str
         """
         if query is None:
-            raise ValueError("Invalid value for `query`, must not be `None`")  # noqa: E501
+            raise ValueError(
+                "Invalid value for `query`, must not be `None`"
+            )  # noqa: E501
 
         self._query = query
 
@@ -154,18 +162,20 @@ class CloudEndureFindFilesResults:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureFindFilesResults, dict):

@@ -15,8 +15,9 @@ import re  # noqa: F401
 
 import six
 
-from cloudendure.cloudendure_api.models.cloud_endure_license_features import \
-    CloudEndureLicenseFeatures  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_license_features import (  # noqa: F401,E501
+    CloudEndureLicenseFeatures
+)
 
 
 class CloudEndureLicense:
@@ -24,6 +25,7 @@ class CloudEndureLicense:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -32,28 +34,38 @@ class CloudEndureLicense:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'count': 'int',
-        'duration_from_start_of_use': 'str',
-        'used': 'int',
-        'features': 'CloudEndureLicenseFeatures',
-        'expiration_date_time': 'datetime',
-        'ce_admin_properties': 'object',
-        'type': 'str',
-        'id': 'str'
+        "count": "int",
+        "duration_from_start_of_use": "str",
+        "used": "int",
+        "features": "CloudEndureLicenseFeatures",
+        "expiration_date_time": "datetime",
+        "ce_admin_properties": "object",
+        "type": "str",
+        "id": "str",
     }
 
     attribute_map = {
-        'count': 'count',
-        'duration_from_start_of_use': 'durationFromStartOfUse',
-        'used': 'used',
-        'features': 'features',
-        'expiration_date_time': 'expirationDateTime',
-        'ce_admin_properties': 'ceAdminProperties',
-        'type': 'type',
-        'id': 'id'
+        "count": "count",
+        "duration_from_start_of_use": "durationFromStartOfUse",
+        "used": "used",
+        "features": "features",
+        "expiration_date_time": "expirationDateTime",
+        "ce_admin_properties": "ceAdminProperties",
+        "type": "type",
+        "id": "id",
     }
 
-    def __init__(self, count=None, duration_from_start_of_use=None, used=None, features=None, expiration_date_time=None, ce_admin_properties=None, type=None, id=None):  # noqa: E501
+    def __init__(
+        self,
+        count=None,
+        duration_from_start_of_use=None,
+        used=None,
+        features=None,
+        expiration_date_time=None,
+        ce_admin_properties=None,
+        type=None,
+        id=None,
+    ):  # noqa: E501
         """CloudEndureLicense - a model defined in Swagger"""  # noqa: E501
         self._count = None
         self._duration_from_start_of_use = None
@@ -238,8 +250,9 @@ class CloudEndureLicense:
         allowed_values = ["MIGRATION", "DR", "BACKUP", "DR_TRIAL"]  # noqa: E501
         if type not in allowed_values:
             raise ValueError(
-                "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
-                .format(type, allowed_values)
+                "Invalid value for `type` ({0}), must be one of {1}".format(  # noqa: E501
+                    type, allowed_values
+                )
             )
 
         self._type = type
@@ -272,18 +285,20 @@ class CloudEndureLicense:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureLicense, dict):

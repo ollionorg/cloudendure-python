@@ -17,27 +17,37 @@ from typing import Dict, List
 from setuptools import Command, find_packages, setup
 
 # Package meta-data.
-NAME: str = 'cloudendure'
-DESCRIPTION: str = 'CloudEndure Python Client and CLI'
-URL: str = 'https://github.com/mbeacom/cloudendure-py'
-EMAIL: str = 'markvbeacom@gmail.com'
-AUTHOR: str = 'Mark Beacom'
-REQUIRES_PYTHON: str = '>=3.6.0'
-VERSION: str = '0.0.2'
+NAME: str = "cloudendure"
+DESCRIPTION: str = "CloudEndure Python Client and CLI"
+URL: str = "https://github.com/mbeacom/cloudendure-py"
+EMAIL: str = "markvbeacom@gmail.com"
+AUTHOR: str = "Mark Beacom"
+REQUIRES_PYTHON: str = ">=3.6.0"
+VERSION: str = "0.0.2"
 
-REQUIRED: List[str] = ['requests', 'boto3', ]
+REQUIRED: List[str] = ["requests", "boto3"]
 EXTRAS: Dict[str, List[str]] = {
-    'test': [
-        'coverage', 'isort', 'pytest', 'pytest-cov', 'pytest-isort', 'pytest-sugar', 'black', 'pydocstyle',
-        'pycodestyle', 'bandit', 'mypy', 'twine',
-    ],
+    "test": [
+        "coverage",
+        "isort",
+        "pytest",
+        "pytest-cov",
+        "pytest-isort",
+        "pytest-sugar",
+        "black",
+        "pydocstyle",
+        "pycodestyle",
+        "bandit",
+        "mypy",
+        "twine",
+    ]
 }
 
 here = os.path.abspath(os.path.dirname(__file__))
 
 try:
-    with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
-        long_description: str = '\n' + f.read()
+    with io.open(os.path.join(here, "README.md"), encoding="utf-8") as f:
+        long_description: str = "\n" + f.read()
 except FileNotFoundError:
     long_description = DESCRIPTION
 
@@ -45,23 +55,23 @@ except FileNotFoundError:
 
 about: Dict[str, str] = {}
 if not VERSION:
-    project_slug: str = NAME.lower().replace('-', '_').replace(' ', '_')
-    with open(os.path.join(here, project_slug, '__version__.py')) as f:
+    project_slug: str = NAME.lower().replace("-", "_").replace(" ", "_")
+    with open(os.path.join(here, project_slug, "__version__.py")) as f:
         exec(f.read(), about)
 else:
-    about['__version__'] = VERSION
+    about["__version__"] = VERSION
 
 
 class UploadCommand(Command):
     """Support setup.py upload."""
 
-    description: str = 'Build and publish the package.'
+    description: str = "Build and publish the package."
     user_options: List[str] = []
 
     @staticmethod
     def status(s):
         """Print things in bold."""
-        print('\033[1m{0}\033[0m'.format(s))
+        print("\033[1m{0}\033[0m".format(s))
 
     def initialize_options(self):
         pass
@@ -71,22 +81,22 @@ class UploadCommand(Command):
 
     def run(self):
         try:
-            self.status('Removing previous builds…')
-            rmtree(os.path.join(here, 'dist'))
+            self.status("Removing previous builds…")
+            rmtree(os.path.join(here, "dist"))
         except OSError:
             pass
 
-        self.status('Building Source and Wheel distribution…')
+        self.status("Building Source and Wheel distribution…")
         sys_exec: str = sys.executable
-        os.system(f'{sys_exec} setup.py sdist bdist_wheel')
+        os.system(f"{sys_exec} setup.py sdist bdist_wheel")
 
-        self.status('Uploading the package to PyPI via Twine…')
-        os.system('twine upload dist/*')
+        self.status("Uploading the package to PyPI via Twine…")
+        os.system("twine upload dist/*")
 
-        self.status('Pushing git tags…')
-        vers: str = about['__version__']
-        os.system(f'git tag v{vers}')
-        os.system('git push --tags')
+        self.status("Pushing git tags…")
+        vers: str = about["__version__"]
+        os.system(f"git tag v{vers}")
+        os.system("git push --tags")
 
         sys.exit()
 
@@ -94,56 +104,54 @@ class UploadCommand(Command):
 # Where the magic happens:
 setup(
     name=NAME,
-    version=about['__version__'],
+    version=about["__version__"],
     description=DESCRIPTION,
     long_description=long_description,
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
     author=AUTHOR,
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     entry_points={
-        'console_scripts': [
-            'cloudendure=cloudendure.cloudendure:main',
-            'ce=cloudendure.cloudendure:main',
-        ],
+        "console_scripts": [
+            "cloudendure=cloudendure.cloudendure:main",
+            "ce=cloudendure.cloudendure:main",
+        ]
     },
     install_requires=REQUIRED,
     extras_require=EXTRAS,
     include_package_data=True,
-    license='MIT',
+    license="MIT",
     classifiers=[
-        'License :: OSI Approved :: MIT License',
-        'Natural Language :: English',
-        'Operating System :: MacOS',
-        'Operating System :: MacOS :: MacOS 9',
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: Microsoft',
-        'Operating System :: Microsoft :: MS-DOS',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: Microsoft :: Windows :: Windows 10',
-        'Operating System :: Microsoft :: Windows :: Windows 8.1',
-        'Operating System :: Microsoft :: Windows :: Windows 8',
-        'Operating System :: Microsoft :: Windows :: Windows 7',
-        'Operating System :: POSIX :: Linux',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Topic :: Internet',
-        'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Internet :: WWW/HTTP :: Session',
-        'Topic :: Software Development :: Libraries',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Topic :: Software Development :: User Interfaces',
-        'Topic :: Utilities',
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: MacOS",
+        "Operating System :: MacOS :: MacOS 9",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: Microsoft",
+        "Operating System :: Microsoft :: MS-DOS",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: Microsoft :: Windows :: Windows 10",
+        "Operating System :: Microsoft :: Windows :: Windows 8.1",
+        "Operating System :: Microsoft :: Windows :: Windows 8",
+        "Operating System :: Microsoft :: Windows :: Windows 7",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Topic :: Internet",
+        "Topic :: Internet :: WWW/HTTP",
+        "Topic :: Internet :: WWW/HTTP :: Session",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Software Development :: User Interfaces",
+        "Topic :: Utilities",
     ],
     # $ setup.py publish support.
-    cmdclass={
-        'upload': UploadCommand,
-    },
+    cmdclass={"upload": UploadCommand},
 )

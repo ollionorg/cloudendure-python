@@ -21,6 +21,7 @@ class CloudEndureBlueprint:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,78 +30,113 @@ class CloudEndureBlueprint:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'iam_role': 'str',
-        'scsi_adapter_type': 'str',
-        'public_ip_action': 'str',
-        'machine_name': 'str',
-        'cpus': 'int',
-        'security_group_i_ds': 'list[str]',
-        'run_after_launch': 'bool',
-        'recommended_private_ip': 'str',
-        'network_interface': 'str',
-        'id': 'str',
-        'mb_ram': 'int',
-        'instance_type': 'str',
-        'subnet_i_ds': 'list[str]',
-        'cores_per_cpu': 'int',
-        'recommended_instance_type': 'str',
-        'static_ip': 'str',
-        'tags': 'list[object]',
-        'security_group_action': 'str',
-        'private_i_ps': 'list[str]',
-        'tenancy': 'str',
-        'compute_location_id': 'str',
-        'subnets_host_project': 'str',
-        'logical_location_id': 'str',
-        'network_adapter_type': 'str',
-        'byol_on_dedicated_instance': 'bool',
-        'placement_group': 'str',
-        'machine_id': 'str',
-        'region': 'str',
-        'disks': 'list[object]',
-        'private_ip_action': 'str',
-        'static_ip_action': 'str',
-        'dedicated_host_identifier': 'str',
-        'use_shared_ram': 'bool'
+        "iam_role": "str",
+        "scsi_adapter_type": "str",
+        "public_ip_action": "str",
+        "machine_name": "str",
+        "cpus": "int",
+        "security_group_i_ds": "list[str]",
+        "run_after_launch": "bool",
+        "recommended_private_ip": "str",
+        "network_interface": "str",
+        "id": "str",
+        "mb_ram": "int",
+        "instance_type": "str",
+        "subnet_i_ds": "list[str]",
+        "cores_per_cpu": "int",
+        "recommended_instance_type": "str",
+        "static_ip": "str",
+        "tags": "list[object]",
+        "security_group_action": "str",
+        "private_i_ps": "list[str]",
+        "tenancy": "str",
+        "compute_location_id": "str",
+        "subnets_host_project": "str",
+        "logical_location_id": "str",
+        "network_adapter_type": "str",
+        "byol_on_dedicated_instance": "bool",
+        "placement_group": "str",
+        "machine_id": "str",
+        "region": "str",
+        "disks": "list[object]",
+        "private_ip_action": "str",
+        "static_ip_action": "str",
+        "dedicated_host_identifier": "str",
+        "use_shared_ram": "bool",
     }
 
     attribute_map = {
-        'iam_role': 'iamRole',
-        'scsi_adapter_type': 'scsiAdapterType',
-        'public_ip_action': 'publicIPAction',
-        'machine_name': 'machineName',
-        'cpus': 'cpus',
-        'security_group_i_ds': 'securityGroupIDs',
-        'run_after_launch': 'runAfterLaunch',
-        'recommended_private_ip': 'recommendedPrivateIP',
-        'network_interface': 'networkInterface',
-        'id': 'id',
-        'mb_ram': 'mbRam',
-        'instance_type': 'instanceType',
-        'subnet_i_ds': 'subnetIDs',
-        'cores_per_cpu': 'coresPerCpu',
-        'recommended_instance_type': 'recommendedInstanceType',
-        'static_ip': 'staticIp',
-        'tags': 'tags',
-        'security_group_action': 'securityGroupAction',
-        'private_i_ps': 'privateIPs',
-        'tenancy': 'tenancy',
-        'compute_location_id': 'computeLocationId',
-        'subnets_host_project': 'subnetsHostProject',
-        'logical_location_id': 'logicalLocationId',
-        'network_adapter_type': 'networkAdapterType',
-        'byol_on_dedicated_instance': 'byolOnDedicatedInstance',
-        'placement_group': 'placementGroup',
-        'machine_id': 'machineId',
-        'region': 'region',
-        'disks': 'disks',
-        'private_ip_action': 'privateIPAction',
-        'static_ip_action': 'staticIpAction',
-        'dedicated_host_identifier': 'dedicatedHostIdentifier',
-        'use_shared_ram': 'useSharedRam'
+        "iam_role": "iamRole",
+        "scsi_adapter_type": "scsiAdapterType",
+        "public_ip_action": "publicIPAction",
+        "machine_name": "machineName",
+        "cpus": "cpus",
+        "security_group_i_ds": "securityGroupIDs",
+        "run_after_launch": "runAfterLaunch",
+        "recommended_private_ip": "recommendedPrivateIP",
+        "network_interface": "networkInterface",
+        "id": "id",
+        "mb_ram": "mbRam",
+        "instance_type": "instanceType",
+        "subnet_i_ds": "subnetIDs",
+        "cores_per_cpu": "coresPerCpu",
+        "recommended_instance_type": "recommendedInstanceType",
+        "static_ip": "staticIp",
+        "tags": "tags",
+        "security_group_action": "securityGroupAction",
+        "private_i_ps": "privateIPs",
+        "tenancy": "tenancy",
+        "compute_location_id": "computeLocationId",
+        "subnets_host_project": "subnetsHostProject",
+        "logical_location_id": "logicalLocationId",
+        "network_adapter_type": "networkAdapterType",
+        "byol_on_dedicated_instance": "byolOnDedicatedInstance",
+        "placement_group": "placementGroup",
+        "machine_id": "machineId",
+        "region": "region",
+        "disks": "disks",
+        "private_ip_action": "privateIPAction",
+        "static_ip_action": "staticIpAction",
+        "dedicated_host_identifier": "dedicatedHostIdentifier",
+        "use_shared_ram": "useSharedRam",
     }
 
-    def __init__(self, iam_role=None, scsi_adapter_type=None, public_ip_action=None, machine_name=None, cpus=None, security_group_i_ds=None, run_after_launch=None, recommended_private_ip=None, network_interface=None, id=None, mb_ram=None, instance_type=None, subnet_i_ds=None, cores_per_cpu=None, recommended_instance_type=None, static_ip=None, tags=None, security_group_action=None, private_i_ps=None, tenancy=None, compute_location_id=None, subnets_host_project=None, logical_location_id=None, network_adapter_type=None, byol_on_dedicated_instance=None, placement_group=None, machine_id=None, region=None, disks=None, private_ip_action=None, static_ip_action=None, dedicated_host_identifier=None, use_shared_ram=None):  # noqa: E501
+    def __init__(
+        self,
+        iam_role=None,
+        scsi_adapter_type=None,
+        public_ip_action=None,
+        machine_name=None,
+        cpus=None,
+        security_group_i_ds=None,
+        run_after_launch=None,
+        recommended_private_ip=None,
+        network_interface=None,
+        id=None,
+        mb_ram=None,
+        instance_type=None,
+        subnet_i_ds=None,
+        cores_per_cpu=None,
+        recommended_instance_type=None,
+        static_ip=None,
+        tags=None,
+        security_group_action=None,
+        private_i_ps=None,
+        tenancy=None,
+        compute_location_id=None,
+        subnets_host_project=None,
+        logical_location_id=None,
+        network_adapter_type=None,
+        byol_on_dedicated_instance=None,
+        placement_group=None,
+        machine_id=None,
+        region=None,
+        disks=None,
+        private_ip_action=None,
+        static_ip_action=None,
+        dedicated_host_identifier=None,
+        use_shared_ram=None,
+    ):  # noqa: E501
         """CloudEndureBlueprint - a model defined in Swagger"""  # noqa: E501
         self._iam_role = None
         self._scsi_adapter_type = None
@@ -272,8 +308,9 @@ class CloudEndureBlueprint:
         allowed_values = ["ALLOCATE", "DONT_ALLOCATE", "AS_SUBNET"]  # noqa: E501
         if public_ip_action not in allowed_values:
             raise ValueError(
-                "Invalid value for `public_ip_action` ({0}), must be one of {1}"  # noqa: E501
-                .format(public_ip_action, allowed_values)
+                "Invalid value for `public_ip_action` ({0}), must be one of {1}".format(  # noqa: E501
+                    public_ip_action, allowed_values
+                )
             )
 
         self._public_ip_action = public_ip_action
@@ -617,8 +654,9 @@ class CloudEndureBlueprint:
         allowed_values = ["FROM_POLICY"]  # noqa: E501
         if security_group_action not in allowed_values:
             raise ValueError(
-                "Invalid value for `security_group_action` ({0}), must be one of {1}"  # noqa: E501
-                .format(security_group_action, allowed_values)
+                "Invalid value for `security_group_action` ({0}), must be one of {1}".format(  # noqa: E501
+                    security_group_action, allowed_values
+                )
             )
 
         self._security_group_action = security_group_action
@@ -665,8 +703,9 @@ class CloudEndureBlueprint:
         allowed_values = ["SHARED", "DEDICATED", "HOST"]  # noqa: E501
         if tenancy not in allowed_values:
             raise ValueError(
-                "Invalid value for `tenancy` ({0}), must be one of {1}"  # noqa: E501
-                .format(tenancy, allowed_values)
+                "Invalid value for `tenancy` ({0}), must be one of {1}".format(  # noqa: E501
+                    tenancy, allowed_values
+                )
             )
 
         self._tenancy = tenancy
@@ -892,11 +931,17 @@ class CloudEndureBlueprint:
         :param private_ip_action: The private_ip_action of this CloudEndureBlueprint.  # noqa: E501
         :type: str
         """
-        allowed_values = ["CREATE_NEW", "COPY_ORIGIN", "CUSTOM_IP", "USE_NETWORK_INTERFACE"]  # noqa: E501
+        allowed_values = [
+            "CREATE_NEW",
+            "COPY_ORIGIN",
+            "CUSTOM_IP",
+            "USE_NETWORK_INTERFACE",
+        ]  # noqa: E501
         if private_ip_action not in allowed_values:
             raise ValueError(
-                "Invalid value for `private_ip_action` ({0}), must be one of {1}"  # noqa: E501
-                .format(private_ip_action, allowed_values)
+                "Invalid value for `private_ip_action` ({0}), must be one of {1}".format(  # noqa: E501
+                    private_ip_action, allowed_values
+                )
             )
 
         self._private_ip_action = private_ip_action
@@ -919,11 +964,17 @@ class CloudEndureBlueprint:
         :param static_ip_action: The static_ip_action of this CloudEndureBlueprint.  # noqa: E501
         :type: str
         """
-        allowed_values = ["EXISTING", "DONT_CREATE", "CREATE_NEW", "IF_IN_ORIGIN"]  # noqa: E501
+        allowed_values = [
+            "EXISTING",
+            "DONT_CREATE",
+            "CREATE_NEW",
+            "IF_IN_ORIGIN",
+        ]  # noqa: E501
         if static_ip_action not in allowed_values:
             raise ValueError(
-                "Invalid value for `static_ip_action` ({0}), must be one of {1}"  # noqa: E501
-                .format(static_ip_action, allowed_values)
+                "Invalid value for `static_ip_action` ({0}), must be one of {1}".format(  # noqa: E501
+                    static_ip_action, allowed_values
+                )
             )
 
         self._static_ip_action = static_ip_action
@@ -979,18 +1030,20 @@ class CloudEndureBlueprint:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureBlueprint, dict):

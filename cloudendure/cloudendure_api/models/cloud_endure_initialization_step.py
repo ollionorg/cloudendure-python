@@ -21,6 +21,7 @@ class CloudEndureInitializationStep:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -28,17 +29,9 @@ class CloudEndureInitializationStep:
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {
-        'status': 'str',
-        'message': 'str',
-        'name': 'str'
-    }
+    swagger_types = {"status": "str", "message": "str", "name": "str"}
 
-    attribute_map = {
-        'status': 'status',
-        'message': 'message',
-        'name': 'name'
-    }
+    attribute_map = {"status": "status", "message": "message", "name": "name"}
 
     def __init__(self, status=None, message=None, name=None):  # noqa: E501
         """CloudEndureInitializationStep - a model defined in Swagger"""  # noqa: E501
@@ -71,11 +64,18 @@ class CloudEndureInitializationStep:
         :param status: The status of this CloudEndureInitializationStep.  # noqa: E501
         :type: str
         """
-        allowed_values = ["NOT_STARTED", "STARTED", "SUCCEEDED", "FAILED", "SKIPPED"]  # noqa: E501
+        allowed_values = [
+            "NOT_STARTED",
+            "STARTED",
+            "SUCCEEDED",
+            "FAILED",
+            "SKIPPED",
+        ]  # noqa: E501
         if status not in allowed_values:
             raise ValueError(
-                "Invalid value for `status` ({0}), must be one of {1}"  # noqa: E501
-                .format(status, allowed_values)
+                "Invalid value for `status` ({0}), must be one of {1}".format(  # noqa: E501
+                    status, allowed_values
+                )
             )
 
         self._status = status
@@ -119,11 +119,24 @@ class CloudEndureInitializationStep:
         :param name: The name of this CloudEndureInitializationStep.  # noqa: E501
         :type: str
         """
-        allowed_values = ["WAITING_TO_INITIATE_REPLICATION", "CREATING_FIREWALL_RULES", "CREATING_REPLICATION_SERVER", "BOOTING_REPLICATION_SERVER", "RESOLVING_MANAGEMENT_SERVER_ADDRESS", "AUTHENTICATING_WITH_MANAGEMENT_SERVER", "DOWNLOADING_REPLICATION_SOFTWARE", "CREATING_REPLICATION_DISKS", "ATTACHING_REPLICATION_DISKS", "PAIRING_REPLICATION_SERVER_WITH_AGENT", "ESTABLISHING_AGENT_REPLICATOR_COMMUNICATION"]  # noqa: E501
+        allowed_values = [
+            "WAITING_TO_INITIATE_REPLICATION",
+            "CREATING_FIREWALL_RULES",
+            "CREATING_REPLICATION_SERVER",
+            "BOOTING_REPLICATION_SERVER",
+            "RESOLVING_MANAGEMENT_SERVER_ADDRESS",
+            "AUTHENTICATING_WITH_MANAGEMENT_SERVER",
+            "DOWNLOADING_REPLICATION_SOFTWARE",
+            "CREATING_REPLICATION_DISKS",
+            "ATTACHING_REPLICATION_DISKS",
+            "PAIRING_REPLICATION_SERVER_WITH_AGENT",
+            "ESTABLISHING_AGENT_REPLICATOR_COMMUNICATION",
+        ]  # noqa: E501
         if name not in allowed_values:
             raise ValueError(
-                "Invalid value for `name` ({0}), must be one of {1}"  # noqa: E501
-                .format(name, allowed_values)
+                "Invalid value for `name` ({0}), must be one of {1}".format(  # noqa: E501
+                    name, allowed_values
+                )
             )
 
         self._name = name
@@ -135,18 +148,20 @@ class CloudEndureInitializationStep:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureInitializationStep, dict):

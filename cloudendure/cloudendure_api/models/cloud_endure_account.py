@@ -15,7 +15,9 @@ import re  # noqa: F401
 
 import six
 
-from cloudendure.cloudendure_api.models.cloud_endure_saml_settings import CloudEndureSamlSettings  # noqa: F401,E501
+from cloudendure.cloudendure_api.models.cloud_endure_saml_settings import (
+    CloudEndureSamlSettings
+)  # noqa: F401,E501
 
 
 class CloudEndureAccount:
@@ -23,6 +25,7 @@ class CloudEndureAccount:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -31,42 +34,59 @@ class CloudEndureAccount:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'invite_token_expiry_minutes': 'int',
-        'allow_archiving_default_value': 'bool',
-        'per_account_user_pool': 'bool',
-        'is_gcp_self_service': 'bool',
-        'is_dr_trial': 'bool',
-        'is_arm_self_service': 'bool',
-        'is_aws_self_service': 'bool',
-        'saml_settings': 'CloudEndureSamlSettings',
-        'is_right_sizing_enabled': 'bool',
-        'default_license_type': 'str',
-        'max_projects_allowed': 'int',
-        'ce_admin_properties': 'object',
-        'owner_id': 'str',
-        'is_med_one': 'bool',
-        'id': 'str'
+        "invite_token_expiry_minutes": "int",
+        "allow_archiving_default_value": "bool",
+        "per_account_user_pool": "bool",
+        "is_gcp_self_service": "bool",
+        "is_dr_trial": "bool",
+        "is_arm_self_service": "bool",
+        "is_aws_self_service": "bool",
+        "saml_settings": "CloudEndureSamlSettings",
+        "is_right_sizing_enabled": "bool",
+        "default_license_type": "str",
+        "max_projects_allowed": "int",
+        "ce_admin_properties": "object",
+        "owner_id": "str",
+        "is_med_one": "bool",
+        "id": "str",
     }
 
     attribute_map = {
-        'invite_token_expiry_minutes': 'inviteTokenExpiryMinutes',
-        'allow_archiving_default_value': 'allowArchivingDefaultValue',
-        'per_account_user_pool': 'perAccountUserPool',
-        'is_gcp_self_service': 'isGcpSelfService',
-        'is_dr_trial': 'isDrTrial',
-        'is_arm_self_service': 'isArmSelfService',
-        'is_aws_self_service': 'isAwsSelfService',
-        'saml_settings': 'samlSettings',
-        'is_right_sizing_enabled': 'isRightSizingEnabled',
-        'default_license_type': 'defaultLicenseType',
-        'max_projects_allowed': 'maxProjectsAllowed',
-        'ce_admin_properties': 'ceAdminProperties',
-        'owner_id': 'ownerId',
-        'is_med_one': 'isMedOne',
-        'id': 'id'
+        "invite_token_expiry_minutes": "inviteTokenExpiryMinutes",
+        "allow_archiving_default_value": "allowArchivingDefaultValue",
+        "per_account_user_pool": "perAccountUserPool",
+        "is_gcp_self_service": "isGcpSelfService",
+        "is_dr_trial": "isDrTrial",
+        "is_arm_self_service": "isArmSelfService",
+        "is_aws_self_service": "isAwsSelfService",
+        "saml_settings": "samlSettings",
+        "is_right_sizing_enabled": "isRightSizingEnabled",
+        "default_license_type": "defaultLicenseType",
+        "max_projects_allowed": "maxProjectsAllowed",
+        "ce_admin_properties": "ceAdminProperties",
+        "owner_id": "ownerId",
+        "is_med_one": "isMedOne",
+        "id": "id",
     }
 
-    def __init__(self, invite_token_expiry_minutes=None, allow_archiving_default_value=None, per_account_user_pool=None, is_gcp_self_service=None, is_dr_trial=None, is_arm_self_service=None, is_aws_self_service=None, saml_settings=None, is_right_sizing_enabled=None, default_license_type=None, max_projects_allowed=None, ce_admin_properties=None, owner_id=None, is_med_one=None, id=None):  # noqa: E501
+    def __init__(
+        self,
+        invite_token_expiry_minutes=None,
+        allow_archiving_default_value=None,
+        per_account_user_pool=None,
+        is_gcp_self_service=None,
+        is_dr_trial=None,
+        is_arm_self_service=None,
+        is_aws_self_service=None,
+        saml_settings=None,
+        is_right_sizing_enabled=None,
+        default_license_type=None,
+        max_projects_allowed=None,
+        ce_admin_properties=None,
+        owner_id=None,
+        is_med_one=None,
+        id=None,
+    ):  # noqa: E501
         """CloudEndureAccount - a model defined in Swagger"""  # noqa: E501
         self._invite_token_expiry_minutes = None
         self._allow_archiving_default_value = None
@@ -325,8 +345,9 @@ class CloudEndureAccount:
         allowed_values = ["MIGRATION", "DR", "DR_TRIAL", "BACKUP"]  # noqa: E501
         if default_license_type not in allowed_values:
             raise ValueError(
-                "Invalid value for `default_license_type` ({0}), must be one of {1}"  # noqa: E501
-                .format(default_license_type, allowed_values)
+                "Invalid value for `default_license_type` ({0}), must be one of {1}".format(  # noqa: E501
+                    default_license_type, allowed_values
+                )
             )
 
         self._default_license_type = default_license_type
@@ -449,18 +470,20 @@ class CloudEndureAccount:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureAccount, dict):

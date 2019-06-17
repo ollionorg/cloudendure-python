@@ -21,6 +21,7 @@ class CloudEndureCloudCredentialsRequest:
 
     Do not edit the class manually.
     """
+
     """
     Attributes:
       swagger_types (dict): The key is attribute name
@@ -29,24 +30,32 @@ class CloudEndureCloudCredentialsRequest:
                             and the value is json key in definition.
     """
     swagger_types = {
-        'public_key': 'str',
-        'name': 'str',
-        'cloud_id': 'str',
-        'private_key': 'str',
-        'account_identifier': 'str',
-        'id': 'str'
+        "public_key": "str",
+        "name": "str",
+        "cloud_id": "str",
+        "private_key": "str",
+        "account_identifier": "str",
+        "id": "str",
     }
 
     attribute_map = {
-        'public_key': 'publicKey',
-        'name': 'name',
-        'cloud_id': 'cloudId',
-        'private_key': 'privateKey',
-        'account_identifier': 'accountIdentifier',
-        'id': 'id'
+        "public_key": "publicKey",
+        "name": "name",
+        "cloud_id": "cloudId",
+        "private_key": "privateKey",
+        "account_identifier": "accountIdentifier",
+        "id": "id",
     }
 
-    def __init__(self, public_key=None, name=None, cloud_id=None, private_key=None, account_identifier=None, id=None):  # noqa: E501
+    def __init__(
+        self,
+        public_key=None,
+        name=None,
+        cloud_id=None,
+        private_key=None,
+        account_identifier=None,
+        id=None,
+    ):  # noqa: E501
         """CloudEndureCloudCredentialsRequest - a model defined in Swagger"""  # noqa: E501
         self._public_key = None
         self._name = None
@@ -132,7 +141,9 @@ class CloudEndureCloudCredentialsRequest:
         :type: str
         """
         if cloud_id is None:
-            raise ValueError("Invalid value for `cloud_id`, must not be `None`")  # noqa: E501
+            raise ValueError(
+                "Invalid value for `cloud_id`, must not be `None`"
+            )  # noqa: E501
 
         self._cloud_id = cloud_id
 
@@ -210,18 +221,20 @@ class CloudEndureCloudCredentialsRequest:
         for attr, _ in six.iteritems(self.swagger_types):
             value = getattr(self, attr)
             if isinstance(value, list):
-                result[attr] = list(map(
-                    lambda x: x.to_dict() if hasattr(x, "to_dict") else x,
-                    value
-                ))
+                result[attr] = list(
+                    map(lambda x: x.to_dict() if hasattr(x, "to_dict") else x, value)
+                )
             elif hasattr(value, "to_dict"):
                 result[attr] = value.to_dict()
             elif isinstance(value, dict):
-                result[attr] = dict(map(
-                    lambda item: (item[0], item[1].to_dict())
-                    if hasattr(item[1], "to_dict") else item,
-                    value.items()
-                ))
+                result[attr] = dict(
+                    map(
+                        lambda item: (item[0], item[1].to_dict())
+                        if hasattr(item[1], "to_dict")
+                        else item,
+                        value.items(),
+                    )
+                )
             else:
                 result[attr] = value
         if issubclass(CloudEndureCloudCredentialsRequest, dict):

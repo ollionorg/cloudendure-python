@@ -32,7 +32,9 @@ class DefaultApi:
             api_client = ApiClient()
         self.api_client = api_client
 
-    def accounts_account_id_access_get(self, account_id, username, **kwargs):  # noqa: E501
+    def accounts_account_id_access_get(
+        self, account_id, username, **kwargs
+    ):  # noqa: E501
         """get a temporary token by email  # noqa: E501
 
         get a temporary token by email. Available for account owner when SSO is used  # noqa: E501
@@ -48,14 +50,20 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.accounts_account_id_access_get_with_http_info(account_id, username, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.accounts_account_id_access_get_with_http_info(
+                account_id, username, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.accounts_account_id_access_get_with_http_info(account_id, username, **kwargs)  # noqa: E501
+            (data) = self.accounts_account_id_access_get_with_http_info(
+                account_id, username, **kwargs
+            )  # noqa: E501
             return data
 
-    def accounts_account_id_access_get_with_http_info(self, account_id, username, **kwargs):  # noqa: E501
+    def accounts_account_id_access_get_with_http_info(
+        self, account_id, username, **kwargs
+    ):  # noqa: E501
         """get a temporary token by email  # noqa: E501
 
         get a temporary token by email. Available for account owner when SSO is used  # noqa: E501
@@ -72,39 +80,41 @@ class DefaultApi:
                  returns the request thread.
         """
 
-        all_params = ['account_id', 'username']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["account_id", "username"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method accounts_account_id_access_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'account_id' is set
-        if ('account_id' not in params or
-                params['account_id'] is None):
-            raise ValueError("Missing the required parameter `account_id` when calling `accounts_account_id_access_get`")  # noqa: E501
+        if "account_id" not in params or params["account_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `account_id` when calling `accounts_account_id_access_get`"
+            )  # noqa: E501
         # verify the required parameter 'username' is set
-        if ('username' not in params or
-                params['username'] is None):
-            raise ValueError("Missing the required parameter `username` when calling `accounts_account_id_access_get`")  # noqa: E501
+        if "username" not in params or params["username"] is None:
+            raise ValueError(
+                "Missing the required parameter `username` when calling `accounts_account_id_access_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'account_id' in params:
-            path_params['accountId'] = params['account_id']  # noqa: E501
+        if "account_id" in params:
+            path_params["accountId"] = params["account_id"]  # noqa: E501
 
         query_params = []
-        if 'username' in params:
-            query_params.append(('username', params['username']))  # noqa: E501
+        if "username" in params:
+            query_params.append(("username", params["username"]))  # noqa: E501
 
         header_params = {}
 
@@ -113,27 +123,30 @@ class DefaultApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/accounts/{accountId}/access', 'GET',
+            "/accounts/{accountId}/access",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='object',  # noqa: E501
+            response_type="object",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def extended_account_info_get(self, **kwargs):  # noqa: E501
         """Returns the extended current account information.  # noqa: E501
@@ -148,11 +161,13 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.extended_account_info_get_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.extended_account_info_get_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.extended_account_info_get_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def extended_account_info_get_with_http_info(self, **kwargs):  # noqa: E501
@@ -170,20 +185,20 @@ class DefaultApi:
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method extended_account_info_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -198,27 +213,30 @@ class DefaultApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/extendedAccountInfo', 'GET',
+            "/extendedAccountInfo",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureExtendedAccountInfo',  # noqa: E501
+            response_type="CloudEndureExtendedAccountInfo",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def projects_assign_users_post(self, body, **kwargs):  # noqa: E501
         """todo  # noqa: E501
@@ -235,11 +253,15 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_assign_users_post_with_http_info(body, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_assign_users_post_with_http_info(
+                body, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_assign_users_post_with_http_info(body, **kwargs)  # noqa: E501
+            (data) = self.projects_assign_users_post_with_http_info(
+                body, **kwargs
+            )  # noqa: E501
             return data
 
     def projects_assign_users_post_with_http_info(self, body, **kwargs):  # noqa: E501
@@ -258,25 +280,26 @@ class DefaultApi:
                  returns the request thread.
         """
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_assign_users_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_assign_users_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_assign_users_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
@@ -290,17 +313,21 @@ class DefaultApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/assignUsers', 'POST',
+            "/projects/assignUsers",
+            "POST",
             path_params,
             query_params,
             header_params,
@@ -309,11 +336,12 @@ class DefaultApi:
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def projects_project_id_audit_log_get(self, project_id, **kwargs):  # noqa: E501
         """Get audit log  # noqa: E501
@@ -333,14 +361,20 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_audit_log_get_with_http_info(project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_audit_log_get_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_audit_log_get_with_http_info(project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_audit_log_get_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_audit_log_get_with_http_info(self, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_audit_log_get_with_http_info(
+        self, project_id, **kwargs
+    ):  # noqa: E501
         """Get audit log  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -359,41 +393,50 @@ class DefaultApi:
                  returns the request thread.
         """
 
-        all_params = ['project_id', 'limit', 'from_date_time', 'to_date_time', 'format']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = [
+            "project_id",
+            "limit",
+            "from_date_time",
+            "to_date_time",
+            "format",
+        ]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_audit_log_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_audit_log_get`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_audit_log_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
-        if 'limit' in params:
-            query_params.append(('limit', params['limit']))  # noqa: E501
-        if 'from_date_time' in params:
-            query_params.append(('fromDateTime', params['from_date_time']))  # noqa: E501
-        if 'to_date_time' in params:
-            query_params.append(('toDateTime', params['to_date_time']))  # noqa: E501
-        if 'format' in params:
-            query_params.append(('format', params['format']))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "from_date_time" in params:
+            query_params.append(
+                ("fromDateTime", params["from_date_time"])
+            )  # noqa: E501
+        if "to_date_time" in params:
+            query_params.append(("toDateTime", params["to_date_time"]))  # noqa: E501
+        if "format" in params:
+            query_params.append(("format", params["format"]))  # noqa: E501
 
         header_params = {}
 
@@ -402,27 +445,30 @@ class DefaultApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json', 'text/csv'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json", "text/csv"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/auditLog', 'GET',
+            "/projects/{projectId}/auditLog",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureAuditLog',  # noqa: E501
+            response_type="CloudEndureAuditLog",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def projects_project_id_storage_get(self, project_id, **kwargs):  # noqa: E501
         """project's storage  # noqa: E501
@@ -439,14 +485,20 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_project_id_storage_get_with_http_info(project_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_project_id_storage_get_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_project_id_storage_get_with_http_info(project_id, **kwargs)  # noqa: E501
+            (data) = self.projects_project_id_storage_get_with_http_info(
+                project_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def projects_project_id_storage_get_with_http_info(self, project_id, **kwargs):  # noqa: E501
+    def projects_project_id_storage_get_with_http_info(
+        self, project_id, **kwargs
+    ):  # noqa: E501
         """project's storage  # noqa: E501
 
         get project's storage usage (vCenter only)  # noqa: E501
@@ -462,31 +514,32 @@ class DefaultApi:
                  returns the request thread.
         """
 
-        all_params = ['project_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["project_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_project_id_storage_get" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'project_id' is set
-        if ('project_id' not in params or
-                params['project_id'] is None):
-            raise ValueError("Missing the required parameter `project_id` when calling `projects_project_id_storage_get`")  # noqa: E501
+        if "project_id" not in params or params["project_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `project_id` when calling `projects_project_id_storage_get`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'project_id' in params:
-            path_params['projectId'] = params['project_id']  # noqa: E501
+        if "project_id" in params:
+            path_params["projectId"] = params["project_id"]  # noqa: E501
 
         query_params = []
 
@@ -497,27 +550,30 @@ class DefaultApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/{projectId}/storage', 'GET',
+            "/projects/{projectId}/storage",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureProjectStorage',  # noqa: E501
+            response_type="CloudEndureProjectStorage",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def projects_remove_users_post(self, body, **kwargs):  # noqa: E501
         """todo  # noqa: E501
@@ -534,11 +590,15 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.projects_remove_users_post_with_http_info(body, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.projects_remove_users_post_with_http_info(
+                body, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.projects_remove_users_post_with_http_info(body, **kwargs)  # noqa: E501
+            (data) = self.projects_remove_users_post_with_http_info(
+                body, **kwargs
+            )  # noqa: E501
             return data
 
     def projects_remove_users_post_with_http_info(self, body, **kwargs):  # noqa: E501
@@ -557,25 +617,26 @@ class DefaultApi:
                  returns the request thread.
         """
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method projects_remove_users_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `projects_remove_users_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `projects_remove_users_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
@@ -589,17 +650,21 @@ class DefaultApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/projects/removeUsers', 'POST',
+            "/projects/removeUsers",
+            "POST",
             path_params,
             query_params,
             header_params,
@@ -608,11 +673,12 @@ class DefaultApi:
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def replace_api_token_post(self, **kwargs):  # noqa: E501
         """Replaces API token  # noqa: E501
@@ -628,8 +694,8 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.replace_api_token_post_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.replace_api_token_post_with_http_info(**kwargs)  # noqa: E501
@@ -651,20 +717,20 @@ class DefaultApi:
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method replace_api_token_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -679,27 +745,30 @@ class DefaultApi:
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/replaceApiToken', 'POST',
+            "/replaceApiToken",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='object',  # noqa: E501
+            response_type="object",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def set_password_post(self, body, **kwargs):  # noqa: E501
         """Set password for invited user  # noqa: E501
@@ -715,8 +784,8 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.set_password_post_with_http_info(body, **kwargs)  # noqa: E501
         else:
             (data) = self.set_password_post_with_http_info(body, **kwargs)  # noqa: E501
@@ -737,25 +806,26 @@ class DefaultApi:
                  returns the request thread.
         """
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method set_password_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `set_password_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `set_password_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
@@ -769,21 +839,26 @@ class DefaultApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/setPassword', 'POST',
+            "/setPassword",
+            "POST",
             path_params,
             query_params,
             header_params,
@@ -792,11 +867,12 @@ class DefaultApi:
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def users_assign_roles_post(self, body, **kwargs):  # noqa: E501
         """Add roles to users  # noqa: E501
@@ -812,11 +888,15 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.users_assign_roles_post_with_http_info(body, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.users_assign_roles_post_with_http_info(
+                body, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.users_assign_roles_post_with_http_info(body, **kwargs)  # noqa: E501
+            (data) = self.users_assign_roles_post_with_http_info(
+                body, **kwargs
+            )  # noqa: E501
             return data
 
     def users_assign_roles_post_with_http_info(self, body, **kwargs):  # noqa: E501
@@ -834,25 +914,26 @@ class DefaultApi:
                  returns the request thread.
         """
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method users_assign_roles_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `users_assign_roles_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `users_assign_roles_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
@@ -866,34 +947,40 @@ class DefaultApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/users/assignRoles', 'POST',
+            "/users/assignRoles",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureUsersList',  # noqa: E501
+            response_type="CloudEndureUsersList",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def users_post(self, body, **kwargs):  # noqa: E501
         """Create a new User  # noqa: E501
@@ -909,8 +996,8 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.users_post_with_http_info(body, **kwargs)  # noqa: E501
         else:
             (data) = self.users_post_with_http_info(body, **kwargs)  # noqa: E501
@@ -931,25 +1018,26 @@ class DefaultApi:
                  returns the request thread.
         """
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method users_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `users_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `users_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
@@ -963,34 +1051,40 @@ class DefaultApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/users', 'POST',
+            "/users",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureUser',  # noqa: E501
+            response_type="CloudEndureUser",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def users_revoke_roles_post(self, body, **kwargs):  # noqa: E501
         """Add roles to users  # noqa: E501
@@ -1006,11 +1100,15 @@ class DefaultApi:
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.users_revoke_roles_post_with_http_info(body, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.users_revoke_roles_post_with_http_info(
+                body, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.users_revoke_roles_post_with_http_info(body, **kwargs)  # noqa: E501
+            (data) = self.users_revoke_roles_post_with_http_info(
+                body, **kwargs
+            )  # noqa: E501
             return data
 
     def users_revoke_roles_post_with_http_info(self, body, **kwargs):  # noqa: E501
@@ -1028,25 +1126,26 @@ class DefaultApi:
                  returns the request thread.
         """
 
-        all_params = ['body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["body"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method users_revoke_roles_post" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'body' is set
-        if ('body' not in params or
-                params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `users_revoke_roles_post`")  # noqa: E501
+        if "body" not in params or params["body"] is None:
+            raise ValueError(
+                "Missing the required parameter `body` when calling `users_revoke_roles_post`"
+            )  # noqa: E501
 
         collection_formats = {}
 
@@ -1060,31 +1159,37 @@ class DefaultApi:
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
+        if "body" in params:
+            body_params = params["body"]
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        header_params[
+            "Content-Type"
+        ] = self.api_client.select_header_content_type(  # noqa: E501
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
         auth_settings = []  # noqa: E501
 
         return self.api_client.call_api(
-            '/users/revokeRoles', 'POST',
+            "/users/revokeRoles",
+            "POST",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='CloudEndureUsersList',  # noqa: E501
+            response_type="CloudEndureUsersList",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )

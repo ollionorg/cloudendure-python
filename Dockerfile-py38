@@ -9,3 +9,7 @@ RUN apt-get -qq update && \
 RUN pip install --upgrade pip && \
     pip install --upgrade wheel setuptools twine pipenv && \
     pipenv install --dev --system --deploy
+
+RUN apt-get clean autoclean && \
+    apt-get autoremove --yes && \
+    rm -rf /var/lib/{apt,dpkg,cache,log}/

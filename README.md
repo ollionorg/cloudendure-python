@@ -6,7 +6,7 @@ Python wrapper and CLI for CloudEndure
 
 [Documentation](https://mbeacom.github.io/cloudendure-python/)
 
-Package version: `0.0.2`
+Package version: `0.0.3`
 
 ## Requirements
 

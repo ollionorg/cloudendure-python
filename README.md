@@ -62,7 +62,7 @@ import cloudendure
 Please note:  `cloudendure` and `ce` can be used interchangeably
 
 ```sh
-export CLOUDENDURE_USER=<your_ce_user>
+export CLOUDENDURE_USERNAME=<your_ce_user>
 export CLOUDENDURE_PASSWORD=<your_ce_password>
 
 cloudendure api login

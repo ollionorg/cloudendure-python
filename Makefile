@@ -3,12 +3,33 @@
 
 .PHONY: help
 
-REPO_NAME := mbeacom/cloudendure-py
+REPO_NAME := mbeacom/cloudendure-python
 SHA1 := $$(git log -1 --pretty=%h)
 CURRENT_BRANCH := $$(git symbolic-ref -q --short HEAD)
 
 info: ## Show information about the current git state.
 	@echo "Github Project: https://github.com/${REPO_NAME}\nCurrent Branch: ${CURRENT_BRANCH}\nSHA1: ${SHA1}\n"
+
+build: ## Build the Gitcoin Web image.
+	@docker build \
+		--stream \
+		--pull \
+		--build-arg BUILD_DATETIME=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+		--build-arg "SHA1=${SHA1}" \
+		${VERSION:+--build-arg "VERSION=$VERSION"} \
+		-t "${GIT_TAG}" .
+	@docker tag "${GIT_TAG}" "${LATEST_TAG}"
+
+login: ## Login to Docker Hub.
+	@docker log -u "${DOCKER_USER}" -p "${DOCKER_PASS}"
+
+push: ## Push the Docker image to the Docker Hub repository.
+	@docker push "${REPO_NAME}"
+
+docker: ## Build and publish Docker images.
+	@docker build -t cloudendure .
+	@docker tag cloudendure mbeacom/cloudendure-python
+	@docker push
 
 update_prereqs: ## Update the local development pre-requisite packages.
 	@pip install --upgrade pipenv wheel setuptools pip

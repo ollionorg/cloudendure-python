@@ -2,11 +2,17 @@
 
 ## [Unreleased](https://github.com/mbeacom/cloudendure-python/tree/HEAD)
 
-[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.4...HEAD)
+[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.5...HEAD)
 
 **Implemented enhancements:**
 
 - Add python-fire to package dependencies [\#13](https://github.com/mbeacom/cloudendure-python/issues/13)
+
+## [v0.0.5](https://github.com/mbeacom/cloudendure-python/tree/v0.0.5) (2019-06-28)
+[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.4...v0.0.5)
+
+**Implemented enhancements:**
+
 - Add security policy [\#12](https://github.com/mbeacom/cloudendure-python/issues/12)
 - Add fire [\#14](https://github.com/mbeacom/cloudendure-python/pull/14) ([mbeacom](https://github.com/mbeacom))
 

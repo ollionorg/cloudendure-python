@@ -19,11 +19,11 @@ from setuptools import Command, find_packages, setup
 # Package meta-data.
 NAME: str = "cloudendure"
 DESCRIPTION: str = "CloudEndure Python Client and CLI"
-URL: str = "https://github.com/mbeacom/cloudendure-py"
+URL: str = "https://github.com/mbeacom/cloudendure-python"
 EMAIL: str = "markvbeacom@gmail.com"
 AUTHOR: str = "Mark Beacom"
 REQUIRES_PYTHON: str = ">=3.6.0"
-VERSION: str = "0.0.3"
+VERSION: str = "0.0.4"
 
 REQUIRED: List[str] = ["requests", "boto3"]
 EXTRAS: Dict[str, List[str]] = {

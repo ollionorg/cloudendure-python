@@ -1,12 +1,12 @@
 # cloudendure-python
 
-Python wrapper and CLI for CloudEndure
+Python wrapper and CLI for [CloudEndure](https://www.cloudendure.com/)
 
 [![Build Status](https://travis-ci.com/mbeacom/cloudendure-python.svg?branch=master)](https://travis-ci.com/mbeacom/cloudendure-python)
 
 [Documentation](https://mbeacom.github.io/cloudendure-python/)
 
-Package version: `0.0.3`
+Package version: `0.0.4`
 
 ## Requirements
 
@@ -95,3 +95,7 @@ Logging in for the first time will generate the `~/.cloudendure.yml` file.
 ## Coming Soon
 
 This project is currently a work in progress and will actively change.  This client has not yet been finalized and is entirely subject to change.
+
+## Changelog
+
+Check out the [CHANGELOG](CHANGELOG.md)

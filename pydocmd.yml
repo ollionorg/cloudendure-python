@@ -15,11 +15,18 @@ generate:
     - cloudendure.models++
   - code/cloudendure/utils.md:
     - cloudendure.utils++
+  - code/lambda/copy_ami.md:
+    - lambda.copy_ami++
+  - code/lambda/exceptions.md:
+    - lambda.exceptions++
+  - code/lambda/handler.md:
+    - lambda.handler++
 
 pages:
   - General:
     - Home: index.md << README.md
     - References: references.md << REFERENCE.md
+    - Changelog: changes.md << CHANGELOG.md
   - Code:
     - CloudEndure:
       - API: code/cloudendure/api.md
@@ -28,6 +35,10 @@ pages:
       - Exceptions: code/cloudendure/exceptions.md
       - Models: code/cloudendure/models.md
       - Utilities: code/cloudendure/utils.md
+    - AWS Lambda:
+      - Handler: code/lambda/handler.md
+      - Exceptions: code/lambda/exceptions.md
+      - Copy AMI Utils: code/lambda/copy_ami.md
   - API Documentation:
     - MAIN: api/API_README.md << docs/API_README.md
     - AccountApi: api/AccountApi.md << docs/AccountApi.md
@@ -124,6 +135,8 @@ pages:
     - RecoveryPlansApi: api/RecoveryPlansApi.md << docs/RecoveryPlansApi.md
     - ReplicationApi: api/ReplicationApi.md << docs/ReplicationApi.md
     - UserApi: api/UserApi.md << docs/UserApi.md
+  - Miscellaneous:
+    - Security Policy: securitypolicy.md << SECURITY.md
 theme:
   name: material
   logo: 'http://chittagongit.com/images/cloud-png-icon/cloud-png-icon-3.jpg'
@@ -133,3 +146,4 @@ theme:
 
 additional_search_paths:
   - cloudendure/
+  - lambda/

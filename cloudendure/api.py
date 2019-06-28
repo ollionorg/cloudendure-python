@@ -90,16 +90,12 @@ class CloudEndureAPI:
             _xsrf_token (str): The XSRF token to be used for subsequent API requests.
 
         """
-        endpoint: str = "login"
         _username: str = self.config.active_config["username"] or username
         _password: str = self.config.active_config["password"] or password
         _auth: Dict[str, str] = {"username": _username, "password": _password}
 
         # Attempt to login to the CloudEndure API via a POST request.
-        response: requests.Response = self.api_call(
-            "login", "post", data=json.dumps(_auth)
-        )
-        # response: requests.Response = self.session.post(f'{self.api_endpoint}/{endpoint}', json=_auth)
+        response: requests.Response = self.api_call("login", "post", data=json.dumps(_auth))
 
         # Check whether or not the request was successful.
         if response.status_code not in [200, 307]:
@@ -117,8 +113,11 @@ class CloudEndureAPI:
                 )
             raise CloudEndureUnauthorized()
 
-        # print('response: ', response, response.cookies)
-        _xsrf_token: str = str(response.cookies["XSRF-TOKEN"])
+        # Grab the XSRF token received from the response, as stored in cookies.
+        # _xsrf_token: str = str(response.cookies["XSRF-TOKEN"])
+        _xsrf_token: str = str(response.cookies.get("XSRF-TOKEN", ""))
+        if not _xsrf_token:
+            raise CloudEndureException("Failed to fetch a token from CloudEndure!")
 
         # Strip the XSRF token of wrapping double-quotes from the cookie.
         if _xsrf_token.startswith('"') and _xsrf_token.endswith('"'):

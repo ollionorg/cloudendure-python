@@ -26,6 +26,7 @@ pages:
   - General:
     - Home: index.md << README.md
     - References: references.md << REFERENCE.md
+    - Changelog: changes.md << CHANGELOG.md
   - Code:
     - CloudEndure:
       - API: code/cloudendure/api.md

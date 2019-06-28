@@ -23,9 +23,9 @@ URL: str = "https://github.com/mbeacom/cloudendure-python"
 EMAIL: str = "markvbeacom@gmail.com"
 AUTHOR: str = "Mark Beacom"
 REQUIRES_PYTHON: str = ">=3.6.0"
-VERSION: str = "0.0.4"
+VERSION: str = "0.0.5"
 
-REQUIRED: List[str] = ["requests", "boto3"]
+REQUIRED: List[str] = ["requests", "boto3", "fire"]
 EXTRAS: Dict[str, List[str]] = {
     "test": [
         "coverage",

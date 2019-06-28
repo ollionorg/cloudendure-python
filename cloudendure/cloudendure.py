@@ -30,6 +30,7 @@ LAUNCH_TYPES: List[str] = ["test", "cutover"]
 MIGRATION_WAVE: str = os.environ.get("CLOUDENDURE_MIGRATION_WAVE", "0")
 CLONE_STATUS: str = os.environ.get("CLOUDENDURE_CLONE_STATUS", "NOT_STARTED")
 MAX_LAG_TTL: int = int(os.environ.get("CLOUDENDURE_MAX_LAG_TTL", "90"))
+SHARE_IMAGE: str = os.environ.get("", "")
 
 
 class CloudEndure:
@@ -201,6 +202,7 @@ class CloudEndure:
         except Exception as e:
             print(f"Updating blueprint task failed! {e}")
             return False
+        return True
 
     def launch(self, project_id=global_project_id, launch_type="test", dry_run=False):
         """Launch the test target instances."""

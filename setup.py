@@ -25,7 +25,7 @@ AUTHOR: str = "Mark Beacom"
 REQUIRES_PYTHON: str = ">=3.6.0"
 VERSION: str = "0.0.4"
 
-REQUIRED: List[str] = ["requests", "boto3"]
+REQUIRED: List[str] = ["requests", "boto3", "fire"]
 EXTRAS: Dict[str, List[str]] = {
     "test": [
         "coverage",

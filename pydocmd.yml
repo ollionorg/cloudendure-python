@@ -135,6 +135,8 @@ pages:
     - RecoveryPlansApi: api/RecoveryPlansApi.md << docs/RecoveryPlansApi.md
     - ReplicationApi: api/ReplicationApi.md << docs/ReplicationApi.md
     - UserApi: api/UserApi.md << docs/UserApi.md
+  - Miscellaneous:
+    - Security Policy: securitypolicy.md << SECURITY.md
 theme:
   name: material
   logo: 'http://chittagongit.com/images/cloud-png-icon/cloud-png-icon-3.jpg'

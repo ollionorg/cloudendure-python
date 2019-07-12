@@ -84,10 +84,7 @@ def create_ami(project_id: str, instance_id: str) -> bool:
             NoReboot=True,
         )
         logger.info("AMI Id: %s", ec2_image)
-        _filters: List[Dict] = [{
-            "Name": "resource-id",
-            "Values": [instance_id],
-        }]
+        _filters: List[Dict] = [{"Name": "resource-id", "Values": [instance_id]}]
 
         # Tag the newly created AMI by getting the tags of the migrated instance to copy to the AMI.
         ec2_tags = _ec2_client.describe_tags(Filters=_filters)
@@ -135,9 +132,13 @@ def lambda_handler(event: Dict[str, Any], context: Dict[str, Any]) -> bool:
         project_id: str = json_sns_message.get("projectId", "")
 
         if json_sns_message.get("Pass", "NA") != "True":
-            raise InvalidPayload(f"{instance_id} did not pass post migration testing! Not creating an AMI.")
+            raise InvalidPayload(
+                f"{instance_id} did not pass post migration testing! Not creating an AMI."
+            )
         else:
-            logger.info("%s passed post migration testing. Creating an AMI." % (instance_id))
+            logger.info(
+                "%s passed post migration testing. Creating an AMI." % (instance_id)
+            )
             create_ami(project_id, instance_id)
     except ClientError as e:
         logger.error(e.response)

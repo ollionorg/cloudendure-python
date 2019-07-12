@@ -95,7 +95,9 @@ class CloudEndureAPI:
         _auth: Dict[str, str] = {"username": _username, "password": _password}
 
         # Attempt to login to the CloudEndure API via a POST request.
-        response: requests.Response = self.api_call("login", "post", data=json.dumps(_auth))
+        response: requests.Response = self.api_call(
+            "login", "post", data=json.dumps(_auth)
+        )
 
         # Check whether or not the request was successful.
         if response.status_code not in [200, 307]:

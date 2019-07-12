@@ -4,7 +4,7 @@
 import datetime
 import json
 import os
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import boto3
 import fire

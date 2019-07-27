@@ -61,6 +61,29 @@ class CloudEndure:
         """
         return f"{host}/api/{api_version}/{path}"
 
+    def get_project_id(self):
+        projects_result = self.api.api_call("projects")
+        if projects_result.status_code != 200:
+            print("Failed to fetch the project!")
+            return False
+
+        try:
+            # Get Project ID
+            projects = json.loads(projects_result.text).get("items", [])
+            project_exist = False
+            for project in projects:
+                if project.get("name", "NONE") == global_project_name:
+                    project_id = project.get("id", "")
+                    global_project_id = project_id
+                    print(f"Looked up project_id: {project_id}")
+                    return project_id
+            if not project_exist:
+                print("Project Name does not exist!")
+                return False
+        except Exception as e:
+            print(f"Exception: {str(e)}")
+            return False
+
     def check(
         self,
         project_name: str = global_project_name,
@@ -114,7 +137,7 @@ class CloudEndure:
                         )
                     else:
                         if launch_type == "test":
-                            if "lastTestLaunchDateTime" in machine["lifeCycle"]:
+                            if machine.get("replica"):
                                 machine_status += 1
                                 print(
                                     f"{ref_name} has been launched in the migration account"
@@ -124,7 +147,7 @@ class CloudEndure:
                                     f"{ref_name} has not completed launching in the migration account - Please wait..."
                                 )
                         elif launch_type == "cutover":
-                            if "lastCutoverDateTime" in machine["lifeCycle"]:
+                            if machine.get("replica"):
                                 machine_status += 1
                                 print(
                                     f"{ref_name} has been cutover into the migration account"
@@ -206,6 +229,11 @@ class CloudEndure:
 
     def launch(self, project_id=global_project_id, launch_type="test", dry_run=False):
         """Launch the test target instances."""
+        if project_id == "":
+            project_id = self.get_project_id()
+            if project_id == False:
+                return False
+
         print(
             f"Launching Project - Project ID: ({project_id}) - ",
             f"Launch Type: ({launch_type}) - Dry Run: ({dry_run})",
@@ -227,6 +255,9 @@ class CloudEndure:
                 source_props = machine.get("sourceProperties", {})
                 machine_data = {}
                 if _machine == source_props.get("name", "NONE"):
+                    if machine.get("replica"):
+                        print("Target machine already launched")
+                        continue
                     if launch_type == "test":
                         machine_data = {
                             "items": [{"machineId": machine["id"]}],
@@ -258,7 +289,7 @@ class CloudEndure:
                     else:
                         print("ERROR: Launch target machine failed!")
                 else:
-                    print(f"Machine: ({_machine}) - Not a machine we want to launch...")
+                    print(f"Machine: ({source_props['name']}) - Not a machine we want to launch...")
 
     def status(self, project_id=global_project_id, launch_type="test", dry_run=False):
         """Get the status of machines in the current wave."""

@@ -31,6 +31,9 @@ docker: ## Build and publish Docker images.
 	@docker tag cloudendure mbeacom/cloudendure-python
 	@docker push
 
+lint: ## Lint the CloudEndure project with Black.
+	@pipenv run black --target-version py37 --exclude "/(\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|_build|buck-out|build|dist|tests|cloudendure_api)/" .
+
 update_prereqs: ## Update the local development pre-requisite packages.
 	@pip install --upgrade pipenv wheel setuptools pip
 

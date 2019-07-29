@@ -89,11 +89,20 @@ class CloudEndure:
 
     def check(
         self,
-        project_name: str = self.project_name,
+        project_name: str = "",
         launch_type: str = "test",
         dry_run: bool = False,
     ):
         """Check the status of machines in the provided project."""
+        if not project_name:
+            project_name = self.project_name
+            project_id = self.project_id
+        else:
+            project_id = self.get_project_id(project_name=project_name)
+
+        if not project_id:
+            return False
+
         print(
             f"Checking Project - Name: ({project_name}) - Launch Type: ({launch_type}) - Dry Run: ({dry_run})"
         )
@@ -102,10 +111,6 @@ class CloudEndure:
         if projects_response.status_code != 200:
             print("Failed to fetch the project!")
             raise CloudEndureHTTPException("Failed to fetch the CloudEndure Project!")
-
-        project_id = self.get_project_id(project_name=project_name)
-        if not project_id:
-            return False
 
         machine_status = 0
         machines_response = self.api.api_call(f"projects/{project_id}/machines")
@@ -173,7 +178,7 @@ class CloudEndure:
 
     def update_blueprint(
         self,
-        project_name: str = self.project_name,
+        project_name: str = "",
         launch_type: str = "test",
         dry_run: bool = False,
         machine_list=None,
@@ -181,10 +186,14 @@ class CloudEndure:
         """Update the blueprint associated with the specified machines."""
         print("Updating the CloudEndure Blueprints...")
 
-        if not self.project_id:
-            self.project_id = self.get_project_id(project_name=project_name)
-            if not self.project_id:
-                return False
+        if not project_name:
+            project_name = self.project_name
+            project_id = self.project_id
+        else:
+            project_id = self.get_project_id(project_name=project_name)
+
+        if not project_id:
+            return False
 
         try:
             blueprints_response = self.api.api_call(f"projects/{project_id}/blueprints")
@@ -223,12 +232,16 @@ class CloudEndure:
             return False
         return True
 
-    def launch(self, project_name=self.project_name, launch_type="test", dry_run=False):
+    def launch(self, project_name="", launch_type="test", dry_run=False):
         """Launch the test target instances."""
-        if not self.project_id:
-            self.project_id = self.get_project_id(project_name=project_name)
-            if not self.project_id:
-                return False
+        if not project_name:
+            project_name = self.project_name
+            project_id = self.project_id
+        else:
+            project_id = self.get_project_id(project_name=project_name)
+
+        if not project_id:
+            return False
 
         print(
             f"Launching Project - Project ID: ({project_id}) - ",
@@ -287,12 +300,16 @@ class CloudEndure:
                 else:
                     print(f"Machine: ({source_props['name']}) - Not a machine we want to launch...")
 
-    def status(self, project_name=self.project_name, launch_type="test", dry_run=False):
+    def status(self, project_name="", launch_type="test", dry_run=False):
         """Get the status of machines in the current wave."""
-        if not self.project_id:
-            self.project_id = self.get_project_id(project_name=project_name)
-            if not self.project_id:
-                return False
+        if not project_name:
+            project_name = self.project_name
+            project_id = self.project_id
+        else:
+            project_id = self.get_project_id(project_name=project_name)
+
+        if not project_id:
+            return False
 
         print(
             f"Getting Status of Project - Project ID: ({project_id}) -",
@@ -385,13 +402,17 @@ class CloudEndure:
             return False
 
     def execute(
-        self, project_name=self.project_name, launch_type="test", dry_run=False
+        self, project_name="", launch_type="test", dry_run=False
     ):
         """Start the migration project my checking and launching the migration wave."""
-        if not self.project_id:
-            self.project_id = self.get_project_id(project_name=project_name)
-            if not self.project_id:
-                return False
+        if not project_name:
+            project_name = self.project_name
+            project_id = self.project_id
+        else:
+            project_id = self.get_project_id(project_name=project_name)
+
+        if not project_id:
+            return False
 
         print(
             f"Executing Project - Name: ({project_name}) - Launch Type: ({launch_type}) - Dry Run: ({dry_run})"
@@ -470,10 +491,17 @@ class CloudEndure:
     def create_ami(
         self,
         instance_ids=None,
-        project_name=self.project_name,
+        project_name="",
     ):
         """Create an AMI from the specified instance."""
-        project_id = self.project_id or self.get_project_id(project_name=project_name)
+        if not project_name:
+            project_name = self.project_name
+            project_id = self.project_id
+        else:
+            project_id = self.get_project_id(project_name=project_name)
+
+        if not project_id:
+            return False
 
         try:
             print("Loading EC2 client for region: ", AWS_REGION)

@@ -47,7 +47,7 @@ def assume_role(sts_role_arn: str = "", session_name: str = SESSION_NAME):
     return credentials
 
 
-def get_ec2(credentials, region: str = ""):
+def get_ec2(credentials: Dict[str, str], region: str = ""):
     ec2 = None
 
     # Copy image to failover regions

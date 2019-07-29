@@ -1762,17 +1762,17 @@
 
 <p>Check the status of machines in the provided project.
 <h3 id="cloudendure.cloudendure.CloudEndure.update_blueprint">update_blueprint</h3></p>
-<pre><code class="python">CloudEndure.update_blueprint(self, project_id: str = '', launch_type: str = 'test', dry_run: bool = False, machine_list=None) -&gt; bool
+<pre><code class="python">CloudEndure.update_blueprint(self, project_name: str = '', launch_type: str = 'test', dry_run: bool = False, machine_list=None) -&gt; bool
 </code></pre>
 
 <p>Update the blueprint associated with the specified machines.
 <h3 id="cloudendure.cloudendure.CloudEndure.launch">launch</h3></p>
-<pre><code class="python">CloudEndure.launch(self, project_id='', launch_type='test', dry_run=False)
+<pre><code class="python">CloudEndure.launch(self, project_name='', launch_type='test', dry_run=False)
 </code></pre>
 
 <p>Launch the test target instances.
 <h3 id="cloudendure.cloudendure.CloudEndure.status">status</h3></p>
-<pre><code class="python">CloudEndure.status(self, project_id='', launch_type='test', dry_run=False)
+<pre><code class="python">CloudEndure.status(self, project_name='', launch_type='test', dry_run=False)
 </code></pre>
 
 <p>Get the status of machines in the current wave.
@@ -1787,7 +1787,7 @@
 
 <p>Share the generated AMIs to the provided destination accounts.
 <h3 id="cloudendure.cloudendure.CloudEndure.create_ami">create_ami</h3></p>
-<pre><code class="python">CloudEndure.create_ami(self, instance_ids=None, project_id='', project_name='')
+<pre><code class="python">CloudEndure.create_ami(self, instance_ids=None, project_name='')
 </code></pre>
 
 <p>Create an AMI from the specified instance.

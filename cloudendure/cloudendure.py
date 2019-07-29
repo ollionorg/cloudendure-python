@@ -46,8 +46,12 @@ class CloudEndure:
         self.api = CloudEndureAPI()
         self.api.login()
         self.api_client = ApiClient()
-        self.project_name = self.config.active_config.get("project_name", global_project_name)
-        self.project_id = self.get_project_id(project_name=self.project_name) or global_project_id
+        self.project_name = self.config.active_config.get(
+            "project_name", global_project_name
+        )
+        self.project_id = (
+            self.get_project_id(project_name=self.project_name) or global_project_id
+        )
 
     @staticmethod
     def get_endpoint(
@@ -75,7 +79,10 @@ class CloudEndure:
         try:
             # Get Project ID
             projects = json.loads(projects_result.text).get("items", [])
-            found_project = next((item for item in projects if item.get("name", "NONE") == project_name), {})
+            found_project = next(
+                (item for item in projects if item.get("name", "NONE") == project_name),
+                {},
+            )
             project_id = found_project.get("id", "")
         except Exception as e:
             print(f"Exception: {str(e)}")
@@ -88,10 +95,7 @@ class CloudEndure:
         return ""
 
     def check(
-        self,
-        project_name: str = "",
-        launch_type: str = "test",
-        dry_run: bool = False,
+        self, project_name: str = "", launch_type: str = "test", dry_run: bool = False
     ):
         """Check the status of machines in the provided project."""
         if not project_name:
@@ -298,7 +302,9 @@ class CloudEndure:
                     else:
                         print("ERROR: Launch target machine failed!")
                 else:
-                    print(f"Machine: ({source_props['name']}) - Not a machine we want to launch...")
+                    print(
+                        f"Machine: ({source_props['name']}) - Not a machine we want to launch..."
+                    )
 
     def status(self, project_name="", launch_type="test", dry_run=False):
         """Get the status of machines in the current wave."""
@@ -401,9 +407,7 @@ class CloudEndure:
             print("ERROR: some machines in the targeted pool are not ready")
             return False
 
-    def execute(
-        self, project_name="", launch_type="test", dry_run=False
-    ):
+    def execute(self, project_name="", launch_type="test", dry_run=False):
         """Start the migration project my checking and launching the migration wave."""
         if not project_name:
             project_name = self.project_name
@@ -488,11 +492,7 @@ class CloudEndure:
                         OperationType="add",
                     )
 
-    def create_ami(
-        self,
-        instance_ids=None,
-        project_name="",
-    ):
+    def create_ami(self, instance_ids=None, project_name=""):
         """Create an AMI from the specified instance."""
         if not project_name:
             project_name = self.project_name

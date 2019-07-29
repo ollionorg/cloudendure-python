@@ -18,7 +18,9 @@ class CloudEndureConfig:
     def __init__(self, *args, **kwargs):
         """Initialize the Environment."""
         logger.info("Initializing the CloudEndure Configuration")
-        _config_path: str = os.environ.get("CLOUDENDURE_CONFIG_PATH", "~/.cloudendure.yaml")
+        _config_path: str = os.environ.get(
+            "CLOUDENDURE_CONFIG_PATH", "~/.cloudendure.yaml"
+        )
         if _config_path.startswith("~"):
             self.config_path = os.path.expanduser(_config_path)
 
@@ -37,6 +39,8 @@ class CloudEndureConfig:
                     "password": "",
                     "token": "",
                     "session_cookie": "",
+                    "project_name": "",
+                    "project_id": "",
                 }
             )
         self.update_config()

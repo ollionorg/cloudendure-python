@@ -24,7 +24,7 @@ DEST_ROLE_ARN = os.environ.get("CLOUDENDURE_DEST_ROLE_ARN", "")
 SESSION_NAME = os.environ.get("CLOUDENDURE_SESSION_NAME", "CloudEndureMigration")
 
 
-def assume_role(sts_role_arn="", session_name=SESSION_NAME):
+def assume_role(sts_role_arn: str = "", session_name: str = SESSION_NAME):
     sts = boto3.client("sts")
 
     try:
@@ -47,7 +47,7 @@ def assume_role(sts_role_arn="", session_name=SESSION_NAME):
     return credentials
 
 
-def get_ec2(credentials, region=""):
+def get_ec2(credentials, region: str = ""):
     ec2 = None
 
     # Copy image to failover regions
@@ -65,20 +65,24 @@ def get_ec2(credentials, region=""):
     return ec2
 
 
-def share_image(image_name="CloudEndureImage"):
+def share_image(image_name: str = "CloudEndureImage") -> bool:
     src_credentials = assume_role(SRC_ROLE_ARN)
     src_ec2 = get_ec2(src_credentials, region=SRC_REGION)
 
     # Access the image that needs to be copied
     image = src_ec2.Image(IMAGE_ID)
 
-    # Share the image with the destination account
-    image.modify_attribute(
-        ImageId=image.id,
-        Attribute="launchPermission",
-        OperationType="add",
-        LaunchPermission={"Add": [{"UserId": DEST_ACCOUNT_ID}]},
-    )
+    try:
+        # Share the image with the destination account
+        image.modify_attribute(
+            ImageId=image.id,
+            Attribute="launchPermission",
+            OperationType="add",
+            LaunchPermission={"Add": [{"UserId": DEST_ACCOUNT_ID}]},
+        )
+    except Exception as e:
+        logger.error(e)
+        return False
 
     # We have to now share the snapshots associated with the AMI so it can be copied
     devices = image.block_device_mappings
@@ -104,3 +108,5 @@ def share_image(image_name="CloudEndureImage"):
         )
     except Exception as e:
         logger.error(e)
+        return False
+    return True

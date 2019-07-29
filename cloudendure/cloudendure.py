@@ -4,7 +4,7 @@
 import datetime
 import json
 import os
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import boto3
 import fire
@@ -79,11 +79,11 @@ class CloudEndure:
 
         try:
             # Get Project ID
-            projects = json.loads(projects_response.text).get("items", [])
-            project_exist = False
+            projects: List[Any] = json.loads(projects_response.text).get("items", [])
+            project_exist: bool = False
             for project in projects:
                 if project["name"] == project_name:
-                    project_id = project.get("id", "")
+                    project_id: str = project.get("id", "")
                     project_exist = True
 
             if not project_exist:
@@ -93,14 +93,14 @@ class CloudEndure:
             print(str(e))
             return False
 
-        machine_status = 0
+        machine_status: int = 0
         machines_response = self.api.api_call(f"projects/{project_id}/machines")
 
         for _machine in _machines:
             machine_exist = False
             for machine in json.loads(machines_response.text).get("items", []):
-                source_props = machine.get("sourceProperties", {})
-                ref_name = source_props.get("name") or source_props.get(
+                source_props: Dict[str, Any] = machine.get("sourceProperties", {})
+                ref_name: str = source_props.get("name") or source_props.get(
                     "machineCloudId", "NONE"
                 )
                 if _machine == source_props.get(
@@ -260,7 +260,7 @@ class CloudEndure:
                 else:
                     print(f"Machine: ({_machine}) - Not a machine we want to launch...")
 
-    def status(self, project_id=global_project_id, launch_type="test", dry_run=False):
+    def status(self, project_id: str = global_project_id, launch_type: str = "test", dry_run: bool = False) -> bool:
         """Get the status of machines in the current wave."""
         print(
             f"Getting Status of Project - Project ID: ({project_id}) -",
@@ -269,10 +269,10 @@ class CloudEndure:
         machine_status = 0
         machines_response = self.api.api_call(f"projects/{project_id}/machines")
         for _machine in _machines:
-            machine_exist = False
+            machine_exist: bool = False
             for machine in json.loads(machines_response.text).get("items", []):
-                source_props = machine.get("sourceProperties", {})
-                ref_name = source_props.get("name") or source_props.get(
+                source_props: Dict[str, Any] = machine.get("sourceProperties", {})
+                ref_name: str = source_props.get("name") or source_props.get(
                     "machineCloudId", "NONE"
                 )
                 if ref_name == source_props.get("name", "NONE"):
@@ -353,8 +353,8 @@ class CloudEndure:
             return False
 
     def execute(
-        self, project_name=global_project_name, launch_type="test", dry_run=False
-    ):
+        self, project_name: str = global_project_name, launch_type: str = "test", dry_run: bool = False
+    ) -> bool:
         """Start the migration project my checking and launching the migration wave."""
         print(
             f"Executing Project - Name: ({project_name}) - Launch Type: ({launch_type}) - Dry Run: ({dry_run})"
@@ -367,12 +367,12 @@ class CloudEndure:
 
         try:
             # Get Project ID
-            projects = json.loads(projects_result.text).get("items", [])
-            project_exist = False
+            projects: List[Any] = json.loads(projects_result.text).get("items", [])
+            project_exist: bool = False
             for project in projects:
                 if project.get("name", "NONE") == project_name:
-                    project_id = project.get("id", "")
-                    project_exist = True
+                    project_id: str = project.get("id", "")
+                    project_exist: bool = True
             if not project_exist:
                 print("Project Name does not exist!")
                 return False
@@ -393,7 +393,7 @@ class CloudEndure:
                 ref_name = source_props.get("name") or source_props.get(
                     "machineCloudId", "NONE"
                 )
-                _machine_id = source_props.get("id", "")
+                _machine_id: str = source_props.get("id", "")
                 print(f"Machine name: {ref_name}, Machine ID: {_machine_id}")
                 machinelist[machine["id"]] = ref_name
 
@@ -409,7 +409,7 @@ class CloudEndure:
             print(str(e))
             return False
 
-    def share_image(self, image_id, dest_accounts=None, image_name="CloudEndureImage"):
+    def share_image(self, image_id: str, dest_accounts: List[Any] = None, image_name: str = "CloudEndureImage") -> bool:
         """Share the generated AMIs to the provided destination accounts."""
         print("Loading EC2 client for region: ", AWS_REGION)
         _ec2_client = boto3.client("ec2", AWS_REGION)
@@ -421,13 +421,17 @@ class CloudEndure:
             dest_accounts = DESTINATION_ACCOUNTS
 
         for account in dest_accounts:
-            # Share the image with the destination account
-            image.modify_attribute(
-                ImageId=image.id,
-                Attribute="launchPermission",
-                OperationType="add",
-                LaunchPermission={"Add": [{"UserId": account}]},
-            )
+            try:
+                # Share the image with the destination account
+                image.modify_attribute(
+                    ImageId=image.id,
+                    Attribute="launchPermission",
+                    OperationType="add",
+                    LaunchPermission={"Add": [{"UserId": account}]},
+                )
+            except Exception as e:
+                logger.error(e)
+                return False
 
             # We have to now share the snapshots associated with the AMI so it can be copied
             devices = image.block_device_mappings
@@ -435,18 +439,23 @@ class CloudEndure:
                 if "Ebs" in device:
                     snapshot_id = device["Ebs"]["SnapshotId"]
                     snapshot = _ec2_client.Snapshot(snapshot_id)
-                    snapshot.modify_attribute(
-                        Attribute="createVolumePermission",
-                        CreateVolumePermission={"Add": [{"UserId": account}]},
-                        OperationType="add",
-                    )
+                    try:
+                        snapshot.modify_attribute(
+                            Attribute="createVolumePermission",
+                            CreateVolumePermission={"Add": [{"UserId": account}]},
+                            OperationType="add",
+                        )
+                    except Exception as e:
+                        logger.error(e)
+                        return False
+            return True
 
     def create_ami(
         self,
         instance_ids=None,
-        project_id=global_project_id,
-        project_name=global_project_name,
-    ):
+        project_id: str = global_project_id,
+        project_name: str = global_project_name,
+    ) -> bool:
         """Create an AMI from the specified instance."""
         try:
             print("Loading EC2 client for region: ", AWS_REGION)

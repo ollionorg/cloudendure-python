@@ -97,7 +97,6 @@ class UploadCommand(Command):
         vers: str = about["__version__"]
         os.system(f"git tag v{vers}")
         os.system("git push --tags")
-
         sys.exit()
 
 

@@ -17,11 +17,11 @@ class CloudEndureModel:
         self._valid_properties: Dict[str, Any] = {}
 
     @classmethod
-    def _is_builtin(cls, obj):
+    def _is_builtin(self, obj) -> bool:
         """Define the built-in property."""
         return isinstance(obj, (int, float, str, list, dict, bool))
 
-    def as_dict(self):
+    def as_dict(self) -> Dict[str, Any]:
         """Return a dict representation of the model."""
         result: Dict[Any, Any] = {}
         for key in self._valid_properties:
@@ -49,7 +49,7 @@ class CloudEndureModel:
         return result
 
     @classmethod
-    def parse(cls, json: Dict[str, Any]):
+    def parse(self, json: Dict[str, Any]):
         """Parse a JSON object into a model instance."""
         raise NotImplementedError
 

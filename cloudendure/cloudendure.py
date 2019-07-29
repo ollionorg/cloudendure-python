@@ -46,6 +46,8 @@ class CloudEndure:
         self.api = CloudEndureAPI()
         self.api.login()
         self.api_client = ApiClient()
+        self.project_name = self.config.active_config.get("project_name", global_project_name)
+        self.project_id = self.get_project_id(project_name=self.project_name) or global_project_id
 
     @staticmethod
     def get_endpoint(
@@ -61,32 +63,33 @@ class CloudEndure:
         """
         return f"{host}/api/{api_version}/{path}"
 
-    def get_project_id(self):
+    def get_project_id(self, project_name: str = ""):
         projects_result = self.api.api_call("projects")
         if projects_result.status_code != 200:
             print("Failed to fetch the project!")
-            return False
+            return ""
+
+        if not project_name:
+            project_name = self.project_name
 
         try:
             # Get Project ID
             projects = json.loads(projects_result.text).get("items", [])
-            project_exist = False
-            for project in projects:
-                if project.get("name", "NONE") == global_project_name:
-                    project_id = project.get("id", "")
-                    global_project_id = project_id
-                    print(f"Looked up project_id: {project_id}")
-                    return project_id
-            if not project_exist:
-                print("Project Name does not exist!")
-                return False
+            found_project = next((item for item in projects if item.get("name", "NONE") == project_name), {})
+            project_id = found_project.get("id", "")
         except Exception as e:
             print(f"Exception: {str(e)}")
-            return False
+            return ""
+
+        if project_id:
+            print(f"Found project_id: {project_id}")
+            return project_id
+        print("Project Name does not exist!")
+        return ""
 
     def check(
         self,
-        project_name: str = global_project_name,
+        project_name: str = self.project_name,
         launch_type: str = "test",
         dry_run: bool = False,
     ):
@@ -100,20 +103,8 @@ class CloudEndure:
             print("Failed to fetch the project!")
             raise CloudEndureHTTPException("Failed to fetch the CloudEndure Project!")
 
-        try:
-            # Get Project ID
-            projects = json.loads(projects_response.text).get("items", [])
-            project_exist = False
-            for project in projects:
-                if project["name"] == project_name:
-                    project_id = project.get("id", "")
-                    project_exist = True
-
-            if not project_exist:
-                print("ERROR: Project Name does not exist!")
-                return False
-        except Exception as e:
-            print(str(e))
+        project_id = self.get_project_id(project_name=project_name)
+        if not project_id:
             return False
 
         machine_status = 0
@@ -182,13 +173,18 @@ class CloudEndure:
 
     def update_blueprint(
         self,
-        project_id: str = global_project_id,
+        project_name: str = self.project_name,
         launch_type: str = "test",
         dry_run: bool = False,
         machine_list=None,
     ) -> bool:
         """Update the blueprint associated with the specified machines."""
         print("Updating the CloudEndure Blueprints...")
+
+        if not self.project_id:
+            self.project_id = self.get_project_id(project_name=project_name)
+            if not self.project_id:
+                return False
 
         try:
             blueprints_response = self.api.api_call(f"projects/{project_id}/blueprints")
@@ -227,11 +223,11 @@ class CloudEndure:
             return False
         return True
 
-    def launch(self, project_id=global_project_id, launch_type="test", dry_run=False):
+    def launch(self, project_name=self.project_name, launch_type="test", dry_run=False):
         """Launch the test target instances."""
-        if project_id == "":
-            project_id = self.get_project_id()
-            if project_id == False:
+        if not self.project_id:
+            self.project_id = self.get_project_id(project_name=project_name)
+            if not self.project_id:
                 return False
 
         print(
@@ -291,8 +287,13 @@ class CloudEndure:
                 else:
                     print(f"Machine: ({source_props['name']}) - Not a machine we want to launch...")
 
-    def status(self, project_id=global_project_id, launch_type="test", dry_run=False):
+    def status(self, project_name=self.project_name, launch_type="test", dry_run=False):
         """Get the status of machines in the current wave."""
+        if not self.project_id:
+            self.project_id = self.get_project_id(project_name=project_name)
+            if not self.project_id:
+                return False
+
         print(
             f"Getting Status of Project - Project ID: ({project_id}) -",
             f"Launch Type: ({launch_type}) - Dry Run: ({dry_run})",
@@ -384,9 +385,14 @@ class CloudEndure:
             return False
 
     def execute(
-        self, project_name=global_project_name, launch_type="test", dry_run=False
+        self, project_name=self.project_name, launch_type="test", dry_run=False
     ):
         """Start the migration project my checking and launching the migration wave."""
+        if not self.project_id:
+            self.project_id = self.get_project_id(project_name=project_name)
+            if not self.project_id:
+                return False
+
         print(
             f"Executing Project - Name: ({project_name}) - Launch Type: ({launch_type}) - Dry Run: ({dry_run})"
         )
@@ -397,17 +403,6 @@ class CloudEndure:
             return False
 
         try:
-            # Get Project ID
-            projects = json.loads(projects_result.text).get("items", [])
-            project_exist = False
-            for project in projects:
-                if project.get("name", "NONE") == project_name:
-                    project_id = project.get("id", "")
-                    project_exist = True
-            if not project_exist:
-                print("Project Name does not exist!")
-                return False
-
             # Get Machine List
             machines_response = self.api.api_call(f"projects/{project_id}/machines")
             if "sourceProperties" not in machines_response.text:
@@ -475,10 +470,11 @@ class CloudEndure:
     def create_ami(
         self,
         instance_ids=None,
-        project_id=global_project_id,
-        project_name=global_project_name,
+        project_name=self.project_name,
     ):
         """Create an AMI from the specified instance."""
+        project_id = self.project_id or self.get_project_id(project_name=project_name)
+
         try:
             print("Loading EC2 client for region: ", AWS_REGION)
             _ec2_client = boto3.client("ec2", AWS_REGION)

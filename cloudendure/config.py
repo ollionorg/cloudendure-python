@@ -36,6 +36,8 @@ class CloudEndureConfig:
                     "password": "",
                     "token": "",
                     "session_cookie": "",
+                    "project_name": "",
+                    "project_id": "",
                 }
             )
         self.update_config()

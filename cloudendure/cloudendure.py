@@ -490,7 +490,7 @@ class CloudEndure:
                     LaunchPermission={"Add": [{"UserId": account}]},
                 )
             except Exception as e:
-                logger.error(e)
+                print(e)
                 return False
 
             # We have to now share the snapshots associated with the AMI so it can be copied
@@ -506,11 +506,13 @@ class CloudEndure:
                             OperationType="add",
                         )
                     except Exception as e:
-                        logger.error(e)
+                        print(e)
                         return False
             return True
 
-    def create_ami(self, instance_ids: List[str] = None, project_name: str = "") -> bool:
+    def create_ami(
+        self, instance_ids: List[str] = None, project_name: str = ""
+    ) -> bool:
         """Create an AMI from the specified instance."""
         if not project_name:
             project_name: str = self.project_name
@@ -526,7 +528,9 @@ class CloudEndure:
             _ec2_client = boto3.client("ec2", AWS_REGION)
 
             # Create an AMI from the migrated instance
-            image_creation_time: str = datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S")
+            image_creation_time: str = datetime.datetime.utcnow().strftime(
+                "%Y%m%d%H%M%S"
+            )
             instances = _ec2_client.describe_instances(
                 Filters=[
                     {"Name": "tag:MigrationWave", "Values": ["0"]},
@@ -542,7 +546,9 @@ class CloudEndure:
                         Description=f"{project_name} - {project_id} - {image_creation_time}",
                         NoReboot=True,
                     )
-                    _filters: List[Any] = [{"Name": "resource-id", "Values": [instance_id]}]
+                    _filters: List[Any] = [
+                        {"Name": "resource-id", "Values": [instance_id]}
+                    ]
 
                     # Tag the newly created AMI by getting the tags of the migrated instance to copy to the AMI.
                     ec2_tags = _ec2_client.describe_tags(Filters=_filters)

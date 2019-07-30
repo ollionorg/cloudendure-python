@@ -1772,22 +1772,22 @@
 
 <p>Launch the test target instances.
 <h3 id="cloudendure.cloudendure.CloudEndure.status">status</h3></p>
-<pre><code class="python">CloudEndure.status(self, project_name='', launch_type='test', dry_run=False)
+<pre><code class="python">CloudEndure.status(self, project_id: str = '', launch_type: str = 'test', dry_run: bool = False) -&gt; bool
 </code></pre>
 
 <p>Get the status of machines in the current wave.
 <h3 id="cloudendure.cloudendure.CloudEndure.execute">execute</h3></p>
-<pre><code class="python">CloudEndure.execute(self, project_name='', launch_type='test', dry_run=False)
+<pre><code class="python">CloudEndure.execute(self, project_name: str = '', launch_type: str = 'test', dry_run: bool = False) -&gt; bool
 </code></pre>
 
 <p>Start the migration project my checking and launching the migration wave.
 <h3 id="cloudendure.cloudendure.CloudEndure.share_image">share_image</h3></p>
-<pre><code class="python">CloudEndure.share_image(self, image_id, dest_accounts=None, image_name='CloudEndureImage')
+<pre><code class="python">CloudEndure.share_image(self, image_id: str, dest_accounts: List[Any] = None, image_name: str = 'CloudEndureImage') -&gt; bool
 </code></pre>
 
 <p>Share the generated AMIs to the provided destination accounts.
 <h3 id="cloudendure.cloudendure.CloudEndure.create_ami">create_ami</h3></p>
-<pre><code class="python">CloudEndure.create_ami(self, instance_ids=None, project_name='')
+<pre><code class="python">CloudEndure.create_ami(self, instance_ids: List[str] = None, project_name: str = '') -&gt; bool
 </code></pre>
 
 <p>Create an AMI from the specified instance.

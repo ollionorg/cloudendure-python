@@ -11,6 +11,7 @@ import logging
 import os
 
 import boto3
+from typing import Dict
 
 logger = logging.getLogger(__name__)
 

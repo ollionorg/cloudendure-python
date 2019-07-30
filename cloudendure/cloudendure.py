@@ -4,7 +4,7 @@
 import datetime
 import json
 import os
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import boto3
 import fire
@@ -116,14 +116,14 @@ class CloudEndure:
             print("Failed to fetch the project!")
             raise CloudEndureHTTPException("Failed to fetch the CloudEndure Project!")
 
-        machine_status = 0
+        machine_status: int = 0
         machines_response = self.api.api_call(f"projects/{project_id}/machines")
 
         for _machine in _machines:
             machine_exist = False
             for machine in json.loads(machines_response.text).get("items", []):
-                source_props = machine.get("sourceProperties", {})
-                ref_name = source_props.get("name") or source_props.get(
+                source_props: Dict[str, Any] = machine.get("sourceProperties", {})
+                ref_name: str = source_props.get("name") or source_props.get(
                     "machineCloudId", "NONE"
                 )
                 if _machine == source_props.get(
@@ -306,7 +306,9 @@ class CloudEndure:
                         f"Machine: ({source_props['name']}) - Not a machine we want to launch..."
                     )
 
-    def status(self, project_name="", launch_type="test", dry_run=False):
+    def status(
+        self, project_id: str = "", launch_type: str = "test", dry_run: bool = False
+    ) -> bool:
         """Get the status of machines in the current wave."""
         if not project_name:
             project_name = self.project_name
@@ -324,10 +326,10 @@ class CloudEndure:
         machine_status = 0
         machines_response = self.api.api_call(f"projects/{project_id}/machines")
         for _machine in _machines:
-            machine_exist = False
+            machine_exist: bool = False
             for machine in json.loads(machines_response.text).get("items", []):
-                source_props = machine.get("sourceProperties", {})
-                ref_name = source_props.get("name") or source_props.get(
+                source_props: Dict[str, Any] = machine.get("sourceProperties", {})
+                ref_name: str = source_props.get("name") or source_props.get(
                     "machineCloudId", "NONE"
                 )
                 if ref_name == source_props.get("name", "NONE"):
@@ -407,7 +409,9 @@ class CloudEndure:
             print("ERROR: some machines in the targeted pool are not ready")
             return False
 
-    def execute(self, project_name="", launch_type="test", dry_run=False):
+    def execute(
+        self, project_name: str = "", launch_type: str = "test", dry_run: bool = False
+    ) -> bool:
         """Start the migration project my checking and launching the migration wave."""
         if not project_name:
             project_name = self.project_name
@@ -444,7 +448,7 @@ class CloudEndure:
                 ref_name = source_props.get("name") or source_props.get(
                     "machineCloudId", "NONE"
                 )
-                _machine_id = source_props.get("id", "")
+                _machine_id: str = source_props.get("id", "")
                 print(f"Machine name: {ref_name}, Machine ID: {_machine_id}")
                 machinelist[machine["id"]] = ref_name
 
@@ -460,7 +464,12 @@ class CloudEndure:
             print(str(e))
             return False
 
-    def share_image(self, image_id, dest_accounts=None, image_name="CloudEndureImage"):
+    def share_image(
+        self,
+        image_id: str,
+        dest_accounts: List[Any] = None,
+        image_name: str = "CloudEndureImage",
+    ) -> bool:
         """Share the generated AMIs to the provided destination accounts."""
         print("Loading EC2 client for region: ", AWS_REGION)
         _ec2_client = boto3.client("ec2", AWS_REGION)
@@ -472,13 +481,17 @@ class CloudEndure:
             dest_accounts = DESTINATION_ACCOUNTS
 
         for account in dest_accounts:
-            # Share the image with the destination account
-            image.modify_attribute(
-                ImageId=image.id,
-                Attribute="launchPermission",
-                OperationType="add",
-                LaunchPermission={"Add": [{"UserId": account}]},
-            )
+            try:
+                # Share the image with the destination account
+                image.modify_attribute(
+                    ImageId=image.id,
+                    Attribute="launchPermission",
+                    OperationType="add",
+                    LaunchPermission={"Add": [{"UserId": account}]},
+                )
+            except Exception as e:
+                print(e)
+                return False
 
             # We have to now share the snapshots associated with the AMI so it can be copied
             devices = image.block_device_mappings
@@ -486,19 +499,26 @@ class CloudEndure:
                 if "Ebs" in device:
                     snapshot_id = device["Ebs"]["SnapshotId"]
                     snapshot = _ec2_client.Snapshot(snapshot_id)
-                    snapshot.modify_attribute(
-                        Attribute="createVolumePermission",
-                        CreateVolumePermission={"Add": [{"UserId": account}]},
-                        OperationType="add",
-                    )
+                    try:
+                        snapshot.modify_attribute(
+                            Attribute="createVolumePermission",
+                            CreateVolumePermission={"Add": [{"UserId": account}]},
+                            OperationType="add",
+                        )
+                    except Exception as e:
+                        print(e)
+                        return False
+            return True
 
-    def create_ami(self, instance_ids=None, project_name=""):
+    def create_ami(
+        self, instance_ids: List[str] = None, project_name: str = ""
+    ) -> bool:
         """Create an AMI from the specified instance."""
         if not project_name:
-            project_name = self.project_name
-            project_id = self.project_id
+            project_name: str = self.project_name
+            project_id: str = self.project_id
         else:
-            project_id = self.get_project_id(project_name=project_name)
+            project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
             return False
@@ -508,7 +528,9 @@ class CloudEndure:
             _ec2_client = boto3.client("ec2", AWS_REGION)
 
             # Create an AMI from the migrated instance
-            image_creation_time = datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S")
+            image_creation_time: str = datetime.datetime.utcnow().strftime(
+                "%Y%m%d%H%M%S"
+            )
             instances = _ec2_client.describe_instances(
                 Filters=[
                     {"Name": "tag:MigrationWave", "Values": ["0"]},
@@ -517,14 +539,16 @@ class CloudEndure:
             )
             for reservation in instances.get("Reservations", []):
                 for instance in reservation.get("Instances", []):
-                    instance_id = instance.get("InstanceId", "")
+                    instance_id: str = instance.get("InstanceId", "")
                     ec2_image = _ec2_client.create_image(
                         InstanceId=instance_id,
                         Name=f"{image_creation_time}",
                         Description=f"{project_name} - {project_id} - {image_creation_time}",
                         NoReboot=True,
                     )
-                    _filters = [{"Name": "resource-id", "Values": [instance_id]}]
+                    _filters: List[Any] = [
+                        {"Name": "resource-id", "Values": [instance_id]}
+                    ]
 
                     # Tag the newly created AMI by getting the tags of the migrated instance to copy to the AMI.
                     ec2_tags = _ec2_client.describe_tags(Filters=_filters)

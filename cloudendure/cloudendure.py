@@ -534,7 +534,7 @@ class CloudEndure:
             )
             instances = _ec2_client.describe_instances(
                 Filters=[
-                    {"Name": "tag:MigrationWave", "Values": [f"{MIGRATION_WAVE}"]},
+                    {"Name": "tag:MigrationWave", "Values": [MIGRATION_WAVE]},
                     {"Name": "tag:CloneStatus", "Values": ["NOT_STARTED"]},
                 ]
             )

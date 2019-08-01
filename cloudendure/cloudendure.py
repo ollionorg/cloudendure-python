@@ -472,10 +472,10 @@ class CloudEndure:
     ) -> bool:
         """Share the generated AMIs to the provided destination accounts."""
         print("Loading EC2 client for region: ", AWS_REGION)
-        _ec2_client = boto3.client("ec2", AWS_REGION)
+        _ec2_res = boto3.resource("ec2", AWS_REGION)
 
         # Access the image that needs to be copied
-        image = _ec2_client.Image(image_id)
+        image = _ec2_res.Image(image_id)
 
         if not dest_accounts:
             dest_accounts = DESTINATION_ACCOUNTS
@@ -498,7 +498,7 @@ class CloudEndure:
             for device in devices:
                 if "Ebs" in device:
                     snapshot_id = device["Ebs"]["SnapshotId"]
-                    snapshot = _ec2_client.Snapshot(snapshot_id)
+                    snapshot = _ec2_res.Snapshot(snapshot_id)
                     try:
                         snapshot.modify_attribute(
                             Attribute="createVolumePermission",
@@ -508,6 +508,7 @@ class CloudEndure:
                     except Exception as e:
                         print(e)
                         return False
+            print(f"AMI ID: ({image_id}) - Shared to: ({account})")
             return True
 
     def create_ami(
@@ -533,7 +534,7 @@ class CloudEndure:
             )
             instances = _ec2_client.describe_instances(
                 Filters=[
-                    {"Name": "tag:MigrationWave", "Values": ["0"]},
+                    {"Name": "tag:MigrationWave", "Values": [f"{MIGRATION_WAVE}"]},
                     {"Name": "tag:CloneStatus", "Values": ["NOT_STARTED"]},
                 ]
             )

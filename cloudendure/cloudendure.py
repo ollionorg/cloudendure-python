@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Define the CloudEndure main entry logic."""
-import copy
 import datetime
 import json
 import os
@@ -576,12 +575,18 @@ class CloudEndure:
 
     def copy_image(self, image_id: str, kms_id: str):
         """Copy a shared image to a account"""
-        _ec2_client = boto3.client('ec2', AWS_REGION)
+        _ec2_client = boto3.client("ec2", AWS_REGION)
 
-        new_image = _ec2_client.copy_image(SourceImageId=image_id, SourceRegion=AWS_REGION, Name="test", Encrypted=True, KmsKeyId=kms_id)
+        new_image = _ec2_client.copy_image(
+            SourceImageId=image_id,
+            SourceRegion=AWS_REGION,
+            Name="test",
+            Encrypted=True,
+            KmsKeyId=kms_id,
+        )
 
         print(new_image)
-        return new_image['ImageId']
+        return new_image["ImageId"]
 
     def split_image(self, image_id: str):
         """Split the image into a root drive only AMI and a collection of snapshots."""
@@ -598,8 +603,8 @@ class CloudEndure:
         devices = image.block_device_mappings
         for device in devices:
             if "Ebs" in device:
-                if device['DeviceName'] == image.root_device_name:
-                    print (f"Found Root! {device}")
+                if device["DeviceName"] == image.root_device_name:
+                    print(f"Found Root! {device}")
                     root_drive = device
                 else:
                     drives[device["DeviceName"]] = device["Ebs"]
@@ -608,15 +613,18 @@ class CloudEndure:
         del root_drive["Ebs"]["Encrypted"]
 
         # create a new AMI with only the root
-        response = _ec2_res.register_image(Architecture="x86_64", 
-                                           BlockDeviceMappings=[root_drive], 
-                                           Name="test_split", 
-                                           RootDeviceName=image.root_device_name, 
-                                           VirtualizationType="hvm")
+        response = _ec2_res.register_image(
+            Architecture="x86_64",
+            BlockDeviceMappings=[root_drive],
+            Name="test_split",
+            RootDeviceName=image.root_device_name,
+            VirtualizationType="hvm",
+        )
 
         # return the AMI
-        drives['root_ami'] = response.id
+        drives["root_ami"] = response.id
         return drives
+
 
 def main():
     """Define the main entry method for the CLI."""

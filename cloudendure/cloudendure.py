@@ -180,11 +180,7 @@ class CloudEndure:
                 )
         return True
 
-    def update_blueprint(
-        self,
-        project_name: str = "",
-        dry_run: bool = False
-    ) -> bool:
+    def update_blueprint(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Update the blueprint associated with the specified machines."""
         print("Updating the CloudEndure Blueprints...")
 
@@ -207,7 +203,7 @@ class CloudEndure:
                 machine_list[machine_id] = machine_name
 
         if not machine_list:
-            print ("No Machines Found!")
+            print("No Machines Found!")
             return False
 
         try:
@@ -222,16 +218,14 @@ class CloudEndure:
                 _endpoint = f"projects/{project_id}/blueprints/{_blueprint_id}"
                 # Handle disk blueprints since we don't want provisioned IOPS $$$$
                 for disk in blueprint["disks"]:
-                    blueprint["disks"] = [
-                        {"type": "SSD", "name": disk.get("name", "")}
-                    ]
+                    blueprint["disks"] = [{"type": "SSD", "name": disk.get("name", "")}]
 
                 # Update machine tags
                 blueprint["tags"] = [
-                    { "key" : "CloneStatus", "value" : CLONE_STATUS },
-                    { "key" : "MigrationWave", "value" : MIGRATION_WAVE }
+                    {"key": "CloneStatus", "value": CLONE_STATUS},
+                    {"key": "MigrationWave", "value": MIGRATION_WAVE},
                 ]
-                
+
                 if dry_run:
                     print("This is a dry run! Not launching any machines!")
                     return True

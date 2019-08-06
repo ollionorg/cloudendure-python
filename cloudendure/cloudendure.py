@@ -184,8 +184,7 @@ class CloudEndure:
         self,
         project_name: str = "",
         launch_type: str = "test",
-        dry_run: bool = False,
-        machine_list=None,
+        dry_run: bool = False
     ) -> bool:
         """Update the blueprint associated with the specified machines."""
         print("Updating the CloudEndure Blueprints...")
@@ -199,38 +198,52 @@ class CloudEndure:
         if not project_id:
             return False
 
+        machine_list = {}
+        machines_response = self.api.api_call(f"projects/{project_id}/machines")
+        for machine in json.loads(machines_response.text).get("items", []):
+            source_props: Dict[str, Any] = machine.get("sourceProperties", {})
+            machine_id: str = machine.get("id")
+            machine_name: str = source_props.get("name")
+            if machine_name in _machines or machine_name.upper() in _machines:
+                machine_list[machine_id] = machine_name
+
+        if not machine_list:
+            print ("No Machines Found!")
+            return False
+
         try:
             blueprints_response = self.api.api_call(f"projects/{project_id}/blueprints")
             for blueprint in json.loads(blueprints_response.text).get("items", []):
                 _machine_id = blueprint.get("machineId")
-                _machine_name = machine_list[_machine_id]
+                _machine_name = machine_list.get(_machine_id)
+                if not _machine_name:
+                    continue
+
                 _blueprint_id = blueprint.get("id", "")
                 _endpoint = f"projects/{project_id}/blueprints/{_blueprint_id}"
+                # Handle disk blueprints since we don't want provisioned IOPS $$$$
+                for disk in blueprint["disks"]:
+                    blueprint["disks"] = [
+                        {"type": "SSD", "name": disk.get("name", "")}
+                    ]
 
-                for _machine in _machines:
-                    if _machine_name == _machine:
-                        # Handle disk blueprints since we don't want provisioned IOPS $$$$
-                        for disk in blueprint["disks"]:
-                            blueprint["disks"] = [
-                                {"type": "SSD", "name": disk.get("name", "")}
-                            ]
+                # Update machine tags
+                blueprint["tags"] = [
+                    { "key" : "CloneStatus", "value" : CLONE_STATUS },
+                    { "key" : "MigrationWave", "value" : MIGRATION_WAVE }
+                ]
 
-                        # Update machine tags
-                        blueprint["tags"] = {
-                            "CloneStatus": CLONE_STATUS,
-                            "MigrationWave": MIGRATION_WAVE,
-                        }
+                result = self.api.api_call(
+                    _endpoint, method="patch", data=json.dumps(blueprint)
+                )
 
-                        result = self.api.api_call(
-                            _endpoint, method="patch", data=json.dumps(blueprint)
-                        )
-
-                        if result.status_code != 200:
-                            print(
-                                "Blueprint update failure encountered for machine:",
-                                f"({_machine_name}) - fix blueprint settings!",
-                            )
-                        print("Blueprint for machine: " + _machine_name + " updated!")
+                if result.status_code != 200:
+                    print(
+                        "Blueprint update failure encountered for machine:",
+                        f"({_machine_name}) - {result.status_code} fix blueprint settings!",
+                    )
+                else:
+                    print("Blueprint for machine: " + _machine_name + " updated!")
         except Exception as e:
             print(f"Updating blueprint task failed! {e}")
             return False
@@ -588,7 +601,7 @@ class CloudEndure:
         print(new_image)
         return new_image["ImageId"]
 
-    def split_image(self, image_id: str):
+    def split_image(self, image_id: str, root_name: str = "root_image"):
         """Split the image into a root drive only AMI and a collection of snapshots."""
         print("Loading EC2 client for region: ", AWS_REGION)
         _ec2_res = boto3.resource("ec2", AWS_REGION)
@@ -614,11 +627,11 @@ class CloudEndure:
 
         # create a new AMI with only the root
         response = _ec2_res.register_image(
-            Architecture="x86_64",
+            Architecture=image.architecture,
             BlockDeviceMappings=[root_drive],
-            Name="test_split",
+            Name=root_name,
             RootDeviceName=image.root_device_name,
-            VirtualizationType="hvm",
+            VirtualizationType=image.virtualization_type,
         )
 
         # return the AMI

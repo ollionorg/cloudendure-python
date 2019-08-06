@@ -7,6 +7,16 @@
 **Implemented enhancements:**
 
 - Add python-fire to package dependencies [\#13](https://github.com/mbeacom/cloudendure-python/issues/13)
+- copy\_image and split\_image support [\#20](https://github.com/mbeacom/cloudendure-python/pull/20) ([twarnock2w](https://github.com/twarnock2w))
+- Add black to makefile [\#18](https://github.com/mbeacom/cloudendure-python/pull/18) ([mbeacom](https://github.com/mbeacom))
+- Add typing throughout base project [\#17](https://github.com/mbeacom/cloudendure-python/pull/17) ([mbeacom](https://github.com/mbeacom))
+- Check uses replica now.  Launch looks up project\_id and stops on replica. [\#16](https://github.com/mbeacom/cloudendure-python/pull/16) ([twarnock2w](https://github.com/twarnock2w))
+
+**Merged pull requests:**
+
+- Fixed update\_blueprint to actually work [\#21](https://github.com/mbeacom/cloudendure-python/pull/21) ([twarnock2w](https://github.com/twarnock2w))
+- Create and share image changes. [\#19](https://github.com/mbeacom/cloudendure-python/pull/19) ([twarnock2w](https://github.com/twarnock2w))
+- Update dependencies and adjust formatting [\#15](https://github.com/mbeacom/cloudendure-python/pull/15) ([mbeacom](https://github.com/mbeacom))
 
 ## [v0.0.5](https://github.com/mbeacom/cloudendure-python/tree/v0.0.5) (2019-06-28)
 [Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.4...v0.0.5)

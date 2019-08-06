@@ -183,7 +183,6 @@ class CloudEndure:
     def update_blueprint(
         self,
         project_name: str = "",
-        launch_type: str = "test",
         dry_run: bool = False
     ) -> bool:
         """Update the blueprint associated with the specified machines."""
@@ -232,6 +231,10 @@ class CloudEndure:
                     { "key" : "CloneStatus", "value" : CLONE_STATUS },
                     { "key" : "MigrationWave", "value" : MIGRATION_WAVE }
                 ]
+                
+                if dry_run:
+                    print("This is a dry run! Not launching any machines!")
+                    return True
 
                 result = self.api.api_call(
                     _endpoint, method="patch", data=json.dumps(blueprint)

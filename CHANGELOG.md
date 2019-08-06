@@ -2,7 +2,14 @@
 
 ## [Unreleased](https://github.com/mbeacom/cloudendure-python/tree/HEAD)
 
-[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.5...HEAD)
+[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.6...HEAD)
+
+**Merged pull requests:**
+
+- v0.0.6 [\#22](https://github.com/mbeacom/cloudendure-python/pull/22) ([mbeacom](https://github.com/mbeacom))
+
+## [v0.0.6](https://github.com/mbeacom/cloudendure-python/tree/v0.0.6) (2019-08-06)
+[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.5...v0.0.6)
 
 **Implemented enhancements:**
 

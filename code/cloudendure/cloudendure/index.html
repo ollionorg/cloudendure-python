@@ -1762,7 +1762,7 @@
 
 <p>Check the status of machines in the provided project.
 <h3 id="cloudendure.cloudendure.CloudEndure.update_blueprint">update_blueprint</h3></p>
-<pre><code class="python">CloudEndure.update_blueprint(self, project_name: str = '', launch_type: str = 'test', dry_run: bool = False, machine_list=None) -&gt; bool
+<pre><code class="python">CloudEndure.update_blueprint(self, project_name: str = '', dry_run: bool = False) -&gt; bool
 </code></pre>
 
 <p>Update the blueprint associated with the specified machines.
@@ -1797,7 +1797,7 @@
 
 <p>Copy a shared image to a account
 <h3 id="cloudendure.cloudendure.CloudEndure.split_image">split_image</h3></p>
-<pre><code class="python">CloudEndure.split_image(self, image_id: str)
+<pre><code class="python">CloudEndure.split_image(self, image_id: str, root_name: str = 'root_image')
 </code></pre>
 
 <p>Split the image into a root drive only AMI and a collection of snapshots.

@@ -590,7 +590,7 @@ class CloudEndure:
         new_image = _ec2_client.copy_image(
             SourceImageId=image_id,
             SourceRegion=AWS_REGION,
-            Name="test",
+            Name=f"copied-ami-{image_id}",
             Encrypted=True,
             KmsKeyId=kms_id,
         )
@@ -598,7 +598,7 @@ class CloudEndure:
         print(new_image)
         return new_image["ImageId"]
 
-    def split_image(self, image_id: str, root_name: str = "root_image"):
+    def split_image(self, image_id: str):
         """Split the image into a root drive only AMI and a collection of snapshots."""
         print("Loading EC2 client for region: ", AWS_REGION)
         _ec2_res = boto3.resource("ec2", AWS_REGION)
@@ -626,7 +626,7 @@ class CloudEndure:
         response = _ec2_res.register_image(
             Architecture=image.architecture,
             BlockDeviceMappings=[root_drive],
-            Name=root_name,
+            Name=f"root-ami-{image_id}",
             RootDeviceName=image.root_device_name,
             VirtualizationType=image.virtualization_type,
         )

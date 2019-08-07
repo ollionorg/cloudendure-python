@@ -626,7 +626,7 @@ class CloudEndure:
         response = _ec2_res.register_image(
             Architecture=image.architecture,
             BlockDeviceMappings=[root_drive],
-            Name=f"root-image-{image_id}",
+            Name=f"root-ami-{image_id}",
             RootDeviceName=image.root_device_name,
             VirtualizationType=image.virtualization_type,
         )

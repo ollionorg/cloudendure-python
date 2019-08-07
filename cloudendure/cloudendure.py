@@ -590,7 +590,7 @@ class CloudEndure:
         new_image = _ec2_client.copy_image(
             SourceImageId=image_id,
             SourceRegion=AWS_REGION,
-            Name=f"copied_ami-{image_id}",
+            Name=f"copied-ami-{image_id}",
             Encrypted=True,
             KmsKeyId=kms_id,
         )

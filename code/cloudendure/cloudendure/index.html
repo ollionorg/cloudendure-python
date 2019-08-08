@@ -1761,6 +1761,11 @@
 </code></pre>
 
 <p>Check the status of machines in the provided project.
+<h3 id="cloudendure.cloudendure.CloudEndure.update_encryption_key">update_encryption_key</h3></p>
+<pre><code class="python">CloudEndure.update_encryption_key(self, kms_id: str, project_name: str = '', dry_run: bool = False) -&gt; bool
+</code></pre>
+
+<p>Update encryption keys for replication. WARNING - This will cause re-sync if key does not match!
 <h3 id="cloudendure.cloudendure.CloudEndure.update_blueprint">update_blueprint</h3></p>
 <pre><code class="python">CloudEndure.update_blueprint(self, project_name: str = '', dry_run: bool = False) -&gt; bool
 </code></pre>

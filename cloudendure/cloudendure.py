@@ -180,6 +180,54 @@ class CloudEndure:
                 )
         return True
 
+    def update_encryption_key(
+        self, kms_id: str, project_name: str = "", dry_run: bool = False
+    ) -> bool:
+        """Update encryption keys for replication. WARNING - This will cause re-sync if key does not match!"""
+        print("Updating encryption key...")
+
+        if not project_name:
+            project_name = self.project_name
+            project_id = self.project_id
+        else:
+            project_id = self.get_project_id(project_name=project_name)
+
+        if not project_id:
+            return False
+
+        machines_response = self.api.api_call(f"projects/{project_id}/machines")
+        for machine in json.loads(machines_response.text).get("items", []):
+            source_props: Dict[str, Any] = machine.get("sourceProperties", {})
+            name: str = source_props.get("name")
+            machine_id: str = machine.get("id")
+            replication_config: Dict[str, Any] = machine.get(
+                "replicationConfiguration", {}
+            )
+
+            if replication_config.get("volumeEncryptionKey") == kms_id:
+                print(f"Key matches {name}")
+                continue
+
+            if dry_run:
+                print(f"DRY RUN - Not updating key for {name} - DRY RUN")
+                continue
+
+            replication_config["volumeEncryptionKey"] = kms_id
+            endpoint = f"projects/{project_id}/machines/{machine_id}"
+            print(f"sending to {endpoint}")
+            result = self.api.api_call(
+                endpoint, method="patch", data=json.dumps(machine)
+            )
+
+            if result.status_code != 200:
+                print(
+                    f"Key update failure encountered for machine: {name} - {result.status_code}\n{result.json()}"
+                )
+            else:
+                print(f"Key updated for or machine: {name}")
+
+        return True
+
     def update_blueprint(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Update the blueprint associated with the specified machines."""
         print("Updating the CloudEndure Blueprints...")
@@ -227,7 +275,7 @@ class CloudEndure:
                 ]
 
                 if dry_run:
-                    print("This is a dry run! Not launching any machines!")
+                    print("This is a dry run! Not updating blueprints!")
                     return True
 
                 result = self.api.api_call(

@@ -183,8 +183,7 @@ class CloudEndure:
     def update_encryption_key(
         self, kms_id: str, project_name: str = "", dry_run: bool = False
     ) -> bool:
-        """Update encryption keys for each machine if it does not match.  
-        WARNING - This will cause re-sync if key does not match!"""
+        """Update encryption keys for replication. WARNING - This will cause re-sync if key does not match!"""
         print("Updating encryption key...")
 
         if not project_name:

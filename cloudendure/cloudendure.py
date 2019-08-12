@@ -601,8 +601,8 @@ class CloudEndure:
                     instance_id: str = instance.get("InstanceId", "")
                     ec2_image = _ec2_client.create_image(
                         InstanceId=instance_id,
-                        Name=f"{image_creation_time}",
-                        Description=f"{project_name} - {project_id} - {image_creation_time}",
+                        Name=f"{instance_id}-{image_creation_time}",
+                        Description=f"{project_name} - {project_id} - {instance_id} - {image_creation_time}",
                         NoReboot=True,
                     )
                     _filters: List[Any] = [

@@ -1762,7 +1762,7 @@
     logger (logging.Logger): The default logger for the module.</p>
 <h2 id="cloudendure.api.CloudEndureAPI">CloudEndureAPI</h2>
 
-<pre><code class="python">CloudEndureAPI(self, *args, **kwargs)
+<pre><code class="python">CloudEndureAPI(self, *args, **kwargs) -&gt; 'None'
 </code></pre>
 
 <p>Define the CloudEndure API base.</p>
@@ -1777,7 +1777,7 @@
 <p>If no argument is given, the constructor creates a new empty list.
 The argument must be an iterable if specified.
 <h3 id="cloudendure.api.CloudEndureAPI.login">login</h3></p>
-<pre><code class="python">CloudEndureAPI.login(self, username='', password='')
+<pre><code class="python">CloudEndureAPI.login(self, username: 'str' = '', password: 'str' = '') -&gt; 'bool'
 </code></pre>
 
 <p>Login to the CloudEndure API console.</p>
@@ -1795,7 +1795,7 @@ The argument must be an iterable if specified.
     _xsrf_token (str): The XSRF token to be used for subsequent API requests.</p>
 <h3 id="cloudendure.api.CloudEndureAPI.get_endpoint">get_endpoint</h3>
 
-<pre><code class="python">CloudEndureAPI.get_endpoint(path: str, api_version: str = 'latest', host: str = 'https://console.cloudendure.com') -&gt; str
+<pre><code class="python">CloudEndureAPI.get_endpoint(path: 'str', api_version: 'str' = 'latest', host: 'str' = 'https://console.cloudendure.com') -&gt; 'str'
 </code></pre>
 
 <p>Build the endpoint path.</p>
@@ -1803,7 +1803,7 @@ The argument must be an iterable if specified.
     str: The CloudEndure API endpoint to be used.</p>
 <h3 id="cloudendure.api.CloudEndureAPI.api_call">api_call</h3>
 
-<pre><code class="python">CloudEndureAPI.api_call(self, path: str, method: str = 'get', data=None) -&gt; requests.models.Response
+<pre><code class="python">CloudEndureAPI.api_call(self, path: 'str', method: 'str' = 'get', data: 'Dict[str, Any]' = None) -&gt; 'Response'
 </code></pre>
 
 <p>Handle CloudEndure API calls based on the defined parameters.</p>
@@ -1814,14 +1814,24 @@ The argument must be an iterable if specified.
     data (dict): The data dictionary to be used to perform the request.</p>
 <p>Returns:
     requests.models.Response: The CloudEndure API response.</p>
-<h3 id="cloudendure.api.CloudEndureAPI.get_projects">get_projects</h3>
+<h3 id="cloudendure.api.CloudEndureAPI.check_creds">check_creds</h3>
 
-<pre><code class="python">CloudEndureAPI.get_projects(self, current_project='')
+<pre><code class="python">CloudEndureAPI.check_creds(self, login: 'bool' = True) -&gt; 'Dict[str, str]'
+</code></pre>
+
+<p>Check the credential TTL.
+<h3 id="cloudendure.api.CloudEndureAPI.post_endpoint">post_endpoint</h3></p>
+<pre><code class="python">CloudEndureAPI.post_endpoint(self, path: 'str' = '') -&gt; 'Response'
+</code></pre>
+
+<p>Create a POST request against the specified path.
+<h3 id="cloudendure.api.CloudEndureAPI.get_projects">get_projects</h3></p>
+<pre><code class="python">CloudEndureAPI.get_projects(self, current_project: 'str' = '') -&gt; 'List[Any]'
 </code></pre>
 
 <p>Get the CloudEndure projects associated with the authenticated account.
 <h3 id="cloudendure.api.CloudEndureAPI.docs">docs</h3></p>
-<pre><code class="python">CloudEndureAPI.docs()
+<pre><code class="python">CloudEndureAPI.docs() -&gt; 'str'
 </code></pre>
 
 <p>Open the CloudEndure API documentation page.</p>

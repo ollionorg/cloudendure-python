@@ -1756,37 +1756,37 @@
 
 <p>Define the CloudEndure Config related logic.
 <h2 id="cloudendure.config.CloudEndureConfig">CloudEndureConfig</h2></p>
-<pre><code class="python">CloudEndureConfig(self, *args, **kwargs)
+<pre><code class="python">CloudEndureConfig(self, *args, **kwargs) -&gt; 'None'
 </code></pre>
 
 <p>Define the CloudEndure Config object.
 <h3 id="cloudendure.config.CloudEndureConfig.read_yaml_config">read_yaml_config</h3></p>
-<pre><code class="python">CloudEndureConfig.read_yaml_config(self) -&gt; Dict[str, Any]
+<pre><code class="python">CloudEndureConfig.read_yaml_config(self) -&gt; 'Dict[str, Any]'
 </code></pre>
 
 <p>Read the CloudEndure YAML configuration file.
 <h3 id="cloudendure.config.CloudEndureConfig.write_yaml_config">write_yaml_config</h3></p>
-<pre><code class="python">CloudEndureConfig.write_yaml_config(self, config: Dict[str, Any]) -&gt; bool
+<pre><code class="python">CloudEndureConfig.write_yaml_config(self, config: 'Dict[str, Any]') -&gt; 'bool'
 </code></pre>
 
 <p>Write to the CloudEndure YAML configuration file.
 <h3 id="cloudendure.config.CloudEndureConfig.update_yaml_config">update_yaml_config</h3></p>
-<pre><code class="python">CloudEndureConfig.update_yaml_config(self, kwargs: Dict[str, Any]) -&gt; bool
+<pre><code class="python">CloudEndureConfig.update_yaml_config(self, kwargs: 'Dict[str, Any]') -&gt; 'bool'
 </code></pre>
 
 <p>Update the YAML configuration file.
 <h3 id="cloudendure.config.CloudEndureConfig.get_env_vars">get_env_vars</h3></p>
-<pre><code class="python">CloudEndureConfig.get_env_vars(self, prefix: str = 'cloudendure') -&gt; Dict[str, &lt;built-in function any&gt;]
+<pre><code class="python">CloudEndureConfig.get_env_vars(self, prefix: 'str' = 'cloudendure') -&gt; 'Dict[str, any]'
 </code></pre>
 
 <p>Get all environment variables starting with CLOUDENDURE_.
 <h3 id="cloudendure.config.CloudEndureConfig.update_config">update_config</h3></p>
-<pre><code class="python">CloudEndureConfig.update_config(self)
+<pre><code class="python">CloudEndureConfig.update_config(self) -&gt; 'None'
 </code></pre>
 
 <p>Update the configuration.
 <h3 id="cloudendure.config.CloudEndureConfig.update_token">update_token</h3></p>
-<pre><code class="python">CloudEndureConfig.update_token(self, token: str) -&gt; bool
+<pre><code class="python">CloudEndureConfig.update_token(self, token: 'str') -&gt; 'bool'
 </code></pre>
 
 <p>Update the CloudEndure token.</p>
@@ -1794,7 +1794,7 @@
     bool: Whether or not the operation was successful.</p>
 <h3 id="cloudendure.config.CloudEndureConfig.get_var">get_var</h3>
 
-<pre><code class="python">CloudEndureConfig.get_var(self, var: str) -&gt; str
+<pre><code class="python">CloudEndureConfig.get_var(self, var: 'str') -&gt; 'str'
 </code></pre>
 
 <p>Get the specified environment or config variable.</p>

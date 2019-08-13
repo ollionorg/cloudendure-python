@@ -1756,12 +1756,12 @@
 
 <p>Define the CloudEndure main entry logic.
 <h2 id="cloudendure.cloudendure.CloudEndure">CloudEndure</h2></p>
-<pre><code class="python">CloudEndure(self)
+<pre><code class="python">CloudEndure(self) -&gt; 'None'
 </code></pre>
 
 <p>Define the CloudEndure general object.
 <h3 id="cloudendure.cloudendure.CloudEndure.get_project_id">get_project_id</h3></p>
-<pre><code class="python">CloudEndure.get_project_id(self, project_name: str = '') -&gt; str
+<pre><code class="python">CloudEndure.get_project_id(self, project_name: 'str' = '') -&gt; 'str'
 </code></pre>
 
 <p>Get the associated CloudEndure project ID by project_name.</p>
@@ -1774,12 +1774,12 @@
     str: The CloudEndure project UUID.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.check">check</h3>
 
-<pre><code class="python">CloudEndure.check(self, project_name: str = '', launch_type: str = 'test', dry_run: bool = False)
+<pre><code class="python">CloudEndure.check(self, project_name: 'str' = '', launch_type: 'str' = 'test', dry_run: 'bool' = False) -&gt; 'bool'
 </code></pre>
 
 <p>Check the status of machines in the provided project.
 <h3 id="cloudendure.cloudendure.CloudEndure.update_encryption_key">update_encryption_key</h3></p>
-<pre><code class="python">CloudEndure.update_encryption_key(self, kms_id: str, project_name: str = '', dry_run: bool = False) -&gt; bool
+<pre><code class="python">CloudEndure.update_encryption_key(self, kms_id: 'str', project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
 </code></pre>
 
 <p>Update encryption keys for replication.</p>
@@ -1793,32 +1793,32 @@
     bool: Whether or not the encryption key was updated.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.update_blueprint">update_blueprint</h3>
 
-<pre><code class="python">CloudEndure.update_blueprint(self, project_name: str = '', dry_run: bool = False) -&gt; bool
+<pre><code class="python">CloudEndure.update_blueprint(self, project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
 </code></pre>
 
 <p>Update the blueprint associated with the specified machines.
 <h3 id="cloudendure.cloudendure.CloudEndure.launch">launch</h3></p>
-<pre><code class="python">CloudEndure.launch(self, project_name='', launch_type='test', dry_run=False) -&gt; bool
+<pre><code class="python">CloudEndure.launch(self, project_name='', launch_type='test', dry_run=False) -&gt; 'bool'
 </code></pre>
 
 <p>Launch the test target instances.
 <h3 id="cloudendure.cloudendure.CloudEndure.status">status</h3></p>
-<pre><code class="python">CloudEndure.status(self, project_name: str = '', launch_type: str = 'test', dry_run: bool = False) -&gt; bool
+<pre><code class="python">CloudEndure.status(self, project_name: 'str' = '', launch_type: 'str' = 'test', dry_run: 'bool' = False) -&gt; 'bool'
 </code></pre>
 
 <p>Get the status of machines in the current wave.
 <h3 id="cloudendure.cloudendure.CloudEndure.execute">execute</h3></p>
-<pre><code class="python">CloudEndure.execute(self, project_name: str = '', launch_type: str = 'test', dry_run: bool = False) -&gt; bool
+<pre><code class="python">CloudEndure.execute(self, project_name: 'str' = '', launch_type: 'str' = 'test', dry_run: 'bool' = False) -&gt; 'bool'
 </code></pre>
 
 <p>Start the migration project my checking and launching the migration wave.
 <h3 id="cloudendure.cloudendure.CloudEndure.share_image">share_image</h3></p>
-<pre><code class="python">CloudEndure.share_image(self, image_id: str, dest_accounts: List[Any] = None, image_name: str = 'CloudEndureImage') -&gt; bool
+<pre><code class="python">CloudEndure.share_image(self, image_id: 'str', dest_accounts: 'List[str]' = None, image_name: 'str' = 'CloudEndureImage') -&gt; 'bool'
 </code></pre>
 
 <p>Share the generated AMIs to the provided destination accounts.
 <h3 id="cloudendure.cloudendure.CloudEndure.create_ami">create_ami</h3></p>
-<pre><code class="python">CloudEndure.create_ami(self, project_name: str = '') -&gt; bool
+<pre><code class="python">CloudEndure.create_ami(self, project_name: 'str' = '') -&gt; 'bool'
 </code></pre>
 
 <p>Create an AMI from the specified instance.</p>
@@ -1828,7 +1828,7 @@
     bool: Whether or not the AMI creation was successful.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.copy_image">copy_image</h3>
 
-<pre><code class="python">CloudEndure.copy_image(self, image_id: str, kms_id: str) -&gt; str
+<pre><code class="python">CloudEndure.copy_image(self, image_id: 'str', kms_id: 'str') -&gt; 'str'
 </code></pre>
 
 <p>Copy a shared image to an account.</p>
@@ -1839,7 +1839,7 @@
     str: The copied AWS AMI ID.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.split_image">split_image</h3>
 
-<pre><code class="python">CloudEndure.split_image(self, image_id: str) -&gt; Dict[str, Any]
+<pre><code class="python">CloudEndure.split_image(self, image_id: 'str') -&gt; 'Dict[str, Any]'
 </code></pre>
 
 <p>Split the image into a root drive only AMI and a collection of snapshots.</p>
@@ -1849,7 +1849,7 @@
     dict: The mapping of AWS EBS block devices.</p>
 <h2 id="cloudendure.cloudendure.main">main</h2>
 
-<pre><code class="python">main()
+<pre><code class="python">main() -&gt; 'None'
 </code></pre>
 
 <p>Define the main entry method for the CLI.</p>

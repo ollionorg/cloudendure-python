@@ -1756,17 +1756,17 @@
 
 <p>Define the CloudEndure events.
 <h2 id="cloudendure.events.EventHandler">EventHandler</h2></p>
-<pre><code class="python">EventHandler(self, events: List[Any] = None)
+<pre><code class="python">EventHandler(self, events: 'List[Any]' = None) -&gt; 'None'
 </code></pre>
 
 <p>Define the handling of CloudEndure Event objects.
 <h3 id="cloudendure.events.EventHandler.add_event">add_event</h3></p>
-<pre><code class="python">EventHandler.add_event(self, event_type: Tuple[str, str], machine_name, **kwargs) -&gt; bool
+<pre><code class="python">EventHandler.add_event(self, event_type: 'Tuple[str, str]', machine_name, **kwargs) -&gt; 'bool'
 </code></pre>
 
 <p>Add an event.
 <h2 id="cloudendure.events.Event">Event</h2></p>
-<pre><code class="python">Event(self, event_type, machine_name: str = 'NA', **kwargs)
+<pre><code class="python">Event(self, event_type, machine_name: 'str' = 'NA', **kwargs) -&gt; 'None'
 </code></pre>
 
 <p>Define the structure of a CloudEndure Event.</p>

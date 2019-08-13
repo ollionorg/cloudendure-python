@@ -1761,7 +1761,7 @@
     logger (logging.Logger): The logger to be used throughout execution of the AWS Lambda.</p>
 <h2 id="lambda.handler.send_sqs_message">send_sqs_message</h2>
 
-<pre><code class="python">send_sqs_message(image_info: Dict) -&gt; bool
+<pre><code class="python">send_sqs_message(image_info: 'Dict[str, Any]') -&gt; 'bool'
 </code></pre>
 
 <p>Send a SQS message.</p>
@@ -1775,7 +1775,7 @@ instance that passed testing post migration in CloudEndure.</p>
     bool:  Whether or not the message has been sent successfully.</p>
 <h2 id="lambda.handler.create_ami">create_ami</h2>
 
-<pre><code class="python">create_ami(project_id: str, instance_id: str) -&gt; bool
+<pre><code class="python">create_ami(project_id: 'str', instance_id: 'str') -&gt; 'bool'
 </code></pre>
 
 <p>Create an AMI from the specified instance.</p>
@@ -1788,7 +1788,7 @@ instance that passed testing post migration in CloudEndure.</p>
     bool: Whether or not the AMI has been created successfully.</p>
 <h2 id="lambda.handler.lambda_handler">lambda_handler</h2>
 
-<pre><code class="python">lambda_handler(event: Dict[str, Any], context: Dict[str, Any]) -&gt; bool
+<pre><code class="python">lambda_handler(event: 'Dict[str, Any]', context: 'Dict[str, Any]') -&gt; 'bool'
 </code></pre>
 
 <p>Define the AWS Lambda entry point and handler.</p>

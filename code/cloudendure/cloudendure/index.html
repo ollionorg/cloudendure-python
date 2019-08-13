@@ -1748,15 +1748,7 @@
 </code></pre>
 
 <p>Define the CloudEndure general object.
-<h3 id="cloudendure.cloudendure.CloudEndure.get_endpoint">get_endpoint</h3></p>
-<pre><code class="python">CloudEndure.get_endpoint(path: str, api_version: str = 'latest', host: str = 'https://console.cloudendure.com') -&gt; str
-</code></pre>
-
-<p>Build the endpoint path.</p>
-<p>Returns:
-    str: The CloudEndure API endpoint to be used.</p>
-<h3 id="cloudendure.cloudendure.CloudEndure.get_project_id">get_project_id</h3>
-
+<h3 id="cloudendure.cloudendure.CloudEndure.get_project_id">get_project_id</h3></p>
 <pre><code class="python">CloudEndure.get_project_id(self, project_name: str = '') -&gt; str
 </code></pre>
 
@@ -1814,21 +1806,37 @@
 
 <p>Share the generated AMIs to the provided destination accounts.
 <h3 id="cloudendure.cloudendure.CloudEndure.create_ami">create_ami</h3></p>
-<pre><code class="python">CloudEndure.create_ami(self, instance_ids: List[str] = None, project_name: str = '') -&gt; bool
+<pre><code class="python">CloudEndure.create_ami(self, project_name: str = '') -&gt; bool
 </code></pre>
 
-<p>Create an AMI from the specified instance.
-<h3 id="cloudendure.cloudendure.CloudEndure.copy_image">copy_image</h3></p>
-<pre><code class="python">CloudEndure.copy_image(self, image_id: str, kms_id: str)
+<p>Create an AMI from the specified instance.</p>
+<p>Args:
+    project_name (str): The name of the CloudEndure project.</p>
+<p>Returns:
+    bool: Whether or not the AMI creation was successful.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.copy_image">copy_image</h3>
+
+<pre><code class="python">CloudEndure.copy_image(self, image_id: str, kms_id: str) -&gt; str
 </code></pre>
 
-<p>Copy a shared image to a account
-<h3 id="cloudendure.cloudendure.CloudEndure.split_image">split_image</h3></p>
-<pre><code class="python">CloudEndure.split_image(self, image_id: str)
+<p>Copy a shared image to an account.</p>
+<p>Args:
+    image_id (str): The AWS AMI to be copied.
+    kms_id (str): The AWS KMS ID to be used for image encryption.</p>
+<p>Returns:
+    str: The copied AWS AMI ID.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.split_image">split_image</h3>
+
+<pre><code class="python">CloudEndure.split_image(self, image_id: str) -&gt; Dict[str, Any]
 </code></pre>
 
-<p>Split the image into a root drive only AMI and a collection of snapshots.
-<h2 id="cloudendure.cloudendure.main">main</h2></p>
+<p>Split the image into a root drive only AMI and a collection of snapshots.</p>
+<p>Args:
+    image_id (str): The AWS AMI to be copied.</p>
+<p>Returns:
+    dict: The mapping of AWS EBS block devices.</p>
+<h2 id="cloudendure.cloudendure.main">main</h2>
+
 <pre><code class="python">main()
 </code></pre>
 

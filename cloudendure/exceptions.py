@@ -46,3 +46,9 @@ class CloudEndureUnprocessableEntity(CloudEndureHTTPException):
     """The CloudEndure HTTP exception (422) was encountered due to invalid input."""
 
     pass
+
+
+class CloudEndureInvalidEvent(CloudEndureException):
+    """The CloudEndure exception for invalid Event types."""
+
+    pass

@@ -14,6 +14,7 @@ from cloudendure.cloudendure_api.api_client import ApiClient
 
 from .api import CloudEndureAPI
 from .config import CloudEndureConfig
+from .events import Event, EventHandler
 from .exceptions import CloudEndureHTTPException
 
 HOST: str = "https://console.cloudendure.com"
@@ -30,7 +31,6 @@ LAUNCH_TYPES: List[str] = ["test", "cutover"]
 MIGRATION_WAVE: str = os.environ.get("CLOUDENDURE_MIGRATION_WAVE", "0")
 CLONE_STATUS: str = os.environ.get("CLOUDENDURE_CLONE_STATUS", "NOT_STARTED")
 MAX_LAG_TTL: int = int(os.environ.get("CLOUDENDURE_MAX_LAG_TTL", "90"))
-SHARE_IMAGE: str = os.environ.get("", "")
 
 
 class CloudEndure:
@@ -52,6 +52,7 @@ class CloudEndure:
         self.project_id = (
             self.get_project_id(project_name=self.project_name) or global_project_id
         )
+        self.event_handler = EventHandler()
 
     @staticmethod
     def get_endpoint(
@@ -67,7 +68,20 @@ class CloudEndure:
         """
         return f"{host}/api/{api_version}/{path}"
 
-    def get_project_id(self, project_name: str = ""):
+    def get_project_id(self, project_name: str = "") -> str:
+        """Get the associated CloudEndure project ID by project_name.
+
+        Args:
+            project_name (str): The name of the CloudEndure project.
+
+        Exceptions:
+            Exception: Currently catch all encountered exceptions while traversing
+                the project list API call.
+
+        Returns:
+            str: The CloudEndure project UUID.
+
+        """
         projects_result = self.api.api_call("projects")
         if projects_result.status_code != 200:
             print("Failed to fetch the project!")
@@ -183,7 +197,20 @@ class CloudEndure:
     def update_encryption_key(
         self, kms_id: str, project_name: str = "", dry_run: bool = False
     ) -> bool:
-        """Update encryption keys for replication. WARNING - This will cause re-sync if key does not match!"""
+        """Update encryption keys for replication.
+
+        Warning: This will cause re-sync if key does not match!
+
+        Args:
+            kms_id (str): The AWS KMD ID to update the project to use.
+            project_name (str): The name of the CloudEndure project to be updated.
+            dry_run (bool): Whether or not this execution should be a dry run,
+                making no actual changes to CloudEndure for validation purposes.
+
+        Returns:
+            bool: Whether or not the encryption key was updated.
+
+        """
         print("Updating encryption key...")
 
         if not project_name:
@@ -294,7 +321,7 @@ class CloudEndure:
             return False
         return True
 
-    def launch(self, project_name="", launch_type="test", dry_run=False):
+    def launch(self, project_name="", launch_type="test", dry_run=False) -> bool:
         """Launch the test target instances."""
         if not project_name:
             project_name = self.project_name
@@ -328,6 +355,7 @@ class CloudEndure:
                 if _machine == source_props.get("name", "NONE"):
                     if machine.get("replica"):
                         print("Target machine already launched")
+                        self.event_handler.add_event(Event.EVENT_ALREADY_LAUNCHED, machine_name=_machine)
                         continue
                     if launch_type == "test":
                         machine_data = {
@@ -339,8 +367,6 @@ class CloudEndure:
                             "items": [{"machineId": machine["id"]}],
                             "launchType": "CUTOVER",
                         }
-                    else:
-                        print("ERROR: Invalid Launch Type!")
 
                 if machine_data:
                     result = self.api.api_call(
@@ -351,21 +377,28 @@ class CloudEndure:
                     if result.status_code == 202:
                         if launch_type == "test":
                             print("Test Job created for machine ", _machine)
+                            self.event_handler.add_event(Event.EVENT_SUCCESSFULLY_LAUNCHED, machine_name=_machine)
                         elif launch_type == "cutover":
                             print("Cutover Job created for machine ", _machine)
+                            self.event_handler.add_event(Event.EVENT_SUCCESSFULLY_CUTOVER, machine_name=_machine)
                     elif result.status_code == 409:
                         print(f"ERROR: ({_machine}) is currently in progress!")
+                        self.event_handler.add_event(Event.EVENT_IN_PROGRESS, machine_name=_machine)
                     elif result.status_code == 402:
                         print("ERROR: Project license has expired!")
+                        self.event_handler.add_event(Event.EVENT_EXPIRED, machine_name=_machine)
                     else:
                         print("ERROR: Launch target machine failed!")
+                        self.event_handler.add_event(Event.EVENT_FAILED, machine_name=_machine)
                 else:
                     print(
                         f"Machine: ({source_props['name']}) - Not a machine we want to launch..."
                     )
+                    self.event_handler.add_event(Event.EVENT_IGNORED, machine_name=_machine)
+        return True
 
     def status(
-        self, project_id: str = "", launch_type: str = "test", dry_run: bool = False
+        self, project_name: str = "", launch_type: str = "test", dry_run: bool = False
     ) -> bool:
         """Get the status of machines in the current wave."""
         if not project_name:

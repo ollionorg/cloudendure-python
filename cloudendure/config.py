@@ -41,6 +41,7 @@ class CloudEndureConfig:
                     "session_cookie": "",
                     "project_name": "",
                     "project_id": "",
+                    "max_lag_ttl": "90",
                 }
             )
         self.update_config()

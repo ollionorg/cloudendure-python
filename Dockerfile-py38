@@ -1,4 +1,4 @@
-FROM python:3.8-rc-slim-stretch
+FROM python:3.8-rc-slim-buster
 
 ARG SYSTEM_PACKAGES="make"
 

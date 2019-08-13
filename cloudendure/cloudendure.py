@@ -355,7 +355,9 @@ class CloudEndure:
                 if _machine == source_props.get("name", "NONE"):
                     if machine.get("replica"):
                         print("Target machine already launched")
-                        self.event_handler.add_event(Event.EVENT_ALREADY_LAUNCHED, machine_name=_machine)
+                        self.event_handler.add_event(
+                            Event.EVENT_ALREADY_LAUNCHED, machine_name=_machine
+                        )
                         continue
                     if launch_type == "test":
                         machine_data = {
@@ -377,24 +379,36 @@ class CloudEndure:
                     if result.status_code == 202:
                         if launch_type == "test":
                             print("Test Job created for machine ", _machine)
-                            self.event_handler.add_event(Event.EVENT_SUCCESSFULLY_LAUNCHED, machine_name=_machine)
+                            self.event_handler.add_event(
+                                Event.EVENT_SUCCESSFULLY_LAUNCHED, machine_name=_machine
+                            )
                         elif launch_type == "cutover":
                             print("Cutover Job created for machine ", _machine)
-                            self.event_handler.add_event(Event.EVENT_SUCCESSFULLY_CUTOVER, machine_name=_machine)
+                            self.event_handler.add_event(
+                                Event.EVENT_SUCCESSFULLY_CUTOVER, machine_name=_machine
+                            )
                     elif result.status_code == 409:
                         print(f"ERROR: ({_machine}) is currently in progress!")
-                        self.event_handler.add_event(Event.EVENT_IN_PROGRESS, machine_name=_machine)
+                        self.event_handler.add_event(
+                            Event.EVENT_IN_PROGRESS, machine_name=_machine
+                        )
                     elif result.status_code == 402:
                         print("ERROR: Project license has expired!")
-                        self.event_handler.add_event(Event.EVENT_EXPIRED, machine_name=_machine)
+                        self.event_handler.add_event(
+                            Event.EVENT_EXPIRED, machine_name=_machine
+                        )
                     else:
                         print("ERROR: Launch target machine failed!")
-                        self.event_handler.add_event(Event.EVENT_FAILED, machine_name=_machine)
+                        self.event_handler.add_event(
+                            Event.EVENT_FAILED, machine_name=_machine
+                        )
                 else:
                     print(
                         f"Machine: ({source_props['name']}) - Not a machine we want to launch..."
                     )
-                    self.event_handler.add_event(Event.EVENT_IGNORED, machine_name=_machine)
+                    self.event_handler.add_event(
+                        Event.EVENT_IGNORED, machine_name=_machine
+                    )
         return True
 
     def status(

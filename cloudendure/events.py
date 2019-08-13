@@ -41,10 +41,7 @@ class Event:
     EVENT_EXPIRED: Tuple[str, str] = ("EXPIRED", "EE")
     EVENT_FAILED: Tuple[str, str] = ("FAILED", "EF")
 
-    ERRORRED_EVENT_TYPES: List[Tuple[str, str]] = [
-        EVENT_EXPIRED,
-        EVENT_FAILED,
-    ]
+    ERRORRED_EVENT_TYPES: List[Tuple[str, str]] = [EVENT_EXPIRED, EVENT_FAILED]
 
     # Successful Event Types
     EVENT_SUCCESSFULLY_LAUNCHED: Tuple[str, str] = ("SUCCESSFULLY_LAUNCHED", "SL")
@@ -66,7 +63,9 @@ class Event:
         EVENT_ALREADY_LAUNCHED,
     ]
 
-    EVENT_TYPES: List[Tuple[str, str]] = ERRORRED_EVENT_TYPES + SUCCESSFUL_EVENT_TYPES + WARNED_EVENT_TYPES
+    EVENT_TYPES: List[
+        Tuple[str, str]
+    ] = ERRORRED_EVENT_TYPES + SUCCESSFUL_EVENT_TYPES + WARNED_EVENT_TYPES
 
     def __init__(self, event_type, machine_name: str = "NA", **kwargs):
         """Initialize the Event."""
@@ -76,10 +75,15 @@ class Event:
         self.machine_name = machine_name.upper()
         self.event_type = event_type
 
-        exit_code = 0 if (
-            self.event_type not in self.ERRORRED_EVENT_TYPES
-            or self.event_type not in self.WARNED_EVENT_TYPES and EXIT_ON_WARNING
-        ) else 1
+        exit_code = (
+            0
+            if (
+                self.event_type not in self.ERRORRED_EVENT_TYPES
+                or self.event_type not in self.WARNED_EVENT_TYPES
+                and EXIT_ON_WARNING
+            )
+            else 1
+        )
 
         self.event_dict: Dict[str, Any] = {
             "event_type_tuple": self.event_type,

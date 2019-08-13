@@ -42,6 +42,10 @@ class CloudEndureConfig:
                     "project_name": "",
                     "project_id": "",
                     "max_lag_ttl": "90",
+                    "machines": "",
+                    "migration_wave": "0",
+                    "clone_status": "NOT_STARTED",
+                    "destination_accounts": "",
                 }
             )
         self.update_config()

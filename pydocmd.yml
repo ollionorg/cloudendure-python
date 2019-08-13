@@ -17,12 +17,12 @@ generate:
     - cloudendure.models++
   - code/cloudendure/utils.md:
     - cloudendure.utils++
-  - code/cloudendure/lambda/copy_ami.md:
-    - cloudendure.lambda.copy_ami++
-  - code/cloudendure/lambda/exceptions.md:
-    - cloudendure.lambda.exceptions++
-  - code/cloudendure/lambda/handler.md:
-    - cloudendure.lambda.handler++
+  - code/lambda/copy_ami.md:
+    - lambda.copy_ami++
+  - code/lambda/exceptions.md:
+    - lambda.exceptions++
+  - code/lambda/handler.md:
+    - lambda.handler++
 
 pages:
   - General:
@@ -39,9 +39,9 @@ pages:
       - Models: code/cloudendure/models.md
       - Utilities: code/cloudendure/utils.md
     - AWS Lambda:
-      - Handler: code/cloudendure/lambda/handler.md
-      - Exceptions: code/cloudendure/lambda/exceptions.md
-      - Copy AMI Utils: code/cloudendure/lambda/copy_ami.md
+      - Handler: code/lambda/handler.md
+      - Exceptions: code/lambda/exceptions.md
+      - Copy AMI Utils: code/lambda/copy_ami.md
   - API Documentation:
     - MAIN: api/API_README.md << docs/API_README.md
     - AccountApi: api/AccountApi.md << docs/AccountApi.md

@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 """Define the CloudEndure Config related logic."""
+from __future__ import annotations
+
 import logging
 import os
-from pathlib import Path
+from pathlib import Path, PosixPath
 from typing import Any, Dict
 
 import yaml
 
-logger = logging.getLogger(__name__)
+logger: logging.Logger = logging.getLogger(__name__)
 LOG_LEVEL: str = os.environ.get("CLOUDENDURE_LOG_LEVEL", "INFO")
 logger.setLevel(getattr(logging, LOG_LEVEL))
 
@@ -15,7 +17,7 @@ logger.setLevel(getattr(logging, LOG_LEVEL))
 class CloudEndureConfig:
     """Define the CloudEndure Config object."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """Initialize the Environment."""
         logger.info("Initializing the CloudEndure Configuration")
         _config_path: str = os.environ.get(
@@ -24,7 +26,7 @@ class CloudEndureConfig:
         if _config_path.startswith("~"):
             self.config_path = os.path.expanduser(_config_path)
 
-        _config = Path(self.config_path)
+        _config: PosixPath = Path(self.config_path)
         if not _config.exists():
             print(
                 "No CloudEndure YAML configuration found! Creating it at: (%s)",
@@ -63,7 +65,6 @@ class CloudEndureConfig:
             except yaml.YAMLError as e:
                 logger.error("YAMLError during read_yaml_config: %s", str(e))
                 config = {}
-                # print(e)
         return config
 
     def write_yaml_config(self, config: Dict[str, Any]) -> bool:
@@ -105,7 +106,7 @@ class CloudEndureConfig:
         }
         return env_vars
 
-    def update_config(self):
+    def update_config(self) -> None:
         """Update the configuration."""
         self.yaml_config_contents: Dict[str, Any] = self.read_yaml_config()
         self.env_config = self.get_env_vars()

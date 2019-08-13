@@ -70,7 +70,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
 
         # Authentication Settings
         # dict to store API key(s)
-        self.api_key = {"X-XSRF-TOKEN": "Ykua549wkGxHPsV4fnncbw==\012"}
+        self.api_key = {"X-XSRF-TOKEN": ""}
         # dict to store API prefix (e.g. Bearer)
         self.api_key_prefix = {}
         # Logging Settings
@@ -260,7 +260,13 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
         :return: The report for debugging.
 
         """
-        return "Python SDK Debug Report:\n" f"OS: {sys.platform}\n" f"Python Version: {sys.version}\n" "Version of the API: 5\n" "SDK Package Version: 0.1.0"
+        return (
+            "Python SDK Debug Report:\n"
+            f"OS: {sys.platform}\n"
+            f"Python Version: {sys.version}\n"
+            "Version of the API: 5\n"
+            "SDK Package Version: 0.1.0"
+        )
 
     def read_yaml_config(self):
         """Read the CloudEndure YAML configuration file."""

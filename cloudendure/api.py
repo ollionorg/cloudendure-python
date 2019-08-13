@@ -8,6 +8,8 @@ Attributes:
     logger (logging.Logger): The default logger for the module.
 
 """
+from __future__ import annotations
+
 import datetime
 import json
 import logging
@@ -17,18 +19,19 @@ from webbrowser import open_new_tab
 
 import requests
 from requests.models import Response
+from requests.sessions import Session
 
 from .config import CloudEndureConfig
 from .exceptions import CloudEndureException, CloudEndureUnauthorized
 
 HOST: str = os.environ.get("CLOUDENDURE_HOST", "https://console.cloudendure.com")
 API_VERSION: str = os.environ.get("CLOUDENDURE_API_VERSION", "latest").lower()
-AUTH_TTL = datetime.timedelta(
+AUTH_TTL: datetime.timedelta = datetime.timedelta(
     seconds=int(os.environ.get("CLOUDENDURE_AUTH_TTL", "3600"))
 )  # Default to 60 minutes.
-METHOD_TYPES = ["get", "post", "patch", "delete", "put"]
+METHOD_TYPES: List[str] = ["get", "post", "patch", "delete", "put"]
 
-logger = logging.getLogger(__name__)
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 class CloudEndureAPI:
@@ -44,20 +47,20 @@ class CloudEndureAPI:
 
     TOP_LEVEL: List[str] = ["projects", "blueprints"]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """Initialize the CloudEndure API client.
 
         Attributes:
             time_now (datetime): The datetime now in UTC.
 
         """
-        time_now = datetime.datetime.utcnow()
+        time_now: datetime.datetime = datetime.datetime.utcnow()
 
         self.api_endpoint: str = f"{HOST}/api/{API_VERSION}"
-        self.config = CloudEndureConfig()
+        self.config: CloudEndureConfig = CloudEndureConfig()
 
         self.projects: List[str] = []
-        self.session = requests.Session()
+        self.session: Session = requests.Session()
         _xsrf_token: str = self.config.active_config.get("token", "")
         self.session.headers: Dict[str, str] = {
             "Content-Type": "application/json",
@@ -72,7 +75,7 @@ class CloudEndureAPI:
         if _xsrf_token:
             self.session.headers.update({"X-XSRF-TOKEN": _xsrf_token})
 
-    def login(self, username="", password=""):
+    def login(self, username: str = "", password: str = "") -> bool:
         """Login to the CloudEndure API console.
 
         Args:
@@ -126,7 +129,7 @@ class CloudEndureAPI:
             _xsrf_token: str = _xsrf_token[1:-1]
 
         # Set the XSRF token data on the CloudEndureAPI object.
-        time_now = datetime.datetime.utcnow()
+        time_now: datetime.datetime = datetime.datetime.utcnow()
         self.config.update_token(_xsrf_token)
         self.session.headers.update({"X-XSRF-TOKEN": _xsrf_token})
         self.timestamps["last_call"] = time_now
@@ -146,7 +149,9 @@ class CloudEndureAPI:
         """
         return f"{host}/api/{api_version}/{path}"
 
-    def api_call(self, path: str, method: str = "get", data=None) -> Response:
+    def api_call(
+        self, path: str, method: str = "get", data: Dict[str, Any] = None
+    ) -> Response:
         """Handle CloudEndure API calls based on the defined parameters.
 
         Args:
@@ -160,10 +165,10 @@ class CloudEndureAPI:
             requests.models.Response: The CloudEndure API response.
 
         """
-        method = method.lower()  # Ensure the provided method is lowercase.
+        method: str = method.lower()  # Ensure the provided method is lowercase.
 
         if data is None:
-            data = {}
+            data: Dict[str, Any] = {}
 
         if method not in METHOD_TYPES:
             print("Please specify a valid method type! Must be one of: ", METHOD_TYPES)
@@ -184,8 +189,9 @@ class CloudEndureAPI:
             print(f"Exception encountered in CloudEndure API call: ({e})")
         return Response()
 
-    def check_creds(self, login=True):
-        threshold = datetime.datetime.utcnow() - AUTH_TTL
+    def check_creds(self, login: bool = True) -> Dict[str, str]:
+        """Check the credential TTL."""
+        threshold: datetime.datetime = datetime.datetime.utcnow() - AUTH_TTL
 
         if threshold < self.config.active_config.get("last_updated", 0):
             if login:
@@ -195,11 +201,12 @@ class CloudEndureAPI:
             return {"status": "expired"}
         return {"status": "valid"}
 
-    def post_endpoint(self, path=""):
+    def post_endpoint(self, path: str = "") -> Response:
+        """Create a POST request against the specified path."""
         response: requests.Response = self.session.post(f"{self.api_endpoint}/{path}")
         return response
 
-    def get_projects(self, current_project=""):
+    def get_projects(self, current_project: str = "") -> List[Any]:
         """Get the CloudEndure projects associated with the authenticated account."""
         self.login()
         response: requests.Response = self.session.get(f"{self.api_endpoint}/projects")
@@ -219,7 +226,7 @@ class CloudEndureAPI:
         return projects
 
     @classmethod
-    def docs(self):
+    def docs(self) -> str:
         """Open the CloudEndure API documentation page."""
         docs_url: str = os.environ.get(
             "CLOUDENDURE_API_DOCS", "https://console.cloudendure.com/api_doc/apis.html"

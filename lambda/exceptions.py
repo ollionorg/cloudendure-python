@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Define the Lambda specific exceptions."""
+from __future__ import annotations
 
 
 class LambdaException(Exception):

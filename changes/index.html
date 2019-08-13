@@ -356,8 +356,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unreleased" title="Unreleased" class="md-nav__link">
-    Unreleased
+  <a href="#v007-2019-08-13" title="v0.0.7 (2019-08-13)" class="md-nav__link">
+    v0.0.7 (2019-08-13)
   </a>
   
 </li>
@@ -1833,8 +1833,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unreleased" title="Unreleased" class="md-nav__link">
-    Unreleased
+  <a href="#v007-2019-08-13" title="v0.0.7 (2019-08-13)" class="md-nav__link">
+    v0.0.7 (2019-08-13)
   </a>
   
 </li>
@@ -1901,10 +1901,37 @@
                 
                 
                 <h1 id="change-log">Change Log</h1>
-<h2 id="unreleased"><a href="https://github.com/mbeacom/cloudendure-python/tree/HEAD">Unreleased</a></h2>
-<p><a href="https://github.com/mbeacom/cloudendure-python/compare/v0.0.6...HEAD">Full Changelog</a></p>
+<h2 id="v007-2019-08-13"><a href="https://github.com/mbeacom/cloudendure-python/tree/v0.0.7">v0.0.7</a> (2019-08-13)</h2>
+<p><a href="https://github.com/mbeacom/cloudendure-python/compare/v0.0.6...v0.0.7">Full Changelog</a></p>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+<li>Migrate all config items to config module <a href="https://github.com/mbeacom/cloudendure-python/issues/28">#28</a></li>
+<li>Update replication settings to conform to desired KMS usage <a href="https://github.com/mbeacom/cloudendure-python/issues/24">#24</a></li>
+<li>Update main CLI handling to employ defined exceptions/feedback loops <a href="https://github.com/mbeacom/cloudendure-python/issues/6">#6</a></li>
+<li>Add typing throughout and import annotations from future <a href="https://github.com/mbeacom/cloudendure-python/pull/35">#35</a> (<a href="https://github.com/mbeacom">mbeacom</a>)</li>
+<li>Update documentation with events entry and logos <a href="https://github.com/mbeacom/cloudendure-python/pull/34">#34</a> (<a href="https://github.com/mbeacom">mbeacom</a>)</li>
+<li>Move all configs to use Config for env and yaml <a href="https://github.com/mbeacom/cloudendure-python/pull/33">#33</a> (<a href="https://github.com/mbeacom">mbeacom</a>)</li>
+<li>Add base event handler and implementation on launch function <a href="https://github.com/mbeacom/cloudendure-python/pull/32">#32</a> (<a href="https://github.com/mbeacom">mbeacom</a>)</li>
+<li>Change image name to avoid blowup <a href="https://github.com/mbeacom/cloudendure-python/pull/26">#26</a> (<a href="https://github.com/twarnock2w">twarnock2w</a>)</li>
+</ul>
+<p><strong>Fixed bugs:</strong></p>
+<ul>
+<li>Bug in update blueprint flow <a href="https://github.com/mbeacom/cloudendure-python/issues/10">#10</a></li>
+<li>Image creation failure <a href="https://github.com/mbeacom/cloudendure-python/issues/9">#9</a></li>
+<li>Share AMI should pull image id from env/config <a href="https://github.com/mbeacom/cloudendure-python/issues/8">#8</a></li>
+<li>Bug in last launch checks in main cli <a href="https://github.com/mbeacom/cloudendure-python/issues/7">#7</a></li>
+</ul>
+<p><strong>Closed issues:</strong></p>
+<ul>
+<li>Remove 3.6 support and prepare 0.0.7 <a href="https://github.com/mbeacom/cloudendure-python/issues/37">#37</a></li>
+<li>Upgrade docker images to buster <a href="https://github.com/mbeacom/cloudendure-python/issues/36">#36</a></li>
+<li>Event handling - track wave status <a href="https://github.com/mbeacom/cloudendure-python/issues/31">#31</a></li>
+</ul>
 <p><strong>Merged pull requests:</strong></p>
 <ul>
+<li>Upgrade docker images and drop py3.6 support <a href="https://github.com/mbeacom/cloudendure-python/pull/38">#38</a> (<a href="https://github.com/mbeacom">mbeacom</a>)</li>
+<li>update-encryption-key added <a href="https://github.com/mbeacom/cloudendure-python/pull/25">#25</a> (<a href="https://github.com/twarnock2w">twarnock2w</a>)</li>
+<li>made image names not 'test' <a href="https://github.com/mbeacom/cloudendure-python/pull/23">#23</a> (<a href="https://github.com/twarnock2w">twarnock2w</a>)</li>
 <li>v0.0.6 <a href="https://github.com/mbeacom/cloudendure-python/pull/22">#22</a> (<a href="https://github.com/mbeacom">mbeacom</a>)</li>
 </ul>
 <h2 id="v006-2019-08-06"><a href="https://github.com/mbeacom/cloudendure-python/tree/v0.0.6">v0.0.6</a> (2019-08-06)</h2>

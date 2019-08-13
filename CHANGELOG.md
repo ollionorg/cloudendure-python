@@ -1,11 +1,37 @@
 # Change Log
 
-## [Unreleased](https://github.com/mbeacom/cloudendure-python/tree/HEAD)
+## [v0.0.7](https://github.com/mbeacom/cloudendure-python/tree/v0.0.7) (2019-08-13)
+[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.6...v0.0.7)
 
-[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.6...HEAD)
+**Implemented enhancements:**
+
+- Migrate all config items to config module [\#28](https://github.com/mbeacom/cloudendure-python/issues/28)
+- Update replication settings to conform to desired KMS usage [\#24](https://github.com/mbeacom/cloudendure-python/issues/24)
+- Update main CLI handling to employ defined exceptions/feedback loops [\#6](https://github.com/mbeacom/cloudendure-python/issues/6)
+- Add typing throughout and import annotations from future [\#35](https://github.com/mbeacom/cloudendure-python/pull/35) ([mbeacom](https://github.com/mbeacom))
+- Update documentation with events entry and logos [\#34](https://github.com/mbeacom/cloudendure-python/pull/34) ([mbeacom](https://github.com/mbeacom))
+- Move all configs to use Config for env and yaml [\#33](https://github.com/mbeacom/cloudendure-python/pull/33) ([mbeacom](https://github.com/mbeacom))
+- Add base event handler and implementation on launch function [\#32](https://github.com/mbeacom/cloudendure-python/pull/32) ([mbeacom](https://github.com/mbeacom))
+- Change image name to avoid blowup [\#26](https://github.com/mbeacom/cloudendure-python/pull/26) ([twarnock2w](https://github.com/twarnock2w))
+
+**Fixed bugs:**
+
+- Bug in update blueprint flow [\#10](https://github.com/mbeacom/cloudendure-python/issues/10)
+- Image creation failure [\#9](https://github.com/mbeacom/cloudendure-python/issues/9)
+- Share AMI should pull image id from env/config [\#8](https://github.com/mbeacom/cloudendure-python/issues/8)
+- Bug in last launch checks in main cli [\#7](https://github.com/mbeacom/cloudendure-python/issues/7)
+
+**Closed issues:**
+
+- Remove 3.6 support and prepare 0.0.7 [\#37](https://github.com/mbeacom/cloudendure-python/issues/37)
+- Upgrade docker images to buster [\#36](https://github.com/mbeacom/cloudendure-python/issues/36)
+- Event handling - track wave status [\#31](https://github.com/mbeacom/cloudendure-python/issues/31)
 
 **Merged pull requests:**
 
+- Upgrade docker images and drop py3.6 support [\#38](https://github.com/mbeacom/cloudendure-python/pull/38) ([mbeacom](https://github.com/mbeacom))
+- update-encryption-key added [\#25](https://github.com/mbeacom/cloudendure-python/pull/25) ([twarnock2w](https://github.com/twarnock2w))
+- made image names not 'test' [\#23](https://github.com/mbeacom/cloudendure-python/pull/23) ([twarnock2w](https://github.com/twarnock2w))
 - v0.0.6 [\#22](https://github.com/mbeacom/cloudendure-python/pull/22) ([mbeacom](https://github.com/mbeacom))
 
 ## [v0.0.6](https://github.com/mbeacom/cloudendure-python/tree/v0.0.6) (2019-08-06)

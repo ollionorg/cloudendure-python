@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Define the CloudEndure main entry logic."""
+from __future__ import annotations
+
 import datetime
 import json
 import os
@@ -8,7 +10,9 @@ from typing import Any, Dict, List
 
 import boto3
 import fire
+from botocore import client as boto_client
 from botocore.exceptions import ClientError
+from requests.models import Response
 
 from cloudendure.cloudendure_api.api_client import ApiClient
 
@@ -27,21 +31,21 @@ LAUNCH_TYPES: List[str] = ["test", "cutover"]
 class CloudEndure:
     """Define the CloudEndure general object."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the CloudEndure object.
 
         This entrypoint is primarily for use with the CLI.
 
         """
-        self.config = CloudEndureConfig()
-        self.api = CloudEndureAPI()
+        self.config: CloudEndureConfig = CloudEndureConfig()
+        self.api: CloudEndureAPI = CloudEndureAPI()
         self.api.login()
-        self.api_client = ApiClient()
-        self.project_name = self.config.active_config.get("project_name", "")
-        self.project_id = self.get_project_id(
+        # self.api_client: ApiClient = ApiClient()
+        self.project_name: str = self.config.active_config.get("project_name", "")
+        self.project_id: str = self.get_project_id(
             project_name=self.project_name
         ) or self.config.active_config.get("project_id", "")
-        self.event_handler = EventHandler()
+        self.event_handler: EventHandler = EventHandler()
         self.destination_accounts: List[str] = self.config.active_config.get(
             "destination_accounts", ""
         ).split(",")
@@ -65,22 +69,22 @@ class CloudEndure:
             str: The CloudEndure project UUID.
 
         """
-        projects_result = self.api.api_call("projects")
+        projects_result: Response = self.api.api_call("projects")
         if projects_result.status_code != 200:
             print("Failed to fetch the project!")
             return ""
 
         if not project_name:
-            project_name = self.project_name
+            project_name: str = self.project_name
 
         try:
             # Get Project ID
-            projects = json.loads(projects_result.text).get("items", [])
-            found_project = next(
+            projects: List[Any] = json.loads(projects_result.text).get("items", [])
+            found_project: Dict[Any, Any] = next(
                 (item for item in projects if item.get("name", "NONE") == project_name),
                 {},
             )
-            project_id = found_project.get("id", "")
+            project_id: str = found_project.get("id", "")
         except Exception as e:
             print(f"Exception: {str(e)}")
             return ""
@@ -93,13 +97,13 @@ class CloudEndure:
 
     def check(
         self, project_name: str = "", launch_type: str = "test", dry_run: bool = False
-    ):
+    ) -> bool:
         """Check the status of machines in the provided project."""
         if not project_name:
-            project_name = self.project_name
-            project_id = self.project_id
+            project_name: str = self.project_name
+            project_id: str = self.project_id
         else:
-            project_id = self.get_project_id(project_name=project_name)
+            project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
             return False
@@ -107,17 +111,19 @@ class CloudEndure:
         print(
             f"Checking Project - Name: ({project_name}) - Launch Type: ({launch_type}) - Dry Run: ({dry_run})"
         )
-        projects_response = self.api.api_call("projects")
+        projects_response: Response = self.api.api_call("projects")
 
         if projects_response.status_code != 200:
             print("Failed to fetch the project!")
             raise CloudEndureHTTPException("Failed to fetch the CloudEndure Project!")
 
         machine_status: int = 0
-        machines_response = self.api.api_call(f"projects/{project_id}/machines")
+        machines_response: Response = self.api.api_call(
+            f"projects/{project_id}/machines"
+        )
 
         for _machine in self.target_machines:
-            machine_exist = False
+            machine_exist: bool = False
             for machine in json.loads(machines_response.text).get("items", []):
                 source_props: Dict[str, Any] = machine.get("sourceProperties", {})
                 ref_name: str = source_props.get("name") or source_props.get(
@@ -197,15 +203,17 @@ class CloudEndure:
         print("Updating encryption key...")
 
         if not project_name:
-            project_name = self.project_name
-            project_id = self.project_id
+            project_name: str = self.project_name
+            project_id: str = self.project_id
         else:
-            project_id = self.get_project_id(project_name=project_name)
+            project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
             return False
 
-        machines_response = self.api.api_call(f"projects/{project_id}/machines")
+        machines_response: Response = self.api.api_call(
+            f"projects/{project_id}/machines"
+        )
         for machine in json.loads(machines_response.text).get("items", []):
             source_props: Dict[str, Any] = machine.get("sourceProperties", {})
             name: str = source_props.get("name")
@@ -223,9 +231,9 @@ class CloudEndure:
                 continue
 
             replication_config["volumeEncryptionKey"] = kms_id
-            endpoint = f"projects/{project_id}/machines/{machine_id}"
+            endpoint: str = f"projects/{project_id}/machines/{machine_id}"
             print(f"sending to {endpoint}")
-            result = self.api.api_call(
+            result: Response = self.api.api_call(
                 endpoint, method="patch", data=json.dumps(machine)
             )
 
@@ -243,16 +251,18 @@ class CloudEndure:
         print("Updating the CloudEndure Blueprints...")
 
         if not project_name:
-            project_name = self.project_name
-            project_id = self.project_id
+            project_name: str = self.project_name
+            project_id: str = self.project_id
         else:
-            project_id = self.get_project_id(project_name=project_name)
+            project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
             return False
 
-        machine_list = {}
-        machines_response = self.api.api_call(f"projects/{project_id}/machines")
+        machine_data_dict: Dict[str, Any] = {}
+        machines_response: Response = self.api.api_call(
+            f"projects/{project_id}/machines"
+        )
         for machine in json.loads(machines_response.text).get("items", []):
             source_props: Dict[str, Any] = machine.get("sourceProperties", {})
             machine_id: str = machine.get("id")
@@ -261,22 +271,22 @@ class CloudEndure:
                 machine_name in self.target_machines
                 or machine_name.upper() in self.target_machines
             ):
-                machine_list[machine_id] = machine_name
+                machine_data_dict[machine_id] = machine_name
 
-        if not machine_list:
+        if not machine_data_dict:
             print("No Machines Found!")
             return False
 
         try:
             blueprints_response = self.api.api_call(f"projects/{project_id}/blueprints")
             for blueprint in json.loads(blueprints_response.text).get("items", []):
-                _machine_id = blueprint.get("machineId")
-                _machine_name = machine_list.get(_machine_id)
+                _machine_id: str = blueprint.get("machineId", "")
+                _machine_name: str = machine_data_dict.get(_machine_id, "")
                 if not _machine_name:
                     continue
 
-                _blueprint_id = blueprint.get("id", "")
-                _endpoint = f"projects/{project_id}/blueprints/{_blueprint_id}"
+                _blueprint_id: str = blueprint.get("id", "")
+                _endpoint: str = f"projects/{project_id}/blueprints/{_blueprint_id}"
                 # Handle disk blueprints since we don't want provisioned IOPS $$$$
                 for disk in blueprint["disks"]:
                     blueprint["disks"] = [{"type": "SSD", "name": disk.get("name", "")}]
@@ -296,7 +306,7 @@ class CloudEndure:
                     print("This is a dry run! Not updating blueprints!")
                     return True
 
-                result = self.api.api_call(
+                result: Response = self.api.api_call(
                     _endpoint, method="patch", data=json.dumps(blueprint)
                 )
 
@@ -315,10 +325,10 @@ class CloudEndure:
     def launch(self, project_name="", launch_type="test", dry_run=False) -> bool:
         """Launch the test target instances."""
         if not project_name:
-            project_name = self.project_name
-            project_id = self.project_id
+            project_name: str = self.project_name
+            project_id: str = self.project_id
         else:
-            project_id = self.get_project_id(project_name=project_name)
+            project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
             return False
@@ -338,11 +348,13 @@ class CloudEndure:
             )
             return False
 
-        machines_response = self.api.api_call(f"projects/{project_id}/machines")
+        machines_response: Response = self.api.api_call(
+            f"projects/{project_id}/machines"
+        )
         for _machine in self.target_machines:
             for machine in json.loads(machines_response.text).get("items", []):
-                source_props = machine.get("sourceProperties", {})
-                machine_data = {}
+                source_props: Dict[str, Any] = machine.get("sourceProperties", {})
+                machine_data: Dict[str, Any] = {}
                 if _machine == source_props.get("name", "NONE"):
                     if machine.get("replica"):
                         print("Target machine already launched")
@@ -362,7 +374,7 @@ class CloudEndure:
                         }
 
                 if machine_data:
-                    result = self.api.api_call(
+                    result: Response = self.api.api_call(
                         f"projects/{project_id}/launchMachines",
                         method="post",
                         data=json.dumps(machine_data),
@@ -407,10 +419,10 @@ class CloudEndure:
     ) -> bool:
         """Get the status of machines in the current wave."""
         if not project_name:
-            project_name = self.project_name
-            project_id = self.project_id
+            project_name: str = self.project_name
+            project_id: str = self.project_id
         else:
-            project_id = self.get_project_id(project_name=project_name)
+            project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
             return False
@@ -419,8 +431,10 @@ class CloudEndure:
             f"Getting Status of Project - Project ID: ({project_id}) -",
             f"Launch Type: ({launch_type}) - Dry Run: ({dry_run})",
         )
-        machine_status = 0
-        machines_response = self.api.api_call(f"projects/{project_id}/machines")
+        machine_status: int = 0
+        machines_response: Response = self.api.api_call(
+            f"projects/{project_id}/machines"
+        )
         for _machine in self.target_machines:
             machine_exist: bool = False
             for machine in json.loads(machines_response.text).get("items", []):
@@ -436,19 +450,23 @@ class CloudEndure:
                         return False
                     else:
                         # Check the replication lag between source and CE destination.
-                        last_consistent_dt_1 = int(
+                        last_consistent_dt_1: int = int(
                             machine.get("replicationInfo", {}).get(
                                 "lastConsistencyDateTime", ""
                             )[11:13]
                         )
-                        last_consistent_dt_2 = int(
+                        last_consistent_dt_2: int = int(
                             machine.get("replicationInfo", {}).get(
                                 "lastConsistencyDateTime", ""
                             )[14:16]
                         )
-                        datetime_1 = int(datetime.datetime.utcnow().isoformat()[11:13])
-                        datetime_2 = int(datetime.datetime.utcnow().isoformat()[14:16])
-                        result = (datetime_1 - last_consistent_dt_1) * 60 + (
+                        datetime_1: int = int(
+                            datetime.datetime.utcnow().isoformat()[11:13]
+                        )
+                        datetime_2: int = int(
+                            datetime.datetime.utcnow().isoformat()[14:16]
+                        )
+                        result: int = (datetime_1 - last_consistent_dt_1) * 60 + (
                             datetime_2 - last_consistent_dt_2
                         )
                         if result > self.max_lag_ttl:
@@ -461,7 +479,9 @@ class CloudEndure:
                                 machine_status += 1
                             else:
                                 # Check whether or not the target machine has already been tested.
-                                _m_life_cycle = machine.get("lifeCycle", {})
+                                _m_life_cycle: Dict[str, Any] = machine.get(
+                                    "lifeCycle", {}
+                                )
                                 if launch_type == "test":
                                     if (
                                         "lastTestLaunchDateTime" not in _m_life_cycle
@@ -510,10 +530,10 @@ class CloudEndure:
     ) -> bool:
         """Start the migration project my checking and launching the migration wave."""
         if not project_name:
-            project_name = self.project_name
-            project_id = self.project_id
+            project_name: str = self.project_name
+            project_id: str = self.project_id
         else:
-            project_id = self.get_project_id(project_name=project_name)
+            project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
             return False
@@ -522,19 +542,21 @@ class CloudEndure:
             f"Executing Project - Name: ({project_name}) - Launch Type: ({launch_type}) - Dry Run: ({dry_run})"
         )
 
-        projects_result = self.api.api_call("projects")
+        projects_result: Response = self.api.api_call("projects")
         if projects_result.status_code != 200:
             print("Failed to fetch the project!")
             return False
 
         try:
             # Get Machine List
-            machines_response = self.api.api_call(f"projects/{project_id}/machines")
+            machines_response: Response = self.api.api_call(
+                f"projects/{project_id}/machines"
+            )
             if "sourceProperties" not in machines_response.text:
                 print("Failed to fetch the machines!")
                 return False
 
-            machinelist = {}
+            machine_data_dict: Dict[str, Any] = {}
             for machine in json.loads(machines_response.text).get("items", []):
                 source_props = machine.get("sourceProperties", {})
                 if not source_props:
@@ -546,7 +568,7 @@ class CloudEndure:
                 )
                 _machine_id: str = source_props.get("id", "")
                 print(f"Machine name: {ref_name}, Machine ID: {_machine_id}")
-                machinelist[machine["id"]] = ref_name
+                machine_data_dict[machine["id"]] = ref_name
 
             # Check Target Machines
             print("Checking Target machines...")
@@ -563,7 +585,7 @@ class CloudEndure:
     def share_image(
         self,
         image_id: str,
-        dest_accounts: List[Any] = None,
+        dest_accounts: List[str] = None,
         image_name: str = "CloudEndureImage",
     ) -> bool:
         """Share the generated AMIs to the provided destination accounts."""
@@ -574,7 +596,7 @@ class CloudEndure:
         image = _ec2_res.Image(image_id)
 
         if not dest_accounts:
-            dest_accounts = self.destination_accounts
+            dest_accounts: List[str] = self.destination_accounts
 
         for account in dest_accounts:
             try:
@@ -593,7 +615,7 @@ class CloudEndure:
             devices = image.block_device_mappings
             for device in devices:
                 if "Ebs" in device:
-                    snapshot_id = device["Ebs"]["SnapshotId"]
+                    snapshot_id: str = device["Ebs"]["SnapshotId"]
                     snapshot = _ec2_res.Snapshot(snapshot_id)
                     try:
                         snapshot.modify_attribute(
@@ -628,13 +650,13 @@ class CloudEndure:
 
         try:
             print("Loading EC2 client for region: ", AWS_REGION)
-            _ec2_client = boto3.client("ec2", AWS_REGION)
+            _ec2_client: boto_client = boto3.client("ec2", AWS_REGION)
 
             # Create an AMI from the migrated instance
             image_creation_time: str = datetime.datetime.utcnow().strftime(
                 "%Y%m%d%H%M%S"
             )
-            instances = _ec2_client.describe_instances(
+            instances: Dict[str, Any] = _ec2_client.describe_instances(
                 Filters=[
                     {"Name": "tag:MigrationWave", "Values": [self.migration_wave]},
                     {"Name": "tag:CloneStatus", "Values": ["NOT_STARTED"]},
@@ -643,7 +665,7 @@ class CloudEndure:
             for reservation in instances.get("Reservations", []):
                 for instance in reservation.get("Instances", []):
                     instance_id: str = instance.get("InstanceId", "")
-                    ec2_image = _ec2_client.create_image(
+                    ec2_image: Dict[str, Any] = _ec2_client.create_image(
                         InstanceId=instance_id,
                         Name=f"{instance_id}-{image_creation_time}",
                         Description=f"{project_name} - {project_id} - {instance_id} - {image_creation_time}",
@@ -654,7 +676,9 @@ class CloudEndure:
                     ]
 
                     # Tag the newly created AMI by getting the tags of the migrated instance to copy to the AMI.
-                    ec2_tags = _ec2_client.describe_tags(Filters=_filters)
+                    ec2_tags: Dict[str, Any] = _ec2_client.describe_tags(
+                        Filters=_filters
+                    )
 
                     for tag in ec2_tags["Tags"]:
                         _ec2_client.create_tags(
@@ -686,9 +710,9 @@ class CloudEndure:
             str: The copied AWS AMI ID.
 
         """
-        _ec2_client = boto3.client("ec2", AWS_REGION)
+        _ec2_client: boto_client = boto3.client("ec2", AWS_REGION)
 
-        new_image = _ec2_client.copy_image(
+        new_image: Dict[str, Any] = _ec2_client.copy_image(
             SourceImageId=image_id,
             SourceRegion=AWS_REGION,
             Name=f"copied-ami-{image_id}",
@@ -715,16 +739,16 @@ class CloudEndure:
         # Access the image that needs to be split
         image = _ec2_res.Image(image_id)
 
-        root_drive = {}
-        drives = {}
+        root_drive: Dict[str, Any] = {}
+        drives: Dict[str, Any] = {}
 
         # separate the root drive from the other drives
-        devices = image.block_device_mappings
+        devices: List[Any] = image.block_device_mappings
         for device in devices:
             if "Ebs" in device:
                 if device["DeviceName"] == image.root_device_name:
                     print(f"Found Root! {device}")
-                    root_drive = device
+                    root_drive: Dict[str, Any] = device
                 else:
                     drives[device["DeviceName"]] = device["Ebs"]
 
@@ -745,7 +769,7 @@ class CloudEndure:
         return drives
 
 
-def main():
+def main() -> None:
     """Define the main entry method for the CLI."""
     # Run CloudEndure via the pipeline object for easy CLI access.
     fire.Fire(CloudEndure)

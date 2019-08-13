@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
 """Define the CloudEndure events."""
+from __future__ import annotations
+
 import os
 from datetime import datetime
 from typing import Any, Dict, List, Tuple
 
 from cloudendure.exceptions import CloudEndureInvalidEvent
 
-EXIT_ON_WARNING = bool(os.environ.get("CLOUDENDURE_EXIT_ON_WARNING", "0"))
+EXIT_ON_WARNING: bool = bool(os.environ.get("CLOUDENDURE_EXIT_ON_WARNING", "0"))
 
 
 class EventHandler:
     """Define the handling of CloudEndure Event objects."""
 
-    def __init__(self, events: List[Any] = None):
+    def __init__(self, events: List[Any] = None) -> None:
         """Initialize the event handler."""
-        self.events = events or []
+        self.events: List[Any] = events or []
 
     def add_event(self, event_type: Tuple[str, str], machine_name, **kwargs) -> bool:
         """Add an event."""
@@ -67,15 +69,15 @@ class Event:
         Tuple[str, str]
     ] = ERRORRED_EVENT_TYPES + SUCCESSFUL_EVENT_TYPES + WARNED_EVENT_TYPES
 
-    def __init__(self, event_type, machine_name: str = "NA", **kwargs):
+    def __init__(self, event_type, machine_name: str = "NA", **kwargs) -> None:
         """Initialize the Event."""
         if event_type not in self.EVENT_TYPES:
             raise CloudEndureInvalidEvent(f"Event Type: {event_type} is unrecognized!")
 
-        self.machine_name = machine_name.upper()
-        self.event_type = event_type
+        self.machine_name: str = machine_name.upper()
+        self.event_type: Tuple[str, str] = event_type
 
-        exit_code = (
+        exit_code: int = (
             0
             if (
                 self.event_type not in self.ERRORRED_EVENT_TYPES

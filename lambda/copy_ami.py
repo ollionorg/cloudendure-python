@@ -7,29 +7,34 @@ Attributes:
     logger (logging.Logger):
 
 """
+from __future__ import annotations
+
 import logging
 import os
-
-import boto3
 from typing import Dict
 
-logger = logging.getLogger(__name__)
+import boto3
+from botocore import client as boto_client
 
-SRC_ACCOUNT_ID = os.environ.get("CLOUDENDURE_SRC_ACCOUNT", "")
-DEST_ACCOUNT_ID = os.environ.get("CLOUDENDURE_DEST_ACCOUNT", "")
-IMAGE_ID = os.environ.get("CLOUDENDURE_IMAGE_ID", "")
-SRC_REGION = os.environ.get("CLOUDENDURE_SRC_REGION", "us-east-1")
-DEST_REGION = os.environ.get("CLOUDENDURE_DEST_REGION", "us-west-1")
-SRC_ROLE_ARN = os.environ.get("CLOUDENDURE_SRC_ROLE_ARN", "")
-DEST_ROLE_ARN = os.environ.get("CLOUDENDURE_DEST_ROLE_ARN", "")
-SESSION_NAME = os.environ.get("CLOUDENDURE_SESSION_NAME", "CloudEndureMigration")
+logger: logging.Logger = logging.getLogger(__name__)
+
+SRC_ACCOUNT_ID: str = os.environ.get("CLOUDENDURE_SRC_ACCOUNT", "")
+DEST_ACCOUNT_ID: str = os.environ.get("CLOUDENDURE_DEST_ACCOUNT", "")
+IMAGE_ID: str = os.environ.get("CLOUDENDURE_IMAGE_ID", "")
+SRC_REGION: str = os.environ.get("CLOUDENDURE_SRC_REGION", "us-east-1")
+DEST_REGION: str = os.environ.get("CLOUDENDURE_DEST_REGION", "us-west-1")
+SRC_ROLE_ARN: str = os.environ.get("CLOUDENDURE_SRC_ROLE_ARN", "")
+DEST_ROLE_ARN: str = os.environ.get("CLOUDENDURE_DEST_ROLE_ARN", "")
+SESSION_NAME: str = os.environ.get("CLOUDENDURE_SESSION_NAME", "CloudEndureMigration")
 
 
-def assume_role(sts_role_arn: str = "", session_name: str = SESSION_NAME):
-    sts = boto3.client("sts")
+def assume_role(
+    sts_role_arn: str = "", session_name: str = SESSION_NAME
+) -> Dict[str, str]:
+    sts: boto_client = boto3.client("sts")
 
     try:
-        credentials = sts.assume_role(
+        credentials: Dict[str, str] = sts.assume_role(
             RoleArn=sts_role_arn, RoleSessionName=session_name
         ).get("Credentials", {})
     except Exception as e:
@@ -48,12 +53,13 @@ def assume_role(sts_role_arn: str = "", session_name: str = SESSION_NAME):
     return credentials
 
 
-def get_ec2(credentials: Dict[str, str], region: str = ""):
+def get_ec2(credentials: Dict[str, str], region: str = "") -> boto_client:
+    """Get an active EC2 boto3 client."""
     ec2 = None
 
     # Copy image to failover regions
     try:
-        ec2 = boto3.client(
+        ec2: boto_client = boto3.client(
             "ec2",
             region,
             aws_access_key_id=credentials["AccessKeyId"],
@@ -67,8 +73,8 @@ def get_ec2(credentials: Dict[str, str], region: str = ""):
 
 
 def share_image(image_name: str = "CloudEndureImage") -> bool:
-    src_credentials = assume_role(SRC_ROLE_ARN)
-    src_ec2 = get_ec2(src_credentials, region=SRC_REGION)
+    src_credentials: Dict[str, str] = assume_role(SRC_ROLE_ARN)
+    src_ec2: boto_client = get_ec2(src_credentials, region=SRC_REGION)
 
     # Access the image that needs to be copied
     image = src_ec2.Image(IMAGE_ID)
@@ -89,7 +95,7 @@ def share_image(image_name: str = "CloudEndureImage") -> bool:
     devices = image.block_device_mappings
     for device in devices:
         if "Ebs" in device:
-            snapshot_id = device["Ebs"]["SnapshotId"]
+            snapshot_id: str = device["Ebs"]["SnapshotId"]
             snapshot = src_ec2.Snapshot(snapshot_id)
             snapshot.modify_attribute(
                 Attribute="createVolumePermission",
@@ -98,9 +104,9 @@ def share_image(image_name: str = "CloudEndureImage") -> bool:
             )
 
     # Access destination account so we can now copy the image
-    dest_credentials = assume_role(DEST_ROLE_ARN)
+    dest_credentials: Dict[str, str] = assume_role(DEST_ROLE_ARN)
     # Copy image to failover regions
-    dest_ec2 = get_ec2(dest_credentials, region=DEST_REGION)
+    dest_ec2: boto_client = get_ec2(dest_credentials, region=DEST_REGION)
 
     # Copy the shared AMI to dest region
     try:

@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 """Define the CloudEndure API wrapper related logic."""
+from __future__ import annotations
+
 import logging
 from datetime import datetime
 from typing import Any, Dict
 
 from dateutil.tz import tzlocal
 
-logger = logging.getLogger(__name__)
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 class CloudEndureModel:
     """Define the CloudEndure Model base object."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the CloudEndure Model."""
         self._valid_properties: Dict[str, Any] = {}
 
@@ -49,7 +51,7 @@ class CloudEndureModel:
         return result
 
     @classmethod
-    def parse(self, json: Dict[str, Any]):
+    def parse(self, json: Dict[str, Any]) -> None:
         """Parse a JSON object into a model instance."""
         raise NotImplementedError
 
@@ -91,13 +93,13 @@ class Cloud(CloudEndureModel):
         "fetched_datetime": datetime.now(tzlocal()),
     }
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         """Initialize a new campaign instance."""
         for key, default in Cloud._valid_properties.items():
             setattr(self, key, kwargs.get(key, default))
 
     @classmethod
-    def parse(self, json: Dict[str, Any]):
+    def parse(self, json: Dict[str, Any]) -> Cloud:
         """Parse the Cloud object."""
         cloud: Cloud = self()
         return cloud
@@ -131,13 +133,13 @@ class Project(CloudEndureModel):
         "fetched_datetime": datetime.now(tzlocal()),
     }
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         """Initialize a new campaign instance."""
         for key, default in Project._valid_properties.items():
             setattr(self, key, kwargs.get(key, default))
 
     @classmethod
-    def parse(self, json: Dict[str, Any]):
+    def parse(self, json: Dict[str, Any]) -> Project:
         """Parse the Project object."""
         project: Project = self()
         return project
@@ -223,13 +225,13 @@ class Machine(CloudEndureModel):
         "fetched_datetime": datetime.now(tzlocal()),
     }
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
         """Initialize a new machine instance."""
         for key, default in Project._valid_properties.items():
             setattr(self, key, kwargs.get(key, default))
 
     @classmethod
-    def parse(self, json: Dict[str, Any]):
+    def parse(self, json: Dict[str, Any]) -> Machine:
         """Parse the Machine object.
 
         TODO:

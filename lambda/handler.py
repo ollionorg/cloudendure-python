@@ -7,6 +7,8 @@ Attributes:
     logger (logging.Logger): The logger to be used throughout execution of the AWS Lambda.
 
 """
+from __future__ import annotations
+
 import datetime
 import json
 import logging
@@ -14,19 +16,20 @@ import os
 from typing import Any, Dict, List
 
 import boto3
+from botocore import client as boto_client
 from botocore.exceptions import ClientError
 
 from .exceptions import ImproperlyConfigured, InvalidPayload
 
-LOG_LEVEL = getattr(logging, os.environ.get("CLOUDENDURE_LOGLEVEL", "INFO"))
-REGION_OVERRIDE = os.environ.get("CLOUDENDURE_REGION_OVERRIDE", "")
+LOG_LEVEL: int = getattr(logging, os.environ.get("CLOUDENDURE_LOGLEVEL", "INFO"))
+REGION_OVERRIDE: str = os.environ.get("CLOUDENDURE_REGION_OVERRIDE", "")
 
-logger = logging.getLogger()
+logger: logging.Logger = logging.getLogger(__name__)
 
 logger.setLevel(LOG_LEVEL)
 
 
-def send_sqs_message(image_info: Dict) -> bool:
+def send_sqs_message(image_info: Dict[str, Any]) -> bool:
     """Send a SQS message.
 
     The message includes the AMI information that was created from the migrated
@@ -41,14 +44,14 @@ def send_sqs_message(image_info: Dict) -> bool:
         bool:  Whether or not the message has been sent successfully.
 
     """
-    queue_url = os.environ.get("QueueURL", "")
+    queue_url: str = os.environ.get("QueueURL", "")
     if not queue_url:
         raise ImproperlyConfigured("Missing environment variable:  QueueURL")
 
     try:
-        message = json.dumps(image_info)
-        sqsclient = boto3.client("sqs")
-        sqsclient.send_message(QueueUrl=queue_url, MessageBody=message)
+        message: str = json.dumps(image_info)
+        sqs_client: boto_client = boto3.client("sqs")
+        sqs_client.send_message(QueueUrl=queue_url, MessageBody=message)
     except ClientError as e:
         logger.error(e.response)
         return False
@@ -73,11 +76,11 @@ def create_ami(project_id: str, instance_id: str) -> bool:
 
     """
     try:
-        _ec2_client = boto3.client("ec2")
+        _ec2_client: boto_client = boto3.client("ec2")
 
         # Create an AMI from the migrated instance
-        image_creation_time = datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S")
-        ec2_image = _ec2_client.create_image(
+        image_creation_time: str = datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S")
+        ec2_image: Dict[str, Any] = _ec2_client.create_image(
             InstanceId=instance_id,
             Name=f"{image_creation_time}",
             Description=f"{project_id} {image_creation_time}",
@@ -87,7 +90,7 @@ def create_ami(project_id: str, instance_id: str) -> bool:
         _filters: List[Dict] = [{"Name": "resource-id", "Values": [instance_id]}]
 
         # Tag the newly created AMI by getting the tags of the migrated instance to copy to the AMI.
-        ec2_tags = _ec2_client.describe_tags(Filters=_filters)
+        ec2_tags: Dict[str, Any] = _ec2_client.describe_tags(Filters=_filters)
 
         logger.info(ec2_tags)
         for tag in ec2_tags["Tags"]:
@@ -121,13 +124,13 @@ def lambda_handler(event: Dict[str, Any], context: Dict[str, Any]) -> bool:
     """
     logger.debug(event)
 
-    event_records = event.get("Records", [])
+    event_records: List[Any] = event.get("Records", [])
     if not event_records:
         return False
 
     try:
-        event_message = event_records[0].get("Sns", {}).get("Message", "")
-        json_sns_message = json.loads(event_message)
+        event_message: str = event_records[0].get("Sns", {}).get("Message", "")
+        json_sns_message: Dict[str, Any] = json.loads(event_message)
         instance_id: str = json_sns_message.get("instanceId", "")
         project_id: str = json_sns_message.get("projectId", "")
 

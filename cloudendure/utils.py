@@ -8,13 +8,15 @@ Attributes:
         in a string.
 
 """
+from __future__ import annotations
+
 import re
 import time
 from datetime import datetime
 from typing import Any, Dict
 
-first_cap_re = re.compile("(.)([A-Z][a-z]+)")
-all_cap_re = re.compile("([a-z0-9])([A-Z])")
+first_cap_re: re.Pattern = re.compile("(.)([A-Z][a-z]+)")
+all_cap_re: re.Pattern = re.compile("([a-z0-9])([A-Z])")
 
 
 def get_time_now() -> Dict[str, Any]:
@@ -24,11 +26,13 @@ def get_time_now() -> Dict[str, Any]:
         dict: The mapping of time now values in UTC.
 
     """
-    time_now = time.time()
-    data = {
+    time_now: float = time.time()
+    milliseconds_now: int = int(round(time_now * 1000))
+    datetime_now: datetime = datetime.fromtimestamp(time_now)
+    data: Dict[str, Any] = {
         "seconds": time_now,
-        "milliseconds": int(round(time_now * 1000)),
-        "datetime": datetime.fromtimestamp(time_now),
+        "milliseconds": milliseconds_now,
+        "datetime": datetime_now,
     }
     return data
 
@@ -43,5 +47,6 @@ def to_snake_case(value: str) -> str:
         str: The formatted snake_case string.
 
     """
-    s1 = first_cap_re.sub(r"\1_\2", value)
-    return all_cap_re.sub(r"\1_\2", s1).lower()
+    string_1: str = first_cap_re.sub(r"\1_\2", value)
+    string_2: str = all_cap_re.sub(r"\1_\2", string_1).lower()
+    return string_2

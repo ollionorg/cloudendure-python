@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Define the CloudEndure exceptions."""
+from __future__ import annotations
 
 
 class CloudEndureException(Exception):

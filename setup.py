@@ -22,8 +22,8 @@ DESCRIPTION: str = "CloudEndure Python Client and CLI"
 URL: str = "https://github.com/mbeacom/cloudendure-python"
 EMAIL: str = "markvbeacom@gmail.com"
 AUTHOR: str = "Mark Beacom"
-REQUIRES_PYTHON: str = ">=3.6.0"
-VERSION: str = "0.0.6"
+REQUIRES_PYTHON: str = ">=3.7.0"
+VERSION: str = "0.0.7"
 
 REQUIRED: List[str] = ["requests", "boto3", "fire"]
 EXTRAS: Dict[str, List[str]] = {
@@ -138,9 +138,9 @@ setup(
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Internet",

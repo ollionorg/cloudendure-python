@@ -629,8 +629,8 @@ class CloudEndure:
             print(f"AMI ID: ({image_id}) - Shared to: ({account})")
             return True
 
-    def create_ami(self, project_name: str = "") -> bool:
-        """Create an AMI from the specified instance.
+    def create_ami(self, project_name: str = "") -> Dict[str, str]:
+        """Create an AMI from the specified instances.
 
         Args:
             project_name (str): The name of the CloudEndure project.
@@ -639,6 +639,7 @@ class CloudEndure:
             bool: Whether or not the AMI creation was successful.
 
         """
+        amis = {}
         if not project_name:
             project_name: str = self.project_name
             project_id: str = self.project_id
@@ -646,7 +647,7 @@ class CloudEndure:
             project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
-            return False
+            return amis
 
         try:
             print("Loading EC2 client for region: ", AWS_REGION)
@@ -662,6 +663,13 @@ class CloudEndure:
                     {"Name": "tag:CloneStatus", "Values": ["NOT_STARTED"]},
                 ]
             )
+
+            if len(instances) == 0 or len(instances.get("Reservations", [])) == 0:
+                print(
+                    f"No instances or reservations found for migration wave: {self.migration_wave}"
+                )
+                return amis
+
             for reservation in instances.get("Reservations", []):
                 for instance in reservation.get("Instances", []):
                     instance_id: str = instance.get("InstanceId", "")
@@ -680,7 +688,11 @@ class CloudEndure:
                         Filters=_filters
                     )
 
+                    name: str = instance_id
                     for tag in ec2_tags["Tags"]:
+                        if tag["Key"] == "Name":
+                            name = tag["Value"]
+
                         _ec2_client.create_tags(
                             Resources=[ec2_image["ImageId"]],
                             Tags=[{"Key": tag["Key"], "Value": tag["Value"]}],
@@ -693,11 +705,13 @@ class CloudEndure:
                     _ec2_client.delete_tags(
                         Resources=[ec2_image["ImageId"]], Tags=[{"Key": "CloneStatus"}]
                     )
+
+                    amis[name] = ec2_image["ImageId"]
                     print(f"Instance ID: ({instance_id}) - AMI ID: ({ec2_image})")
         except ClientError as e:
             print(str(e))
-            return False
-        return True
+            return amis
+        return amis
 
     def copy_image(self, image_id: str, kms_id: str) -> str:
         """Copy a shared image to an account.
@@ -715,12 +729,11 @@ class CloudEndure:
         new_image: Dict[str, Any] = _ec2_client.copy_image(
             SourceImageId=image_id,
             SourceRegion=AWS_REGION,
-            Name=f"copied-ami-{image_id}",
+            Name=f"copied-{image_id}",
             Encrypted=True,
             KmsKeyId=kms_id,
         )
 
-        print(new_image)
         return new_image["ImageId"]
 
     def split_image(self, image_id: str) -> Dict[str, Any]:
@@ -733,7 +746,7 @@ class CloudEndure:
             dict: The mapping of AWS EBS block devices.
 
         """
-        print("Loading EC2 client for region: ", AWS_REGION)
+        print("Loading EC2 resource for region: ", AWS_REGION)
         _ec2_res = boto3.resource("ec2", AWS_REGION)
 
         # Access the image that needs to be split
@@ -759,14 +772,139 @@ class CloudEndure:
         response = _ec2_res.register_image(
             Architecture=image.architecture,
             BlockDeviceMappings=[root_drive],
-            Name=f"root-ami-{image_id}",
+            Name=f"root-{image_id}",
             RootDeviceName=image.root_device_name,
             VirtualizationType=image.virtualization_type,
         )
 
-        # return the AMI
-        drives["root_ami"] = response.id
-        return drives
+        root_ami = response.id
+
+        for drive in drives:
+            print(drives[drive])
+            _ec2_res.create_tags(
+                Resources=[root_ami],
+                Tags=[{"Key": f"Drive-{drive}", "Value": json.dumps(drives[drive])}],
+            )
+
+        return root_ami
+
+    def gen_terraform(
+        self,
+        image_id: str,
+        name: str = "INSTANCENAME",
+        product_id: str = "PRODUCT_ID",
+        smo_usage: str = "SMO_USAGE",
+        subnet_id: str = "SUBNET_ID",
+        private_ip: str = "PRIVATE_IP",
+        security_group: str = "SECURITY_GROUP",
+    ) -> str:
+        """Generates terraform for a given split image
+
+        Args:
+            image_id (str): The split AMI.
+
+        Returns:
+            str: Raw terraform with disk and instance mappings.
+
+        """
+        print("Loading EC2 resource for region: ", AWS_REGION)
+        _ec2_res = boto3.resource("ec2", AWS_REGION)
+
+        # Access the image
+        image: str = _ec2_res.Image(image_id)
+        template: str = ""
+        instance: str = f"""
+resource "aws_instance" "ec2_instance_{name}" {{
+  ami                  = "{image_id}"
+  instance_type        = "${{var.instance_type}}"
+  key_name             = "ap-key-sharedservices-sg"
+  iam_instance_profile = "${{local.iam_instance_profile}}"
+
+  network_interface {{
+    network_interface_id = "${{aws_network_interface.eni_primary_{name}.id}}"
+    device_index         = 0
+  }}
+
+  root_block_device {{
+    volume_type = "gp2"
+    volume_size = "100"
+  }}
+
+  tags = {{
+    Name        = "{name.upper()}"
+    ProductID   = "{product_id}"
+    Environment = "Production"
+    SMOUsage    = "{smo_usage}"
+    AppRecovery = "false"
+  }}
+
+  lifecycle {{
+    ignore_changes = ["ami"]
+  }}
+}}
+        """
+
+        template = template + instance
+
+        network_template: str = f"""
+resource "aws_network_interface" "eni_primary_{name}" {{
+  subnet_id       = "{subnet_id}"
+  private_ips     = ["{private_ip}"]
+  security_groups = ["${{aws_security_group.{security_group}.id}}"]
+
+  tags = {{
+    Name        = "ap-eni-{name}-sg"
+    ProductID   = "{product_id}"
+    Environment = "Production"
+    SMOUsage    = "{smo_usage}"
+    AppRecovery = "false"
+  }}
+}}
+        """
+        template = template + network_template
+
+        for tag in image.tags:
+            if "Drive-" not in tag["Key"]:
+                continue
+
+            drive = tag.get("Key")[len("Drive-"):]
+            drive_info = json.loads(tag.get("Value"))
+
+            # standardizing drives on xvd* format regardless of source
+            if "/dev/sd" in drive:
+                letter = drive[len("/dev/sd")]
+                drive = f"xvd{letter}"
+
+            vol_size = drive_info.get("VolumeSize", "2")
+            vol_type = drive_info.get("VolumeType", "gp2")
+            vol_snap = drive_info.get("SnapshotId")
+
+            drive_template = f"""
+resource "aws_ebs_volume" "datadisk_{name}_{drive}" {{
+  availability_zone = "{AWS_REGION}a"
+  type              = "{vol_type}"
+  size              = {vol_size}
+  encrypted         = true
+  snapshot_id       = "{vol_snap}"
+
+  tags = {{
+    Name        = "ap-vol-{name}-{drive}-sg"
+    ProductID   = "{product_id}"
+    Environment = "Production"
+    SMOUsage    = "{smo_usage}"
+    AppRecovery = "false"
+  }}
+}}
+
+resource "aws_volume_attachment" "ebs_att_disk_{name}_{drive}" {{
+  device_name = "{drive}"
+  volume_id   = "${{aws_ebs_volume.datadisk_{name}_{drive}.id}}"
+  instance_id = "${{aws_instance.ec2_instance_{name}.id}}"
+}}
+            """
+            template = template + drive_template
+
+        return template
 
 
 def main() -> None:

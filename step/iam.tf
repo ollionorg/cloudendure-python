@@ -20,3 +20,24 @@ data "aws_iam_policy_document" "statefunction_assume_role_policy_document" {
     }
   }
 }
+
+# lambda related
+resource "aws_iam_role" "iam_for_lambda" {
+  name = "tf-iam-for-lambda"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}

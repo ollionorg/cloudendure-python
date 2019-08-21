@@ -1818,10 +1818,10 @@
 
 <p>Share the generated AMIs to the provided destination accounts.
 <h3 id="cloudendure.cloudendure.CloudEndure.create_ami">create_ami</h3></p>
-<pre><code class="python">CloudEndure.create_ami(self, project_name: 'str' = '') -&gt; 'bool'
+<pre><code class="python">CloudEndure.create_ami(self, project_name: 'str' = '') -&gt; 'Dict[str, str]'
 </code></pre>
 
-<p>Create an AMI from the specified instance.</p>
+<p>Create an AMI from the specified instances.</p>
 <p>Args:
     project_name (str): The name of the CloudEndure project.</p>
 <p>Returns:
@@ -1847,6 +1847,16 @@
     image_id (str): The AWS AMI to be copied.</p>
 <p>Returns:
     dict: The mapping of AWS EBS block devices.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.gen_terraform">gen_terraform</h3>
+
+<pre><code class="python">CloudEndure.gen_terraform(self, image_id: 'str', name: 'str' = 'INSTANCENAME', product_id: 'str' = 'PRODUCT_ID', smo_usage: 'str' = 'SMO_USAGE', subnet_id: 'str' = 'SUBNET_ID', private_ip: 'str' = 'PRIVATE_IP', security_group: 'str' = 'SECURITY_GROUP') -&gt; 'str'
+</code></pre>
+
+<p>Generates terraform for a given split image</p>
+<p>Args:
+    image_id (str): The split AMI.</p>
+<p>Returns:
+    str: Raw terraform with disk and instance mappings.</p>
 <h2 id="cloudendure.cloudendure.main">main</h2>
 
 <pre><code class="python">main() -&gt; 'None'

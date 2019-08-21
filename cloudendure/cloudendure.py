@@ -664,7 +664,7 @@ class CloudEndure:
                 ]
             )
 
-            if len(instances) == 0 or len(instances.get("Reservations", [])) == 0:
+            if not instances or not instances.get("Reservations", []):
                 print(
                     f"No instances or reservations found for migration wave: {self.migration_wave}"
                 )
@@ -867,7 +867,8 @@ resource "aws_network_interface" "eni_primary_{name}" {{
             if "Drive-" not in tag["Key"]:
                 continue
 
-            drive = tag.get("Key")[len("Drive-"):]
+            start = len("Drive-")
+            drive = tag.get("Key")[start:]
             drive_info = json.loads(tag.get("Value"))
 
             # standardizing drives on xvd* format regardless of source

@@ -9,7 +9,7 @@ import os
 
 print("Loading function image_cleanup")
 
-ec2_res = boto3.resource("ec2")
+ec2_client = boto3.client("ec2")
 
 # {
 #   "ami_id": "original AMI",
@@ -27,13 +27,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
     if not copy_ami:
         return ""
 
-    # Access the image that needs to be removed
-    image = ec2_res.Image(copy_ami)
-    devices: List[Any] = image.block_device_mappings
-    image.deregister()
-
-    for device in devices:
-        if "Ebs" in device:
-            ec2_res.delete_snapshot(SnapshotId=device["Ebs"]["SnapshotId"])
+    ec2_client.degister_image(ImageId=copy_ami)
 
     return True

@@ -27,6 +27,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
     if not copy_ami:
         return ""
 
-    ec2_client.degister_image(ImageId=copy_ami)
+    ec2_client.deregister_image(ImageId=copy_ami)
 
     return True

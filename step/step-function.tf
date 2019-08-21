@@ -24,14 +24,13 @@ resource "aws_sfn_state_machine" "copy_and_split" {
     "Wait X Seconds": {
       "Type": "Wait",
       "SecondsPath": "$.wait_time",
-      "Next": "Get Job Status"
+      "Next": "Get Copy Status"
     },
     "Get Copy Status": {
       "Type": "Task",
-      "Resource": "${aws_lambda_function.lambda_get_copy_status}",
-      "Next": "Copy Complete?",
-      "InputPath": "$.copy_ami",
+      "Resource": "${aws_lambda_function.lambda_get_copy_status.arn}",
       "ResultPath": "$.status",
+      "Next": "Copy Complete?",
       "Retry": [
         {
           "ErrorEquals": ["States.ALL"],
@@ -48,15 +47,14 @@ resource "aws_sfn_state_machine" "copy_and_split" {
           "Or": [
             {
             "Variable": "$.status",
-            "StringEquals": "failed",
-            "Next": "Job Failed"
+            "StringEquals": "failed"
             },
             {
             "Variable": "$.status",
-            "StringEquals": "error",
-            "Next": "Job Failed"
+            "StringEquals": "error"
             }
-          ]
+          ],
+          "Next": "Job Failed"
         },
         {
           "Variable": "$.status",
@@ -73,8 +71,8 @@ resource "aws_sfn_state_machine" "copy_and_split" {
     },
     "Split Image": {
       "Type": "Task",
-      "Resource": "${aws_lambda_function.lambda_split_image}",
-      "InputPath": "$.copy_ami",
+      "Resource": "${aws_lambda_function.lambda_split_image.arn}",
+      "ResultPath": "$.split_ami_id",
       "End": true,
       "Retry": [
         {

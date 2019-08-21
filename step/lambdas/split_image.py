@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Split a copied image"""
+from __future__ import annotations
+from typing import Any, Dict, List
 import json
 import boto3
 
-from __future__ import annotations
-from typing import Any, Dict, List
-
 print("Loading function split_image")
 
-ec2_res = boto3.resource("ec2", AWS_REGION)
+ec2_res = boto3.resource("ec2")
 
 # {
 #     "copy_ami" : "ami-123456",
@@ -22,8 +21,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     print("Received event: " + json.dumps(event, indent=2))
 
     copy_ami: str = event["copy_ami"]
-
-    print("Loading EC2 resource for region: ", AWS_REGION)
 
     # Access the image that needs to be split
     image = ec2_res.Image(copy_ami)

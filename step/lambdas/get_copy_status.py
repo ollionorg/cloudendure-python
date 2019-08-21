@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Get status of a copy job"""
-import json
-import boto3
-
 from __future__ import annotations
 from typing import Any, Dict, List
+import json
+import boto3
 
 print("Loading function get_copy_status")
 

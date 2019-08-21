@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Copy an image"""
-import json
-import boto3
-
 from __future__ import annotations
 from typing import Any, Dict, List
+import json
+import boto3
+import os
 
 print("Loading function copy_image")
 
@@ -26,10 +26,10 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
 
     new_image: Dict[str, Any] = ec2_client.copy_image(
         SourceImageId=ami_id,
-        SourceRegion=AWS_REGION,
+        SourceRegion=os.environ["AWS_REGION"],
         Name=f"copied-{ami_id}",
         Encrypted=True,
-        KmsKeyId=kms_id,
+        KmsKeyId=kms_id
     )
 
     return new_image["ImageId"]

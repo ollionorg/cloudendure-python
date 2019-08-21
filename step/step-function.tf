@@ -54,7 +54,7 @@ resource "aws_sfn_state_machine" "copy_and_split" {
             "StringEquals": "error"
             }
           ],
-          "Next": "Job Failed"
+          "Next": "Copy Failed"
         },
         {
           "Variable": "$.status",
@@ -64,7 +64,7 @@ resource "aws_sfn_state_machine" "copy_and_split" {
       ],
       "Default": "Wait X Seconds"
     },
-    "Job Failed": {
+    "Copy Failed": {
       "Type": "Fail",
       "Cause": "Copy Failed",
       "Error": "Copy Image returned failed or error."
@@ -73,6 +73,21 @@ resource "aws_sfn_state_machine" "copy_and_split" {
       "Type": "Task",
       "Resource": "${aws_lambda_function.lambda_split_image.arn}",
       "ResultPath": "$.split_ami_id",
+      "Next": "Image Cleanup",
+      "Retry": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ]
+    },
+    "Image Cleanup": {
+      "Type": "Task",
+      "Resource": "${aws_lambda_function.lambda_image_cleanup.arn}",
+      "ResultPath": "$.cleanup",
+      "OutputPath": "$.split_ami_id",
       "End": true,
       "Retry": [
         {

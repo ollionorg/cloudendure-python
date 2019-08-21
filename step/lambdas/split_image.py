@@ -17,7 +17,7 @@ ec2_res = boto3.resource("ec2")
 # }
 
 
-def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
+def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     copy_ami: str = event["copy_ami"]

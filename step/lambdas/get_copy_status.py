@@ -11,14 +11,15 @@ print("Loading function get_copy_status")
 ec2_client = boto3.client("ec2")
 
 # {
-#     "ami"      : "ami-original"
-#     "copy_ami" : "ami-copied",
-#     "kms_id"   : "GUID",
-#     "wait_time": 60
+#   "ami_id": "original AMI",
+#   "kms_id": "KMS GUID",
+#   "wait_time": timeout in seconds,
+#   "copy_ami": "copied AMI",
+#   "status": "pending if it came from the copy complete? choice"
 # }
 
 
-def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
+def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     copy_ami: str = event["copy_ami"]

@@ -18,7 +18,7 @@ ec2_client = boto3.client("ec2")
 # }
 
 
-def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
+def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     ami_id: str = event["ami_id"]
@@ -29,7 +29,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         SourceRegion=os.environ["AWS_REGION"],
         Name=f"copied-{ami_id}",
         Encrypted=True,
-        KmsKeyId=kms_id
+        KmsKeyId=kms_id,
     )
 
     return new_image["ImageId"]

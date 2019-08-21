@@ -106,3 +106,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 .vscode/settings.json
+
+# archives
+*.zip
+
+# terraform builds
+.terraform/
+terraform.tfstate*

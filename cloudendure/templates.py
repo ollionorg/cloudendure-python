@@ -7,6 +7,7 @@ class TerraformTemplate:
     """Define Terraform template entries.
 
     Attributes:
+        INSTANCE_TEMPLATE (str): The Terraform EC2 instance template.
         NETWORKTEMPLATE (str): The Terraform network interface template.
         VOLUME_TEMPLATE (str): The Terraform volume and volume attachment template.
 

@@ -29,10 +29,10 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     new_image: Dict[str, Any] = ec2_client.copy_image(
         SourceImageId=ami_id,
-        SourceRegion=os.environ["AWS_REGION"],
+        SourceRegion=os.environ.get("AWS_REGION", "us-east-1"),
         Name=f"copied-{ami_id}",
         Encrypted=True,
         KmsKeyId=kms_id,
     )
 
-    return new_image["ImageId"]
+    return new_image.get("ImageId", "")

@@ -1,0 +1,80 @@
+// -copy image
+// -wait for copy to finish
+// -split image
+// -wait for split to finish
+// -return AMI
+{
+  "Comment": "A state machine that copies a usually shared image and splits it into a root AMI tagged with its snapshots and attachment information",
+  "StartAt": "Copy Image",
+  "States": {
+    "Copy Image": {
+      "Type": "Task",
+      "Resource": "arn:<PARTITION>:lambda:::function:SubmitJob",
+      "ResultPath": "$.copy_ami",
+      "Next": "Wait X Seconds",
+      "Retry": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ]
+    },
+    "Wait X Seconds": {
+      "Type": "Wait",
+      "SecondsPath": "$.wait_time",
+      "Next": "Get Job Status"
+    },
+    "Get Copy Status": {
+      "Type": "Task",
+      "Resource": "arn:<PARTITION>:lambda:::function:GetCopyStatus",
+      "Next": "Copy Complete?",
+      "InputPath": "$.guid",
+      "ResultPath": "$.status",
+      "Retry": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ]
+    },
+    "Job Complete?": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.status",
+          "StringEquals": "FAILED",
+          "Next": "Job Failed"
+        },
+        {
+          "Variable": "$.status",
+          "StringEquals": "SUCCEEDED",
+          "Next": "Split Image"
+        }
+      ],
+      "Default": "Wait X Seconds"
+    },
+    "Job Failed": {
+      "Type": "Fail",
+      "Cause": "AWS Batch Job Failed",
+      "Error": "DescribeJob returned FAILED"
+    },
+    "Split Image": {
+      "Type": "Task",
+      "Resource": "arn:<PARTITION>:lambda:::function:SplitImage",
+      "InputPath": "$.copy_ami",
+      "End": true,
+      "Retry": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ]
+    }
+  }
+}

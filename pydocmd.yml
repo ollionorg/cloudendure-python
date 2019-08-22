@@ -15,6 +15,8 @@ generate:
     - cloudendure.exceptions++
   - code/cloudendure/models.md:
     - cloudendure.models++
+  - code/cloudendure/templates.md:
+    - cloudendure.templates++
   - code/cloudendure/utils.md:
     - cloudendure.utils++
   - code/lambda/copy_ami.md:
@@ -23,6 +25,24 @@ generate:
     - lambda.exceptions++
   - code/lambda/handler.md:
     - lambda.handler++
+  - code/step/lambdas/copy_image.md:
+    - step.lambdas.copy_image++
+  - code/step/lambdas/create_image.md:
+    - step.lambdas.create_image++
+  - code/step/lambdas/find_instance.md:
+    - step.lambdas.find_instance++
+  - code/step/lambdas/get_copy_status.md:
+    - step.lambdas.get_copy_status++
+  - code/step/lambdas/get_image_status.md:
+    - step.lambdas.get_image_status++
+  - code/step/lambdas/get_instance_status.md:
+    - step.lambdas.get_instance_status++
+  - code/step/lambdas/image_cleanup.md:
+    - step.lambdas.image_cleanup++
+  - code/step/lambdas/share_image.md:
+    - step.lambdas.share_image++
+  - code/step/lambdas/split_image.md:
+    - step.lambdas.split_image++
 
 pages:
   - General:
@@ -37,11 +57,22 @@ pages:
       - Events: code/cloudendure/events.md
       - Exceptions: code/cloudendure/exceptions.md
       - Models: code/cloudendure/models.md
+      - Templates: code/cloudendure/templates.md
       - Utilities: code/cloudendure/utils.md
     - AWS Lambda:
       - Handler: code/lambda/handler.md
       - Exceptions: code/lambda/exceptions.md
       - Copy AMI Utils: code/lambda/copy_ami.md
+    - CE Worker Step Functions:
+      - Copy Image: code/step/lambdas/copy_image.md
+      - Create Image: code/step/lambdas/create_image.md
+      - Find Instance: code/step/lambdas/find_instance.md
+      - Get Copy Status: code/step/lambdas/get_copy_status.md
+      - Get Image Status: code/step/lambdas/get_image_status.md
+      - Get Instance Status: code/step/lambdas/get_instance_status.md
+      - Image Cleanup: code/step/lambdas/image_cleanup.md
+      - Share Image: code/step/lambdas/share_image.md
+      - Split Image: code/step/lambdas/split_image.md
   - API Documentation:
     - MAIN: api/API_README.md << docs/API_README.md
     - AccountApi: api/AccountApi.md << docs/AccountApi.md

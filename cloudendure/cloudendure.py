@@ -14,12 +14,11 @@ from botocore import client as boto_client
 from botocore.exceptions import ClientError
 from requests.models import Response
 
-from cloudendure.cloudendure_api.api_client import ApiClient
-
 from .api import CloudEndureAPI
 from .config import CloudEndureConfig
 from .events import Event, EventHandler
 from .exceptions import CloudEndureHTTPException
+from .templates import TerraformTemplate
 
 HOST: str = "https://console.cloudendure.com"
 headers: Dict[str, str] = {"Content-Type": "application/json"}
@@ -40,7 +39,6 @@ class CloudEndure:
         self.config: CloudEndureConfig = CloudEndureConfig()
         self.api: CloudEndureAPI = CloudEndureAPI()
         self.api.login()
-        # self.api_client: ApiClient = ApiClient()
         self.project_name: str = self.config.active_config.get("project_name", "")
         self.project_id: str = self.get_project_id(
             project_name=self.project_name
@@ -53,7 +51,7 @@ class CloudEndure:
             "machines", ""
         ).split(",")
         self.migration_wave: str = self.config.active_config.get("migration_wave", "0")
-        self.max_lag_ttl: str = self.config.active_config.get("max_lag_ttl", "90")
+        self.max_lag_ttl: int = self.config.active_config.get("max_lag_ttl", 90)
 
     def get_project_id(self, project_name: str = "") -> str:
         """Get the associated CloudEndure project ID by project_name.
@@ -322,8 +320,11 @@ class CloudEndure:
             return False
         return True
 
-    def launch(self, project_name="", launch_type="test", dry_run=False) -> bool:
+    def launch(
+        self, project_name="", launch_type="test", dry_run=False
+    ) -> Dict[str, Any]:
         """Launch the test target instances."""
+        response_dict: Dict[str, Any] = {}
         if not project_name:
             project_name: str = self.project_name
             project_id: str = self.project_id
@@ -331,7 +332,7 @@ class CloudEndure:
             project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
-            return False
+            return response_dict
 
         print(
             f"Launching Project - Project ID: ({project_id}) - ",
@@ -339,14 +340,14 @@ class CloudEndure:
         )
         if dry_run:
             print("This is a dry run! Not launching any machines!")
-            return False
+            return response_dict
 
         if launch_type not in LAUNCH_TYPES:
             print(
                 "Invalid launch-type specified! Please specify a valid launch type: ",
                 LAUNCH_TYPES,
             )
-            return False
+            return response_dict
 
         machines_response: Response = self.api.api_call(
             f"projects/{project_id}/machines"
@@ -380,6 +381,10 @@ class CloudEndure:
                         data=json.dumps(machine_data),
                     )
                     if result.status_code == 202:
+                        response_dict["original_id"] = source_props.get(
+                            "machineCloudId", "NONE"
+                        )
+                        response_dict.update(json.loads(result.text))
                         if launch_type == "test":
                             print("Test Job created for machine ", _machine)
                             self.event_handler.add_event(
@@ -412,7 +417,7 @@ class CloudEndure:
                     self.event_handler.add_event(
                         Event.EVENT_IGNORED, machine_name=_machine
                     )
-        return True
+        return response_dict
 
     def status(
         self, project_name: str = "", launch_type: str = "test", dry_run: bool = False
@@ -734,7 +739,7 @@ class CloudEndure:
             KmsKeyId=kms_id,
         )
 
-        return new_image["ImageId"]
+        return new_image.get("ImageId", "")
 
     def split_image(self, image_id: str) -> Dict[str, Any]:
         """Split the image into a root drive only AMI and a collection of snapshots.
@@ -792,19 +797,23 @@ class CloudEndure:
         self,
         image_id: str,
         name: str = "INSTANCENAME",
-        product_id: str = "PRODUCT_ID",
-        smo_usage: str = "SMO_USAGE",
         subnet_id: str = "SUBNET_ID",
         private_ip: str = "PRIVATE_IP",
+        keypair: str = "KEYPAIR",
         security_group: str = "SECURITY_GROUP",
     ) -> str:
-        """Generates terraform for a given split image
+        """Generate Terraform for a given split image.
 
         Args:
-            image_id (str): The split AMI.
+            image_id (str): The split AMI ID to be referenced.
+            name (str): The name of the instance to be generated.
+            subnet_id (str): The AWS VPC Subnet ID to be referenced.
+            private_id (str): The internal IP address to associate with the AWS ENI.
+            keypair (str): The AWS EC2 keypair name to be referenced.
+            security_group (str): The AWS security group ID to be referenced.
 
         Returns:
-            str: Raw terraform with disk and instance mappings.
+            str: The raw Terraform with volume, ENI, and EC2 instance templates.
 
         """
         print("Loading EC2 resource for region: ", AWS_REGION)
@@ -812,99 +821,44 @@ class CloudEndure:
 
         # Access the image
         image: str = _ec2_res.Image(image_id)
-        template: str = ""
-        instance: str = f"""
-resource "aws_instance" "ec2_instance_{name}" {{
-  ami                  = "{image_id}"
-  instance_type        = "${{var.instance_type}}"
-  key_name             = "ap-key-sharedservices-sg"
-  iam_instance_profile = "${{local.iam_instance_profile}}"
-
-  network_interface {{
-    network_interface_id = "${{aws_network_interface.eni_primary_{name}.id}}"
-    device_index         = 0
-  }}
-
-  root_block_device {{
-    volume_type = "gp2"
-    volume_size = "100"
-  }}
-
-  tags = {{
-    Name        = "{name.upper()}"
-    ProductID   = "{product_id}"
-    Environment = "Production"
-    SMOUsage    = "{smo_usage}"
-    AppRecovery = "false"
-  }}
-
-  lifecycle {{
-    ignore_changes = ["ami"]
-  }}
-}}
-        """
-
-        template = template + instance
-
-        network_template: str = f"""
-resource "aws_network_interface" "eni_primary_{name}" {{
-  subnet_id       = "{subnet_id}"
-  private_ips     = ["{private_ip}"]
-  security_groups = ["${{aws_security_group.{security_group}.id}}"]
-
-  tags = {{
-    Name        = "ap-eni-{name}-sg"
-    ProductID   = "{product_id}"
-    Environment = "Production"
-    SMOUsage    = "{smo_usage}"
-    AppRecovery = "false"
-  }}
-}}
-        """
-        template = template + network_template
+        base_template_data = {
+            "name": name,
+            "keypair": keypair,
+            "uppercase_name": name.upper(),
+            "subnet_id": subnet_id,
+            "private_ip": private_ip,
+            "security_group": security_group,
+            "region": AWS_REGION,
+        }
+        template: str = (
+            TerraformTemplate.INSTANCE_TEMPLATE.format(**base_template_data)
+            + TerraformTemplate.NETWORK_TEMPLATE.format(**base_template_data)
+        )
 
         for tag in image.tags:
-            if "Drive-" not in tag["Key"]:
+            tag_key = tag.get("Key", "")
+            if not tag_key.startswith("Drive-"):
+                continue
+            else:
+                drive = tag_key[6:]
+
+            if not drive.startswith("/dev/sd"):
                 continue
 
-            start = len("Drive-")
-            drive = tag.get("Key")[start:]
-            drive_info = json.loads(tag.get("Value"))
+            drive_info = json.loads(tag.get("Value", "{}"))
+            drive_name = drive.split("/")[-1]
 
-            # standardizing drives on xvd* format regardless of source
-            if "/dev/sd" in drive:
-                letter = drive[len("/dev/sd")]
-                drive = f"xvd{letter}"
+            drive_template_data = {
+                **base_template_data,
+                "drive_name": drive_name,
+                "volume_size": drive_info.get("VolumeSize", "2"),
+                "volume_type": drive_info.driveget("VolumeType", "gp2"),
+            }
 
-            vol_size = drive_info.get("VolumeSize", "2")
-            vol_type = drive_info.get("VolumeType", "gp2")
-            vol_snap = drive_info.get("SnapshotId")
-
-            drive_template = f"""
-resource "aws_ebs_volume" "datadisk_{name}_{drive}" {{
-  availability_zone = "{AWS_REGION}a"
-  type              = "{vol_type}"
-  size              = {vol_size}
-  encrypted         = true
-  snapshot_id       = "{vol_snap}"
-
-  tags = {{
-    Name        = "ap-vol-{name}-{drive}-sg"
-    ProductID   = "{product_id}"
-    Environment = "Production"
-    SMOUsage    = "{smo_usage}"
-    AppRecovery = "false"
-  }}
-}}
-
-resource "aws_volume_attachment" "ebs_att_disk_{name}_{drive}" {{
-  device_name = "{drive}"
-  volume_id   = "${{aws_ebs_volume.datadisk_{name}_{drive}.id}}"
-  instance_id = "${{aws_instance.ec2_instance_{name}.id}}"
-}}
-            """
+            drive_template = TerraformTemplate.VOLUME_TEMPLATE.format(
+                **drive_template_data
+            )
             template = template + drive_template
-
         return template
 
 

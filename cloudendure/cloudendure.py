@@ -53,7 +53,7 @@ class CloudEndure:
             "machines", ""
         ).split(",")
         self.migration_wave: str = self.config.active_config.get("migration_wave", "0")
-        self.max_lag_ttl: str = self.config.active_config.get("max_lag_ttl", "90")
+        self.max_lag_ttl: int = self.config.active_config.get("max_lag_ttl", 90)
 
     def get_project_id(self, project_name: str = "") -> str:
         """Get the associated CloudEndure project ID by project_name.
@@ -382,8 +382,8 @@ class CloudEndure:
                         data=json.dumps(machine_data),
                     )
                     if result.status_code == 202:
-                        resp = result.json
                         resp["original_id"] = source_props.get("machineCloudId", "NONE")
+                        resp.update(json.loads(result.text))
                         if launch_type == "test":
                             print("Test Job created for machine ", _machine)
                             self.event_handler.add_event(
@@ -796,10 +796,9 @@ class CloudEndure:
         self,
         image_id: str,
         name: str = "INSTANCENAME",
-        product_id: str = "PRODUCT_ID",
-        smo_usage: str = "SMO_USAGE",
         subnet_id: str = "SUBNET_ID",
         private_ip: str = "PRIVATE_IP",
+        keypair: str = "KEYPAIR",
         security_group: str = "SECURITY_GROUP",
     ) -> str:
         """Generates terraform for a given split image
@@ -821,7 +820,7 @@ class CloudEndure:
 resource "aws_instance" "ec2_instance_{name}" {{
   ami                  = "{image_id}"
   instance_type        = "${{var.instance_type}}"
-  key_name             = "ap-key-sharedservices-sg"
+  key_name             = "{keypair}"
   iam_instance_profile = "${{local.iam_instance_profile}}"
 
   network_interface {{
@@ -836,10 +835,6 @@ resource "aws_instance" "ec2_instance_{name}" {{
 
   tags = {{
     Name        = "{name.upper()}"
-    ProductID   = "{product_id}"
-    Environment = "Production"
-    SMOUsage    = "{smo_usage}"
-    AppRecovery = "false"
   }}
 
   lifecycle {{
@@ -858,10 +853,6 @@ resource "aws_network_interface" "eni_primary_{name}" {{
 
   tags = {{
     Name        = "ap-eni-{name}-sg"
-    ProductID   = "{product_id}"
-    Environment = "Production"
-    SMOUsage    = "{smo_usage}"
-    AppRecovery = "false"
   }}
 }}
         """
@@ -874,17 +865,17 @@ resource "aws_network_interface" "eni_primary_{name}" {{
             drive = tag.get("Key")[len("Drive-"):]
             drive_info = json.loads(tag.get("Value"))
 
-            # standardizing drives on xvd* format regardless of source
-            if "/dev/sd" in drive:
-                letter = drive[len("/dev/sd")]
-                drive = f"xvd{letter}"
+            drive_name = drive
+            if "/dev/sd" in drive_name:
+                letter = drive_name[len("/dev/sd")]
+                drive_name = f"sd{letter}"
 
             vol_size = drive_info.get("VolumeSize", "2")
             vol_type = drive_info.get("VolumeType", "gp2")
             vol_snap = drive_info.get("SnapshotId")
 
             drive_template = f"""
-resource "aws_ebs_volume" "datadisk_{name}_{drive}" {{
+resource "aws_ebs_volume" "datadisk_{name}_{drive_name}" {{
   availability_zone = "{AWS_REGION}a"
   type              = "{vol_type}"
   size              = {vol_size}
@@ -892,17 +883,13 @@ resource "aws_ebs_volume" "datadisk_{name}_{drive}" {{
   snapshot_id       = "{vol_snap}"
 
   tags = {{
-    Name        = "ap-vol-{name}-{drive}-sg"
-    ProductID   = "{product_id}"
-    Environment = "Production"
-    SMOUsage    = "{smo_usage}"
-    AppRecovery = "false"
+    Name        = "ap-vol-{name}-{drive_name}-sg"
   }}
 }}
 
-resource "aws_volume_attachment" "ebs_att_disk_{name}_{drive}" {{
+resource "aws_volume_attachment" "ebs_att_disk_{name}_{drive_name}" {{
   device_name = "{drive}"
-  volume_id   = "${{aws_ebs_volume.datadisk_{name}_{drive}.id}}"
+  volume_id   = "${{aws_ebs_volume.datadisk_{name}_{drive_name}.id}}"
   instance_id = "${{aws_instance.ec2_instance_{name}.id}}"
 }}
             """

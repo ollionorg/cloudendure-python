@@ -670,7 +670,7 @@ class CloudEndure:
                 ]
             )
 
-            if len(instances) == 0 or len(instances.get("Reservations", [])) == 0:
+            if not instances or not instances.get("Reservations", []):
                 print(
                     f"No instances or reservations found for migration wave: {self.migration_wave}"
                 )

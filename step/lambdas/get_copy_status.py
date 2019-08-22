@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Get status of a copy job"""
 from __future__ import annotations
-from typing import Any, Dict, List
+from typing import Any, Dict
 import json
 import boto3
 

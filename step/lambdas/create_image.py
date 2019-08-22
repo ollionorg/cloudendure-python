@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 """Copy an image"""
 from __future__ import annotations
-from typing import Any, Dict, List
+from typing import Any, Dict
 import json
 import boto3
-import os
 import datetime
 
 print("Loading function create_image")
@@ -37,11 +36,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     # Tag the newly created AMI by getting the tags of the migrated instance to copy to the AMI.
     ec2_tags: Dict[str, Any] = ec2_client.describe_tags(Filters=_filters)
 
-    name: str = instance_id
     for tag in ec2_tags["Tags"]:
-        if tag["Key"] == "Name":
-            name = tag["Value"]
-
         ec2_client.create_tags(
             Resources=[ec2_image["ImageId"]],
             Tags=[{"Key": tag["Key"], "Value": tag["Value"]}],

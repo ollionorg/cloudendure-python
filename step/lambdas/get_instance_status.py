@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 """Copy an image"""
 from __future__ import annotations
-from typing import Any, Dict, List
+from typing import Any, Dict
 import json
 import boto3
-import os
 
 print("Loading function get_instance_status")
 

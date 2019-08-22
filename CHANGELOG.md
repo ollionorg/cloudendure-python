@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.0.8](https://github.com/mbeacom/cloudendure-python/tree/v0.0.8) (2019-08-22)
+[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.7...v0.0.8)
+
+**Implemented enhancements:**
+
+- Generate generic output infrastructure-as-code projects for migration waves [\#29](https://github.com/mbeacom/cloudendure-python/issues/29)
+
+**Merged pull requests:**
+
+- Step function [\#40](https://github.com/mbeacom/cloudendure-python/pull/40) ([twarnock2w](https://github.com/twarnock2w))
+- tf generator first pass. various fixes [\#39](https://github.com/mbeacom/cloudendure-python/pull/39) ([twarnock2w](https://github.com/twarnock2w))
+
 ## [v0.0.7](https://github.com/mbeacom/cloudendure-python/tree/v0.0.7) (2019-08-13)
 [Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.6...v0.0.7)
 

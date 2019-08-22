@@ -461,6 +461,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../templates/" title="Templates" class="md-nav__link">
+      Templates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../utils/" title="Utilities" class="md-nav__link">
       Utilities
     </a>
@@ -1798,7 +1810,7 @@
 
 <p>Update the blueprint associated with the specified machines.
 <h3 id="cloudendure.cloudendure.CloudEndure.launch">launch</h3></p>
-<pre><code class="python">CloudEndure.launch(self, project_name='', launch_type='test', dry_run=False) -&gt; 'bool'
+<pre><code class="python">CloudEndure.launch(self, project_name='', launch_type='test', dry_run=False) -&gt; 'Dict[str, Any]'
 </code></pre>
 
 <p>Launch the test target instances.
@@ -1849,14 +1861,19 @@
     dict: The mapping of AWS EBS block devices.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.gen_terraform">gen_terraform</h3>
 
-<pre><code class="python">CloudEndure.gen_terraform(self, image_id: 'str', name: 'str' = 'INSTANCENAME', product_id: 'str' = 'PRODUCT_ID', smo_usage: 'str' = 'SMO_USAGE', subnet_id: 'str' = 'SUBNET_ID', private_ip: 'str' = 'PRIVATE_IP', security_group: 'str' = 'SECURITY_GROUP') -&gt; 'str'
+<pre><code class="python">CloudEndure.gen_terraform(self, image_id: 'str', name: 'str' = 'INSTANCENAME', subnet_id: 'str' = 'SUBNET_ID', private_ip: 'str' = 'PRIVATE_IP', keypair: 'str' = 'KEYPAIR', security_group: 'str' = 'SECURITY_GROUP') -&gt; 'str'
 </code></pre>
 
-<p>Generates terraform for a given split image</p>
+<p>Generate Terraform for a given split image.</p>
 <p>Args:
-    image_id (str): The split AMI.</p>
+    image_id (str): The split AMI ID to be referenced.
+    name (str): The name of the instance to be generated.
+    subnet_id (str): The AWS VPC Subnet ID to be referenced.
+    private_id (str): The internal IP address to associate with the AWS ENI.
+    keypair (str): The AWS EC2 keypair name to be referenced.
+    security_group (str): The AWS security group ID to be referenced.</p>
 <p>Returns:
-    str: Raw terraform with disk and instance mappings.</p>
+    str: The raw Terraform with volume, ENI, and EC2 instance templates.</p>
 <h2 id="cloudendure.cloudendure.main">main</h2>
 
 <pre><code class="python">main() -&gt; 'None'

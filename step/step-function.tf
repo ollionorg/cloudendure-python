@@ -8,7 +8,7 @@ resource "aws_sfn_state_machine" "image_and_share" {
   "Comment": "A state machine that finds for a converted CloudEndure instance, waits for it to become viable, creates an image, and shares it to a destination account",
   "StartAt": "Find Instance",
   "States": {
-    "Find Image": {
+    "Find Instance": {
       "Type": "Task",
       "Resource": "${aws_lambda_function.lambda_find_instance.arn}",
       "ResultPath": "$.instance_id",
@@ -28,7 +28,7 @@ resource "aws_sfn_state_machine" "image_and_share" {
         {
           "Variable": "$.instance_id",
           "StringEquals": "not-found",
-          "Next": "Wait For Image"
+          "Next": "Wait For Instance"
         },
         {
           "Variable": "$.instance_id",
@@ -38,10 +38,10 @@ resource "aws_sfn_state_machine" "image_and_share" {
       ],
       "Default": "Get Instance Status"
     },
-    "Wait For Image": {
+    "Wait For Instance": {
       "Type": "Wait",
-      "Seconds": "300",
-      "Next": "Find Image"
+      "Seconds": 300,
+      "Next": "Find Instance"
     },
     "Get Instance Status": {
       "Type": "Task",
@@ -71,18 +71,18 @@ resource "aws_sfn_state_machine" "image_and_share" {
           "Next": "Wait 10 Minutes"
         }
       ],
-      "Default": "Failed"
+      "Default": "Image Failed"
     },
     "Wait 10 Minutes": {
       "Type": "Wait",
-      "Seconds": "600",
+      "Seconds": 600,
       "Next": "Get Instance Status"
     },
     "Create Image": {
       "Type": "Task",
       "Resource": "${aws_lambda_function.lambda_create_image.arn}",
       "ResultPath": "$.migrated_ami_id",
-      "Next": "Copy Complete?",
+      "Next": "Get Image Status",
       "Retry": [
         {
           "ErrorEquals": ["States.ALL"],
@@ -132,7 +132,7 @@ resource "aws_sfn_state_machine" "image_and_share" {
     },
     "Wait 5 Minutes": {
       "Type": "Wait",
-      "Seconds": "300",
+      "Seconds": 300,
       "Next": "Get Image Status"
     },
     "Image Failed": {

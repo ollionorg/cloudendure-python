@@ -322,7 +322,9 @@ class CloudEndure:
             return False
         return True
 
-    def launch(self, project_name="", launch_type="test", dry_run=False) -> Dict[str, Any]:
+    def launch(
+        self, project_name="", launch_type="test", dry_run=False
+    ) -> Dict[str, Any]:
         """Launch the test target instances."""
 
         resp: Dict[str, Any] = {}
@@ -862,7 +864,7 @@ resource "aws_network_interface" "eni_primary_{name}" {{
             if "Drive-" not in tag["Key"]:
                 continue
 
-            drive = tag.get("Key")[len("Drive-"):]
+            drive = tag.get("Key")[len("Drive-") :]
             drive_info = json.loads(tag.get("Value"))
 
             drive_name = drive

@@ -23,7 +23,9 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     original_id: str = event["original_id"]
     instance_id: str = ""
 
-    resp = ec2_client.describe_instances(Filters=[{"Name": "tag:Original id", "Values": [f"{original_id}"]}])
+    resp = ec2_client.describe_instances(
+        Filters=[{"Name": "tag:Original id", "Values": [f"{original_id}"]}]
+    )
     for reservation in resp.get("Reservations", []):
         for instance in reservation.get("Instances", []):
             if instance["State"].get("Name") == "running":

@@ -37,7 +37,9 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     #     print("This is a dry run! Not launching any machines!")
     #     return False
 
-    machines_response: Response = self.api.api_call(f"projects/{project_id}/machines/{machine_id}")
+    machines_response: Response = self.api.api_call(
+        f"projects/{project_id}/machines/{machine_id}"
+    )
     if machine.get("replica"):
         print("Target machine already launched")
         event_handler.add_event(Event.EVENT_ALREADY_LAUNCHED, machine_name=_machine)
@@ -100,7 +102,5 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
                 print(
                     f"Machine: ({source_props['name']}) - Not a machine we want to launch..."
                 )
-                self.event_handler.add_event(
-                    Event.EVENT_IGNORED, machine_name=_machine
-                )
+                self.event_handler.add_event(Event.EVENT_IGNORED, machine_name=_machine)
     return True

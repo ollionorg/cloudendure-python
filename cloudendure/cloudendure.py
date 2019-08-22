@@ -92,9 +92,7 @@ class CloudEndure:
         print("Project Name does not exist!")
         return ""
 
-    def check(
-        self, project_name: str = "", dry_run: bool = False
-    ) -> bool:
+    def check(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Check the status of machines in the provided project."""
         if not project_name:
             project_name: str = self.project_name
@@ -105,9 +103,7 @@ class CloudEndure:
         if not project_id:
             return False
 
-        print(
-            f"Checking Project - Name: ({project_name}) - Dry Run: ({dry_run})"
-        )
+        print(f"Checking Project - Name: ({project_name}) - Dry Run: ({dry_run})")
         projects_response: Response = self.api.api_call("projects")
 
         if projects_response.status_code != 200:
@@ -298,9 +294,7 @@ class CloudEndure:
             return False
         return True
 
-    def launch(
-        self, project_name="", dry_run=False
-    ) -> Dict[str, Any]:
+    def launch(self, project_name="", dry_run=False) -> Dict[str, Any]:
         """Launch the test target instances."""
         response_dict: Dict[str, Any] = {}
         if not project_name:
@@ -312,9 +306,7 @@ class CloudEndure:
         if not project_id:
             return response_dict
 
-        print(
-            f"Launching Project - Project ID: ({project_id}) - Dry Run: ({dry_run})",
-        )
+        print(f"Launching Project - Project ID: ({project_id}) - Dry Run: ({dry_run})")
         if dry_run:
             print("This is a dry run! Not launching any machines!")
             return response_dict
@@ -377,9 +369,7 @@ class CloudEndure:
                     )
         return response_dict
 
-    def status(
-        self, project_name: str = "", dry_run: bool = False
-    ) -> bool:
+    def status(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Get the status of machines in the current wave."""
         if not project_name:
             project_name: str = self.project_name
@@ -465,9 +455,7 @@ class CloudEndure:
             print("ERROR: some machines in the targeted pool are not ready")
             return False
 
-    def execute(
-        self, project_name: str = "", dry_run: bool = False
-    ) -> bool:
+    def execute(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Start the migration project my checking and launching the migration wave."""
         if not project_name:
             project_name: str = self.project_name
@@ -478,9 +466,7 @@ class CloudEndure:
         if not project_id:
             return False
 
-        print(
-            f"Executing Project - Name: ({project_name}) - Dry Run: ({dry_run})"
-        )
+        print(f"Executing Project - Name: ({project_name}) - Dry Run: ({dry_run})")
 
         projects_result: Response = self.api.api_call("projects")
         if projects_result.status_code != 200:

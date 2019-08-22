@@ -48,9 +48,7 @@ class Event:
     # Successful Event Types
     EVENT_SUCCESSFULLY_LAUNCHED: Tuple[str, str] = ("SUCCESSFULLY_LAUNCHED", "SL")
 
-    SUCCESSFUL_EVENT_TYPES: List[Tuple[str, str]] = [
-        EVENT_SUCCESSFULLY_LAUNCHED,
-    ]
+    SUCCESSFUL_EVENT_TYPES: List[Tuple[str, str]] = [EVENT_SUCCESSFULLY_LAUNCHED]
 
     # Warned Event Types
     EVENT_IGNORED: Tuple[str, str] = ("IGNORED", "EI")

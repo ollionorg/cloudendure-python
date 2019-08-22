@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any, Dict
 import json
 import boto3
+import os
 
 print("Loading function copy_image")
 

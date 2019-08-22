@@ -1786,7 +1786,7 @@
     str: The CloudEndure project UUID.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.check">check</h3>
 
-<pre><code class="python">CloudEndure.check(self, project_name: 'str' = '', launch_type: 'str' = 'test', dry_run: 'bool' = False) -&gt; 'bool'
+<pre><code class="python">CloudEndure.check(self, project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
 </code></pre>
 
 <p>Check the status of machines in the provided project.
@@ -1810,17 +1810,17 @@
 
 <p>Update the blueprint associated with the specified machines.
 <h3 id="cloudendure.cloudendure.CloudEndure.launch">launch</h3></p>
-<pre><code class="python">CloudEndure.launch(self, project_name='', launch_type='test', dry_run=False) -&gt; 'Dict[str, Any]'
+<pre><code class="python">CloudEndure.launch(self, project_name='', dry_run=False) -&gt; 'Dict[str, Any]'
 </code></pre>
 
 <p>Launch the test target instances.
 <h3 id="cloudendure.cloudendure.CloudEndure.status">status</h3></p>
-<pre><code class="python">CloudEndure.status(self, project_name: 'str' = '', launch_type: 'str' = 'test', dry_run: 'bool' = False) -&gt; 'bool'
+<pre><code class="python">CloudEndure.status(self, project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
 </code></pre>
 
 <p>Get the status of machines in the current wave.
 <h3 id="cloudendure.cloudendure.CloudEndure.execute">execute</h3></p>
-<pre><code class="python">CloudEndure.execute(self, project_name: 'str' = '', launch_type: 'str' = 'test', dry_run: 'bool' = False) -&gt; 'bool'
+<pre><code class="python">CloudEndure.execute(self, project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
 </code></pre>
 
 <p>Start the migration project my checking and launching the migration wave.

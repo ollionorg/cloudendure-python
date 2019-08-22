@@ -21,9 +21,12 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     original_id: str = event["original_id"]
+    instance_id: str = ""
 
     resp = ec2_client.describe_instances(Filters=[{"Name": "tag:Original id", "Values": [f"{original_id}"]}])
+    for reservation in resp.get("Reservations", []):
+        for instance in reservation.get("Instances", []):
+            if instance["State"].get("Name") == "running":
+                instance_id = instance.get("InstanceId", "")
 
-    print(resp)
-
-    return "i-1234"
+    return instance_id

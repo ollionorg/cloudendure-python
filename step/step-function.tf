@@ -62,16 +62,24 @@ resource "aws_sfn_state_machine" "image_and_share" {
       "Choices": [
         {
           "Variable": "$.instance_status",
-          "StringEquals": "available",
+          "StringEquals": "running",
           "Next": "Create Image"
         },
         {
-          "Variable": "$.status",
-          "StringEquals": "pending",
-          "Next": "Wait 10 Minutes"
+          "Or": [
+            {
+            "Variable": "$.instance_status",
+            "StringEquals": "stopped"
+            },
+            {
+            "Variable": "$.instance_status",
+            "StringEquals": "terminated"
+            }
+          ],
+          "Next": "Image Failed"
         }
       ],
-      "Default": "Image Failed"
+      "Default": "Wait 10 Minutes"
     },
     "Wait 10 Minutes": {
       "Type": "Wait",

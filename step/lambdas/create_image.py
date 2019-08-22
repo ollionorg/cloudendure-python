@@ -6,13 +6,17 @@ from typing import Any, Dict, List
 import json
 import boto3
 import os
+import datetime
 
 print("Loading function create_image")
 
 ec2_client = boto3.client("ec2")
 
 # {
-#     "instance_id" : "i-123456"
+#   "original_id": "original id",
+#   "account": "account number",
+#   "instance_id": "i-aaaaaaa",
+#   "instance_status": "running"
 # }
 
 
@@ -25,7 +29,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         "%Y%m%d%H%M%S"
     )
 
-    return "i-123456"
     ec2_image: Dict[str, Any] = ec2_client.create_image(
         InstanceId=instance_id,
         Name=f"{instance_id}-{image_creation_time}",
@@ -58,9 +61,4 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         Resources=[ec2_image["ImageId"]], Tags=[{"Key": "CloneStatus"}]
     )
 
-    amis[name] = ec2_image["ImageId"]
-    print(f"Instance ID: ({instance_id}) - AMI ID: ({ec2_image})")
-
-    print(resp)
-
-    return "available"
+    return ec2_image["ImageId"]

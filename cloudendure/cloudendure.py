@@ -861,12 +861,13 @@ resource "aws_network_interface" "eni_primary_{name}" {{
         template = template + network_template
 
         for tag in image.tags:
-            if "Drive-" not in tag["Key"]:
+            tag_key = tag.get("Key", "")
+            if not tag_key.startswith("Drive-"):
                 continue
+            else:
+                drive = tag_key[6:]
 
-            drive = tag.get("Key")[len("Drive-"):]
-            drive_info = json.loads(tag.get("Value"))
-
+            drive_info = json.loads(tag.get("Value", "{}"))
             drive_name = drive
             if "/dev/sd" in drive_name:
                 letter = drive_name[len("/dev/sd")]

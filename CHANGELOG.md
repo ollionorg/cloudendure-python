@@ -1,5 +1,16 @@
 # Change Log
 
+## [v0.0.9](https://github.com/mbeacom/cloudendure-python/tree/v0.0.9) (2019-08-22)
+[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.8...v0.0.9)
+
+**Merged pull requests:**
+
+- Remove launch types [\#42](https://github.com/mbeacom/cloudendure-python/pull/42) ([mbeacom](https://github.com/mbeacom))
+
+**Closed issues:**
+
+- Deprecate launch\_type throughout project [\#41](https://github.com/mbeacom/cloudendure-python/issues/41)
+
 ## [v0.0.8](https://github.com/mbeacom/cloudendure-python/tree/v0.0.8) (2019-08-22)
 [Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.7...v0.0.8)
 

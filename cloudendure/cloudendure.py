@@ -322,8 +322,10 @@ class CloudEndure:
             return False
         return True
 
-    def launch(self, project_name="", launch_type="test", dry_run=False) -> bool:
+    def launch(self, project_name="", launch_type="test", dry_run=False) -> Dict[str, Any]:
         """Launch the test target instances."""
+
+        resp: Dict[str, Any] = {}
         if not project_name:
             project_name: str = self.project_name
             project_id: str = self.project_id
@@ -331,7 +333,7 @@ class CloudEndure:
             project_id: str = self.get_project_id(project_name=project_name)
 
         if not project_id:
-            return False
+            return resp
 
         print(
             f"Launching Project - Project ID: ({project_id}) - ",
@@ -339,14 +341,14 @@ class CloudEndure:
         )
         if dry_run:
             print("This is a dry run! Not launching any machines!")
-            return False
+            return resp
 
         if launch_type not in LAUNCH_TYPES:
             print(
                 "Invalid launch-type specified! Please specify a valid launch type: ",
                 LAUNCH_TYPES,
             )
-            return False
+            return resp
 
         machines_response: Response = self.api.api_call(
             f"projects/{project_id}/machines"
@@ -380,6 +382,8 @@ class CloudEndure:
                         data=json.dumps(machine_data),
                     )
                     if result.status_code == 202:
+                        resp = result.json
+                        resp["original_id"] = source_props.get("machineCloudId", "NONE")
                         if launch_type == "test":
                             print("Test Job created for machine ", _machine)
                             self.event_handler.add_event(
@@ -412,7 +416,7 @@ class CloudEndure:
                     self.event_handler.add_event(
                         Event.EVENT_IGNORED, machine_name=_machine
                     )
-        return True
+        return resp
 
     def status(
         self, project_name: str = "", launch_type: str = "test", dry_run: bool = False

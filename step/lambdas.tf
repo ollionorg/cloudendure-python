@@ -5,6 +5,56 @@ data "archive_file" "lambdas" {
   output_path = "lambdas.zip"
 }
 
+resource "aws_lambda_function" "lambda_find_instance" {
+  filename         = "lambdas.zip"
+  function_name    = "tf-find-instance"
+  role             = "${aws_iam_role.iam_for_lambda.arn}"
+  handler          = "image_cleanup.lambda_handler"
+  source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
+  runtime          = "python3.7"
+  depends_on       = ["data.archive_file.lambdas"]
+}
+
+resource "aws_lambda_function" "lambda_get_instance_status" {
+  filename         = "lambdas.zip"
+  function_name    = "tf-get-instance-status"
+  role             = "${aws_iam_role.iam_for_lambda.arn}"
+  handler          = "image_cleanup.lambda_handler"
+  source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
+  runtime          = "python3.7"
+  depends_on       = ["data.archive_file.lambdas"]
+}
+
+resource "aws_lambda_function" "lambda_create_image" {
+  filename         = "lambdas.zip"
+  function_name    = "tf-create-image"
+  role             = "${aws_iam_role.iam_for_lambda.arn}"
+  handler          = "image_cleanup.lambda_handler"
+  source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
+  runtime          = "python3.7"
+  depends_on       = ["data.archive_file.lambdas"]
+}
+
+resource "aws_lambda_function" "lambda_get_image_status" {
+  filename         = "lambdas.zip"
+  function_name    = "tf-get-image-status"
+  role             = "${aws_iam_role.iam_for_lambda.arn}"
+  handler          = "image_cleanup.lambda_handler"
+  source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
+  runtime          = "python3.7"
+  depends_on       = ["data.archive_file.lambdas"]
+}
+
+resource "aws_lambda_function" "lambda_share_image" {
+  filename         = "lambdas.zip"
+  function_name    = "tf-share-image"
+  role             = "${aws_iam_role.iam_for_lambda.arn}"
+  handler          = "image_cleanup.lambda_handler"
+  source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
+  runtime          = "python3.7"
+  depends_on       = ["data.archive_file.lambdas"]
+}
+
 resource "aws_lambda_function" "lambda_copy_image" {
   filename         = "lambdas.zip"
   function_name    = "tf-copy-image"

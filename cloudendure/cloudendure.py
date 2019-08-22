@@ -24,7 +24,6 @@ HOST: str = "https://console.cloudendure.com"
 headers: Dict[str, str] = {"Content-Type": "application/json"}
 session: Dict[str, str] = {}
 AWS_REGION: str = os.environ.get("AWS_REGION", "")
-LAUNCH_TYPES: List[str] = ["test", "cutover"]
 
 
 class CloudEndure:
@@ -93,9 +92,7 @@ class CloudEndure:
         print("Project Name does not exist!")
         return ""
 
-    def check(
-        self, project_name: str = "", launch_type: str = "test", dry_run: bool = False
-    ) -> bool:
+    def check(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Check the status of machines in the provided project."""
         if not project_name:
             project_name: str = self.project_name
@@ -106,9 +103,7 @@ class CloudEndure:
         if not project_id:
             return False
 
-        print(
-            f"Checking Project - Name: ({project_name}) - Launch Type: ({launch_type}) - Dry Run: ({dry_run})"
-        )
+        print(f"Checking Project - Name: ({project_name}) - Dry Run: ({dry_run})")
         projects_response: Response = self.api.api_call("projects")
 
         if projects_response.status_code != 200:
@@ -137,48 +132,27 @@ class CloudEndure:
                             f"{ref_name} replication into the migration account in progress!"
                         )
                     else:
-                        if launch_type == "test":
-                            if machine.get("replica"):
-                                machine_status += 1
-                                print(
-                                    f"{ref_name} has been launched in the migration account"
-                                )
-                            else:
-                                print(
-                                    f"{ref_name} has not completed launching in the migration account - Please wait..."
-                                )
-                        elif launch_type == "cutover":
-                            if machine.get("replica"):
-                                machine_status += 1
-                                print(
-                                    f"{ref_name} has been cutover into the migration account"
-                                )
-                            else:
-                                print(
-                                    f"{ref_name} has NOT been cutover into the migration account"
-                                )
+                        if machine.get("replica"):
+                            machine_status += 1
+                            print(
+                                f"{ref_name} has been launched in the migration account"
+                            )
+                        else:
+                            print(
+                                f"{ref_name} has not completed launching in the migration account - Please wait..."
+                            )
 
             if not machine_exist:
                 print(f"ERROR: Machine: {_machine} does not exist!")
 
         if machine_status == len(self.target_machines):
-            if launch_type == "test":
-                print(
-                    "All machines specified in CLOUDENDURE_MACHINES have been launched in the migration account"
-                )
-            if launch_type == "cutover":
-                print(
-                    "All machines specified in CLOUDENDURE_MACHINES have been cutover to the target account"
-                )
+            print(
+                "All machines specified in CLOUDENDURE_MACHINES have been launched in the migration account"
+            )
         else:
-            if launch_type == "test":
-                print(
-                    "Some machines have not yet completed launching in the migration account"
-                )
-            if launch_type == "cutover":
-                print(
-                    "Some machines have not yet completed cutting over into the migration account"
-                )
+            print(
+                "Some machines have not yet completed launching in the migration account"
+            )
         return True
 
     def update_encryption_key(
@@ -320,9 +294,7 @@ class CloudEndure:
             return False
         return True
 
-    def launch(
-        self, project_name="", launch_type="test", dry_run=False
-    ) -> Dict[str, Any]:
+    def launch(self, project_name="", dry_run=False) -> Dict[str, Any]:
         """Launch the test target instances."""
         response_dict: Dict[str, Any] = {}
         if not project_name:
@@ -334,19 +306,9 @@ class CloudEndure:
         if not project_id:
             return response_dict
 
-        print(
-            f"Launching Project - Project ID: ({project_id}) - ",
-            f"Launch Type: ({launch_type}) - Dry Run: ({dry_run})",
-        )
+        print(f"Launching Project - Project ID: ({project_id}) - Dry Run: ({dry_run})")
         if dry_run:
             print("This is a dry run! Not launching any machines!")
-            return response_dict
-
-        if launch_type not in LAUNCH_TYPES:
-            print(
-                "Invalid launch-type specified! Please specify a valid launch type: ",
-                LAUNCH_TYPES,
-            )
             return response_dict
 
         machines_response: Response = self.api.api_call(
@@ -363,16 +325,10 @@ class CloudEndure:
                             Event.EVENT_ALREADY_LAUNCHED, machine_name=_machine
                         )
                         continue
-                    if launch_type == "test":
-                        machine_data = {
-                            "items": [{"machineId": machine["id"]}],
-                            "launchType": "TEST",
-                        }
-                    elif launch_type == "cutover":
-                        machine_data = {
-                            "items": [{"machineId": machine["id"]}],
-                            "launchType": "CUTOVER",
-                        }
+                    machine_data = {
+                        "items": [{"machineId": machine["id"]}],
+                        "launchType": "TEST",
+                    }
 
                 if machine_data:
                     result: Response = self.api.api_call(
@@ -385,16 +341,10 @@ class CloudEndure:
                             "machineCloudId", "NONE"
                         )
                         response_dict.update(json.loads(result.text))
-                        if launch_type == "test":
-                            print("Test Job created for machine ", _machine)
-                            self.event_handler.add_event(
-                                Event.EVENT_SUCCESSFULLY_LAUNCHED, machine_name=_machine
-                            )
-                        elif launch_type == "cutover":
-                            print("Cutover Job created for machine ", _machine)
-                            self.event_handler.add_event(
-                                Event.EVENT_SUCCESSFULLY_CUTOVER, machine_name=_machine
-                            )
+                        print("Test Job created for machine ", _machine)
+                        self.event_handler.add_event(
+                            Event.EVENT_SUCCESSFULLY_LAUNCHED, machine_name=_machine
+                        )
                     elif result.status_code == 409:
                         print(f"ERROR: ({_machine}) is currently in progress!")
                         self.event_handler.add_event(
@@ -419,9 +369,7 @@ class CloudEndure:
                     )
         return response_dict
 
-    def status(
-        self, project_name: str = "", launch_type: str = "test", dry_run: bool = False
-    ) -> bool:
+    def status(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Get the status of machines in the current wave."""
         if not project_name:
             project_name: str = self.project_name
@@ -434,7 +382,7 @@ class CloudEndure:
 
         print(
             f"Getting Status of Project - Project ID: ({project_id}) -",
-            f"Launch Type: ({launch_type}) - Dry Run: ({dry_run})",
+            f"Dry Run: ({dry_run})",
         )
         machine_status: int = 0
         machines_response: Response = self.api.api_call(
@@ -487,39 +435,16 @@ class CloudEndure:
                                 _m_life_cycle: Dict[str, Any] = machine.get(
                                     "lifeCycle", {}
                                 )
-                                if launch_type == "test":
-                                    if (
-                                        "lastTestLaunchDateTime" not in _m_life_cycle
-                                        and "lastCutoverDateTime" not in _m_life_cycle
-                                    ):
-                                        machine_status += 1
-                                    else:
-                                        print(
-                                            f"{ref_name} has already been tested - you can create AMIs now!"
-                                        )
-                                        return False
-                                # Check if the target machine has been migrated to PROD already
-                                elif launch_type == "cutover":
-                                    if "lastTestLaunchDateTime" in machine["lifeCycle"]:
-                                        if (
-                                            "lastCutoverDateTime"
-                                            not in machine["lifeCycle"]
-                                        ):
-                                            machine_status += 1
-                                        else:
-                                            print(
-                                                "ERROR: Machine: "
-                                                + ref_name
-                                                + " has been migrated already"
-                                            )
-                                            return False
-                                    else:
-                                        print(
-                                            "ERROR: Machine: "
-                                            + ref_name
-                                            + " has not been tested"
-                                        )
-                                        return False
+                                if (
+                                    "lastTestLaunchDateTime" not in _m_life_cycle
+                                    and "lastCutoverDateTime" not in _m_life_cycle
+                                ):
+                                    machine_status += 1
+                                else:
+                                    print(
+                                        f"{ref_name} has already been tested - you can create AMIs now!"
+                                    )
+                                    return False
             if not machine_exist:
                 print("ERROR: Machine: " + _machine + " does not exist!")
                 return False
@@ -530,9 +455,7 @@ class CloudEndure:
             print("ERROR: some machines in the targeted pool are not ready")
             return False
 
-    def execute(
-        self, project_name: str = "", launch_type: str = "test", dry_run: bool = False
-    ) -> bool:
+    def execute(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Start the migration project my checking and launching the migration wave."""
         if not project_name:
             project_name: str = self.project_name
@@ -543,9 +466,7 @@ class CloudEndure:
         if not project_id:
             return False
 
-        print(
-            f"Executing Project - Name: ({project_name}) - Launch Type: ({launch_type}) - Dry Run: ({dry_run})"
-        )
+        print(f"Executing Project - Name: ({project_name}) - Dry Run: ({dry_run})")
 
         projects_result: Response = self.api.api_call("projects")
         if projects_result.status_code != 200:
@@ -582,7 +503,7 @@ class CloudEndure:
             # Launch Target machines
             if not dry_run:
                 print("Launching target machines...")
-                self.launch(launch_type=launch_type, dry_run=dry_run)
+                self.launch(dry_run=dry_run)
         except Exception as e:
             print(str(e))
             return False

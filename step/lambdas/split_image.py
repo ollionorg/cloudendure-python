@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Split a copied image"""
+"""AWS Lambda to split a copied image."""
 from __future__ import annotations
-from typing import Any, Dict, List
+
 import json
+from typing import Any, Dict, List
+
 import boto3
 
 print("Loading function split_image")
@@ -18,6 +20,7 @@ ec2_res = boto3.resource("ec2")
 
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> str:
+    """Handle signaling and entry into the AWS Lambda."""
     print("Received event: " + json.dumps(event, indent=2))
 
     copy_ami: str = event["copy_ami"]

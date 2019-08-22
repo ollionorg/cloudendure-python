@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Copy an image"""
+"""AWS Lambda to cleanup AWS images."""
 from __future__ import annotations
-from typing import Any, Dict
+
 import json
+from typing import Any, Dict
+
 import boto3
 
 print("Loading function image_cleanup")
@@ -20,6 +22,7 @@ ec2_client = boto3.client("ec2")
 
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
+    """Handle signaling and entry into the AWS Lambda."""
     print("Received event: " + json.dumps(event, indent=2))
 
     copy_ami: str = event.get("copy_ami")

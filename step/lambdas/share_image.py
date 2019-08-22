@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Copy an image"""
+"""AWS Lambda to share an AWS image."""
 from __future__ import annotations
-from typing import Any, Dict
+
 import json
+from typing import Any, Dict
+
 import boto3
 
 print("Loading function share_image")
@@ -18,6 +20,7 @@ ec2_res = boto3.resource("ec2")
 
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
+    """Handle signaling and entry into the AWS Lambda."""
     print("Received event: " + json.dumps(event, indent=2))
 
     migrated_ami_id: str = event["migrated_ami_id"]

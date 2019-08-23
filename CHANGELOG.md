@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.0.10](https://github.com/mbeacom/cloudendure-python/tree/v0.0.9) (2019-08-22)
+[Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.9...v0.0.10)
+
+**Merged pull requests:**
+
+- Cross region support for copy\_and\_split. gen\_terraform fixes [\#43](https://github.com/mbeacom/cloudendure-python/pull/43) ([twarnock2w](https://github.com/twarnock2w))
+
 ## [v0.0.9](https://github.com/mbeacom/cloudendure-python/tree/v0.0.9) (2019-08-22)
 [Full Changelog](https://github.com/mbeacom/cloudendure-python/compare/v0.0.8...v0.0.9)
 

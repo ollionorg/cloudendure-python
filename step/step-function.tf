@@ -242,20 +242,6 @@ resource "aws_sfn_state_machine" "copy_and_split" {
       "Type": "Task",
       "Resource": "${aws_lambda_function.lambda_split_image.arn}",
       "ResultPath": "$.split_ami_id",
-      "Next": "Image Cleanup",
-      "Retry": [
-        {
-          "ErrorEquals": ["States.ALL"],
-          "IntervalSeconds": 1,
-          "MaxAttempts": 3,
-          "BackoffRate": 2
-        }
-      ]
-    },
-    "Image Cleanup": {
-      "Type": "Task",
-      "Resource": "${aws_lambda_function.lambda_image_cleanup.arn}",
-      "ResultPath": "$.cleanup",
       "End": true,
       "Retry": [
         {

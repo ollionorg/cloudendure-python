@@ -58,7 +58,7 @@ resource "aws_ebs_volume" "datadisk_{name}_{drive_name}" {{
   type              = "{volume_type}"
   size              = {volume_size}
   encrypted         = true
-  snapshot_id       = "{drive_info.get('SnapshotId', '')}"
+  snapshot_id       = "{snapshot_id}"
 
   tags = {{
     Name        = "ap-vol-{name}-{drive_name}-sg"

@@ -6,6 +6,9 @@
 REPO_NAME := mbeacom/cloudendure-python
 SHA1 := $$(git log -1 --pretty=%h)
 CURRENT_BRANCH := $$(git symbolic-ref -q --short HEAD)
+LATEST_TAG := ${REPO_NAME}:latest
+GIT_TAG := ${REPO_NAME}:${SHA1}
+VERSION := v0.0.9
 
 info: ## Show information about the current git state.
 	@echo "Github Project: https://github.com/${REPO_NAME}\nCurrent Branch: ${CURRENT_BRANCH}\nSHA1: ${SHA1}\n"
@@ -16,12 +19,20 @@ build: ## Build the Gitcoin Web image.
 		--pull \
 		--build-arg BUILD_DATETIME=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 		--build-arg "SHA1=${SHA1}" \
-		${VERSION:+--build-arg "VERSION=$VERSION"} \
+		--build-arg "VERSION=${VERSION}" \
 		-t "${GIT_TAG}" .
 	@docker tag "${GIT_TAG}" "${LATEST_TAG}"
+	@docker tag "${GIT_TAG}" "${VERSION}"
+
+gh_push: ## Push the Github Docker image.
+	@docker tag ${GIT_TAG} docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}
+	@docker push docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}
 
 login: ## Login to Docker Hub.
-	@docker log -u "${DOCKER_USER}" -p "${DOCKER_PASS}"
+	@docker login -u "${DOCKER_USER}" -p "${DOCKER_PASS}"
+
+gh_login: ## Login to Docker Hub.
+	@docker login docker.pkg.github.com -u "${DOCKER_GH_USER}" -p "${DOCKER_GH_TOKEN}"
 
 push: ## Push the Docker image to the Docker Hub repository.
 	@docker push "${REPO_NAME}"
@@ -83,11 +94,11 @@ gen_client: ## Generate the swagger client from the API config.
 update_deps: update_prereqs ## Update the package dependencies via pipenv.
 	@pipenv update --pre --dev
 
-build: update_deps ## Build and package the project for PyPi source and wheel distribution.
-	@pipenv run python3 setup.py sdist bdist_wheel
-
 install: isort build ## Install the local development version of the module.
 	@pipenv install .
+
+build_py: update_deps ## Build and package the project for PyPi source and wheel distribution.
+	@pipenv run python3 setup.py sdist bdist_wheel
 
 help: ## Show this help information.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[33m%-25s\033[0m %s\n", $$1, $$2}'

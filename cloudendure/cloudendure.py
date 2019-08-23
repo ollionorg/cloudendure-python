@@ -743,6 +743,7 @@ class CloudEndure:
         # Access the image
         image: str = _ec2_res.Image(image_id)
         base_template_data = {
+            "image_id": image_id,
             "name": name,
             "keypair": keypair,
             "uppercase_name": name.upper(),
@@ -771,9 +772,11 @@ class CloudEndure:
 
             drive_template_data = {
                 **base_template_data,
+                "drive": drive,
                 "drive_name": drive_name,
+                "snapshot_id": drive_info.get("SnapshotId", ""),
                 "volume_size": drive_info.get("VolumeSize", "2"),
-                "volume_type": drive_info.driveget("VolumeType", "gp2"),
+                "volume_type": drive_info.get("VolumeType", "gp2"),
             }
 
             drive_template = TerraformTemplate.VOLUME_TEMPLATE.format(

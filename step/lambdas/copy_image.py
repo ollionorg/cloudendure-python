@@ -14,9 +14,10 @@ print("Loading function copy_image")
 ec2_client = boto3.client("ec2")
 
 # {
-#     "ami_id" : "ami-123456",
-#     "kms_id"   : "GUID",
-#     "wait_time": 60
+#     "ami_id"    : "ami-123456",
+#     "kms_id"    : "GUID",
+#     "wait_time" : 60,
+#     "region"    : "optional destination region"
 # }
 
 
@@ -26,13 +27,19 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     ami_id: str = event["ami_id"]
     kms_id: str = event["kms_id"]
-
-    new_image: Dict[str, Any] = ec2_client.copy_image(
-        SourceImageId=ami_id,
-        SourceRegion=os.environ.get("AWS_REGION", "us-east-1"),
-        Name=f"copied-{ami_id}",
-        Encrypted=True,
-        KmsKeyId=kms_id,
-    )
+    region: str = event.get("region")
+    if region:
+        ec2_client = boto3.client("ec2", region)
+    try:
+        new_image: Dict[str, Any] = ec2_client.copy_image(
+            SourceImageId=ami_id,
+            SourceRegion=os.environ.get("AWS_REGION", "us-east-1"),
+            Name=f"copied-{ami_id}",
+            Encrypted=True,
+            KmsKeyId=kms_id,
+        )
+    except Exception as e:
+        print(e)
+        return ""
 
     return new_image.get("ImageId", "")

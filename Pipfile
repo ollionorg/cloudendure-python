@@ -37,7 +37,7 @@ randomize = "*"
 requests = "*"
 boto3 = "*"
 fire = "*"
-cloudendure = {path = "."}
+cloudendure = {editable = true,path = "."}
 six = "*"
 certifi = "*"
 python-dateutil = "*"

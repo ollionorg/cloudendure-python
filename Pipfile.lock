@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0e6d838a8de168670c947866dd12d0818fc8f53914dd0c7f034a00397a1b54ca"
+            "sha256": "50c5b6a3662ad9db963c0fcc1833526b9d2f9004de40b1036fc6b05cfa87c6b3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -47,6 +47,7 @@
             "version": "==3.0.4"
         },
         "cloudendure": {
+            "editable": true,
             "path": "."
         },
         "docutils": {

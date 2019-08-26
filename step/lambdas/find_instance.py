@@ -35,8 +35,11 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     detail: Dict[str, Any] = event.get("detail", {})
-    instance_id: str = detail.get("instance-id")
+    instance_id: str = detail.get("instance-id", "")
     found = False
+
+    if not instance_id:
+        return "not-found"
 
     try:
         instance = ec2_resource.Instance(instance_id)
@@ -58,5 +61,4 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     if found:
         return instance_id
-    else:
-        return "not-migration"
+    return "not-migration"

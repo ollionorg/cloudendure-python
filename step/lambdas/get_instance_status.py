@@ -27,7 +27,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     state: str = "unknown"
     resp = ec2_client.describe_instance_status(InstanceIds=[instance_id])
-    print(resp)
     for status in resp.get("InstanceStatuses", []):
         # check if running
         state = status["InstanceState"].get("Name")

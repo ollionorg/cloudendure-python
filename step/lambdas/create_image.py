@@ -11,14 +11,7 @@ import boto3
 
 print("Loading function create_image")
 
-ec2_client = boto3.client("ec2")
-
-# {
-#   "original_id": "original id",
-#   "account": "account number",
-#   "instance_id": "i-aaaaaaa",
-#   "instance_status": "running"
-# }
+ec2_resource = boto3.resource("ec2")
 
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> str:
@@ -29,26 +22,23 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     image_creation_time: str = datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S")
 
-    ec2_image: Dict[str, Any] = ec2_client.create_image(
-        InstanceId=instance_id,
+    instance = ec2_resource.Instance(instance_id)
+
+    ec2_image = instance.create_image(
         Name=f"{instance_id}-{image_creation_time}",
         Description=f"Created image for {instance_id}",
     )
-    _filters: List[Any] = [{"Name": "resource-id", "Values": [instance_id]}]
 
-    # Tag the newly created AMI by getting the tags of the migrated instance to copy to the AMI.
-    ec2_tags: Dict[str, Any] = ec2_client.describe_tags(Filters=_filters)
-
-    for tag in ec2_tags["Tags"]:
-        ec2_client.create_tags(
+    for tag in instance.tags:
+        ec2_image.create_tags(
             Resources=[ec2_image["ImageId"]],
             Tags=[{"Key": tag["Key"], "Value": tag["Value"]}],
         )
 
-    ec2_client.create_tags(
+    ec2_image.create_tags(
         Resources=[instance_id], Tags=[{"Key": "CloneStatus", "Value": "IMAGE_CREATED"}]
     )
-    ec2_client.delete_tags(
+    instance.delete_tags(
         Resources=[ec2_image["ImageId"]], Tags=[{"Key": "CloneStatus"}]
     )
 

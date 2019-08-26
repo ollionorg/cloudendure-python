@@ -139,7 +139,7 @@ class CloudEndure:
                             )
                         else:
                             print(
-                                f"{ref_name} has not completed launching in the migration account - Please wait..."
+                                f"{ref_name} has not been launched or is preparing launch in the migration account"
                             )
 
             if not machine_exist:
@@ -722,6 +722,7 @@ class CloudEndure:
         private_ip: str = "PRIVATE_IP",
         keypair: str = "KEYPAIR",
         security_group: str = "SECURITY_GROUP",
+        tagging_module: str = "tagging_module",
     ) -> str:
         """Generate Terraform for a given split image.
 
@@ -750,6 +751,7 @@ class CloudEndure:
             "subnet_id": subnet_id,
             "private_ip": private_ip,
             "security_group": security_group,
+            "tagging_module": tagging_module,
             "region": AWS_REGION,
         }
         template: str = (

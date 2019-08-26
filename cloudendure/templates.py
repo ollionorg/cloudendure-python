@@ -19,6 +19,7 @@ resource "aws_instance" "ec2_instance_{name}" {{
   instance_type        = "${{var.instance_type}}"
   key_name             = "{keypair}"
   iam_instance_profile = "${{local.iam_instance_profile}}"
+  tags                 = "${{merge(module.{tagging_module}.tags, map("Name", "{uppercase_name}"))}}"
 
   network_interface {{
     network_interface_id = "${{aws_network_interface.eni_primary_{name}.id}}"
@@ -45,10 +46,7 @@ resource "aws_network_interface" "eni_primary_{name}" {{
   subnet_id       = "{subnet_id}"
   private_ips     = ["{private_ip}"]
   security_groups = ["${{aws_security_group.{security_group}.id}}"]
-
-  tags = {{
-    Name        = "ap-eni-{name}-sg"
-  }}
+  tags            = "${{merge(module.{tagging_module}.tags, map("Name", "ap-eni-{name}-sg"))}}"
 }}
 """
 
@@ -59,10 +57,7 @@ resource "aws_ebs_volume" "datadisk_{name}_{drive_name}" {{
   size              = {volume_size}
   encrypted         = true
   snapshot_id       = "{snapshot_id}"
-
-  tags = {{
-    Name        = "ap-vol-{name}-{drive_name}-sg"
-  }}
+  tags             = "${{merge(module.{tagging_module}.tags, map("Name", "ap-vol-{name}-{drive_name}-sg"))}}"
 }}
 
 resource "aws_volume_attachment" "ebs_att_disk_{name}_{drive_name}" {{

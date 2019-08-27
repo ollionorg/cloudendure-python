@@ -261,7 +261,12 @@ class CloudEndure:
                 _endpoint: str = f"projects/{project_id}/blueprints/{_blueprint_id}"
                 # Handle disk blueprints since we don't want provisioned IOPS $$$$
                 for disk in blueprint["disks"]:
-                    blueprint["disks"] = [{"type": "SSD", "name": disk.get("name", "")}]
+                    blueprint["disks"] = [
+                        {
+                            "type": self.config.active_config.get("disk_type", "SSD"),
+                            "name": disk.get("name", ""),
+                        }
+                    ]
 
                 # Update machine tags
                 blueprint["tags"] = [
@@ -273,6 +278,10 @@ class CloudEndure:
                     },
                     {"key": "MigrationWave", "value": self.migration_wave},
                 ]
+
+                blueprint["publicIPAction"] = self.config.active_config.get(
+                    "public_ip", "DONT_ALLOCATE"
+                )
 
                 if dry_run:
                     print("This is a dry run! Not updating blueprints!")

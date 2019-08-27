@@ -92,6 +92,79 @@ class CloudEndure:
         print("Project Name does not exist!")
         return ""
 
+    def get_cloud(self, cloud_type: str = "") -> str:
+        """Get the ID for the specified cloud type."""
+        if not cloud_type:
+            cloud_type = self.config.active_config.get("cloud_type", "AWS")
+
+        clouds_result: Response = self.api.api_call("clouds")
+        for cloud in json.loads(clouds_result.content)["items"]:
+            if cloud.get("name", "") == cloud_type:
+                return cloud.get("id", "")
+        return ""
+
+    def create_project(self, project_name: str) -> str:
+        """Create a new CloudEndure project.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to be created.
+
+        Returns:
+            str: The newly created CloudEndure project ID.
+
+        """
+        project = {"licensesIDs": [], "name": project_name, "targetCloudId": self.get_cloud(), "type": "MIGRATION"}
+        licenses_result: Response = self.api.api_call("licenses")
+
+        for license in json.loads(licenses_result.content).get("items", []):
+            license_id = license.get("id", "")
+            if license_id:
+                print(license_id)
+                project["licensesIDs"].append(license_id)
+
+        print("CREATE PROJECT: ", project)
+
+        projects_result: Response = self.api.api_call("projects", method="post", data=project)
+        if projects_result.status_code != 201:
+            print(f"Failed to create the new project ({project_name}): {projects_result.status_code} {projects_result.content}")
+            print(projects_result.text)
+            return ""
+        print(f"Project: ({project_name}) was created successfully!")
+        return json.loads(projects_result.content).get("id", "")
+
+    def update_project(self, project_name: str = "", project_data: Dict[str, Any] = None) -> bool:
+        """Update a CloudEndure project.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to be updated.
+            project_data (dict): The project payload to be used to update the project.
+                Defaults to the current project state.
+
+        Returns:
+            bool: Whether or not the project has been updated.
+
+        """
+        if not project_name:
+            project_name: str = self.project_name
+            project_id: str = self.project_id
+        else:
+            project_id: str = self.get_project_id(project_name=project_name)
+
+        if not project_id:
+            return False
+
+        print(f"Updating Project - Name: ({project_name})")
+        projects_result: Response = self.api.api_call(f"projects/{project_id}", method="patch", data=project_data)
+
+        if projects_result.status_code != 200:
+            print(
+                f"Failed to update the project ({project_name}): {projects_result.status_code} {projects_result.content}"
+            )
+            print(projects_result.text)
+            return False
+        print('Project was updated successfully')
+        return True
+
     def check(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Check the status of machines in the provided project."""
         if not project_name:

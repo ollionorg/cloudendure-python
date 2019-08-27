@@ -174,7 +174,7 @@ class CloudEndureAPI:
             print("Please specify a valid method type! Must be one of: ", METHOD_TYPES)
             return Response()
 
-        if method not in ["get", "delete"] and data is None:
+        if method not in ["get", "delete"] and not data:
             print(
                 "Paramater mismatch! If calling anything other than get or delete provide data!"
             )

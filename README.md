@@ -21,33 +21,13 @@ brew install pipenv # if not installed
 pipenv install cloudendure
 ```
 
-Then import the package:
-
-```python
-import cloudendure
-```
-
 ### pip
 
 ```sh
 pip install cloudendure
 ```
 
-Then import the package:
-
-```python
-import cloudendure
-```
-
-### Setuptools
-
-Install via [Pipenv](https://docs.pipenv.org/en/latest/).
-
-```sh
-python setup.py install --user
-```
-
-(or `sudo python setup.py install` to install the package for all users)
+### Usage
 
 Then import the package:
 
@@ -64,6 +44,7 @@ Please note:  `cloudendure` and `ce` can be used interchangeably
 ```sh
 export CLOUDENDURE_USERNAME=<your_ce_user>
 export CLOUDENDURE_PASSWORD=<your_ce_password>
+export CLOUDENDURE_DESTINATION_ACCOUNT=<destination_aws_account_id>
 
 cloudendure api login
 ```
@@ -72,6 +53,7 @@ or
 
 ```sh
 export CLOUDENDURE_TOKEN=<your_ce_api_token>
+export CLOUDENDURE_DESTINATION_ACCOUNT=<destination_aws_account_id>
 
 ce api login
 ```

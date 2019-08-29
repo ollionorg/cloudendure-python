@@ -47,7 +47,7 @@ class CloudEndureConfig:
                     "machines": "",
                     "migration_wave": "0",
                     "clone_status": "NOT_STARTED",
-                    "destination_accounts": "",
+                    "destination_account": "",
                     "disk_type": "SSD",
                     "public_ip": "DONT_ALLOCATE",
                 }

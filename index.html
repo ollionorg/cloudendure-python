@@ -361,8 +361,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#setuptools" title="Setuptools" class="md-nav__link">
-    Setuptools
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -1907,8 +1907,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#setuptools" title="Setuptools" class="md-nav__link">
-    Setuptools
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -1991,24 +1991,11 @@
 pipenv install cloudendure
 </code></pre>
 
-<p>Then import the package:</p>
-<pre><code class="python">import cloudendure
-</code></pre>
-
 <h3 id="pip">pip</h3>
 <pre><code class="sh">pip install cloudendure
 </code></pre>
 
-<p>Then import the package:</p>
-<pre><code class="python">import cloudendure
-</code></pre>
-
-<h3 id="setuptools">Setuptools</h3>
-<p>Install via <a href="https://docs.pipenv.org/en/latest/">Pipenv</a>.</p>
-<pre><code class="sh">python setup.py install --user
-</code></pre>
-
-<p>(or <code>sudo python setup.py install</code> to install the package for all users)</p>
+<h3 id="usage">Usage</h3>
 <p>Then import the package:</p>
 <pre><code class="python">import cloudendure
 </code></pre>
@@ -2018,12 +2005,14 @@ pipenv install cloudendure
 <p>Please note:  <code>cloudendure</code> and <code>ce</code> can be used interchangeably</p>
 <pre><code class="sh">export CLOUDENDURE_USERNAME=&lt;your_ce_user&gt;
 export CLOUDENDURE_PASSWORD=&lt;your_ce_password&gt;
+export CLOUDENDURE_DESTINATION_ACCOUNT=&lt;destination_aws_account_id&gt;
 
 cloudendure api login
 </code></pre>
 
 <p>or</p>
 <pre><code class="sh">export CLOUDENDURE_TOKEN=&lt;your_ce_api_token&gt;
+export CLOUDENDURE_DESTINATION_ACCOUNT=&lt;destination_aws_account_id&gt;
 
 ce api login
 </code></pre>

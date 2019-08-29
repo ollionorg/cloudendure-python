@@ -43,9 +43,9 @@ class CloudEndure:
             project_name=self.project_name
         ) or self.config.active_config.get("project_id", "")
         self.event_handler: EventHandler = EventHandler()
-        self.destination_accounts: List[str] = self.config.active_config.get(
-            "destination_accounts", ""
-        ).split(",")
+        self.destination_account: str = self.config.active_config.get(
+            "destination_account", ""
+        )
         self.target_machines: List[str] = self.config.active_config.get(
             "machines", ""
         ).split(",")
@@ -277,6 +277,7 @@ class CloudEndure:
                         ),
                     },
                     {"key": "MigrationWave", "value": self.migration_wave},
+                    {"key": "DestinationAccount", "value": self.destination_account},
                 ]
 
                 blueprint["publicIPAction"] = self.config.active_config.get(
@@ -286,7 +287,6 @@ class CloudEndure:
                 if dry_run:
                     print("This is a dry run! Not updating blueprints!")
                     return True
-
                 result: Response = self.api.api_call(
                     _endpoint, method="patch", data=json.dumps(blueprint)
                 )
@@ -517,52 +517,45 @@ class CloudEndure:
             print(str(e))
             return False
 
-    def share_image(
-        self,
-        image_id: str,
-        dest_accounts: List[str] = None,
-        image_name: str = "CloudEndureImage",
-    ) -> bool:
-        """Share the generated AMIs to the provided destination accounts."""
+    def share_image(self, image_id: str, image_name: str = "CloudEndureImage") -> bool:
+        """Share the generated AMIs to the provided destination account."""
         print("Loading EC2 client for region: ", AWS_REGION)
         _ec2_res = boto3.resource("ec2", AWS_REGION)
 
         # Access the image that needs to be copied
         image = _ec2_res.Image(image_id)
 
-        if not dest_accounts:
-            dest_accounts: List[str] = self.destination_accounts
+        try:
+            # Share the image with the destination account
+            image.modify_attribute(
+                ImageId=image.id,
+                Attribute="launchPermission",
+                OperationType="add",
+                LaunchPermission={"Add": [{"UserId": self.destination_account}]},
+            )
+        except Exception as e:
+            print(e)
+            return False
 
-        for account in dest_accounts:
-            try:
-                # Share the image with the destination account
-                image.modify_attribute(
-                    ImageId=image.id,
-                    Attribute="launchPermission",
-                    OperationType="add",
-                    LaunchPermission={"Add": [{"UserId": account}]},
-                )
-            except Exception as e:
-                print(e)
-                return False
-
-            # We have to now share the snapshots associated with the AMI so it can be copied
-            devices = image.block_device_mappings
-            for device in devices:
-                if "Ebs" in device:
-                    snapshot_id: str = device["Ebs"]["SnapshotId"]
-                    snapshot = _ec2_res.Snapshot(snapshot_id)
-                    try:
-                        snapshot.modify_attribute(
-                            Attribute="createVolumePermission",
-                            CreateVolumePermission={"Add": [{"UserId": account}]},
-                            OperationType="add",
-                        )
-                    except Exception as e:
-                        print(e)
-                        return False
-            print(f"AMI ID: ({image_id}) - Shared to: ({account})")
-            return True
+        # We have to now share the snapshots associated with the AMI so it can be copied
+        devices = image.block_device_mappings
+        for device in devices:
+            if "Ebs" in device:
+                snapshot_id: str = device["Ebs"]["SnapshotId"]
+                snapshot = _ec2_res.Snapshot(snapshot_id)
+                try:
+                    snapshot.modify_attribute(
+                        Attribute="createVolumePermission",
+                        CreateVolumePermission={
+                            "Add": [{"UserId": self.destination_account}]
+                        },
+                        OperationType="add",
+                    )
+                except Exception as e:
+                    print(e)
+                    return False
+        print(f"AMI ID: ({image_id}) - Shared to: ({self.destination_account})")
+        return True
 
     def create_ami(self, project_name: str = "") -> Dict[str, str]:
         """Create an AMI from the specified instances.

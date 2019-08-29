@@ -23,10 +23,21 @@ build: ## Build the Gitcoin Web image.
 		-t "${GIT_TAG}" .
 	@docker tag "${GIT_TAG}" "${LATEST_TAG}"
 	@docker tag "${GIT_TAG}" "${VERSION}"
+	@docker build \
+		--stream \
+		--pull \
+		--build-arg BUILD_DATETIME=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+		--build-arg "SHA1=${SHA1}" \
+		--build-arg "VERSION=${VERSION}" \
+		-t "${GIT_TAG}-py38" Dockerfile-py38
+	@docker tag "${GIT_TAG}-py38" "${LATEST_TAG}-py38"
+	@docker tag "${GIT_TAG}-py38" "${VERSION}-py38"
 
 gh_push: ## Push the Github Docker image.
 	@docker tag ${GIT_TAG} docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}
 	@docker push docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}
+	@docker tag ${GIT_TAG}-py38 docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}-py38
+	@docker push docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}-py38
 
 login: ## Login to Docker Hub.
 	@docker login -u "${DOCKER_USER}" -p "${DOCKER_PASS}"
@@ -94,7 +105,7 @@ gen_client: ## Generate the swagger client from the API config.
 update_deps: update_prereqs ## Update the package dependencies via pipenv.
 	@pipenv update --pre --dev
 
-install: isort build ## Install the local development version of the module.
+install: isort build_py ## Install the local development version of the module.
 	@pipenv install .
 
 build_py: update_deps ## Build and package the project for PyPi source and wheel distribution.

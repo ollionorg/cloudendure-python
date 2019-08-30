@@ -1768,7 +1768,7 @@
 
 <p>Define the CloudEndure main entry logic.
 <h2 id="cloudendure.cloudendure.CloudEndure">CloudEndure</h2></p>
-<pre><code class="python">CloudEndure(self) -&gt; 'None'
+<pre><code class="python">CloudEndure(self, project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'None'
 </code></pre>
 
 <p>Define the CloudEndure general object.
@@ -1786,12 +1786,12 @@
     str: The CloudEndure project UUID.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.check">check</h3>
 
-<pre><code class="python">CloudEndure.check(self, project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
+<pre><code class="python">CloudEndure.check(self) -&gt; 'bool'
 </code></pre>
 
 <p>Check the status of machines in the provided project.
 <h3 id="cloudendure.cloudendure.CloudEndure.update_encryption_key">update_encryption_key</h3></p>
-<pre><code class="python">CloudEndure.update_encryption_key(self, kms_id: 'str', project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
+<pre><code class="python">CloudEndure.update_encryption_key(self, kms_id: 'str') -&gt; 'bool'
 </code></pre>
 
 <p>Update encryption keys for replication.</p>
@@ -1805,22 +1805,22 @@
     bool: Whether or not the encryption key was updated.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.update_blueprint">update_blueprint</h3>
 
-<pre><code class="python">CloudEndure.update_blueprint(self, project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
+<pre><code class="python">CloudEndure.update_blueprint(self) -&gt; 'bool'
 </code></pre>
 
 <p>Update the blueprint associated with the specified machines.
 <h3 id="cloudendure.cloudendure.CloudEndure.launch">launch</h3></p>
-<pre><code class="python">CloudEndure.launch(self, project_name='', dry_run=False) -&gt; 'Dict[str, Any]'
+<pre><code class="python">CloudEndure.launch(self) -&gt; 'Dict[str, Any]'
 </code></pre>
 
 <p>Launch the test target instances.
 <h3 id="cloudendure.cloudendure.CloudEndure.status">status</h3></p>
-<pre><code class="python">CloudEndure.status(self, project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
+<pre><code class="python">CloudEndure.status(self) -&gt; 'bool'
 </code></pre>
 
 <p>Get the status of machines in the current wave.
 <h3 id="cloudendure.cloudendure.CloudEndure.execute">execute</h3></p>
-<pre><code class="python">CloudEndure.execute(self, project_name: 'str' = '', dry_run: 'bool' = False) -&gt; 'bool'
+<pre><code class="python">CloudEndure.execute(self) -&gt; 'bool'
 </code></pre>
 
 <p>Start the migration project my checking and launching the migration wave.
@@ -1830,7 +1830,7 @@
 
 <p>Share the generated AMIs to the provided destination account.
 <h3 id="cloudendure.cloudendure.CloudEndure.create_ami">create_ami</h3></p>
-<pre><code class="python">CloudEndure.create_ami(self, project_name: 'str' = '') -&gt; 'Dict[str, str]'
+<pre><code class="python">CloudEndure.create_ami(self) -&gt; 'Dict[str, str]'
 </code></pre>
 
 <p>Create an AMI from the specified instances.</p>

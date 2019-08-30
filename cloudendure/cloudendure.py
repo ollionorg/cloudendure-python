@@ -85,12 +85,7 @@ class CloudEndure:
         except Exception as e:
             print(f"Exception: {str(e)}")
             return ""
-
-        if project_id:
-            print(f"Found project_id: {project_id}")
-            return project_id
-        print("Project Name does not exist!")
-        return ""
+        return project_id
 
     def check(self, project_name: str = "", dry_run: bool = False) -> bool:
         """Check the status of machines in the provided project."""
@@ -740,7 +735,6 @@ class CloudEndure:
             str: The raw Terraform with volume, ENI, and EC2 instance templates.
 
         """
-        print("Loading EC2 resource for region: ", AWS_REGION)
         _ec2_res = boto3.resource("ec2", AWS_REGION)
 
         # Access the image
@@ -761,32 +755,33 @@ class CloudEndure:
             + TerraformTemplate.NETWORK_TEMPLATE.format(**base_template_data)
         )
 
-        for tag in image.tags:
-            tag_key = tag.get("Key", "")
-            if not tag_key.startswith("Drive-"):
-                continue
-            else:
+        # If image.tags is empty, boto3 returns NoneType.
+        if image.tags:
+            for tag in image.tags:
+                tag_key = tag.get("Key", "")
+                if not tag_key.startswith("Drive-"):
+                    continue
+
                 drive = tag_key[6:]
+                if not drive.startswith("/dev/sd"):
+                    continue
 
-            if not drive.startswith("/dev/sd"):
-                continue
+                drive_info = json.loads(tag.get("Value", "{}"))
+                drive_name = drive.split("/")[-1]
 
-            drive_info = json.loads(tag.get("Value", "{}"))
-            drive_name = drive.split("/")[-1]
+                drive_template_data = {
+                    **base_template_data,
+                    "drive": drive,
+                    "drive_name": drive_name,
+                    "snapshot_id": drive_info.get("SnapshotId", ""),
+                    "volume_size": drive_info.get("VolumeSize", "2"),
+                    "volume_type": drive_info.get("VolumeType", "gp2"),
+                }
 
-            drive_template_data = {
-                **base_template_data,
-                "drive": drive,
-                "drive_name": drive_name,
-                "snapshot_id": drive_info.get("SnapshotId", ""),
-                "volume_size": drive_info.get("VolumeSize", "2"),
-                "volume_type": drive_info.get("VolumeType", "gp2"),
-            }
-
-            drive_template = TerraformTemplate.VOLUME_TEMPLATE.format(
-                **drive_template_data
-            )
-            template = template + drive_template
+                drive_template = TerraformTemplate.VOLUME_TEMPLATE.format(
+                    **drive_template_data
+                )
+                template = template + drive_template
         return template
 
 

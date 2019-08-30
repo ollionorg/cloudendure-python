@@ -10,7 +10,7 @@ resource "aws_sfn_state_machine" "rehost_migration" {
     "Find Instance": {
       "Type": "Task",
       "Resource": "${aws_lambda_function.lambda_find_instance.arn}",
-      "ResultPath": "$.instance_id",
+      "ResultPath": "$",
       "Next": "Instance Found?",
       "Retry": [
         {
@@ -76,11 +76,11 @@ resource "aws_sfn_state_machine" "rehost_migration" {
           "Next": "Image Failed"
         }
       ],
-      "Default": "Wait 10 Minutes"
+      "Default": "Wait For Instance"
     },
-    "Wait 10 Minutes": {
+    "Wait For Instance": {
       "Type": "Wait",
-      "Seconds": 600,
+      "Seconds": 60,
       "Next": "Get Instance Status"
     },
     "Create Image": {
@@ -133,11 +133,11 @@ resource "aws_sfn_state_machine" "rehost_migration" {
           "Next": "Share Image"
         }
       ],
-      "Default": "Wait 5 Minutes"
+      "Default": "Wait For Image"
     },
-    "Wait 5 Minutes": {
+    "Wait For Image": {
       "Type": "Wait",
-      "Seconds": 300,
+      "Seconds": 60,
       "Next": "Get Image Status"
     },
     "Image Failed": {
@@ -163,7 +163,7 @@ resource "aws_sfn_state_machine" "rehost_migration" {
       "Type": "Task",
       "Resource": "${aws_lambda_function.lambda_copy_image.arn}",
       "ResultPath": "$.copy_ami",
-      "Next": "Wait X Seconds",
+      "Next": "Wait For Copy",
       "Retry": [
         {
           "ErrorEquals": ["States.ALL"],
@@ -173,9 +173,9 @@ resource "aws_sfn_state_machine" "rehost_migration" {
         }
       ]
     },
-    "Wait X Seconds": {
+    "Wait For Copy": {
       "Type": "Wait",
-      "SecondsPath": "$.wait_time",
+      "Seconds": 60,
       "Next": "Get Copy Status"
     },
     "Get Copy Status": {
@@ -214,7 +214,7 @@ resource "aws_sfn_state_machine" "rehost_migration" {
           "Next": "Split Image"
         }
       ],
-      "Default": "Wait X Seconds"
+      "Default": "Wait For Copy"
     },
     "Copy Failed": {
       "Type": "Fail",

@@ -4,13 +4,12 @@
 from __future__ import annotations
 
 import json
+import os
 from typing import Any, Dict, List
 
 import boto3
 
 print("Loading function split_image")
-
-ec2_res = boto3.resource("ec2")
 
 # {
 #     "copy_ami" : "ami-123456",
@@ -25,9 +24,8 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     copy_ami: str = event["copy_ami"]
-    region: str = event.get("region")
-    if region:
-        ec2_res = boto3.resource("ec2", region)
+    region: str = event.get("region", os.environ.get("AWS_REGION"))
+    ec2_res = boto3.resource("ec2", region)
 
     try:
         # Access the image that needs to be split

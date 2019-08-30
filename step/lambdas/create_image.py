@@ -13,6 +13,13 @@ print("Loading function create_image")
 
 ec2_resource = boto3.resource("ec2")
 
+# {
+#   "instance_id": "i-identifier",
+#   "kms_id": "KMS ID",
+#   "account": "account_number",
+#   "instance_status": "should be there if in loop"
+# }
+
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     """Handle signaling and entry into the AWS Lambda."""
@@ -30,16 +37,8 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     )
 
     for tag in instance.tags:
-        ec2_image.create_tags(
-            Resources=[ec2_image["ImageId"]],
-            Tags=[{"Key": tag["Key"], "Value": tag["Value"]}],
-        )
+        ec2_image.create_tags(Tags=[{"Key": tag["Key"], "Value": tag["Value"]}])
 
-    ec2_image.create_tags(
-        Resources=[instance_id], Tags=[{"Key": "CloneStatus", "Value": "IMAGE_CREATED"}]
-    )
-    instance.delete_tags(
-        Resources=[ec2_image["ImageId"]], Tags=[{"Key": "CloneStatus"}]
-    )
+    instance.create_tags(Tags=[{"Key": "CloneStatus", "Value": "IMAGE_CREATED"}])
 
-    return ec2_image["ImageId"]
+    return ec2_image.image_id

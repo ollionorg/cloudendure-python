@@ -35,11 +35,12 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     detail: Dict[str, Any] = event.get("detail", {})
+    event_dict: Dict[str, Any] = {}
     instance_id: str = detail.get("instance-id", "")
-    found = False
 
     if not instance_id:
-        return "not-found"
+        event_dict["instance_id"] = "not-found"
+        return event_dict
 
     try:
         instance = ec2_resource.Instance(instance_id)
@@ -48,17 +49,18 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         for tag in instance.tags:
             if tag["Key"] == "CloneStatus":
                 if tag["Value"] == "NOT_STARTED":
-                    found = True
+                    event_dict["instance_id"] = instance_id
                 else:
-                    found = False
+                    event_dict["instance_id"] = "not-migration"
 
             if tag["Key"] == "DestinationAccount":
-                found = True
+                event_dict["account"] = tag["Value"]
+
+            if tag["Key"] == "KMSId":
+                event_dict["kms_id"] = tag["Value"]
 
     except Exception as e:
         print(e)
-        return "not-found"
+        event_dict["instance_id"] = "not-found"
 
-    if found:
-        return instance_id
-    return "not-migration"
+    return event_dict

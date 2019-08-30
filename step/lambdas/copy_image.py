@@ -11,8 +11,6 @@ import boto3
 
 print("Loading function copy_image")
 
-ec2_client = boto3.client("ec2")
-
 # {
 #     "ami_id"    : "ami-123456",
 #     "kms_id"    : "GUID",
@@ -25,16 +23,16 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     """Handle signaling and entry into the AWS Lambda."""
     print("Received event: " + json.dumps(event, indent=2))
 
-    ami_id: str = event["ami_id"]
+    migrated_ami_id: str = event["migrated_ami_id"]
     kms_id: str = event["kms_id"]
-    region: str = event.get("region")
-    if region:
-        ec2_client = boto3.client("ec2", region)
+    region: str = event.get("region", os.environ.get("AWS_REGION"))
+    ec2_client = boto3.client("ec2", region)
+
     try:
         new_image: Dict[str, Any] = ec2_client.copy_image(
-            SourceImageId=ami_id,
-            SourceRegion=os.environ.get("AWS_REGION", "us-east-1"),
-            Name=f"copied-{ami_id}",
+            SourceImageId=migrated_ami_id,
+            SourceRegion=region,
+            Name=f"copied-{migrated_ami_id}",
             Encrypted=True,
             KmsKeyId=kms_id,
         )

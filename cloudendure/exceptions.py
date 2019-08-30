@@ -53,3 +53,9 @@ class CloudEndureInvalidEvent(CloudEndureException):
     """The CloudEndure exception for invalid Event types."""
 
     pass
+
+
+class CloudEndureMisconfigured(CloudEndureException):
+    """The CloudEndure exception indicating the CLI/Module hasn't been configured properly."""
+
+    pass

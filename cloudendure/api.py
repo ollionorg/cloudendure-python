@@ -22,7 +22,7 @@ from requests.models import Response
 from requests.sessions import Session
 
 from .config import CloudEndureConfig
-from .exceptions import CloudEndureException, CloudEndureUnauthorized
+from .exceptions import CloudEndureException
 
 HOST: str = os.environ.get("CLOUDENDURE_HOST", "https://console.cloudendure.com")
 API_VERSION: str = os.environ.get("CLOUDENDURE_API_VERSION", "latest").lower()
@@ -105,18 +105,18 @@ class CloudEndureAPI:
         # Check whether or not the request was successful.
         if response.status_code not in [200, 307]:
             if response.status_code == 401:
-                logger.error(
-                    "Bad CloudEndure Credentials! Check your username/password and try again!"
+                print(
+                    "\nBad CloudEndure Credentials! Check your username/password and try again!\n"
                 )
             elif response.status_code == 402:
-                logger.error(
-                    "No CloudEndure License! Please configure your account and try again!"
+                print(
+                    "\nNo CloudEndure License! Please configure your account and try again!\n"
                 )
             elif response.status_code == 429:
-                logger.error(
-                    "CloudEndure authentication failure limit reached! Please try again later!"
+                print(
+                    "\nCloudEndure authentication failure limit reached! Please try again later!\n"
                 )
-            raise CloudEndureUnauthorized()
+            return False
 
         # Grab the XSRF token received from the response, as stored in cookies.
         # _xsrf_token: str = str(response.cookies["XSRF-TOKEN"])

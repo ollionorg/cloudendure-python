@@ -37,9 +37,11 @@ import cloudendure
 
 ## Getting Started
 
+![CloudEndure Flow](images/migration_pipeline.svg)
+
 ### Logging in via CLI using environment variables
 
-Please note:  `cloudendure` and `ce` can be used interchangeably
+Please note: `cloudendure` and `ce` can be used interchangeably
 
 ```sh
 export CLOUDENDURE_USERNAME=<your_ce_user>
@@ -60,7 +62,7 @@ ce api login
 
 ### Logging in via CLI inline
 
-Please note:  `cloudendure` and `ce` can be used interchangeably
+Please note: `cloudendure` and `ce` can be used interchangeably
 
 ```sh
 cloudendure api login --user=<your_ce_user> --password=<your_ce_password>
@@ -76,7 +78,7 @@ Logging in for the first time will generate the `~/.cloudendure.yml` file.
 
 ## Coming Soon
 
-This project is currently a work in progress and will actively change.  This client has not yet been finalized and is entirely subject to change.
+This project is currently a work in progress and will actively change. This client has not yet been finalized and is entirely subject to change.
 
 ## Changelog
 

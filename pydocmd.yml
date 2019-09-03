@@ -1,6 +1,6 @@
 site_name: "CloudEndure Python Client and CLI"
-repo_name: 'mbeacom/cloudendure-python'
-repo_url: 'https://github.com/mbeacom/cloudendure-python'
+repo_name: '2ndWatch/cloudendure-python'
+repo_url: 'https://github.com/2ndWatch/cloudendure-python'
 
 generate:
   - code/cloudendure/api.md:

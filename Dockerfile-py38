@@ -2,13 +2,16 @@ FROM python:3.8-rc-slim-buster
 
 ARG SYSTEM_PACKAGES="make"
 
-RUN apt-get -qq update && \
-    apt-get -qq upgrade && \
-    apt-get -qq install ${SYSTEM_PACKAGES}
+RUN apt-get -qq update
+RUN apt-get -qq install apt-utils
+RUN apt-get -qq upgrade
+RUN apt-get -qq install ${SYSTEM_PACKAGES}
 
-RUN pip install --upgrade pip && \
-    pip install --upgrade wheel setuptools twine pipenv && \
-    pipenv install --dev --system --deploy
+COPY . /app
+
+RUN pip install --upgrade pip
+RUN pip install --upgrade wheel setuptools twine pipenv
+RUN pipenv install --dev --system --deploy
 
 RUN apt-get clean autoclean && \
     apt-get autoremove --yes && \

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Get status of a copy job"""
+"""Check the status of an AWS AMI copy."""
 from __future__ import annotations
 
 import json

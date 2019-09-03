@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Copy an image"""
+"""Check the status of an AWS EC2 instance."""
 from __future__ import annotations
 
 import json

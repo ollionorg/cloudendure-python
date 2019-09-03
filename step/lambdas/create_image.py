@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import datetime
 import json
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import boto3
 

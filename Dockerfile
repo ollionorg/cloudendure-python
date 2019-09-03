@@ -5,6 +5,7 @@ WORKDIR /app
 ARG SYSTEM_PACKAGES="make"
 
 RUN apt-get -qq update
+RUN apt-get -qq install apt-utils
 RUN apt-get -qq upgrade
 RUN apt-get -qq install ${SYSTEM_PACKAGES}
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""AWS Lambda to create an AWS image."""
+"""AWS Lambda to copy an AWS image."""
 from __future__ import annotations
 
 import json

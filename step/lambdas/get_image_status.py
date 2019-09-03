@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Copy an image"""
+"""Check the state of an AWS AMI."""
 from __future__ import annotations
 
 import json

@@ -1772,6 +1772,21 @@
 </code></pre>
 
 <p>Define the CloudEndure Config object.
+<h3 id="cloudendure.config.CloudEndureConfig.BASE_CONFIG">BASE_CONFIG</h3></p>
+<p>dict() -&gt; new empty dictionary
+dict(mapping) -&gt; new dictionary initialized from a mapping object's
+    (key, value) pairs
+dict(iterable) -&gt; new dictionary initialized as if via:
+    d = {}
+    for k, v in iterable:
+        d[k] = v
+dict(**kwargs) -&gt; new dictionary initialized with the name=value pairs
+    in the keyword argument list.  For example:  dict(one=1, two=2)
+<h3 id="cloudendure.config.CloudEndureConfig.merge_config_dicts">merge_config_dicts</h3></p>
+<pre><code class="python">CloudEndureConfig.merge_config_dicts(self, values: 'List[Any]') -&gt; 'Dict[str, str]'
+</code></pre>
+
+<p>Merge a list of configuration dictionaries.
 <h3 id="cloudendure.config.CloudEndureConfig.read_yaml_config">read_yaml_config</h3></p>
 <pre><code class="python">CloudEndureConfig.read_yaml_config(self) -&gt; 'Dict[str, Any]'
 </code></pre>

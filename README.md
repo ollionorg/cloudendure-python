@@ -52,7 +52,7 @@ cloudendure api login
 or
 
 ```sh
-export CLOUDENDURE_TOKEN=<your_ce_api_token>
+export CLOUDENDURE_USER_API_TOKEN=<your_ce_user_api_token>
 export CLOUDENDURE_DESTINATION_ACCOUNT=<destination_aws_account_id>
 
 ce api login
@@ -69,7 +69,7 @@ cloudendure api login --user=<your_ce_user> --password=<your_ce_password>
 or
 
 ```sh
-ce api login --token=<your_ce_token>
+ce api login --token=<your_ce_user_api_token>
 ```
 
 Logging in for the first time will generate the `~/.cloudendure.yml` file.

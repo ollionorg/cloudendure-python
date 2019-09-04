@@ -29,14 +29,23 @@ AWS_REGION: str = os.environ.get("AWS_REGION", "")
 class CloudEndure:
     """Define the CloudEndure general object."""
 
-    def __init__(self, project_name: str = "", dry_run: bool = False) -> None:
+    def __init__(
+        self,
+        project_name: str = "",
+        dry_run: bool = False,
+        username: str = "",
+        password: str = "",
+        token: str = "",
+    ) -> None:
         """Initialize the CloudEndure object.
 
         This entrypoint is primarily for use with the CLI.
 
         """
-        self.config: CloudEndureConfig = CloudEndureConfig()
-        self.api: CloudEndureAPI = CloudEndureAPI()
+        self.config: CloudEndureConfig = CloudEndureConfig(
+            username=username, password=password, token=token
+        )
+        self.api: CloudEndureAPI = CloudEndureAPI(self.config)
         self.is_authenticated = self.api.login()
 
         # Determine the active project ID.

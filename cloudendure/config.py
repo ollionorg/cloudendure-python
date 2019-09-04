@@ -17,7 +17,9 @@ logger.setLevel(getattr(logging, LOG_LEVEL))
 class CloudEndureConfig:
     """Define the CloudEndure Config object."""
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(
+        self, username: str = "", password: str = "", token: str = "", *args, **kwargs
+    ) -> None:
         """Initialize the Environment."""
         logger.info("Initializing the CloudEndure Configuration")
         _config_path: str = os.environ.get(
@@ -25,6 +27,9 @@ class CloudEndureConfig:
         )
         if _config_path.startswith("~"):
             self.config_path = os.path.expanduser(_config_path)
+
+        # Handle CloudEndure CLI input credentials.
+        self.cli = {"username": username, "password": password, "user_api_token": token}
 
         _config: PosixPath = Path(self.config_path)
         if not _config.exists():
@@ -40,6 +45,7 @@ class CloudEndureConfig:
                     "username": "",
                     "password": "",
                     "token": "",
+                    "user_api_token": "",
                     "session_cookie": "",
                     "project_name": "",
                     "project_id": "",
@@ -112,7 +118,11 @@ class CloudEndureConfig:
         """Update the configuration."""
         self.yaml_config_contents: Dict[str, Any] = self.read_yaml_config()
         self.env_config = self.get_env_vars()
-        self.active_config = {**self.yaml_config_contents, **self.env_config}
+        self.active_config = {
+            **self.yaml_config_contents,
+            **self.env_config,
+            **self.cli,
+        }
 
     def update_token(self, token: str) -> bool:
         """Update the CloudEndure token.

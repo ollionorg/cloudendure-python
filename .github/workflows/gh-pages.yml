@@ -22,10 +22,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install pipenv
         pipenv install --dev --pre --system --deploy
-        pydocmd build
     - name: Build with MkDocs
       if: success()
-      run: mkdocs build --config-file ./mkdocs-sample.yml
+      run: pydocmd build
     - name: Deploy to GitHub Pages
       uses: docker://peaceiris/gh-pages:latest
       if: success()

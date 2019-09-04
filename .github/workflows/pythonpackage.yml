@@ -27,7 +27,7 @@ jobs:
     - name: Check python imports with isort
       run: |
         isort --version-number
-        isort --rc --check-only --quiet
+        isort -rc --check-only --quiet .
     - name: Lint with Black
       run: |
         black --version

@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 import os
 from pathlib import Path, PosixPath
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import yaml
 
@@ -16,6 +16,26 @@ logger.setLevel(getattr(logging, LOG_LEVEL))
 
 class CloudEndureConfig:
     """Define the CloudEndure Config object."""
+
+    BASE_CONFIG = {
+        "host": "https://console.cloudendure.com",
+        "api_version": "latest",
+        "auth_ttl": "3600",
+        "username": "",
+        "password": "",
+        "token": "",
+        "user_api_token": "",
+        "session_cookie": "",
+        "project_name": "",
+        "project_id": "",
+        "max_lag_ttl": "90",
+        "machines": "",
+        "migration_wave": "0",
+        "clone_status": "NOT_STARTED",
+        "destination_account": "",
+        "disk_type": "SSD",
+        "public_ip": "DONT_ALLOCATE",
+    }
 
     def __init__(
         self, username: str = "", password: str = "", token: str = "", *args, **kwargs
@@ -37,32 +57,19 @@ class CloudEndureConfig:
                 "No CloudEndure YAML configuration found! Creating it at: (%s)",
                 self.config_path,
             )
-            self.write_yaml_config(
-                config={
-                    "host": "https://console.cloudendure.com",
-                    "api_version": "latest",
-                    "auth_ttl": "3600",
-                    "username": "",
-                    "password": "",
-                    "token": "",
-                    "user_api_token": "",
-                    "session_cookie": "",
-                    "project_name": "",
-                    "project_id": "",
-                    "max_lag_ttl": "90",
-                    "machines": "",
-                    "migration_wave": "0",
-                    "clone_status": "NOT_STARTED",
-                    "destination_account": "",
-                    "disk_type": "SSD",
-                    "public_ip": "DONT_ALLOCATE",
-                }
-            )
+            self.write_yaml_config(config=self.BASE_CONFIG)
         self.update_config()
 
     def __str__(self) -> str:
         """Define the string representation of the CloudEndure API object."""
         return "<CloudEndureAPI>"
+
+    def merge_config_dicts(self, values: List[Any]) -> Dict[str, str]:
+        """Merge a list of configuration dictionaries."""
+        data: Dict[str, str] = self.BASE_CONFIG
+        for value in values:
+            data.update({k: v for k, v in value.items() if v})
+        return data
 
     def read_yaml_config(self) -> Dict[str, Any]:
         """Read the CloudEndure YAML configuration file."""
@@ -118,11 +125,9 @@ class CloudEndureConfig:
         """Update the configuration."""
         self.yaml_config_contents: Dict[str, Any] = self.read_yaml_config()
         self.env_config = self.get_env_vars()
-        self.active_config = {
-            **self.yaml_config_contents,
-            **self.env_config,
-            **self.cli,
-        }
+        self.active_config = self.merge_config_dicts(
+            [self.yaml_config_contents, self.env_config, self.cli]
+        )
 
     def update_token(self, token: str) -> bool:
         """Update the CloudEndure token.

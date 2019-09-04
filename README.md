@@ -2,11 +2,9 @@
 
 Python wrapper and CLI for [CloudEndure](https://www.cloudendure.com/)
 
-[![Build Status](https://travis-ci.com/mbeacom/cloudendure-python.svg?branch=master)](https://travis-ci.com/mbeacom/cloudendure-python)
+[![PyPI](https://img.shields.io/pypi/v/cloudendure) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cloudendure)](https://pypi.org/project/cloudendure/) [![Build Status](https://travis-ci.com/mbeacom/cloudendure-python.svg?branch=master)](https://travis-ci.com/mbeacom/cloudendure-python)
 
 [Documentation](https://mbeacom.github.io/cloudendure-python/)
-
-Package version: `0.0.10`
 
 ## Requirements
 

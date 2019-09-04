@@ -1774,7 +1774,7 @@
     logger (logging.Logger): The default logger for the module.</p>
 <h2 id="cloudendure.api.CloudEndureAPI">CloudEndureAPI</h2>
 
-<pre><code class="python">CloudEndureAPI(self, *args, **kwargs) -&gt; 'None'
+<pre><code class="python">CloudEndureAPI(self, config: 'CloudEndureConfig', *args, **kwargs) -&gt; 'None'
 </code></pre>
 
 <p>Define the CloudEndure API base.</p>
@@ -1789,7 +1789,7 @@
 <p>If no argument is given, the constructor creates a new empty list.
 The argument must be an iterable if specified.
 <h3 id="cloudendure.api.CloudEndureAPI.login">login</h3></p>
-<pre><code class="python">CloudEndureAPI.login(self, username: 'str' = '', password: 'str' = '') -&gt; 'bool'
+<pre><code class="python">CloudEndureAPI.login(self, username: 'str' = '', password: 'str' = '', token: 'str' = '') -&gt; 'bool'
 </code></pre>
 
 <p>Login to the CloudEndure API console.</p>
@@ -1797,14 +1797,21 @@ The argument must be an iterable if specified.
     username (str): The CloudEndure username to be used.
         Defaults to the environment specific default.
     password (str): The CloudEndure password to be used.
+        Defaults to the environment specific default.
+    token (str): The CloudEndure token to be used. This argument takes precedence.
+        If provided, username and password will not be used.
         Defaults to the environment specific default.</p>
 <p>Attributes:
     endpoint (str): The CloudEndure API endpoint to be used.
     _username (str): The CloudEndure API username.
     _password (str): The CloudEndure API password.
+    _token (str): The CloudEndure API token.
     _auth (dict): The CloudEndure API username/password dictionary map.
     response (requests.Response): The CloudEndure API login request response object.
     _xsrf_token (str): The XSRF token to be used for subsequent API requests.</p>
+<p>TODO:
+    * Verify default XSRF-Token TTL and check validity before performing
+        subsequent authentication requests.</p>
 <h3 id="cloudendure.api.CloudEndureAPI.get_endpoint">get_endpoint</h3>
 
 <pre><code class="python">CloudEndureAPI.get_endpoint(path: 'str', api_version: 'str' = 'latest', host: 'str' = 'https://console.cloudendure.com') -&gt; 'str'

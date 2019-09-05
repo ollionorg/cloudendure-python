@@ -40,6 +40,7 @@ EXTRAS: Dict[str, List[str]] = {
         "bandit",
         "mypy",
         "twine",
+        "moto",
     ]
 }
 

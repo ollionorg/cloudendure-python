@@ -16,6 +16,7 @@ from requests.models import Response
 
 from .api import CloudEndureAPI
 from .config import CloudEndureConfig
+from .constants import get_aws_regions
 from .events import Event, EventHandler
 from .exceptions import CloudEndureHTTPException, CloudEndureMisconfigured
 from .templates import TerraformTemplate
@@ -158,6 +159,7 @@ class CloudEndure:
             list of dict: The CloudEndure replication configuration dictionary mapping.
 
         """
+        regions = get_aws_regions()
         payload = {
             # "archivingEnabled": False,
             "bandwidthThrottling": 0,
@@ -182,8 +184,7 @@ class CloudEndure:
             f"cloudCredentials/{cred_id}/regions"
         )
         for _region in json.loads(credentials_response.content).get("items", []):
-            if _region["name"] == regions[region]:
-                print(region)
+            if _region["name"] == regions.get(region, "N/A"):
                 payload["region"] = _region["id"]
 
         print(payload)

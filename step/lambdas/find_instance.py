@@ -56,8 +56,11 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
             if tag["Key"] == "DestinationAccount":
                 event_dict["account"] = tag["Value"]
 
-            if tag["Key"] == "KMSId":
+            if tag["Key"] == "DestinationKMS":
                 event_dict["kms_id"] = tag["Value"]
+
+            if tag["Key"] == "DestinationRole":
+                event_dict["role"] = tag["Value"]
 
     except Exception as e:
         print(e)

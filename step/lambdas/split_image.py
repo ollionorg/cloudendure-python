@@ -25,7 +25,24 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     copy_ami: str = event["copy_ami"]
     region: str = event.get("region", os.environ.get("AWS_REGION"))
-    ec2_res = boto3.resource("ec2", region)
+    role: str = event.get("role")
+
+    sts_client = boto3.client("sts")
+
+    print(f"Assuming role: {role}")
+    assumed_role: Dict[str, Any] = sts_client.assume_role(
+        RoleArn=role, RoleSessionName="SplitImageLambda"
+    )
+
+    credentials = assumed_role.get("Credentials")
+
+    ec2_res = boto3.resource(
+        "ec2",
+        region_name=region,
+        aws_access_key_id=credentials["AccessKeyId"],
+        aws_secret_access_key=credentials["SecretAccessKey"],
+        aws_session_token=credentials["SessionToken"],
+    )
 
     try:
         # Access the image that needs to be split

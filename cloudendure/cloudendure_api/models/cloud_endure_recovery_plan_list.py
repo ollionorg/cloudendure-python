@@ -16,7 +16,7 @@ import re  # noqa: F401
 import six
 
 from cloudendure.cloudendure_api.models.cloud_endure_recovery_plan import (
-    CloudEndureRecoveryPlan
+    CloudEndureRecoveryPlan,
 )  # noqa: F401,E501
 
 

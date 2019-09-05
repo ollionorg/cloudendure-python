@@ -16,7 +16,7 @@ import re  # noqa: F401
 import six
 
 from cloudendure.cloudendure_api.models.cloud_endure_region import (
-    CloudEndureRegion
+    CloudEndureRegion,
 )  # noqa: F401,E501
 
 

@@ -4,3 +4,4 @@ LICENSE
 reference/
 .mypy_cache/
 .pytest_cache/
+.github/

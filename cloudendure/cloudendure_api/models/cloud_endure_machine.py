@@ -16,10 +16,10 @@ import re  # noqa: F401
 import six
 
 from cloudendure.cloudendure_api.models.cloud_endure_machine_replication_configuration import (  # noqa: F401,E501
-    CloudEndureMachineReplicationConfiguration
+    CloudEndureMachineReplicationConfiguration,
 )
 from cloudendure.cloudendure_api.models.cloud_endure_point_in_time import (
-    CloudEndurePointInTime
+    CloudEndurePointInTime,
 )  # noqa: F401,E501
 
 

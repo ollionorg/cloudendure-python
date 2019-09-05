@@ -17,7 +17,7 @@ import unittest
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
 from models.cloud_endure_machine_and_point_in_time import (
-    CloudEndureMachineAndPointInTime
+    CloudEndureMachineAndPointInTime,
 )  # noqa: E501
 
 

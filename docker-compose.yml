@@ -12,6 +12,7 @@ services:
       restart_policy:
         condition: on-failure
   stepfunctions:
+    # https://docs.aws.amazon.com/step-functions/latest/dg/sfn-local-config-options.html#docker-credentials
     image: amazon/aws-stepfunctions-local
     restart: unless-stopped
     ports:

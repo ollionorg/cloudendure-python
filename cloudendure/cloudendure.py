@@ -15,6 +15,7 @@ from botocore.exceptions import ClientError
 from requests.models import Response
 
 from .api import CloudEndureAPI
+from .client import CloudEndureClient
 from .config import CloudEndureConfig
 from .events import Event, EventHandler
 from .exceptions import CloudEndureHTTPException, CloudEndureMisconfigured
@@ -59,6 +60,9 @@ class CloudEndure:
         if not self.project_id or (project_name and project_name != self.project_name):
             self.project_id: str = self.get_project_id(project_name=self.project_name)
 
+        self.client: CloudEndureClient = CloudEndureClient(
+            self.config, project_id=self.project_id
+        )
         self.dry_run = dry_run
         self.event_handler: EventHandler = EventHandler()
         self.destination_account: str = self.config.active_config.get(

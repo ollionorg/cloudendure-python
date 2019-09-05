@@ -37,6 +37,7 @@ class CloudEndureConfig:
         "destination_role": "",
         "disk_type": "SSD",
         "public_ip": "DONT_ALLOCATE",
+        "swagger_api_json_url": "https://console.cloudendure.com/api_doc/apis.json",
     }
 
     def __init__(

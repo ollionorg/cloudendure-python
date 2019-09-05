@@ -64,6 +64,10 @@ class CloudEndure:
         self.destination_account: str = self.config.active_config.get(
             "destination_account", ""
         )
+        self.destination_kms: str = self.config.active_config.get("destination_kms", "")
+        self.destination_role: str = self.config.active_config.get(
+            "destination_role", ""
+        )
         self.target_machines: List[str] = self.config.active_config.get(
             "machines", ""
         ).split(",")
@@ -123,6 +127,16 @@ class CloudEndure:
             print(f"Exception: {str(e)}")
             return ""
         return project_id
+
+    def _get_role_credentials(self, name: str, role: str) -> Dict[str, Any]:
+        _sts_client: boto_client = boto3.client("sts")
+
+        print(f"Assuming role: {role}")
+        assumed_role: Dict[str, Any] = _sts_client.assume_role(
+            RoleArn=self.destination_role, RoleSessionName=name
+        )
+
+        return assumed_role.get("Credentials")
 
     def check(self) -> bool:
         """Check the status of machines in the provided project."""
@@ -291,6 +305,8 @@ class CloudEndure:
                     },
                     {"key": "MigrationWave", "value": self.migration_wave},
                     {"key": "DestinationAccount", "value": self.destination_account},
+                    {"key": "DestinationKMS", "value": self.destination_kms},
+                    {"key": "DestinationRole", "value": self.destination_role},
                 ]
 
                 blueprint["publicIPAction"] = self.config.active_config.get(
@@ -627,25 +643,33 @@ class CloudEndure:
             return amis
         return amis
 
-    def copy_image(self, image_id: str, kms_id: str) -> str:
+    def copy_image(self, image_id: str) -> str:
         """Copy a shared image to an account.
 
         Args:
             image_id (str): The AWS AMI to be copied.
-            kms_id (str): The AWS KMS ID to be used for image encryption.
 
         Returns:
             str: The copied AWS AMI ID.
 
         """
-        _ec2_client: boto_client = boto3.client("ec2", AWS_REGION)
+        credentials = self._get_role_credentials("CopyImage", self.destination_role)
 
+        _ec2_client: boto_client = boto3.client(
+            "ec2",
+            region_name=AWS_REGION,
+            aws_access_key_id=credentials["AccessKeyId"],
+            aws_secret_access_key=credentials["SecretAccessKey"],
+            aws_session_token=credentials["SessionToken"],
+        )
+
+        print(f"Copying image {image_id}")
         new_image: Dict[str, Any] = _ec2_client.copy_image(
             SourceImageId=image_id,
             SourceRegion=AWS_REGION,
             Name=f"copied-{image_id}",
             Encrypted=True,
-            KmsKeyId=kms_id,
+            KmsKeyId=self.destination_kms,
         )
 
         return new_image.get("ImageId", "")
@@ -660,8 +684,18 @@ class CloudEndure:
             dict: The mapping of AWS EBS block devices.
 
         """
-        print("Loading EC2 resource for region: ", AWS_REGION)
-        _ec2_res = boto3.resource("ec2", AWS_REGION)
+        print(
+            f"Loading EC2 resource for region: {AWS_REGION} using role: {self.destination_role}"
+        )
+        credentials = self._get_role_credentials("SplitImage", self.destination_role)
+
+        _ec2_res: boto_client = boto3.resource(
+            "ec2",
+            region_name=AWS_REGION,
+            aws_access_key_id=credentials["AccessKeyId"],
+            aws_secret_access_key=credentials["SecretAccessKey"],
+            aws_session_token=credentials["SessionToken"],
+        )
 
         # Access the image that needs to be split
         image = _ec2_res.Image(image_id)
@@ -700,6 +734,9 @@ class CloudEndure:
                 Tags=[{"Key": f"Drive-{drive}", "Value": json.dumps(drives[drive])}],
             )
 
+        # remove the old image
+        image.deregister()
+
         return root_ami
 
     def gen_terraform(
@@ -726,7 +763,15 @@ class CloudEndure:
             str: The raw Terraform with volume, ENI, and EC2 instance templates.
 
         """
-        _ec2_res = boto3.resource("ec2", AWS_REGION)
+        credentials = self._get_role_credentials("GenTerraform", self.destination_role)
+
+        _ec2_res: boto_client = boto3.resource(
+            "ec2",
+            region_name=AWS_REGION,
+            aws_access_key_id=credentials["AccessKeyId"],
+            aws_secret_access_key=credentials["SecretAccessKey"],
+            aws_session_token=credentials["SessionToken"],
+        )
 
         # Access the image
         image: str = _ec2_res.Image(image_id)

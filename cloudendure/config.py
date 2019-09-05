@@ -33,6 +33,8 @@ class CloudEndureConfig:
         "migration_wave": "0",
         "clone_status": "NOT_STARTED",
         "destination_account": "",
+        "destination_kms": "",
+        "destination_role": "",
         "disk_type": "SSD",
         "public_ip": "DONT_ALLOCATE",
     }

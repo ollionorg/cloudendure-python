@@ -26,7 +26,24 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     migrated_ami_id: str = event["migrated_ami_id"]
     kms_id: str = event["kms_id"]
     region: str = event.get("region", os.environ.get("AWS_REGION"))
-    ec2_client = boto3.client("ec2", region)
+    role: str = event.get("role")
+
+    sts_client = boto3.client("sts")
+
+    print(f"Assuming role: {role}")
+    assumed_role: Dict[str, Any] = sts_client.assume_role(
+        RoleArn=role, RoleSessionName="CopyImageLambda"
+    )
+
+    credentials = assumed_role.get("Credentials")
+
+    ec2_client = boto3.client(
+        "ec2",
+        region_name=region,
+        aws_access_key_id=credentials["AccessKeyId"],
+        aws_secret_access_key=credentials["SecretAccessKey"],
+        aws_session_token=credentials["SessionToken"],
+    )
 
     try:
         new_image: Dict[str, Any] = ec2_client.copy_image(

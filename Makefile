@@ -13,7 +13,7 @@ VERSION := v0.0.10
 info: ## Show information about the current git state.
 	@echo "Github Project: https://github.com/${REPO_NAME}\nCurrent Branch: ${CURRENT_BRANCH}\nSHA1: ${SHA1}\n"
 
-build: ## Build the Gitcoin Web image.
+build: ## Build the release docker image.
 	@docker build \
 		--stream \
 		--pull \
@@ -23,19 +23,23 @@ build: ## Build the Gitcoin Web image.
 		-t "${GIT_TAG}" .
 	@docker tag "${GIT_TAG}" "${LATEST_TAG}"
 	@docker tag "${GIT_TAG}" "${VERSION}"
+
+build_py38: ## Build the Python 3.8 docker image.
 	@docker build \
 		--stream \
 		--pull \
 		--build-arg BUILD_DATETIME=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
 		--build-arg "SHA1=${SHA1}" \
 		--build-arg "VERSION=${VERSION}" \
-		-t "${GIT_TAG}-py38" Dockerfile-py38
+		-t "${GIT_TAG}-py38" --file Dockerfile-py38 .
 	@docker tag "${GIT_TAG}-py38" "${LATEST_TAG}-py38"
 	@docker tag "${GIT_TAG}-py38" "${VERSION}-py38"
 
-gh_push: ## Push the Github Docker image.
+gh_push: ## Push the release Docker image to Github.
 	@docker tag ${GIT_TAG} docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}
 	@docker push docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}
+
+gh_push_py38: ## Push the Python 3.8  Docker image to Github.
 	@docker tag ${GIT_TAG}-py38 docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}-py38
 	@docker push docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}-py38
 
@@ -48,10 +52,7 @@ gh_login: ## Login to Docker Hub.
 push: ## Push the Docker image to the Docker Hub repository.
 	@docker push "${REPO_NAME}"
 
-docker: ## Build and publish Docker images.
-	@docker build -t cloudendure .
-	@docker tag cloudendure mbeacom/cloudendure-python
-	@docker push
+docker: build build_py38 ## Build and publish Docker images.
 
 lint: isort ## Lint the CloudEndure project with Black.
 	@pipenv run black --target-version py37 --exclude "/(\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|_build|buck-out|build|dist|tests|cloudendure_api)/" .

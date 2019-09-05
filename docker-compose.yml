@@ -11,3 +11,15 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+  stepfunctions:
+    # https://docs.aws.amazon.com/step-functions/latest/dg/sfn-local-config-options.html#docker-credentials
+    image: amazon/aws-stepfunctions-local
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    deploy:
+      replicas: 1
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure

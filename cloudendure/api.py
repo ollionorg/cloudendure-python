@@ -22,7 +22,7 @@ from requests.models import Response
 from requests.sessions import Session
 
 from .config import CloudEndureConfig
-from .exceptions import CloudEndureException, CloudEndureUnauthorized
+from .exceptions import CloudEndureException
 
 HOST: str = os.environ.get("CLOUDENDURE_HOST", "https://console.cloudendure.com")
 API_VERSION: str = os.environ.get("CLOUDENDURE_API_VERSION", "latest").lower()
@@ -47,7 +47,7 @@ class CloudEndureAPI:
 
     TOP_LEVEL: List[str] = ["projects", "blueprints"]
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, config: CloudEndureConfig, *args, **kwargs) -> None:
         """Initialize the CloudEndure API client.
 
         Attributes:
@@ -57,7 +57,7 @@ class CloudEndureAPI:
         time_now: datetime.datetime = datetime.datetime.utcnow()
 
         self.api_endpoint: str = f"{HOST}/api/{API_VERSION}"
-        self.config: CloudEndureConfig = CloudEndureConfig()
+        self.config: CloudEndureConfig = config
 
         self.projects: List[str] = []
         self.session: Session = requests.Session()
@@ -75,7 +75,7 @@ class CloudEndureAPI:
         if _xsrf_token:
             self.session.headers.update({"X-XSRF-TOKEN": _xsrf_token})
 
-    def login(self, username: str = "", password: str = "") -> bool:
+    def login(self, username: str = "", password: str = "", token: str = "") -> bool:
         """Login to the CloudEndure API console.
 
         Args:
@@ -83,19 +83,36 @@ class CloudEndureAPI:
                 Defaults to the environment specific default.
             password (str): The CloudEndure password to be used.
                 Defaults to the environment specific default.
+            token (str): The CloudEndure token to be used. This argument takes precedence.
+                If provided, username and password will not be used.
+                Defaults to the environment specific default.
 
         Attributes:
             endpoint (str): The CloudEndure API endpoint to be used.
             _username (str): The CloudEndure API username.
             _password (str): The CloudEndure API password.
+            _token (str): The CloudEndure API token.
             _auth (dict): The CloudEndure API username/password dictionary map.
             response (requests.Response): The CloudEndure API login request response object.
             _xsrf_token (str): The XSRF token to be used for subsequent API requests.
 
+        TODO:
+            * Verify default XSRF-Token TTL and check validity before performing
+                subsequent authentication requests.
+
         """
         _username: str = self.config.active_config["username"] or username
         _password: str = self.config.active_config["password"] or password
-        _auth: Dict[str, str] = {"username": _username, "password": _password}
+        _token: str = self.config.active_config["user_api_token"] or token
+        _auth: Dict[str, str] = {}
+
+        if _token:
+            _auth["userApiToken"] = _token
+        elif _username and _password:
+            _auth = {"username": _username, "password": _password}
+        else:
+            print("You must configure your authentication credentials!")
+            return False
 
         # Attempt to login to the CloudEndure API via a POST request.
         response: requests.Response = self.api_call(
@@ -105,18 +122,18 @@ class CloudEndureAPI:
         # Check whether or not the request was successful.
         if response.status_code not in [200, 307]:
             if response.status_code == 401:
-                logger.error(
-                    "Bad CloudEndure Credentials! Check your username/password and try again!"
+                print(
+                    "\nBad CloudEndure Credentials! Check your username/password and try again!\n"
                 )
             elif response.status_code == 402:
-                logger.error(
-                    "No CloudEndure License! Please configure your account and try again!"
+                print(
+                    "\nNo CloudEndure License! Please configure your account and try again!\n"
                 )
             elif response.status_code == 429:
-                logger.error(
-                    "CloudEndure authentication failure limit reached! Please try again later!"
+                print(
+                    "\nCloudEndure authentication failure limit reached! Please try again later!\n"
                 )
-            raise CloudEndureUnauthorized()
+            return False
 
         # Grab the XSRF token received from the response, as stored in cookies.
         # _xsrf_token: str = str(response.cookies["XSRF-TOKEN"])

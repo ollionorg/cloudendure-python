@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Copy an image"""
+"""Check the status of an AWS EC2 instance."""
 from __future__ import annotations
 
 import json
@@ -13,9 +13,10 @@ print("Loading function get_instance_status")
 ec2_client = boto3.client("ec2")
 
 # {
-#   "original_id": "42283fd1-bbb3-a621-7217-4305c00aaaa",
-#   "account": "460535642604",
-#   "instance_id": "i-05afe08fb4efe8b40"
+#   "instance_id": "i-identifier",
+#   "kms_id": "KMS ID",
+#   "account": "account_number",
+#   "instance_status": "should be there if in loop"
 # }
 
 

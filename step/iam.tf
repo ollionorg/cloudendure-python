@@ -24,6 +24,12 @@ data "aws_iam_policy_document" "lambda-invoke" {
       "*",
     ]
   }
+  # role(s) that the lambdas are allowed to assume roles on for copy, split, and tf generation
+  statement {
+    effect = "Allow"
+    actions = [ "sts:AssumeRole" ]
+    resources = [ "role/arn" ]
+  }
 }
 
 resource "aws_iam_policy" "lambda-invoke" {
@@ -45,7 +51,6 @@ resource "aws_iam_role" "iam_for_lambda" {
 data "aws_iam_policy_document" "iam_for_lambda_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
-
     principals {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]

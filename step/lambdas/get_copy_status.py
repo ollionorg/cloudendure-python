@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Get status of a copy job"""
+"""Check the status of an AWS AMI copy."""
 from __future__ import annotations
 
 import json
+import os
 from typing import Any, Dict
 
 import boto3
 
 print("Loading function get_copy_status")
-
-ec2_client = boto3.client("ec2")
 
 # {
 #   "ami_id": "original AMI",
@@ -27,9 +26,8 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     copy_ami: str = event["copy_ami"]
-    region: str = event.get("region")
-    if region:
-        ec2_client = boto3.client("ec2", region)
+    region: str = event.get("region", os.environ.get("AWS_REGION"))
+    ec2_client = boto3.client("ec2", region)
 
     try:
         ami_state: Dict[str, Any] = ec2_client.describe_images(ImageIds=[copy_ami])

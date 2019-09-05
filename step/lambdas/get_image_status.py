@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Copy an image"""
+"""Check the state of an AWS AMI."""
 from __future__ import annotations
 
 import json
@@ -13,11 +13,11 @@ print("Loading function get_image_status")
 ec2_client = boto3.client("ec2")
 
 # {
-#   "original_id": "original id",
-#   "account": "account id",
-#   "instance_id": "i-aaaaaa",
-#   "instance_status": "running",
-#   "migrated_ami_id": "ami-123456"
+#   "instance_id": "i-identifier",
+#   "kms_id": "KMS ID",
+#   "account": "account_number",
+#   "instance_status": "should be there if in loop"
+#   "migrated_ami_id": "ami-identifier"
 # }
 
 

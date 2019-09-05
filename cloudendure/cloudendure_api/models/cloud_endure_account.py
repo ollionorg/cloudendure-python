@@ -16,7 +16,7 @@ import re  # noqa: F401
 import six
 
 from cloudendure.cloudendure_api.models.cloud_endure_saml_settings import (
-    CloudEndureSamlSettings
+    CloudEndureSamlSettings,
 )  # noqa: F401,E501
 
 

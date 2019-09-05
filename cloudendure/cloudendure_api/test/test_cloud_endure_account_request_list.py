@@ -17,7 +17,7 @@ import unittest
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
 from models.cloud_endure_account_request_list import (
-    CloudEndureAccountRequestList
+    CloudEndureAccountRequestList,
 )  # noqa: E501
 
 

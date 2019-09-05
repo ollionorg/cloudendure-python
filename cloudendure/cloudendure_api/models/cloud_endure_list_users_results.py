@@ -16,7 +16,7 @@ import re  # noqa: F401
 import six
 
 from cloudendure.cloudendure_api.models.cloud_endure_list_users_result import (  # noqa: F401,E501
-    CloudEndureListUsersResult
+    CloudEndureListUsersResult,
 )
 
 

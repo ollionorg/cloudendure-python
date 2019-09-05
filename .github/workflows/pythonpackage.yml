@@ -31,4 +31,4 @@ jobs:
     - name: Lint with Black
       run: |
         black --version
-        black --target-version py37 --check --exclude "/(\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|_build|buck-out|build|dist|tests|cloudendure_api)/" .
+        black --target-version py37 --check .

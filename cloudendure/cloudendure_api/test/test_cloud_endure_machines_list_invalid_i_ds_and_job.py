@@ -17,7 +17,7 @@ import unittest
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
 from models.cloud_endure_machines_list_invalid_i_ds_and_job import (
-    CloudEndureMachinesListInvalidIDsAndJob
+    CloudEndureMachinesListInvalidIDsAndJob,
 )  # noqa: E501
 
 

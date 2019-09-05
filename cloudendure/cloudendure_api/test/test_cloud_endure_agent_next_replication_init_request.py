@@ -17,7 +17,7 @@ import unittest
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
 from models.cloud_endure_agent_next_replication_init_request import (  # noqa: E501
-    CloudEndureAgentNextReplicationInitRequest
+    CloudEndureAgentNextReplicationInitRequest,
 )
 
 

@@ -17,7 +17,7 @@ import unittest
 from cloudendure import cloudendure_api
 from cloudendure.cloudendure_api.rest import ApiException
 from models.cloud_endure_recovery_plan_list import (
-    CloudEndureRecoveryPlanList
+    CloudEndureRecoveryPlanList,
 )  # noqa: E501
 
 

@@ -148,6 +148,87 @@ class CloudEndure:
                 return cloud.get("id", "")
         return ""
 
+    def create_repl_config(self, project_name: str = "", region: str = ""):
+        """Create a CloudEndure project replication configuration.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to get replication configurations for.
+
+        Returns:
+            list of dict: The CloudEndure replication configuration dictionary mapping.
+
+        """
+        payload = {
+            # "archivingEnabled": False,
+            "bandwidthThrottling": 0,
+            # "cloudCredentials": "",
+            # "id": "",
+            # "objectStorageLocation": "",
+            # "proxyUrl": "",
+            # "region": "",
+            "replicationServerType": "Default",
+            "replicationTags": [],
+            # "replicatorSecurityGroupIDs": [],
+            # "subnetHostProject": "",
+            # "subnetId": "",
+            "useDedicatedServer": False,
+            "useLowCostDisks": False,
+            "usePrivateIp": True,
+            "volumeEncryptionAllowed": False,
+            # "volumeEncryptionKey": ""
+        }
+
+        response = session.get(f"cloudCredentials/{cred_id}/regions")
+        for _region in json.loads(response.content)["items"]:
+            if _region["name"] == regions[region]:
+                print(region)
+                payload["region"] = _region["id"]
+
+        print(payload)
+        repl_result: Response = self.api.api_call(
+            f"projects/{project_id}/replicationConfigurations", method="post", data=payload
+        )
+        if repl_result.status_code != 201:
+            print(f"Failed to create replication configuration {repl_result.status_code} {repl_result.content}")
+            print(repl_result.text)
+            return None
+        else:
+            print("Replication configuration was created successfully")
+            return json.loads(repl_result.content)["id"]
+
+    def get_repl_configs(self, project_name: str = "") -> List[Any]:
+        """Get a CloudEndure project's replication configurations.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to get replication configurations for.
+
+        Returns:
+            list of dict: The CloudEndure replication configuration dictionary mapping.
+
+        """
+        if not project_name:
+            project_name: str = self.project_name
+            project_id: str = self.project_id
+        else:
+            project_id: str = self.get_project_id(project_name=project_name)
+
+        if not project_id:
+            return []
+
+        print(f"Fetching Replication Configuration - Project Name: ({project_name})")
+        repl_config_results: Response = self.api.api_call(f"projects/{project_id}/replicationConfigurations")
+
+        if repl_config_results.status_code != 200:
+            print(
+                f"Failed to fetch replication configurations for ({project_name}): {repl_config_results.status_code} {repl_config_results.content}"
+            )
+            print(repl_config_results.text)
+            return []
+
+        repl_configs = json.loads(repl_config_results.content).get("items", [])
+        print(f'Successfully fetched replication configurations for project: {project_name}')
+        return repl_configs
+
     def create_project(self, project_name: str) -> str:
         """Create a new CloudEndure project.
 

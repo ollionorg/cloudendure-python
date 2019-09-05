@@ -1874,6 +1874,24 @@
     security_group (str): The AWS security group ID to be referenced.</p>
 <p>Returns:
     str: The raw Terraform with volume, ENI, and EC2 instance templates.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.terminate">terminate</h3>
+
+<pre><code class="python">CloudEndure.terminate(self) -&gt; 'bool'
+</code></pre>
+
+<p>Terminate the launched machine(s).</p>
+<p>Returns:
+    bool: Whether cleanup was successful.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.delete_image">delete_image</h3>
+
+<pre><code class="python">CloudEndure.delete_image(self, image_id: 'str') -&gt; 'bool'
+</code></pre>
+
+<p>Remove the AMI and snapshots.</p>
+<p>Args:
+    image_id (str): The AWS AMI to be deleted.</p>
+<p>Returns:
+    bool: Whether the AMI deletion was requested successfully.</p>
 <h2 id="cloudendure.cloudendure.main">main</h2>
 
 <pre><code class="python">main() -&gt; 'None'

@@ -158,10 +158,11 @@ class CloudEndure:
                             f"{ref_name} replication into the migration account in progress!"
                         )
                     else:
-                        if machine.get("replica"):
+                        replica: str = machine.get("replica")
+                        if replica:
                             machine_status += 1
                             print(
-                                f"{ref_name} has been launched in the migration account"
+                                f"{ref_name} has been launched in the migration account: {replica}"
                             )
                         else:
                             print(
@@ -197,7 +198,7 @@ class CloudEndure:
 
         """
         print(
-            f"Updating Encryption Key - Name: ({self.project_name}) -KMS ID: ({kms_id}) - Dry Run: ({self.dry_run})"
+            f"Updating Encryption Key - Name: ({self.project_name}) - KMS ID: ({kms_id}) - Dry Run: ({self.dry_run})"
         )
 
         machines_response: Response = self.api.api_call(
@@ -773,6 +774,82 @@ class CloudEndure:
                 )
                 template = template + drive_template
         return template
+
+    def terminate(self) -> bool:
+        """Terminate the launched machine(s).
+
+        Returns:
+            bool: Whether cleanup was successful.
+
+        """
+        machines_response: Response = self.api.api_call(
+            f"projects/{self.project_id}/machines"
+        )
+        success = True
+        for _machine in self.target_machines:
+            for machine in json.loads(machines_response.text).get("items", []):
+                source_props: Dict[str, Any] = machine.get("sourceProperties", {})
+                ref_name: str = source_props.get("name") or source_props.get(
+                    "machineCloudId", "NONE"
+                )
+                if _machine == source_props.get(
+                    "name", "NONE"
+                ) or _machine == source_props.get("machineCloudId", "NONE"):
+                    replica: str = machine.get("replica")
+                    if replica:
+                        f"{ref_name} has a launched machine: {replica}.  Terminating."
+                        data_dict: Dict[str, Any] = {}
+                        data_dict["replicaIDs"] = [replica]
+
+                        delete_response: Response = self.api.api_call(
+                            path=f"projects/{self.project_id}/replicas",
+                            method="delete",
+                            data=json.dumps(data_dict),
+                        )
+                        if delete_response.status_code != 202:
+                            print(
+                                f"Response code: {delete_response.status_code}\n{ref_name} replica {replica} did not terminate.\n{delete_response.text}"
+                            )
+                            success = False
+                        else:
+                            print(
+                                f"Terminated {ref_name}\n{json.loads(delete_response.text)}"
+                            )
+                    else:
+                        print(f"{ref_name} does not have a launched machine")
+                        success = False
+
+        return success
+
+    def delete_image(self, image_id: str) -> bool:
+        """Remove the AMI and snapshots.
+
+        Args:
+            image_id (str): The AWS AMI to be deleted.
+
+        Returns:
+            bool: Whether the AMI deletion was requested successfully.
+
+        """
+        print("Loading EC2 resource for region: ", AWS_REGION)
+        _ec2_res = boto3.resource("ec2", AWS_REGION)
+
+        try:
+            # Access the image that needs to be deleted
+            image = _ec2_res.Image(image_id)
+
+            # grab device mappings before deregistering
+            devices: List[Any] = image.block_device_mappings
+            image.deregister()
+            for device in devices:
+                if "Ebs" in device:
+                    snap = _ec2_res.Snapshot(device["Ebs"].get("SnapshotId"))
+                    snap.delete()
+        except Exception as e:
+            print(f"Failed.  AMI does not exist? {str(e)}")
+            return False
+
+        return True
 
 
 def main() -> None:

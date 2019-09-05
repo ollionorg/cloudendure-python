@@ -1840,13 +1840,12 @@
     bool: Whether or not the AMI creation was successful.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.copy_image">copy_image</h3>
 
-<pre><code class="python">CloudEndure.copy_image(self, image_id: 'str', kms_id: 'str') -&gt; 'str'
+<pre><code class="python">CloudEndure.copy_image(self, image_id: 'str') -&gt; 'str'
 </code></pre>
 
 <p>Copy a shared image to an account.</p>
 <p>Args:
-    image_id (str): The AWS AMI to be copied.
-    kms_id (str): The AWS KMS ID to be used for image encryption.</p>
+    image_id (str): The AWS AMI to be copied.</p>
 <p>Returns:
     str: The copied AWS AMI ID.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.split_image">split_image</h3>

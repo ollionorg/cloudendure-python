@@ -79,6 +79,15 @@ class CloudEndure:
                 "Failed to authenticate with CloudEndure! Please check your credentials and try again!"
             )
 
+    def _get_role_credentials(self, name: str, role: str) -> Dict[str, Any]:
+        _sts_client: boto_client = boto3.client("sts")
+
+        print(f"Assuming role: {role}")
+        assumed_role: Dict[str, Any] = _sts_client.assume_role(
+            RoleArn=self.destination_role, RoleSessionName=name
+        )
+        return assumed_role.get("Credentials", {})
+
     def get_project_id(self, project_name: str = "") -> str:
         """Get the associated CloudEndure project ID by project_name.
 
@@ -128,15 +137,6 @@ class CloudEndure:
             return ""
         return project_id
 
-    def _get_role_credentials(self, name: str, role: str) -> Dict[str, Any]:
-        _sts_client: boto_client = boto3.client("sts")
-
-        print(f"Assuming role: {role}")
-        assumed_role: Dict[str, Any] = _sts_client.assume_role(
-            RoleArn=self.destination_role, RoleSessionName=name
-        )
-        return assumed_role.get("Credentials")
-
     def get_cloud(self, cloud_type: str = "") -> str:
         """Get the ID for the specified cloud type."""
         if not cloud_type:
@@ -158,7 +158,12 @@ class CloudEndure:
             str: The newly created CloudEndure project ID.
 
         """
-        project = {"licensesIDs": [], "name": project_name, "targetCloudId": self.get_cloud(), "type": "MIGRATION"}
+        project = {
+            "licensesIDs": [],
+            "name": project_name,
+            "targetCloudId": self.get_cloud(),
+            "type": "MIGRATION",
+        }
         licenses_result: Response = self.api.api_call("licenses")
 
         for license in json.loads(licenses_result.content).get("items", []):
@@ -169,15 +174,21 @@ class CloudEndure:
 
         print("CREATE PROJECT: ", project)
 
-        projects_result: Response = self.api.api_call("projects", method="post", data=project)
+        projects_result: Response = self.api.api_call(
+            "projects", method="post", data=project
+        )
         if projects_result.status_code != 201:
-            print(f"Failed to create the new project ({project_name}): {projects_result.status_code} {projects_result.content}")
+            print(
+                f"Failed to create the new project ({project_name}): {projects_result.status_code} {projects_result.content}"
+            )
             print(projects_result.text)
             return ""
         print(f"Project: ({project_name}) was created successfully!")
         return json.loads(projects_result.content).get("id", "")
 
-    def update_project(self, project_name: str = "", project_data: Dict[str, Any] = None) -> bool:
+    def update_project(
+        self, project_name: str = "", project_data: Dict[str, Any] = None
+    ) -> bool:
         """Update a CloudEndure project.
 
         Args:
@@ -199,7 +210,9 @@ class CloudEndure:
             return False
 
         print(f"Updating Project - Name: ({project_name})")
-        projects_result: Response = self.api.api_call(f"projects/{project_id}", method="patch", data=project_data)
+        projects_result: Response = self.api.api_call(
+            f"projects/{project_id}", method="patch", data=project_data
+        )
 
         if projects_result.status_code != 200:
             print(
@@ -207,7 +220,7 @@ class CloudEndure:
             )
             print(projects_result.text)
             return False
-        print('Project was updated successfully')
+        print("Project was updated successfully")
         return True
 
     def check(self) -> bool:

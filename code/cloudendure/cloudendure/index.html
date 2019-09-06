@@ -425,6 +425,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../constants/" title="Constants" class="md-nav__link">
+      Constants
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../events/" title="Events" class="md-nav__link">
       Events
     </a>
@@ -1784,6 +1796,63 @@
         the project list API call.</p>
 <p>Returns:
     str: The CloudEndure project UUID.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.get_cloud">get_cloud</h3>
+
+<pre><code class="python">CloudEndure.get_cloud(self, cloud_type: 'str' = '') -&gt; 'str'
+</code></pre>
+
+<p>Get the ID for the specified cloud type.
+<h3 id="cloudendure.cloudendure.CloudEndure.create_cloud_credentials">create_cloud_credentials</h3></p>
+<pre><code class="python">CloudEndure.create_cloud_credentials(self, access_key: 'str' = '', secret_key: 'str' = '') -&gt; 'str'
+</code></pre>
+
+<p>Create a new CloudEndure project.</p>
+<p>Args:
+    project_name (str): The name of the CloudEndure project to be created.</p>
+<p>Returns:
+    str: The newly created CloudEndure project ID.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.create_repl_config">create_repl_config</h3>
+
+<pre><code class="python">CloudEndure.create_repl_config(self, region: 'str' = '', cloud_cred_id: 'str' = '')
+</code></pre>
+
+<p>Create a CloudEndure project replication configuration.</p>
+<p>Args:
+    project_name (str): The name of the CloudEndure project to get replication configurations for.</p>
+<p>Returns:
+    list of dict: The CloudEndure replication configuration dictionary mapping.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.get_repl_configs">get_repl_configs</h3>
+
+<pre><code class="python">CloudEndure.get_repl_configs(self) -&gt; 'List[Any]'
+</code></pre>
+
+<p>Get a CloudEndure project's replication configurations.</p>
+<p>Args:
+    project_name (str): The name of the CloudEndure project to get replication configurations for.</p>
+<p>Returns:
+    list of dict: The CloudEndure replication configuration dictionary mapping.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.create_project">create_project</h3>
+
+<pre><code class="python">CloudEndure.create_project(self, project_name: 'str') -&gt; 'str'
+</code></pre>
+
+<p>Create a new CloudEndure project.</p>
+<p>Args:
+    project_name (str): The name of the CloudEndure project to be created.</p>
+<p>Returns:
+    str: The newly created CloudEndure project ID.</p>
+<h3 id="cloudendure.cloudendure.CloudEndure.update_project">update_project</h3>
+
+<pre><code class="python">CloudEndure.update_project(self, project_data: 'Dict[str, Any]' = None) -&gt; 'bool'
+</code></pre>
+
+<p>Update a CloudEndure project.</p>
+<p>Args:
+    project_name (str): The name of the CloudEndure project to be updated.
+    project_data (dict): The project payload to be used to update the project.
+        Defaults to the current project state.</p>
+<p>Returns:
+    bool: Whether or not the project has been updated.</p>
 <h3 id="cloudendure.cloudendure.CloudEndure.check">check</h3>
 
 <pre><code class="python">CloudEndure.check(self) -&gt; 'bool'

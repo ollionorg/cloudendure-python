@@ -715,6 +715,38 @@ class CloudEndure:
             print(str(e))
             return False
 
+    def replication(self, action: str, machine_ids: str = "") -> bool:
+        """Handle replication actions."""
+        print(f"{action.title()} Machine Replication: ({machine_ids})")
+        action: str = action.lower()
+        _machines: List[str] = machine_ids.split(",")
+
+        if not _machines:
+            _machines = self.target_machines
+            print(
+                f"No machines provided.  Defaulting to project machines: ({_machines})"
+            )
+
+        replication_data: Dict[str, Any] = {"machineId": _machines}
+        if action not in ["pause", "stop", "start"]:
+            return False
+
+        replication_results: Response = self.api.api_call(
+            f"projects/{self.project_id}/{action}Replication",
+            method="post",
+            data=replication_data,
+        )
+
+        if replication_results.status_code != 200:
+            print(
+                f"Failed to update the machine(s) replication status to: ({action}) for ({machine_ids}): "
+                f"{replication_results.status_code} {replication_results.content}"
+            )
+            print(replication_results.text)
+            return False
+        print("Project was updated successfully")
+        return True
+
     def share_image(self, image_id: str, image_name: str = "CloudEndureImage") -> bool:
         """Share the generated AMIs to the provided destination account."""
         print("Loading EC2 client for region: ", AWS_REGION)

@@ -7,6 +7,7 @@ import datetime
 import json
 import os
 from typing import Any, Dict, List
+import base64
 
 import boto3
 import fire
@@ -149,7 +150,35 @@ class CloudEndure:
                 return cloud.get("id", "")
         return ""
 
-    def create_repl_config(self, region: str = ""):
+    def create_cloud_credentials(self, access_key: str = "", secret_key: str = "") -> str:
+        """Create a new CloudEndure project.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to be created.
+
+        Returns:
+            str: The newly created CloudEndure project ID.
+
+        """
+        _encoded_private_key = base64.b64encode(secret_key.encode())
+        _project = {
+            "accountIdentifier": "",
+            "publicKey": access_key,
+            "privateKey": _encoded_private_key,
+            "cloudId": self.get_cloud(),
+        }
+
+        cloud_cred_result: Response = self.api.api_call("cloudCredentials", method="post", data=_project)
+        if cloud_cred_result.status_code != 201:
+            print(
+                f"Failed to create the new cloud credentials: ({access_key}): "
+                f"{cloud_cred_result.status_code} {cloud_cred_result.content}"
+            )
+            return ""
+        print(f"Cloud Credentials: ({access_key}) was created successfully!")
+        return json.loads(cloud_cred_result.content).get("id", "")
+
+    def create_repl_config(self, region: str = "", cloud_cred_id: str = ""):
         """Create a CloudEndure project replication configuration.
 
         Args:
@@ -180,8 +209,8 @@ class CloudEndure:
             # "volumeEncryptionKey": ""
         }
 
-        credentials_response: Response = self.api.api_call.get(
-            f"cloudCredentials/{cred_id}/regions"
+        credentials_response: Response = self.api.api_call(
+            f"cloudCredentials/{cloud_cred_id}/regions"
         )
         for _region in json.loads(credentials_response.content).get("items", []):
             if _region["name"] == regions.get(region, "N/A"):
@@ -189,7 +218,7 @@ class CloudEndure:
 
         print(payload)
         repl_result: Response = self.api.api_call(
-            f"projects/{project_id}/replicationConfigurations",
+            f"projects/{self.project_id}/replicationConfigurations",
             method="post",
             data=payload,
         )
@@ -197,11 +226,9 @@ class CloudEndure:
             print(
                 f"Failed to create replication configuration {repl_result.status_code} {repl_result.content}"
             )
-            print(repl_result.text)
-            return None
-        else:
-            print("Replication configuration was created successfully")
-            return json.loads(repl_result.content)["id"]
+            return ""
+        print("Replication configuration was created successfully")
+        return json.loads(repl_result.content).get("id", "")
 
     def get_repl_configs(self) -> List[Any]:
         """Get a CloudEndure project's replication configurations.
@@ -258,8 +285,6 @@ class CloudEndure:
                 print(license_id)
                 project["licensesIDs"].append(license_id)
 
-        print("CREATE PROJECT: ", project)
-
         projects_result: Response = self.api.api_call(
             "projects", method="post", data=project
         )
@@ -268,7 +293,6 @@ class CloudEndure:
                 f"Failed to create the new project ({self.project_name}): "
                 f"{projects_result.status_code} {projects_result.content}"
             )
-            print(projects_result.text)
             return ""
         print(f"Project: ({self.project_name}) was created successfully!")
         return json.loads(projects_result.content).get("id", "")

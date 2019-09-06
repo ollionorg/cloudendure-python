@@ -9,6 +9,8 @@ generate:
     - cloudendure.cloudendure++
   - code/cloudendure/config.md:
     - cloudendure.config++
+  - code/cloudendure/constants.md:
+    - cloudendure.constants++
   - code/cloudendure/events.md:
     - cloudendure.events++
   - code/cloudendure/exceptions.md:
@@ -36,6 +38,7 @@ pages:
       - API: code/cloudendure/api.md
       - Main: code/cloudendure/cloudendure.md
       - Config: code/cloudendure/config.md
+      - Constants: code/cloudendure/constants.md
       - Events: code/cloudendure/events.md
       - Exceptions: code/cloudendure/exceptions.md
       - Models: code/cloudendure/models.md

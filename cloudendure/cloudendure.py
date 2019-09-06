@@ -3,6 +3,7 @@
 """Define the CloudEndure main entry logic."""
 from __future__ import annotations
 
+import base64
 import datetime
 import json
 import os
@@ -16,6 +17,7 @@ from requests.models import Response
 
 from .api import CloudEndureAPI
 from .config import CloudEndureConfig
+from .constants import get_aws_regions
 from .events import Event, EventHandler
 from .exceptions import CloudEndureHTTPException, CloudEndureMisconfigured
 from .templates import TerraformTemplate
@@ -79,6 +81,15 @@ class CloudEndure:
                 "Failed to authenticate with CloudEndure! Please check your credentials and try again!"
             )
 
+    def _get_role_credentials(self, name: str, role: str) -> Dict[str, Any]:
+        _sts_client: boto_client = boto3.client("sts")
+
+        print(f"Assuming role: {role}")
+        assumed_role: Dict[str, Any] = _sts_client.assume_role(
+            RoleArn=self.destination_role, RoleSessionName=name
+        )
+        return assumed_role.get("Credentials", {})
+
     def get_project_id(self, project_name: str = "") -> str:
         """Get the associated CloudEndure project ID by project_name.
 
@@ -128,15 +139,194 @@ class CloudEndure:
             return ""
         return project_id
 
-    def _get_role_credentials(self, name: str, role: str) -> Dict[str, Any]:
-        _sts_client: boto_client = boto3.client("sts")
+    def get_cloud(self, cloud_type: str = "") -> str:
+        """Get the ID for the specified cloud type."""
+        if not cloud_type:
+            cloud_type = self.config.active_config.get("cloud_type", "AWS")
 
-        print(f"Assuming role: {role}")
-        assumed_role: Dict[str, Any] = _sts_client.assume_role(
-            RoleArn=self.destination_role, RoleSessionName=name
+        clouds_result: Response = self.api.api_call("clouds")
+        for cloud in json.loads(clouds_result.content)["items"]:
+            if cloud.get("name", "") == cloud_type:
+                return cloud.get("id", "")
+        return ""
+
+    def create_cloud_credentials(
+        self, access_key: str = "", secret_key: str = ""
+    ) -> str:
+        """Create a new CloudEndure project.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to be created.
+
+        Returns:
+            str: The newly created CloudEndure project ID.
+
+        """
+        _encoded_private_key = base64.b64encode(secret_key.encode())
+        _project = {
+            "accountIdentifier": "",
+            "publicKey": access_key,
+            "privateKey": _encoded_private_key,
+            "cloudId": self.get_cloud(),
+        }
+
+        cloud_cred_result: Response = self.api.api_call(
+            "cloudCredentials", method="post", data=_project
+        )
+        if cloud_cred_result.status_code != 201:
+            print(
+                f"Failed to create the new cloud credentials: ({access_key}): "
+                f"{cloud_cred_result.status_code} {cloud_cred_result.content}"
+            )
+            return ""
+        print(f"Cloud Credentials: ({access_key}) was created successfully!")
+        return json.loads(cloud_cred_result.content).get("id", "")
+
+    def create_repl_config(self, region: str = "", cloud_cred_id: str = ""):
+        """Create a CloudEndure project replication configuration.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to get replication configurations for.
+
+        Returns:
+            list of dict: The CloudEndure replication configuration dictionary mapping.
+
+        """
+        regions = get_aws_regions()
+        payload = {
+            # "archivingEnabled": False,
+            "bandwidthThrottling": 0,
+            # "cloudCredentials": "",
+            # "id": "",
+            # "objectStorageLocation": "",
+            # "proxyUrl": "",
+            # "region": "",
+            "replicationServerType": "Default",
+            "replicationTags": [],
+            # "replicatorSecurityGroupIDs": [],
+            # "subnetHostProject": "",
+            # "subnetId": "",
+            "useDedicatedServer": False,
+            "useLowCostDisks": False,
+            "usePrivateIp": True,
+            "volumeEncryptionAllowed": False,
+            # "volumeEncryptionKey": ""
+        }
+
+        credentials_response: Response = self.api.api_call(
+            f"cloudCredentials/{cloud_cred_id}/regions"
+        )
+        for _region in json.loads(credentials_response.content).get("items", []):
+            if _region["name"] == regions.get(region, "N/A"):
+                payload["region"] = _region["id"]
+
+        print(payload)
+        repl_result: Response = self.api.api_call(
+            f"projects/{self.project_id}/replicationConfigurations",
+            method="post",
+            data=payload,
+        )
+        if repl_result.status_code != 201:
+            print(
+                f"Failed to create replication configuration {repl_result.status_code} {repl_result.content}"
+            )
+            return ""
+        print("Replication configuration was created successfully")
+        return json.loads(repl_result.content).get("id", "")
+
+    def get_repl_configs(self) -> List[Any]:
+        """Get a CloudEndure project's replication configurations.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to get replication configurations for.
+
+        Returns:
+            list of dict: The CloudEndure replication configuration dictionary mapping.
+
+        """
+        print(
+            f"Fetching Replication Configuration - Project Name: ({self.project_name})"
+        )
+        repl_config_results: Response = self.api.api_call(
+            f"projects/{self.project_id}/replicationConfigurations"
         )
 
-        return assumed_role.get("Credentials")
+        if repl_config_results.status_code != 200:
+            print(
+                f"Failed to fetch replication configurations for ({self.project_name}): "
+                f"{repl_config_results.status_code} {repl_config_results.content}"
+            )
+            print(repl_config_results.text)
+            return []
+
+        repl_configs = json.loads(repl_config_results.content).get("items", [])
+        print(
+            f"Successfully fetched replication configurations for project: {self.project_name}"
+        )
+        return repl_configs
+
+    def create_project(self, project_name: str) -> str:
+        """Create a new CloudEndure project.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to be created.
+
+        Returns:
+            str: The newly created CloudEndure project ID.
+
+        """
+        project = {
+            "licensesIDs": [],
+            "name": project_name,
+            "targetCloudId": self.get_cloud(),
+            "type": "MIGRATION",
+        }
+        licenses_result: Response = self.api.api_call("licenses")
+
+        for license in json.loads(licenses_result.content).get("items", []):
+            license_id = license.get("id", "")
+            if license_id:
+                print(license_id)
+                project["licensesIDs"].append(license_id)
+
+        projects_result: Response = self.api.api_call(
+            "projects", method="post", data=project
+        )
+        if projects_result.status_code != 201:
+            print(
+                f"Failed to create the new project ({self.project_name}): "
+                f"{projects_result.status_code} {projects_result.content}"
+            )
+            return ""
+        print(f"Project: ({self.project_name}) was created successfully!")
+        return json.loads(projects_result.content).get("id", "")
+
+    def update_project(self, project_data: Dict[str, Any] = None) -> bool:
+        """Update a CloudEndure project.
+
+        Args:
+            project_name (str): The name of the CloudEndure project to be updated.
+            project_data (dict): The project payload to be used to update the project.
+                Defaults to the current project state.
+
+        Returns:
+            bool: Whether or not the project has been updated.
+
+        """
+        print(f"Updating Project - Name: ({self.project_name})")
+        projects_result: Response = self.api.api_call(
+            f"projects/{self.project_id}", method="patch", data=project_data
+        )
+
+        if projects_result.status_code != 200:
+            print(
+                f"Failed to update the project ({self.project_name}): "
+                f"{projects_result.status_code} {projects_result.content}"
+            )
+            print(projects_result.text)
+            return False
+        print("Project was updated successfully")
+        return True
 
     def check(self) -> bool:
         """Check the status of machines in the provided project."""

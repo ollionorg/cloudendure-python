@@ -107,7 +107,7 @@ class CloudEndure:
         if not self.is_authenticated:
             return ""
 
-        print(f"project name self: {self.project_name} - project name: {project_name}")
+        print(f"Active Project Name: {project_name}")
         if self.project_name and self.project_name == project_name:
             return self.project_id
 

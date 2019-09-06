@@ -3,11 +3,11 @@
 """Define the CloudEndure main entry logic."""
 from __future__ import annotations
 
+import base64
 import datetime
 import json
 import os
 from typing import Any, Dict, List
-import base64
 
 import boto3
 import fire
@@ -150,7 +150,9 @@ class CloudEndure:
                 return cloud.get("id", "")
         return ""
 
-    def create_cloud_credentials(self, access_key: str = "", secret_key: str = "") -> str:
+    def create_cloud_credentials(
+        self, access_key: str = "", secret_key: str = ""
+    ) -> str:
         """Create a new CloudEndure project.
 
         Args:
@@ -168,7 +170,9 @@ class CloudEndure:
             "cloudId": self.get_cloud(),
         }
 
-        cloud_cred_result: Response = self.api.api_call("cloudCredentials", method="post", data=_project)
+        cloud_cred_result: Response = self.api.api_call(
+            "cloudCredentials", method="post", data=_project
+        )
         if cloud_cred_result.status_code != 201:
             print(
                 f"Failed to create the new cloud credentials: ({access_key}): "

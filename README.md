@@ -33,7 +33,11 @@ import cloudendure
 
 ## Getting Started
 
-![CloudEndure Flow](images/migration_pipeline.svg)
+CloudEndure Pipeline Flow
+![CloudEndure Pipeline Flow](images/ce_migration_pipeline.png)
+
+CloudEndure Data Flow
+![CloudEndure Data Flow](images/ce_dataflow.png)
 
 ### Logging in via CLI using environment variables
 

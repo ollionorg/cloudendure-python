@@ -44,6 +44,7 @@ certifi = "*"
 python-dateutil = "*"
 setuptools = "*"
 urllib3 = "*"
+cookiecutter = "*"
 
 [requires]
 python_version = "3.7"

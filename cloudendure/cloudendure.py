@@ -1015,7 +1015,8 @@ class CloudEndure:
                         )
                         if delete_response.status_code != 202:
                             print(
-                                f"Response code: {delete_response.status_code}\n{ref_name} replica {replica} did not terminate.\n{delete_response.text}"
+                                f"Response code: {delete_response.status_code}\n"
+                                f"{ref_name} replica {replica} did not terminate.\n{delete_response.text}"
                             )
                             success = False
                         else:

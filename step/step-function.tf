@@ -1,6 +1,6 @@
 resource "aws_sfn_state_machine" "rehost_migration" {
-  name     = "tf-rehost-migration"
-  role_arn = "${aws_iam_role.iam_for_stepfunction.arn}"
+  name       = "ce-rehost-migration"  
+  role_arn   = "${aws_iam_role.iam_for_stepfunction.arn}"
 
   definition = <<EOF
 {

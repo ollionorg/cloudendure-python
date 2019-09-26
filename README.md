@@ -2,7 +2,7 @@
 
 Python wrapper and CLI for [CloudEndure](https://www.cloudendure.com/)
 
-[![PyPI](https://img.shields.io/pypi/v/cloudendure) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cloudendure)](https://pypi.org/project/cloudendure/) [![PyPi Publish](https://github.com/2ndWatch/cloudendure-python/workflows/PyPi%20Publish/badge.svg)](https://2ndwatch.github.io/cloudendure-python/) [![Documenation](https://github.com/2ndWatch/cloudendure-python/workflows/Github%20Pages/badge.svg)](https://2ndwatch.github.io/cloudendure-python/) [![Lint Python](https://github.com/2ndWatch/cloudendure-python/workflows/Lint%20Python/badge.svg)](https://github.com/2ndWatch/cloudendure-python/actions)
+[![PyPI](https://img.shields.io/pypi/v/cloudendure) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cloudendure)](https://pypi.org/project/cloudendure/) [![PyPi Publish](https://github.com/2ndWatch/cloudendure-python/workflows/PyPi%20Publish/badge.svg)](https://2ndwatch.github.io/cloudendure-python/) [![Documenation](https://github.com/2ndWatch/cloudendure-python/workflows/Github%20Pages/badge.svg)](https://2ndwatch.github.io/cloudendure-python/)
 
 ## Requirements
 

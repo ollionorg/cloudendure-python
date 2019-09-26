@@ -1,8 +1,27 @@
 # Change Log
 
-## [v0.1.0](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.0) (2019-09-06)
+## [Unreleased](https://github.com/2ndWatch/cloudendure-python/tree/HEAD)
 
-[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.0...HEAD)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.1...HEAD)
+
+**Implemented enhancements:**
+
+- 0.1.1 [\#80](https://github.com/2ndWatch/cloudendure-python/pull/80) ([mbeacom](https://github.com/mbeacom))
+
+## [v0.1.1](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.1) (2019-09-26)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.0...v0.1.1)
+
+**Implemented enhancements:**
+
+- Add cookiecutter base handler [\#74](https://github.com/2ndWatch/cloudendure-python/pull/74) ([mbeacom](https://github.com/mbeacom))
+
+**Merged pull requests:**
+
+- included cloudwatch event. changed tf to ce for lambdas. assumed role as a variable. [\#79](https://github.com/2ndWatch/cloudendure-python/pull/79) ([twarnock](https://github.com/twarnock))
+- moved to png.  added dataflow [\#78](https://github.com/2ndWatch/cloudendure-python/pull/78) ([twarnock](https://github.com/twarnock))
+
+## [v0.1.0](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.0) (2019-09-06)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.0.10...v0.1.0)
 
 **Implemented enhancements:**
 

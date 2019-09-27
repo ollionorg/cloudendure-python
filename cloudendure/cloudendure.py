@@ -477,13 +477,15 @@ class CloudEndure:
                 _blueprint_id: str = blueprint.get("id", "")
                 _endpoint: str = f"projects/{self.project_id}/blueprints/{_blueprint_id}"
                 # Handle disk blueprints since we don't want provisioned IOPS $$$$
+                new_disks = []
                 for disk in blueprint["disks"]:
-                    blueprint["disks"] = [
+                    new_disks.append(
                         {
                             "type": self.config.active_config.get("disk_type", "SSD"),
                             "name": disk.get("name", ""),
                         }
-                    ]
+                    )
+                blueprint["disks"] = new_disks
 
                 # Update machine tags
                 blueprint["tags"] = [
@@ -885,7 +887,7 @@ class CloudEndure:
             aws_session_token=credentials["SessionToken"],
         )
 
-        print(f"Copying image {image_id}")
+        print(f"Copying image {image_id} with KMS: {self.destination_kms}")
         new_image: Dict[str, Any] = _ec2_client.copy_image(
             SourceImageId=image_id,
             SourceRegion=AWS_REGION,
@@ -1064,7 +1066,9 @@ class CloudEndure:
                 ) or _machine == source_props.get("machineCloudId", "NONE"):
                     replica: str = machine.get("replica")
                     if replica:
-                        f"{ref_name} has a launched machine: {replica}.  Terminating."
+                        print(
+                            f"{ref_name} has a launched machine: {replica}.  Terminating."
+                        )
                         data_dict: Dict[str, Any] = {}
                         data_dict["replicaIDs"] = [replica]
 

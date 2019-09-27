@@ -7,10 +7,12 @@ import json
 from typing import Any, Dict
 
 import boto3
+import os
 
 print("Loading function find_instance")
 
 ec2_resource = boto3.resource("ec2")
+sqs = boto3.client('sqs')
 
 # {
 #   "version": "0",
@@ -32,7 +34,9 @@ ec2_resource = boto3.resource("ec2")
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     """Handle signaling and entry into the AWS Lambda."""
-    print("Received event: " + json.dumps(event, indent=2))
+    print(f"Received event: " + json.dumps(event, indent=2))
+    print("Event queue: " + os.environ.get("event_queue"))
+    queue_url = os.environ.get("event_queue")
 
     detail: Dict[str, Any] = event.get("detail", {})
     event_dict: Dict[str, Any] = {}
@@ -66,4 +70,5 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         print(e)
         event_dict["instance_id"] = "not-found"
 
+    print(sqs.send_message(QueueUrl=queue_url, MessageBody="find_instance"))
     return event_dict

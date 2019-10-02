@@ -4,15 +4,16 @@
 from __future__ import annotations
 
 import json
+import os
 from typing import Any, Dict
 
 import boto3
-import os
+from servicenowstate import ServiceNowStateHandler
 
 print("Loading function find_instance")
 
 ec2_resource = boto3.resource("ec2")
-sqs = boto3.client('sqs')
+sqs = boto3.client("sqs")
 
 # {
 #   "version": "0",
@@ -34,9 +35,7 @@ sqs = boto3.client('sqs')
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     """Handle signaling and entry into the AWS Lambda."""
-    print(f"Received event: " + json.dumps(event, indent=2))
-    print("Event queue: " + os.environ.get("event_queue"))
-    queue_url = os.environ.get("event_queue")
+    print("Received event: " + json.dumps(event, indent=2))
 
     detail: Dict[str, Any] = event.get("detail", {})
     event_dict: Dict[str, Any] = {}
@@ -66,9 +65,14 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
             if tag["Key"] == "DestinationRole":
                 event_dict["role"] = tag["Value"]
 
+            if tag["Key"] == "Name":
+                event_dict["name"] = tag["Value"]
+
     except Exception as e:
         print(e)
         event_dict["instance_id"] = "not-found"
 
-    print(sqs.send_message(QueueUrl=queue_url, MessageBody="find_instance"))
+    ServiceNowStateHandler().update_state(
+        state="INSTANCE_LAUNCHED", machine_name=event_dict.get("name")
+    )
     return event_dict

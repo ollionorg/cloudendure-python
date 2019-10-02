@@ -1,9 +1,10 @@
-# step function related iam
+# sfn related iam role
 resource "aws_iam_role" "iam_for_stepfunction" {
   name               = "ce-iam-for-stepfunction"
   assume_role_policy = "${data.aws_iam_policy_document.stepfunction_assume_role_policy_document.json}"
 }
 
+# assume_role_policy for sfn role
 data "aws_iam_policy_document" "stepfunction_assume_role_policy_document" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -17,6 +18,12 @@ data "aws_iam_policy_document" "stepfunction_assume_role_policy_document" {
   }
 }
 
+# sfn policy needed to invoke lambda
+resource "aws_iam_policy" "lambda_invoke" {
+  name   = "ce-lambda-invoke"
+  policy = "${data.aws_iam_policy_document.lambda_invoke.json}"
+}
+
 data "aws_iam_policy_document" "lambda_invoke" {
   statement {
     actions = [
@@ -26,30 +33,20 @@ data "aws_iam_policy_document" "lambda_invoke" {
       "*",
     ]
   }
-  # role(s) that the lambdas are allowed to assume roles on for copy, split, and tf generation
-  statement {
-    effect = "Allow"
-    actions = [ "sts:AssumeRole" ]
-    resources = [for role in var.assume_role_list: role]
-  }
 }
 
-resource "aws_iam_policy" "lambda_invoke" {
-  name   = "ce-lambda-invoke"
-  policy = "${data.aws_iam_policy_document.lambda_invoke.json}"
-}
-
-resource "aws_iam_role_policy_attachment" "lambda-invoke" {
+resource "aws_iam_role_policy_attachment" "lambda_invoke" {
   role       = "${aws_iam_role.iam_for_stepfunction.name}"
   policy_arn = "${aws_iam_policy.lambda_invoke.arn}"
 }
 
-# lambda related
+# lambda related iam role
 resource "aws_iam_role" "iam_for_lambda" {
   name               = "ce-iam-for-lambda"
   assume_role_policy = "${data.aws_iam_policy_document.iam_for_lambda_assume_role.json}"
 }
 
+# assume_role_policy for lambda role
 data "aws_iam_policy_document" "iam_for_lambda_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -75,12 +72,13 @@ resource "aws_iam_role_policy_attachment" "role_policy_lambda_ec2" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
 }
 
-resource "aws_iam_policy" "role_policy_sqs" {
-  name   = "ce-lambda-sqs"
-  policy = "${data.aws_iam_policy_document.role_policy_sqs_document.json}"
+# create policy to allow SQS and AssumeRole
+resource "aws_iam_policy" "role_policy_lambda_execution" {
+  name   = "ce-lambda-execution-policy"
+  policy = "${data.aws_iam_policy_document.role_policy_lambda_execution_document.json}"
 }
 
-data "aws_iam_policy_document" "role_policy_sqs_document" {
+data "aws_iam_policy_document" "role_policy_lambda_execution_document" {
   statement {
     effect = "Allow"
     actions = [
@@ -91,11 +89,18 @@ data "aws_iam_policy_document" "role_policy_sqs_document" {
       "${aws_sqs_queue.event_queue.arn}"
     ]
   }
+
+  # role(s) that the lambdas are allowed to assume roles on for copy, split, and tf generation
+  statement {
+    effect = "Allow"
+    actions = [ "sts:AssumeRole" ]
+    resources = [for role in var.assume_role_list: role]
+  }
 }
 
-resource "aws_iam_role_policy_attachment" "role_policy_sqs_attachment" {
+resource "aws_iam_role_policy_attachment" "role_policy_lambda_execution" {
   role       = "${aws_iam_role.iam_for_lambda.name}"
-  policy_arn = "${aws_iam_policy.role_policy_sqs.arn}"
+  policy_arn = "${aws_iam_policy.role_policy_lambda_execution.arn}"
 }
 
 // CW event execution

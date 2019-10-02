@@ -29,6 +29,12 @@ resource "aws_lambda_function" "lambda_get_instance_status" {
   source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
   runtime          = "python3.7"
   depends_on       = ["data.archive_file.lambdas"]
+
+  environment {
+    variables = {
+      event_queue = "${aws_sqs_queue.event_queue.id}"
+    }
+  }
 }
 
 resource "aws_lambda_function" "lambda_create_image" {
@@ -39,6 +45,12 @@ resource "aws_lambda_function" "lambda_create_image" {
   source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
   runtime          = "python3.7"
   depends_on       = ["data.archive_file.lambdas"]
+
+  environment {
+    variables = {
+      event_queue = "${aws_sqs_queue.event_queue.id}"
+    }
+  }
 }
 
 resource "aws_lambda_function" "lambda_get_image_status" {
@@ -49,6 +61,12 @@ resource "aws_lambda_function" "lambda_get_image_status" {
   source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
   runtime          = "python3.7"
   depends_on       = ["data.archive_file.lambdas"]
+
+  environment {
+    variables = {
+      event_queue = "${aws_sqs_queue.event_queue.id}"
+    }
+  }
 }
 
 resource "aws_lambda_function" "lambda_share_image" {
@@ -59,6 +77,12 @@ resource "aws_lambda_function" "lambda_share_image" {
   source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
   runtime          = "python3.7"
   depends_on       = ["data.archive_file.lambdas"]
+
+  environment {
+    variables = {
+      event_queue = "${aws_sqs_queue.event_queue.id}"
+    }
+  }
 }
 
 resource "aws_lambda_function" "lambda_copy_image" {
@@ -69,6 +93,12 @@ resource "aws_lambda_function" "lambda_copy_image" {
   source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
   runtime          = "python3.7"
   depends_on       = ["data.archive_file.lambdas"]
+
+  environment {
+    variables = {
+      event_queue = "${aws_sqs_queue.event_queue.id}"
+    }
+  }
 }
 
 resource "aws_lambda_function" "lambda_get_copy_status" {
@@ -79,6 +109,12 @@ resource "aws_lambda_function" "lambda_get_copy_status" {
   source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
   runtime          = "python3.7"
   depends_on       = ["data.archive_file.lambdas"]
+
+  environment {
+    variables = {
+      event_queue = "${aws_sqs_queue.event_queue.id}"
+    }
+  }
 }
 
 resource "aws_lambda_function" "lambda_split_image" {
@@ -89,6 +125,12 @@ resource "aws_lambda_function" "lambda_split_image" {
   source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
   runtime          = "python3.7"
   depends_on       = ["data.archive_file.lambdas"]
+
+  environment {
+    variables = {
+      event_queue = "${aws_sqs_queue.event_queue.id}"
+    }
+  }
 }
 
 resource "aws_lambda_function" "lambda_image_cleanup" {
@@ -99,6 +141,12 @@ resource "aws_lambda_function" "lambda_image_cleanup" {
   source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
   runtime          = "python3.7"
   depends_on       = ["data.archive_file.lambdas"]
+
+  environment {
+    variables = {
+      event_queue = "${aws_sqs_queue.event_queue.id}"
+    }
+  }
 }
 
 resource "aws_lambda_function" "lambda_update_servicenow" {

@@ -8,6 +8,7 @@ import json
 from typing import Any, Dict
 
 import boto3
+from servicenowstate import ServiceNowStateHandler
 
 print("Loading function create_image")
 
@@ -26,8 +27,8 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     instance_id: str = event["instance_id"]
-
     image_creation_time: str = datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    name: str = event.get("name", "")
 
     instance = ec2_resource.Instance(instance_id)
 
@@ -40,5 +41,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         ec2_image.create_tags(Tags=[{"Key": tag["Key"], "Value": tag["Value"]}])
 
     instance.create_tags(Tags=[{"Key": "CloneStatus", "Value": "IMAGE_CREATED"}])
+
+    ServiceNowStateHandler().update_state(state="IMAGE_CREATING", machine_name=name)
 
     return ec2_image.image_id

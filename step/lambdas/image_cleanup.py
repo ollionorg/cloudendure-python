@@ -8,6 +8,7 @@ import os
 from typing import Any, Dict, List
 
 import boto3
+from servicenowstate import ServiceNowStateHandler
 
 print("Loading function image_cleanup")
 
@@ -24,6 +25,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
     """Handle signaling and entry into the AWS Lambda."""
     print("Received event: " + json.dumps(event, indent=2))
 
+    instance_name: str = event.get("name", "")
     migrated_ami: str = event.get("migrated_ami_id")
     if not migrated_ami:
         return False
@@ -43,5 +45,9 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
     except Exception as e:
         print(f"Failed.  AMI may not exist.\n{str(e)}")
         return False
+
+    ServiceNowStateHandler().update_state(
+        state="IMAGE_READY", machine_name=instance_name
+    )
 
     return True

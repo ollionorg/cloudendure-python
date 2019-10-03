@@ -7,6 +7,7 @@ import json
 from typing import Any, Dict
 
 import boto3
+from servicenowstate import ServiceNowStateHandler
 
 print("Loading function get_image_status")
 
@@ -26,7 +27,14 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     print("Received event: " + json.dumps(event, indent=2))
 
     migrated_ami_id: str = event["migrated_ami_id"]
+    instance_name: str = event.get("name", "")
 
     ami_state: Dict[str, Any] = ec2_client.describe_images(ImageIds=[migrated_ami_id])
 
-    return ami_state["Images"][0]["State"]
+    state = ami_state["Images"][0]["State"]
+    if state == "available":
+        ServiceNowStateHandler().update_state(
+            state="IMAGE_CREATED", machine_name=instance_name
+        )
+
+    return state

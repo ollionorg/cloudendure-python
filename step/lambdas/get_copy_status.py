@@ -8,6 +8,7 @@ import os
 from typing import Any, Dict
 
 import boto3
+from servicenowstate import ServiceNowStateHandler
 
 print("Loading function get_copy_status")
 
@@ -27,6 +28,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     copy_ami: str = event["copy_ami"]
     region: str = event.get("region", os.environ.get("AWS_REGION"))
+    instance_name: str = event.get("name", "")
     ec2_client = boto3.client("ec2", region)
 
     try:
@@ -34,5 +36,11 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     except Exception as e:
         print(e)
         return "error"
+
+    state = ami_state["Images"][0]["State"]
+    if state == "available":
+        ServiceNowStateHandler().update_state(
+            state="IMAGE_COPIED", machine_name=instance_name
+        )
 
     return ami_state["Images"][0]["State"]

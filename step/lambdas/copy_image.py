@@ -8,6 +8,7 @@ import os
 from typing import Any, Dict
 
 import boto3
+from servicenowstate import ServiceNowState, ServiceNowStateHandler
 
 print("Loading function copy_image")
 
@@ -27,6 +28,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     kms_id: str = event["kms_id"]
     region: str = event.get("region", os.environ.get("AWS_REGION"))
     role: str = event.get("role")
+    instance_name: str = event.get("name", "")
 
     sts_client = boto3.client("sts")
 
@@ -57,4 +59,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         print(e)
         return ""
 
+    ServiceNowStateHandler().update_state(
+        state="IMAGE_COPYING", machine_name=instance_name
+    )
     return new_image.get("ImageId", "")

@@ -7,6 +7,7 @@ import json
 from typing import Any, Dict
 
 import boto3
+from servicenowstate import ServiceNowStateHandler
 
 print("Loading function share_image")
 
@@ -24,6 +25,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
     print("Received event: " + json.dumps(event, indent=2))
 
     migrated_ami_id: str = event["migrated_ami_id"]
+    instance_name: str = event.get("name", "")
     account: str = event["account"]
 
     # Access the image that needs to be copied
@@ -56,4 +58,8 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
             except Exception as e:
                 print(e)
                 return False
+
+    ServiceNowStateHandler().update_state(
+        state="IMAGE_SHARED", machine_name=instance_name
+    )
     return True

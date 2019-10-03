@@ -8,6 +8,7 @@ import os
 from typing import Any, Dict, List
 
 import boto3
+from servicenowstate import ServiceNowStateHandler
 
 print("Loading function split_image")
 
@@ -26,6 +27,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     copy_ami: str = event["copy_ami"]
     region: str = event.get("region", os.environ.get("AWS_REGION"))
     role: str = event.get("role")
+    instance_name: str = event.get("name", "")
 
     sts_client = boto3.client("sts")
 
@@ -87,5 +89,9 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     except Exception as e:
         print(e)
         return ""
+
+    ServiceNowStateHandler().update_state(
+        state="IMAGE_SPLIT", machine_name=instance_name
+    )
 
     return root_ami

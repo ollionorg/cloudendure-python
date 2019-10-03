@@ -114,3 +114,6 @@ venv.bak/
 .terraform/
 terraform.tfstate*
 *.tfvars
+
+# vscode
+.vscode/

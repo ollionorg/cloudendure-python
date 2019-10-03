@@ -8,7 +8,7 @@ import json
 from typing import Any, Dict
 
 import boto3
-from servicenowstate import ServiceNowStateHandler
+from migrationstate import MigrationStateHandler
 
 print("Loading function create_image")
 
@@ -42,6 +42,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     instance.create_tags(Tags=[{"Key": "CloneStatus", "Value": "IMAGE_CREATED"}])
 
-    ServiceNowStateHandler().update_state(state="IMAGE_CREATING", machine_name=name)
+    MigrationStateHandler().update_state(state="IMAGE_CREATING", machine_name=name)
 
     return ec2_image.image_id

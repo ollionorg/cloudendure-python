@@ -8,7 +8,7 @@ import os
 from typing import Any, Dict, List
 
 import boto3
-from servicenowstate import ServiceNowStateHandler
+from migrationstate import MigrationStateHandler
 
 print("Loading function image_cleanup")
 
@@ -46,7 +46,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
         print(f"Failed.  AMI may not exist.\n{str(e)}")
         return False
 
-    ServiceNowStateHandler().update_state(
+    MigrationStateHandler().update_state(
         state="IMAGE_READY", machine_name=instance_name
     )
 

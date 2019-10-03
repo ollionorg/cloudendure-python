@@ -8,7 +8,7 @@ import os
 from typing import Any, Dict
 
 import boto3
-from servicenowstate import ServiceNowStateHandler
+from migrationstate import MigrationStateHandler
 
 print("Loading function find_instance")
 
@@ -72,7 +72,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         print(e)
         event_dict["instance_id"] = "not-found"
 
-    ServiceNowStateHandler().update_state(
+    MigrationStateHandler().update_state(
         state="INSTANCE_LAUNCHED", machine_name=event_dict.get("name")
     )
     return event_dict

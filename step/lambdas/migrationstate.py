@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Define ServiceNow events."""
+"""Define Migration events."""
 from __future__ import annotations
 
 import json
@@ -10,7 +10,7 @@ from typing import Any, Dict, List, Tuple
 import boto3
 
 
-class ServiceNowStateHandler:
+class MigrationStateHandler:
     sqs = None
 
     def update_state(self, state: str, machine_name: str, **kwargs) -> bool:
@@ -19,7 +19,7 @@ class ServiceNowStateHandler:
 
         print("Event queue: " + os.environ.get("event_queue"))
         queue_url = os.environ.get("event_queue")
-        state_obj = ServiceNowState(state, machine_name, **kwargs)
+        state_obj = MigrationState(state, machine_name, **kwargs)
         print(
             sqs.send_message(
                 QueueUrl=queue_url, MessageBody=json.dumps(state_obj.state_dict)
@@ -27,14 +27,14 @@ class ServiceNowStateHandler:
         )
 
 
-class ServiceNowException(Exception):
-    """Define the structure of a ServiceNow exception."""
+class MigrationException(Exception):
+    """Define the structure of a Migration exception."""
 
     pass
 
 
-class ServiceNowState:
-    """Define the structure of a ServiceNow state."""
+class MigrationState:
+    """Define the structure of a Migration state."""
 
     state_dict = {}
 
@@ -66,7 +66,7 @@ class ServiceNowState:
     def __init__(self, state: str, machine_name: str = "NA", **kwargs) -> None:
         """Initialize the State."""
         if state not in self.STATES:
-            raise ServiceNowException(f"State: {state} is unrecognized!")
+            raise MigrationException(f"State: {state} is unrecognized!")
 
         self.machine_name: str = machine_name.upper()
         self.state: str = state

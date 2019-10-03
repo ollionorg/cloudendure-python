@@ -7,7 +7,7 @@ import json
 from typing import Any, Dict
 
 import boto3
-from servicenowstate import ServiceNowStateHandler
+from migrationstate import MigrationStateHandler
 
 print("Loading function get_instance_status")
 
@@ -43,7 +43,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
                 state = "system_failed"
 
     if state == "running":
-        ServiceNowStateHandler().update_state(
+        MigrationStateHandler().update_state(
             state="INSTANCE_READY", machine_name=instance_name
         )
 

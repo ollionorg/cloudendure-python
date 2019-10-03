@@ -8,7 +8,7 @@ import os
 from typing import Any, Dict
 
 import boto3
-from servicenowstate import ServiceNowStateHandler
+from migrationstate import MigrationStateHandler
 
 print("Loading function get_copy_status")
 
@@ -39,7 +39,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     state = ami_state["Images"][0]["State"]
     if state == "available":
-        ServiceNowStateHandler().update_state(
+        MigrationStateHandler().update_state(
             state="IMAGE_COPIED", machine_name=instance_name
         )
 

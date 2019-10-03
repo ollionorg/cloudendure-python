@@ -8,7 +8,7 @@ import os
 from typing import Any, Dict
 
 import boto3
-from servicenowstate import ServiceNowState, ServiceNowStateHandler
+from migrationstate import MigrationState, MigrationStateHandler
 
 print("Loading function copy_image")
 
@@ -59,7 +59,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         print(e)
         return ""
 
-    ServiceNowStateHandler().update_state(
+    MigrationStateHandler().update_state(
         state="IMAGE_COPYING", machine_name=instance_name
     )
     return new_image.get("ImageId", "")

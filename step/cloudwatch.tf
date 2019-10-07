@@ -31,6 +31,6 @@ resource "aws_cloudwatch_event_target" "rehost_migration_target" {
 
 resource "aws_lambda_event_source_mapping" "event_source_mapping" {
   event_source_arn = "${aws_sqs_queue.event_queue.arn}"
-  function_name    = "${aws_lambda_function.lambda_update_servicenow.arn}"
+  function_name    = "${aws_lambda_function.lambda_update_status.arn}"
   batch_size       = 1
 }

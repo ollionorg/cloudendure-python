@@ -149,11 +149,11 @@ resource "aws_lambda_function" "lambda_image_cleanup" {
   }
 }
 
-resource "aws_lambda_function" "lambda_update_servicenow" {
+resource "aws_lambda_function" "lambda_update_status" {
   filename         = "lambdas.zip"
-  function_name    = "ce-update-servicenow"
+  function_name    = "ce-update-status"
   role             = "${aws_iam_role.iam_for_lambda.arn}"
-  handler          = "update_servicenow.lambda_handler"
+  handler          = "update_status.lambda_handler"
   source_code_hash = "${data.archive_file.lambdas.output_base64sha256}"
   runtime          = "python3.7"
   depends_on       = ["data.archive_file.lambdas"]

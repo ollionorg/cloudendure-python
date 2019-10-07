@@ -8,15 +8,15 @@ import os
 
 import boto3
 
-# from typing import Any, Dict, List
+from typing import Any, Dict
 
 
-print("Loading function update_servicenow")
+print("Loading function update_status")
 
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
     """Handle signaling and entry into the AWS Lambda."""
-    print("Received event: " + json.dumps(event, indent=2))
+    print("Received event: ", json.dumps(event, indent=2))
 
     for record in event["Records"]:
         payload = record["body"]

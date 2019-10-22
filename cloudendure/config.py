@@ -49,6 +49,8 @@ class CloudEndureConfig:
         )
         if _config_path.startswith("~"):
             self.config_path = os.path.expanduser(_config_path)
+        else:
+            self.config_path = _config_path
 
         # Handle CloudEndure CLI input credentials.
         self.cli = {"username": username, "password": password, "user_api_token": token}

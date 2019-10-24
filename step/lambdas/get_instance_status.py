@@ -29,18 +29,24 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     instance_name: str = event.get("name", "")
     state: str = "unknown"
 
-    resp = ec2_client.describe_instance_status(InstanceIds=[instance_id])
-    for status in resp.get("InstanceStatuses", []):
-        # check if running
-        state = status["InstanceState"].get("Name")
-        if state == "running":
-            # check instance
-            if status["InstanceStatus"].get("Status") != "ok":
-                state = "instance_failed"
+    resp = ec2_client.describe_instances(InstanceIds=[instance_id])
+    reservations = resp.get("Reservations", [])
+    for reservation in reservations:
+        for instance in reservation.get("Instances", []):
+            state = instance.get("State", {}).get("Name")
 
-            # check system
-            if status["SystemStatus"].get("Status") != "ok":
-                state = "system_failed"
+            # check if running
+            if state == "running":
+                resp = ec2_client.describe_instance_status(InstanceIds=[instance_id])
+                status = resp.get("InstanceStatuses", [])[0]
+
+                # check instance
+                if status["InstanceStatus"].get("Status", "") != "ok":
+                    state = "instance_failed"
+
+                # check system
+                if status["SystemStatus"].get("Status", "") != "ok":
+                    state = "system_failed"
 
     if state == "running":
         MigrationStateHandler().update_state(

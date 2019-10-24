@@ -25,7 +25,7 @@ AUTHOR: str = "Mark Beacom, Tom Warnock"
 REQUIRES_PYTHON: str = ">=3.7.0"
 VERSION: str = "0.1.5"
 
-REQUIRED: List[str] = ["requests", "boto3", "fire", ]
+REQUIRED: List[str] = ["requests", "boto3", "fire"]
 EXTRAS: Dict[str, List[str]] = {
     "test": [
         "coverage",

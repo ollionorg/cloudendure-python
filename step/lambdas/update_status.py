@@ -5,11 +5,9 @@ from __future__ import annotations
 
 import json
 import os
-
-import boto3
-
 from typing import Any, Dict
 
+import boto3
 
 print("Loading function update_status")
 

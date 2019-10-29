@@ -77,10 +77,6 @@ resource "aws_instance" "ec2_instance_{name}" {{
     volume_size = "100"
   }}
 
-  tags = {{
-    Name        = "{uppercase_name}"
-  }}
-
   lifecycle {{
     ignore_changes = ["ami"]
   }}

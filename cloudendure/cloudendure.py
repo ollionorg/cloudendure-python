@@ -70,6 +70,10 @@ class CloudEndure:
         self.destination_role: str = self.config.active_config.get(
             "destination_role", ""
         )
+        self.subnet_id: str = self.config.active_config.get("subnet_id", "")
+        self.security_group_id: str = self.config.active_config.get(
+            "security_group_id", ""
+        )
         self.target_machines: List[str] = self.config.active_config.get(
             "machines", ""
         ).split(",")
@@ -487,6 +491,10 @@ class CloudEndure:
                     )
                 blueprint["disks"] = new_disks
 
+                # Update launch subnets and SG IDs
+                blueprint["subnetIDs"] = [self.subnet_id]
+                blueprint["securityGroupIDs"] = [self.security_group_id]
+
                 # Update machine tags
                 blueprint["tags"] = [
                     {
@@ -517,6 +525,7 @@ class CloudEndure:
                         "Blueprint update failure encountered for machine:",
                         f"({_machine_name}) - {result.status_code} fix blueprint settings!",
                     )
+                    print(blueprint)
                 else:
                     print("Blueprint for machine: " + _machine_name + " updated!")
         except Exception as e:

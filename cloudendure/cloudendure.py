@@ -491,9 +491,12 @@ class CloudEndure:
                     )
                 blueprint["disks"] = new_disks
 
-                # Update launch subnets and SG IDs
-                blueprint["subnetIDs"] = [self.subnet_id]
-                blueprint["securityGroupIDs"] = [self.security_group_id]
+                if self.subnet_id:
+                    # Update launch subnets and SG IDs
+                    blueprint["subnetIDs"] = [self.subnet_id]
+                    blueprint["privateIPAction"] = "CREATE_NEW"
+                if self.security_group_id:
+                    blueprint["securityGroupIDs"] = [self.security_group_id]
 
                 # Update machine tags
                 blueprint["tags"] = [

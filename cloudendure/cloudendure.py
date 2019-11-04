@@ -71,6 +71,11 @@ class CloudEndure:
             "destination_role", ""
         )
         self.subnet_id: str = self.config.active_config.get("subnet_id", "")
+        self.private_ip_action: str = self.config.active_config.get(
+            "private_ip_action", ""
+        )
+        if self.subnet_id and not self.private_ip_action:
+            self.private_ip_action = "CREATE_NEW"
         self.security_group_id: str = self.config.active_config.get(
             "security_group_id", ""
         )
@@ -494,6 +499,7 @@ class CloudEndure:
                 if self.subnet_id:
                     # Update launch subnets and SG IDs
                     blueprint["subnetIDs"] = [self.subnet_id]
+                if self.private_ip_action:
                     blueprint["privateIPAction"] = "CREATE_NEW"
                 if self.security_group_id:
                     blueprint["securityGroupIDs"] = [self.security_group_id]

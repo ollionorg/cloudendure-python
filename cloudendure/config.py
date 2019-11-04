@@ -37,6 +37,7 @@ class CloudEndureConfig:
         "destination_role": "",
         "subnet_id": "",
         "security_group_id": "",
+        "private_ip_action": "",
         "disk_type": "SSD",
         "public_ip": "DONT_ALLOCATE",
     }

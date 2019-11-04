@@ -500,7 +500,7 @@ class CloudEndure:
                     # Update launch subnets and SG IDs
                     blueprint["subnetIDs"] = [self.subnet_id]
                 if self.private_ip_action:
-                    blueprint["privateIPAction"] = "CREATE_NEW"
+                    blueprint["privateIPAction"] = self.private_ip_action
                 if self.security_group_id:
                     blueprint["securityGroupIDs"] = [self.security_group_id]
 

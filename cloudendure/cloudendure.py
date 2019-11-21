@@ -688,6 +688,7 @@ class CloudEndure:
         else:
             print("ERROR: some machines in the targeted pool are not ready")
             return False
+        return True
 
     def execute(self) -> bool:
         """Start the migration project my checking and launching the migration wave."""

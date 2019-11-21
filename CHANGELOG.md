@@ -1,12 +1,50 @@
 # Change Log
 
-## [Unreleased](https://github.com/2ndWatch/cloudendure-python/tree/HEAD)
+## [v0.1.6](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.6) (2019-11-21)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.5...v0.1.6)
 
-[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.1...HEAD)
+**Implemented enhancements:**
+
+- Add check for sg/subnet existance in config and patch privateIPAction [\#92](https://github.com/2ndWatch/cloudendure-python/pull/92) ([mbeacom](https://github.com/mbeacom))
+- add in support for custom subnet and security groups [\#91](https://github.com/2ndWatch/cloudendure-python/pull/91) ([twarnock](https://github.com/twarnock))
+
+**Merged pull requests:**
+
+- removing duplicated tag in ec2 resource [\#90](https://github.com/2ndWatch/cloudendure-python/pull/90) ([twarnock](https://github.com/twarnock))
+- get\_copy\_status now uses role assumption [\#89](https://github.com/2ndWatch/cloudendure-python/pull/89) ([twarnock](https://github.com/twarnock))
+- change to using describe\_instances vs \_status.  linted. [\#88](https://github.com/2ndWatch/cloudendure-python/pull/88) ([twarnock](https://github.com/twarnock))
+
+## [v0.1.5](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.5) (2019-10-22)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.4...v0.1.5)
+
+## [v0.1.4](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.4) (2019-10-22)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.3...v0.1.4)
+
+## [v0.1.3](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.3) (2019-10-22)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.2...v0.1.3)
+
+**Implemented enhancements:**
+
+- Update servicenow lambda refs to conform to generic status update [\#87](https://github.com/2ndWatch/cloudendure-python/pull/87) ([mbeacom](https://github.com/mbeacom))
+
+## [v0.1.2](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.2) (2019-10-07)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.1...v0.1.2)
 
 **Implemented enhancements:**
 
 - 0.1.1 [\#80](https://github.com/2ndWatch/cloudendure-python/pull/80) ([mbeacom](https://github.com/mbeacom))
+
+**Closed issues:**
+
+- Make lambdas more generic [\#85](https://github.com/2ndWatch/cloudendure-python/issues/85)
+- Update Blueprint Removes Disks [\#81](https://github.com/2ndWatch/cloudendure-python/issues/81)
+
+**Merged pull requests:**
+
+- Fix \#85 generic migration state [\#86](https://github.com/2ndWatch/cloudendure-python/pull/86) ([twarnock](https://github.com/twarnock))
+- Step sqs [\#84](https://github.com/2ndWatch/cloudendure-python/pull/84) ([twarnock](https://github.com/twarnock))
+- Update dependencies [\#83](https://github.com/2ndWatch/cloudendure-python/pull/83) ([mbeacom](https://github.com/mbeacom))
+- Fixes \#81 fix update blueprint [\#82](https://github.com/2ndWatch/cloudendure-python/pull/82) ([twarnock](https://github.com/twarnock))
 
 ## [v0.1.1](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.1) (2019-09-26)
 [Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.0...v0.1.1)
@@ -140,7 +178,6 @@
 - Add python-fire to package dependencies [\#13](https://github.com/2ndWatch/cloudendure-python/issues/13)
 - copy\_image and split\_image support [\#20](https://github.com/2ndWatch/cloudendure-python/pull/20) ([twarnock](https://github.com/twarnock))
 - Add black to makefile [\#18](https://github.com/2ndWatch/cloudendure-python/pull/18) ([mbeacom](https://github.com/mbeacom))
-- Add typing throughout base project [\#17](https://github.com/2ndWatch/cloudendure-python/pull/17) ([mbeacom](https://github.com/mbeacom))
 - Check uses replica now.  Launch looks up project\_id and stops on replica. [\#16](https://github.com/2ndWatch/cloudendure-python/pull/16) ([twarnock](https://github.com/twarnock))
 
 **Merged pull requests:**
@@ -155,6 +192,7 @@
 **Implemented enhancements:**
 
 - Add security policy [\#12](https://github.com/2ndWatch/cloudendure-python/issues/12)
+- Add typing throughout base project [\#17](https://github.com/2ndWatch/cloudendure-python/pull/17) ([mbeacom](https://github.com/mbeacom))
 - Add fire [\#14](https://github.com/2ndWatch/cloudendure-python/pull/14) ([mbeacom](https://github.com/mbeacom))
 
 ## [v0.0.4](https://github.com/2ndWatch/cloudendure-python/tree/v0.0.4) (2019-06-28)

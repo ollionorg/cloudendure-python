@@ -1,5 +1,8 @@
 # Change Log
 
+## [v0.1.7](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.7) (2019-11-21)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.6...v0.1.7)
+
 ## [v0.1.6](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.6) (2019-11-21)
 [Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.5...v0.1.6)
 
@@ -178,6 +181,7 @@
 - Add python-fire to package dependencies [\#13](https://github.com/2ndWatch/cloudendure-python/issues/13)
 - copy\_image and split\_image support [\#20](https://github.com/2ndWatch/cloudendure-python/pull/20) ([twarnock](https://github.com/twarnock))
 - Add black to makefile [\#18](https://github.com/2ndWatch/cloudendure-python/pull/18) ([mbeacom](https://github.com/mbeacom))
+- Add typing throughout base project [\#17](https://github.com/2ndWatch/cloudendure-python/pull/17) ([mbeacom](https://github.com/mbeacom))
 - Check uses replica now.  Launch looks up project\_id and stops on replica. [\#16](https://github.com/2ndWatch/cloudendure-python/pull/16) ([twarnock](https://github.com/twarnock))
 
 **Merged pull requests:**
@@ -192,7 +196,6 @@
 **Implemented enhancements:**
 
 - Add security policy [\#12](https://github.com/2ndWatch/cloudendure-python/issues/12)
-- Add typing throughout base project [\#17](https://github.com/2ndWatch/cloudendure-python/pull/17) ([mbeacom](https://github.com/mbeacom))
 - Add fire [\#14](https://github.com/2ndWatch/cloudendure-python/pull/14) ([mbeacom](https://github.com/mbeacom))
 
 ## [v0.0.4](https://github.com/2ndWatch/cloudendure-python/tree/v0.0.4) (2019-06-28)

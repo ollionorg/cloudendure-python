@@ -222,9 +222,7 @@ class Configuration(six.with_metaclass(TypeWithDefault, object)):
 
         """
         if self.api_key.get(identifier) and self.api_key_prefix.get(identifier):
-            return (
-                f"{self.api_key_prefix[identifier]} {self.api_key[identifier]}"
-            )  # noqa: E501
+            return f"{self.api_key_prefix[identifier]} {self.api_key[identifier]}"  # noqa: E501
         if self.api_key.get(identifier):
             return self.api_key[identifier]
         return ""

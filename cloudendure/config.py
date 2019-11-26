@@ -40,6 +40,7 @@ class CloudEndureConfig:
         "private_ip_action": "",
         "disk_type": "SSD",
         "public_ip": "DONT_ALLOCATE",
+        "instance_types": "",
     }
 
     def __init__(

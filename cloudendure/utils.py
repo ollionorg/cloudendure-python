@@ -15,8 +15,25 @@ import time
 from datetime import datetime
 from typing import Any, Dict
 
+from cloudendure.__version__ import __version__ as cloudendure_version
+
 first_cap_re: re.Pattern = re.compile("(.)([A-Z][a-z]+)")
 all_cap_re: re.Pattern = re.compile("([a-z0-9])([A-Z])")
+
+
+def get_user_agent(user_agent: str = "cloudendure-python") -> str:
+    """Get the current module version.
+
+    Args:
+        user_agent (str): The user agent client designation.
+            Defaults to: cloudendure-python
+
+    Returns:
+        str: The user agent string representation for the client.
+
+    """
+    user_agent_str: str = f"{user_agent}/{cloudendure_version}"
+    return user_agent_str
 
 
 def get_time_now() -> Dict[str, Any]:

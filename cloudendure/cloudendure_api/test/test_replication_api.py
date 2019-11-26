@@ -71,7 +71,7 @@ class TestReplicationApi(unittest.TestCase):
         pass
 
     def test_projects_project_id_replication_configurations_replication_configuration_id_patch(
-        self
+        self,
     ):
         """Test case for projects_project_id_replication_configurations_replication_configuration_id_patch
 

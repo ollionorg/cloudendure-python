@@ -21,8 +21,9 @@ import requests
 from requests.models import Response
 from requests.sessions import Session
 
-from .config import CloudEndureConfig
-from .exceptions import CloudEndureException
+from cloudendure.config import CloudEndureConfig
+from cloudendure.exceptions import CloudEndureException
+from cloudendure.utils import get_user_agent
 
 HOST: str = os.environ.get("CLOUDENDURE_HOST", "https://console.cloudendure.com")
 API_VERSION: str = os.environ.get("CLOUDENDURE_API_VERSION", "latest").lower()
@@ -65,6 +66,7 @@ class CloudEndureAPI:
         self.session.headers: Dict[str, str] = {
             "Content-Type": "application/json",
             "Accept": "text/plain",
+            "User-Agent": get_user_agent(),
         }
         self.timestamps: Dict[str, Any] = {
             "created": time_now,

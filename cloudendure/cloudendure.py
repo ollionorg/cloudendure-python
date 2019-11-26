@@ -82,9 +82,13 @@ class CloudEndure:
         self.target_machines: List[str] = self.config.active_config.get(
             "machines", ""
         ).split(",")
-        self.target_instance_types: List[str] = self.config.active_config.get("instance_types", "").split(",")
+        self.target_instance_types: List[str] = self.config.active_config.get(
+            "instance_types", ""
+        ).split(",")
         if len(self.target_machines) == len(self.target_instance_types):
-            self.target_instances: Dict[str, str] = dict(zip(self.target_machines, self.target_instance_types))
+            self.target_instances: Dict[str, str] = dict(
+                zip(self.target_machines, self.target_instance_types)
+            )
         else:
             print(
                 "WARNING: Misconfiguration of CLOUDENDURE_INSTANCE_TYPES and CLOUDENDURE_MACHINES.  These should be the same length!"

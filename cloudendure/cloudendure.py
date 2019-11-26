@@ -82,6 +82,19 @@ class CloudEndure:
         self.target_machines: List[str] = self.config.active_config.get(
             "machines", ""
         ).split(",")
+        self.target_instance_types: List[str] = self.config.active_config.get("instance_types", "").split(",")
+        if len(self.target_machines) == len(self.target_instance_types):
+            self.target_instances: Dict[str, str] = dict(zip(self.target_machines, self.target_instance_types))
+        else:
+            print(
+                "WARNING: Misconfiguration of CLOUDENDURE_INSTANCE_TYPES and CLOUDENDURE_MACHINES.  These should be the same length!"
+            )
+            self.target_instances = {}
+
+        self.lagging_machines: List[str] = []
+        self.ready_machines: List[str] = []
+        self.nonexistent_machines: List[str] = []
+        self.launched_machines: List[str] = []
         self.migration_wave: str = self.config.active_config.get("migration_wave", "0")
         self.max_lag_ttl: int = self.config.active_config.get("max_lag_ttl", 90)
 
@@ -504,6 +517,10 @@ class CloudEndure:
                 if self.security_group_id:
                     blueprint["securityGroupIDs"] = [self.security_group_id]
 
+                instance_type = self.target_instances.get(machine_name, "")
+                if instance_type:
+                    blueprint["instanceType"] = instance_type
+
                 # Update machine tags
                 blueprint["tags"] = [
                     {
@@ -680,8 +697,8 @@ class CloudEndure:
                                     )
                                     return False
             if not machine_exist:
-                print("ERROR: Machine: " + _machine + " does not exist!")
-                return False
+                print(f"ERROR: Machine: {_machine} does not exist!")
+                self.nonexistent_machines.append(_machine)
 
         if machine_status == len(self.target_machines):
             print("All Machines in the targeted pool are ready!")

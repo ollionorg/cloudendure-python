@@ -23,7 +23,7 @@ URL: str = "https://github.com/2ndWatch/cloudendure-python"
 EMAIL: str = "mbeacom@2ndwatch.com, twarnock@2ndwatch.com"
 AUTHOR: str = "Mark Beacom, Tom Warnock"
 REQUIRES_PYTHON: str = ">=3.7.0"
-VERSION: str = "0.1.7"
+VERSION: str = os.environ.get("CLOUDENDURE_CLIENT_VERSION", "")
 
 REQUIRED: List[str] = ["requests", "boto3", "fire"]
 EXTRAS: Dict[str, List[str]] = {

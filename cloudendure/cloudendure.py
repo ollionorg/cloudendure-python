@@ -489,7 +489,6 @@ class CloudEndure:
         if not machine_data_dict:
             print("No Machines Found!")
             return False
-
         try:
             blueprints_response = self.api.api_call(
                 f"projects/{self.project_id}/blueprints"
@@ -521,7 +520,7 @@ class CloudEndure:
                 if self.security_group_id:
                     blueprint["securityGroupIDs"] = [self.security_group_id]
 
-                instance_type = self.target_instances.get(machine_name, "")
+                instance_type = self.target_instances.get(_machine_name, "")
                 if instance_type:
                     blueprint["instanceType"] = instance_type
 
@@ -542,7 +541,6 @@ class CloudEndure:
                 blueprint["publicIPAction"] = self.config.active_config.get(
                     "public_ip", "DONT_ALLOCATE"
                 )
-
                 if self.dry_run:
                     print("This is a dry run! Not updating blueprints!")
                     return True

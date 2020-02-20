@@ -45,6 +45,7 @@ python-dateutil = "*"
 setuptools = "*"
 urllib3 = "*"
 cookiecutter = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.7"

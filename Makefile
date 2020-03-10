@@ -105,13 +105,13 @@ gen_client: ## Generate the swagger client from the API config.
 	@swagger-codegen generate -i https://console.cloudendure.com/api_doc/apis.json -l python --model-name-prefix CloudEndure --git-user-id mbeacom --git-repo-id cloudendure-python -c reference/swagger_config.json -o gen/
 
 update_deps: update_prereqs ## Update the package dependencies via pipenv.
-	@pipenv update --pre --dev
+	@poetry update
 
 install: isort build_py ## Install the local development version of the module.
-	@pipenv install .
+	@poetry install .
 
 build_py: update_deps ## Build and package the project for PyPi source and wheel distribution.
-	@pipenv run python3 setup.py sdist bdist_wheel
+	@poetry run python3 setup.py sdist bdist_wheel
 
 help: ## Show this help information.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[33m%-25s\033[0m %s\n", $$1, $$2}'

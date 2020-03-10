@@ -28,9 +28,9 @@ jobs:
         poetry install
     - name: Check python imports with isort
       run: |
-        isort --version-number
-        isort -rc --check-only --quiet .
+        poetry run isort --version-number
+        poetry run isort -rc --check-only --quiet .
     - name: Lint with Black
       run: |
-        black --version
-        black --target-version py37 --check .
+        poetry run black --version
+        poetry run black --target-version py37 --check .

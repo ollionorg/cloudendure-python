@@ -25,12 +25,13 @@ jobs:
         pip install setuptools wheel twine
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
         source $HOME/.poetry/env
-        poetry install
+        poetry export -f requirements.txt -o requirements.txt --dev
+        pip install -r requirements.txt
     - name: Check python imports with isort
       run: |
-        poetry run isort --version-number
-        poetry run isort -rc --check-only --quiet .
+        isort --version-number
+        isort -rc --check-only --quiet .
     - name: Lint with Black
       run: |
-        poetry run black --version
-        poetry run black --target-version py37 --check .
+        black --version
+        black --target-version py37 --check .

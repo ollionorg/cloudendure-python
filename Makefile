@@ -68,6 +68,7 @@ install-py-deps: update_prereqs ## Install the Python dependencies specified in 
 init: ## Initialize the project.
 	@pip install --upgrade wheel setuptools pip
 	@curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+	@source $HOME/.poetry/env
 	@poetry install
 
 ci: ## Run the CI specific tests.
@@ -104,7 +105,7 @@ update_fork: ## Update the current fork master branch with upstream master.
 gen_client: ## Generate the swagger client from the API config.
 	@swagger-codegen generate -i https://console.cloudendure.com/api_doc/apis.json -l python --model-name-prefix CloudEndure --git-user-id mbeacom --git-repo-id cloudendure-python -c reference/swagger_config.json -o gen/
 
-update_deps: update_prereqs ## Update the package dependencies via pipenv.
+update_deps: update_prereqs ## Update the package dependencies via poetry.
 	@poetry update
 
 install: isort build_py ## Install the local development version of the module.

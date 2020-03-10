@@ -466,6 +466,35 @@ class CloudEndure:
 
         return True
 
+    def check_licenses(self) -> Dict[str, Any]:
+        """Check licenses for all available instances in a given project."""
+        response_dict: Dict[str, Any] = {}
+        print(
+            f"Checking CloudEndure Licenses - Name: ({self.project_name})"
+        )
+
+        now: datetime = datetime.datetime.now(datetime.timezone.utc)
+        expirationday: timedelta = datetime.timedelta(days=90)
+        expirationwarn: timedelta = datetime.timedelta(days=60)
+        machine_data_dict: Dict[str, Any] = {}
+        machines_response: Response = self.api.api_call(
+            f"projects/{self.project_id}/machines"
+        )
+        for machine in json.loads(machines_response.text).get("items", []):
+            source_props: Dict[str, Any] = machine.get("sourceProperties", {})
+            machine_id: str = machine.get("id")
+            machine_name: str = source_props.get("name")
+            license_data: Dict[str, Any] = machine.get("license", {})
+            license_use: str = license_data.get("startOfUseDateTime")
+            license_date: datetime = datetime.datetime.strptime(license_use, '%Y-%m-%dT%H:%M:%S.%f%z')
+            delta: timedelta = now - license_date
+            if(expirationday < delta):
+                response_dict[machine_name] = { "machine_id" : machine_id, "status" : "expired", "delta_days" : delta.days}
+            elif(expirationwarn < delta):
+                response_dict[machine_name] = { "machine_id" : machine_id, "status" : "warn", "delta_days" : delta.days}
+
+        return response_dict
+                
     def update_blueprint(self) -> bool:
         """Update the blueprint associated with the specified machines."""
         print(

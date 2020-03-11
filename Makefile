@@ -87,9 +87,8 @@ coverage: ## Generate a test coverage report.
 	poetry run py.test --cov-config .coveragerc --verbose --cov-report term --cov-report xml --cov=cloudendure tests
 
 publish: ## Publish the package to PyPi.
-	poetry run python3 setup.py sdist bdist_wheel
-	poetry run twine upload dist/*
-	rm -fr build dist .egg requests.egg-info
+	poetry build
+	poetry publish
 
 docs: ## Build the documentation.
 	poetry run pydocmd build
@@ -112,7 +111,7 @@ install: isort build_py ## Install the local development version of the module.
 	@poetry install .
 
 build_py: update_deps ## Build and package the project for PyPi source and wheel distribution.
-	@poetry run python3 setup.py sdist bdist_wheel
+	@poetry build
 
 help: ## Show this help information.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[33m%-25s\033[0m %s\n", $$1, $$2}'

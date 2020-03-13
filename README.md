@@ -32,12 +32,14 @@ import cloudendure
 ```
 
 ## Getting Started
-
 CloudEndure Pipeline Flow
 ![CloudEndure Pipeline Flow](images/ce_migration_pipeline.png)
 
 CloudEndure Data Flow
 ![CloudEndure Data Flow](images/ce_dataflow.png)
+
+Pipeline Flow (as seen in AWS Console)
+![Pipeline_Flow](images/stepfunctions_graph.svg)
 
 ### Logging in via CLI using environment variables
 

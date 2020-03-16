@@ -90,7 +90,7 @@ sections = [
     "STDLIB",
     "THIRDPARTY",
     "FIRSTPARTY",
-    "LOCALFOLDER"
+    "LOCALFOLDER",
 ]
 skip = [
     "cloudendure/cloudendure_api",

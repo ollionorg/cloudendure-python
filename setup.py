@@ -22,6 +22,8 @@ DESCRIPTION: str = "CloudEndure Python Client and CLI"
 URL: str = "https://github.com/2ndWatch/cloudendure-python"
 EMAIL: str = "mbeacom@2ndwatch.com, twarnock@2ndwatch.com"
 AUTHOR: str = "Mark Beacom, Tom Warnock"
+MAINTAINER_EMAIL: str = "evan@2ndwatch.com,nselpa@2ndwatch.com"
+MAINTAINER: str = "Evan Lucchesi Leon,Nick Selpa"
 REQUIRES_PYTHON: str = ">=3.7.0"
 VERSION: str = os.environ.get("CLOUDENDURE_CLIENT_VERSION", "")
 
@@ -105,6 +107,8 @@ setup(
     long_description_content_type="text/markdown",
     author=AUTHOR,
     author_email=EMAIL,
+    maintainer=MAINTAINER,
+    maintainer_email=MAINTAINER_EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),

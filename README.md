@@ -10,11 +10,11 @@ Python wrapper and CLI for [CloudEndure](https://www.cloudendure.com/)
 
 ## Installation & Usage
 
-### pipenv
+### poetry
 
 ```sh
-brew install pipenv # if not installed
-pipenv install cloudendure
+brew install poetry # if not installed
+poetry install cloudendure
 ```
 
 ### pip

@@ -33,8 +33,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     instance = ec2_resource.Instance(instance_id)
 
     ec2_image = instance.create_image(
-        Name=f"{instance_id}-{image_creation_time}",
-        Description=f"Created image for {instance_id}",
+        Name=f"{instance_id}-{image_creation_time}", Description=f"Created image for {instance_id}",
     )
 
     for tag in instance.tags:

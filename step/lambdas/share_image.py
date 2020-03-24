@@ -59,7 +59,5 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
                 print(e)
                 return False
 
-    MigrationStateHandler().update_state(
-        state="IMAGE_SHARED", machine_name=instance_name
-    )
+    MigrationStateHandler().update_state(state="IMAGE_SHARED", machine_name=instance_name)
     return True

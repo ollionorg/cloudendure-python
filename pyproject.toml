@@ -168,7 +168,24 @@ DISABLE_ENDING_COMMA_HEURISTIC = true
 
 [tool.black]
 line-length = 120
-target-version = "py38"
+target-version = ["py38"]
+exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | cloudendure_api/
+)
+'''
 
 [tool.pylint]
 line_length = 120

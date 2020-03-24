@@ -61,9 +61,7 @@ class Event:
         EVENT_ALREADY_LAUNCHED,
     ]
 
-    EVENT_TYPES: List[
-        Tuple[str, str]
-    ] = ERRORRED_EVENT_TYPES + SUCCESSFUL_EVENT_TYPES + WARNED_EVENT_TYPES
+    EVENT_TYPES: List[Tuple[str, str]] = ERRORRED_EVENT_TYPES + SUCCESSFUL_EVENT_TYPES + WARNED_EVENT_TYPES
 
     def __init__(self, event_type, machine_name: str = "NA", **kwargs) -> None:
         """Initialize the Event."""

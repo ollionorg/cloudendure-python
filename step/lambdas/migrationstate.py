@@ -20,11 +20,7 @@ class MigrationStateHandler:
         print("Event queue: " + os.environ.get("event_queue"))
         queue_url = os.environ.get("event_queue")
         state_obj = MigrationState(state, machine_name, **kwargs)
-        print(
-            sqs.send_message(
-                QueueUrl=queue_url, MessageBody=json.dumps(state_obj.state_dict)
-            )
-        )
+        print(sqs.send_message(QueueUrl=queue_url, MessageBody=json.dumps(state_obj.state_dict)))
 
 
 class MigrationException(Exception):

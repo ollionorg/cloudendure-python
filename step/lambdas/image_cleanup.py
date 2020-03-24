@@ -46,8 +46,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> bool:
         print(f"Failed.  AMI may not exist.\n{str(e)}")
         return False
 
-    MigrationStateHandler().update_state(
-        state="IMAGE_READY", machine_name=instance_name
-    )
+    MigrationStateHandler().update_state(state="IMAGE_READY", machine_name=instance_name)
 
     return True

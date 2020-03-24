@@ -72,7 +72,5 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         print(e)
         event_dict["instance_id"] = "not-found"
 
-    MigrationStateHandler().update_state(
-        state="INSTANCE_LAUNCHED", machine_name=event_dict.get("name")
-    )
+    MigrationStateHandler().update_state(state="INSTANCE_LAUNCHED", machine_name=event_dict.get("name"))
     return event_dict

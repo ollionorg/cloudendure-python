@@ -32,9 +32,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     sts_client = boto3.client("sts")
 
     print(f"Assuming role: {role}")
-    assumed_role: Dict[str, Any] = sts_client.assume_role(
-        RoleArn=role, RoleSessionName="SplitImageLambda"
-    )
+    assumed_role: Dict[str, Any] = sts_client.assume_role(RoleArn=role, RoleSessionName="SplitImageLambda")
 
     credentials = assumed_role.get("Credentials")
 
@@ -80,8 +78,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         for drive in drives:
             print(drives[drive])
             ec2_res.create_tags(
-                Resources=[root_ami],
-                Tags=[{"Key": f"Drive-{drive}", "Value": json.dumps(drives[drive])}],
+                Resources=[root_ami], Tags=[{"Key": f"Drive-{drive}", "Value": json.dumps(drives[drive])}],
             )
 
         # clean up original image
@@ -90,8 +87,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         print(e)
         return ""
 
-    MigrationStateHandler().update_state(
-        state="IMAGE_SPLIT", machine_name=instance_name
-    )
+    MigrationStateHandler().update_state(state="IMAGE_SPLIT", machine_name=instance_name)
 
     return root_ami

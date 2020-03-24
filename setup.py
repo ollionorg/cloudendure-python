@@ -27,7 +27,7 @@ MAINTAINER: str = "Evan Lucchesi Leon,Nick Selpa"
 REQUIRES_PYTHON: str = ">=3.7.0"
 VERSION: str = os.environ.get("CLOUDENDURE_CLIENT_VERSION", "")
 
-REQUIRED: List[str] = ["requests", "boto3", "fire"]
+REQUIRED: List[str] = ["requests", "boto3", "fire", "cookiecutter"]
 EXTRAS: Dict[str, List[str]] = {
     "test": [
         "coverage",

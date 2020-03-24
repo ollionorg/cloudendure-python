@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cloudendure"
-version = "0.2.0"
+version = "0.2.1"
 description = "Python wrapper and CLI for CloudEndure"
 authors = ["Mark Beacom <mark@markbeacom.com>", "Tom Warnock <twarnock@2ndwatch.com>"]
 maintainers = ["Evan Lucchesi <evan@2ndwatch.com>", "Nick Selpa <nselpa@2ndwatch.com>"]
@@ -10,6 +10,9 @@ include = [
     "REFERENCE.md",
     "SECURITY.md",
 ]
+readme = "README.md"
+repository = "https://github.com/2ndWatch/cloudendure-python"
+homepage = "https://2ndwatch.github.io/cloudendure-python/"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -112,6 +115,34 @@ BLANK_LINE_BEFORE_NESTED_CLASS_OR_DEF = true
 INDENT_DICTIONARY_VALUE = true
 SPLIT_BEFORE_EXPRESSION_AFTER_OPENING_PAREN = true
 DISABLE_ENDING_COMMA_HEURISTIC = true
+
+[tool.flake8]
+line_length = 120
+based_on_style = "pep8"
+column_limit = 120
+indent_width = 4
+spaces_before_comment = 2
+ALLOW_SPLIT_BEFORE_DICT_VALUE = false
+DEDENT_CLOSING_BRACKETS = true
+EACH_DICT_ENTRY_ON_SEPARATE_LINE = true
+COALESCE_BRACKETS = true
+USE_TABS = false
+ALLOW_MULTILINE_LAMBDAS = true
+BLANK_LINE_BEFORE_NESTED_CLASS_OR_DEF = true
+INDENT_DICTIONARY_VALUE = true
+SPLIT_BEFORE_EXPRESSION_AFTER_OPENING_PAREN = true
+DISABLE_ENDING_COMMA_HEURISTIC = true
+
+[tool.black]
+line-length = 120
+target-version = "py38"
+
+[tool.pylint]
+line_length = 120
+
+[tool.portray.mkdocs.theme]
+name = "material"
+palette = {primary = "blue", accent = "light blue"}
 
 [build-system]
 requires = ["poetry>=0.12"]

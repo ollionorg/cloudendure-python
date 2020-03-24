@@ -62,8 +62,7 @@ class CloudEndureConfig:
         _config: PosixPath = Path(self.config_path)
         if not _config.exists():
             print(
-                "No CloudEndure YAML configuration found! Creating it at: (%s)",
-                self.config_path,
+                f"No CloudEndure YAML configuration found! Creating it at: ({self.config_path})"
             )
             self.write_yaml_config(config=self.BASE_CONFIG)
         self.update_config()

@@ -12,8 +12,10 @@ RUN apt-get -qq install ${SYSTEM_PACKAGES}
 COPY . /app
 
 RUN pip install --upgrade pip
-RUN pip install --upgrade wheel setuptools twine pipenv
-RUN pipenv install --dev --system --deploy
+RUN pip install --upgrade wheel setuptools twine
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+RUN source $HOME/.poetry/env
+RUN poetry install
 
 RUN apt-get clean autoclean && \
     apt-get autoremove --yes && \

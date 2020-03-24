@@ -33,8 +33,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     state = ami_state["Images"][0]["State"]
     if state == "available":
-        MigrationStateHandler().update_state(
-            state="IMAGE_CREATED", machine_name=instance_name
-        )
+        MigrationStateHandler().update_state(state="IMAGE_CREATED", machine_name=instance_name)
 
     return state

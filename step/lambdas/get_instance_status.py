@@ -49,8 +49,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
                     state = "system_failed"
 
     if state == "running":
-        MigrationStateHandler().update_state(
-            state="INSTANCE_READY", machine_name=instance_name
-        )
+        MigrationStateHandler().update_state(state="INSTANCE_READY", machine_name=instance_name)
 
     return state

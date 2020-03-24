@@ -34,9 +34,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     sts_client = boto3.client("sts")
 
     print(f"Assuming role: {role}")
-    assumed_role: Dict[str, Any] = sts_client.assume_role(
-        RoleArn=role, RoleSessionName="GetCopyStatusLambda"
-    )
+    assumed_role: Dict[str, Any] = sts_client.assume_role(RoleArn=role, RoleSessionName="GetCopyStatusLambda")
 
     credentials = assumed_role.get("Credentials")
 
@@ -60,8 +58,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
 
     state = images[0].get("State")
     if state and state == "available":
-        MigrationStateHandler().update_state(
-            state="IMAGE_COPIED", machine_name=instance_name
-        )
+        MigrationStateHandler().update_state(state="IMAGE_COPIED", machine_name=instance_name)
 
     return state

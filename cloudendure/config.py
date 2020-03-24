@@ -43,14 +43,10 @@ class CloudEndureConfig:
         "instance_types": "",
     }
 
-    def __init__(
-        self, username: str = "", password: str = "", token: str = "", *args, **kwargs
-    ) -> None:
+    def __init__(self, username: str = "", password: str = "", token: str = "", *args, **kwargs) -> None:
         """Initialize the Environment."""
         logger.info("Initializing the CloudEndure Configuration")
-        _config_path: str = os.environ.get(
-            "CLOUDENDURE_CONFIG_PATH", "~/.cloudendure.yaml"
-        )
+        _config_path: str = os.environ.get("CLOUDENDURE_CONFIG_PATH", "~/.cloudendure.yaml")
         if _config_path.startswith("~"):
             self.config_path = os.path.expanduser(_config_path)
         else:
@@ -61,9 +57,7 @@ class CloudEndureConfig:
 
         _config: PosixPath = Path(self.config_path)
         if not _config.exists():
-            print(
-                f"No CloudEndure YAML configuration found! Creating it at: ({self.config_path})"
-            )
+            print(f"No CloudEndure YAML configuration found! Creating it at: ({self.config_path})")
             self.write_yaml_config(config=self.BASE_CONFIG)
         self.update_config()
 
@@ -99,8 +93,7 @@ class CloudEndureConfig:
                 return True
             except Exception as e:
                 logger.error(
-                    "Exception encountered while writing the CloudEndure YAML configuration file - (%s)",
-                    e,
+                    "Exception encountered while writing the CloudEndure YAML configuration file - (%s)", e,
                 )
         return False
 
@@ -132,9 +125,7 @@ class CloudEndureConfig:
         """Update the configuration."""
         self.yaml_config_contents: Dict[str, Any] = self.read_yaml_config()
         self.env_config = self.get_env_vars()
-        self.active_config = self.merge_config_dicts(
-            [self.yaml_config_contents, self.env_config, self.cli]
-        )
+        self.active_config = self.merge_config_dicts([self.yaml_config_contents, self.env_config, self.cli])
 
     def update_token(self, token: str) -> bool:
         """Update the CloudEndure token.

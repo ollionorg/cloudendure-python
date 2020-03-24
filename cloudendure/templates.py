@@ -21,9 +21,7 @@ class CookiecutterHandler:
             print("Creating the cookiecutter repository subdirectory for: ", k)
             self.create_project(package_path=cookiecutter_path, context=v)
 
-    def create_project(
-        self, package_path: str, context: Dict[Any, Any] = None, no_input: bool = True
-    ) -> bool:
+    def create_project(self, package_path: str, context: Dict[Any, Any] = None, no_input: bool = True) -> bool:
         """Create a cookiecutter project with the provided details.
 
         Args:

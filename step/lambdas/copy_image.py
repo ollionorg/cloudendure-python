@@ -33,9 +33,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
     sts_client = boto3.client("sts")
 
     print(f"Assuming role: {role}")
-    assumed_role: Dict[str, Any] = sts_client.assume_role(
-        RoleArn=role, RoleSessionName="CopyImageLambda"
-    )
+    assumed_role: Dict[str, Any] = sts_client.assume_role(RoleArn=role, RoleSessionName="CopyImageLambda")
 
     credentials = assumed_role.get("Credentials")
 
@@ -59,7 +57,5 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> str:
         print(e)
         return ""
 
-    MigrationStateHandler().update_state(
-        state="IMAGE_COPYING", machine_name=instance_name
-    )
+    MigrationStateHandler().update_state(state="IMAGE_COPYING", machine_name=instance_name)
     return new_image.get("ImageId", "")

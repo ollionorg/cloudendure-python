@@ -55,7 +55,7 @@ push: ## Push the Docker image to the Docker Hub repository.
 docker: build build_py38 ## Build and publish Docker images.
 
 lint: isort ## Lint the CloudEndure project with Black.
-	@poetry run black --target-version py37 .
+	@poetry run black .
 
 update_prereqs: ## Update the local development pre-requisite packages.
 	@pip install --upgrade wheel setuptools pip

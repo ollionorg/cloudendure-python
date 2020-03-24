@@ -28,27 +28,20 @@ DEST_ROLE_ARN: str = os.environ.get("CLOUDENDURE_DEST_ROLE_ARN", "")
 SESSION_NAME: str = os.environ.get("CLOUDENDURE_SESSION_NAME", "CloudEndureMigration")
 
 
-def assume_role(
-    sts_role_arn: str = "", session_name: str = SESSION_NAME
-) -> Dict[str, str]:
+def assume_role(sts_role_arn: str = "", session_name: str = SESSION_NAME) -> Dict[str, str]:
     sts: boto_client = boto3.client("sts")
 
     try:
-        credentials: Dict[str, str] = sts.assume_role(
-            RoleArn=sts_role_arn, RoleSessionName=session_name
-        ).get("Credentials", {})
+        credentials: Dict[str, str] = sts.assume_role(RoleArn=sts_role_arn, RoleSessionName=session_name).get(
+            "Credentials", {}
+        )
     except Exception as e:
         logger.error(
-            "%s encountered while attempting to assume the Role ARN: (%s) during (%s)",
-            e,
-            sts_role_arn,
-            session_name,
+            "%s encountered while attempting to assume the Role ARN: (%s) during (%s)", e, sts_role_arn, session_name,
         )
 
     if not credentials:
-        logger.error(
-            "Unable to assume role via STS! Please check permissions and try again."
-        )
+        logger.error("Unable to assume role via STS! Please check permissions and try again.")
 
     return credentials
 
@@ -110,9 +103,7 @@ def share_image(image_name: str = "CloudEndureImage") -> bool:
 
     # Copy the shared AMI to dest region
     try:
-        dest_ec2.copy_image(
-            Name=image_name, SourceImageId=image.id, SourceRegion=SRC_REGION
-        )
+        dest_ec2.copy_image(Name=image_name, SourceImageId=image.id, SourceRegion=SRC_REGION)
     except Exception as e:
         logger.error(e)
         return False

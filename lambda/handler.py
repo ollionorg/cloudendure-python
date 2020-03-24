@@ -95,8 +95,7 @@ def create_ami(project_id: str, instance_id: str) -> bool:
         logger.info(ec2_tags)
         for tag in ec2_tags["Tags"]:
             _ec2_client.create_tags(
-                Resources=[ec2_image["ImageId"]],
-                Tags=[{"Key": tag["Key"], "Value": tag["Value"]}],
+                Resources=[ec2_image["ImageId"]], Tags=[{"Key": tag["Key"], "Value": tag["Value"]}],
             )
 
         send_sqs_message(ec2_image)
@@ -135,13 +134,9 @@ def lambda_handler(event: Dict[str, Any], context: Dict[str, Any]) -> bool:
         project_id: str = json_sns_message.get("projectId", "")
 
         if json_sns_message.get("Pass", "NA") != "True":
-            raise InvalidPayload(
-                f"{instance_id} did not pass post migration testing! Not creating an AMI."
-            )
+            raise InvalidPayload(f"{instance_id} did not pass post migration testing! Not creating an AMI.")
         else:
-            logger.info(
-                "%s passed post migration testing. Creating an AMI." % (instance_id)
-            )
+            logger.info("%s passed post migration testing. Creating an AMI." % (instance_id))
             create_ami(project_id, instance_id)
     except ClientError as e:
         logger.error(e.response)

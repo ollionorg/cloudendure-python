@@ -154,20 +154,14 @@ class Machine(CloudEndureModel):
         # Standard Schema
         "sourceProperties": {
             "name": "",
-            "installedApplications": {
-                "items": [{"applicationName": ""}],
-                "lastUpdatedDateTime": "",
-            },
+            "installedApplications": {"items": [{"applicationName": ""}], "lastUpdatedDateTime": "",},
             "disks": [{"isProtected": False, "name": "", "size": 0}],
             "machineCloudState": "",
             "publicIps": [],
             "memory": 0,
             "os": "",
             "cpu": [{"cores": 0, "modelName": ""}],
-            "runningServices": {
-                "items": [{"serviceName": ""}],
-                "lastUpdatedDateTime": "",
-            },
+            "runningServices": {"items": [{"serviceName": ""}], "lastUpdatedDateTime": "",},
             "machineCloudId": "",
         },
         "replicationInfo": {
@@ -176,12 +170,7 @@ class Machine(CloudEndureModel):
             "rescannedStorageBytes": 0,
             "backloggedStorageBytes": 0,
             "initiationStates": {
-                "items": [
-                    {
-                        "steps": [{"status": "", "message": "", "name": ""}],
-                        "startDateTime": "",
-                    }
-                ],
+                "items": [{"steps": [{"status": "", "message": "", "name": ""}], "startDateTime": "",}],
                 "estimatedNextAttemptDateTime": "",
             },
             "replicatedStorageBytes": 0,

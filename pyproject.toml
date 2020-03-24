@@ -2,7 +2,8 @@
 name = "cloudendure"
 version = "0.2.0"
 description = "Python wrapper and CLI for CloudEndure"
-authors = ["Mark Beacom <mbeacom@2ndwatch.com>"]
+authors = ["Mark Beacom <mark@markbeacom.com>", "Tom Warnock <twarnock@2ndwatch.com>"]
+maintainers = ["Evan Lucchesi <evan@2ndwatch.com>", "Nick Selpa <nselpa@2ndwatch.com>"]
 include = [
     "CHANGELOG.md",
     "CODE_OF_CONDUCT.md",

@@ -1,21 +1,16 @@
-FROM python:3.7-slim-buster
+FROM python:3.8-slim
 
 WORKDIR /app
 
-ARG SYSTEM_PACKAGES="make"
-
-RUN apt-get -qq update
-RUN apt-get -qq install apt-utils
-RUN apt-get -qq upgrade
-RUN apt-get -qq install ${SYSTEM_PACKAGES}
+RUN apt-get -qq update && \
+    apt-get -qq install make
 
 COPY . /app
 
-RUN pip install --upgrade pip
-RUN pip install --upgrade wheel setuptools twine
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-RUN source $HOME/.poetry/env
-RUN poetry install
+RUN pip install --upgrade pip wheel setuptools poetry
+
+RUN poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi
 
 RUN apt-get clean autoclean && \
     apt-get autoremove --yes && \

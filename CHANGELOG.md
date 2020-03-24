@@ -5,6 +5,7 @@
 
 **Implemented enhancements:**
 
+- Migrate environment management from pipenv to poetry [\#97](https://github.com/2ndWatch/cloudendure-python/issues/97)
 - Converted project from using pipenv to poetry [\#98](https://github.com/2ndWatch/cloudendure-python/pull/98) ([selpan](https://github.com/selpan))
 
 **Merged pull requests:**
@@ -219,7 +220,6 @@
 - Upgrade docker images and drop py3.6 support [\#38](https://github.com/2ndWatch/cloudendure-python/pull/38) ([mbeacom](https://github.com/mbeacom))
 - update-encryption-key added [\#25](https://github.com/2ndWatch/cloudendure-python/pull/25) ([twarnock](https://github.com/twarnock))
 - made image names not 'test' [\#23](https://github.com/2ndWatch/cloudendure-python/pull/23) ([twarnock](https://github.com/twarnock))
-- v0.0.6 [\#22](https://github.com/2ndWatch/cloudendure-python/pull/22) ([mbeacom](https://github.com/mbeacom))
 
 ## [v0.0.6](https://github.com/2ndWatch/cloudendure-python/tree/v0.0.6) (2019-08-06)
 [Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.0.5...v0.0.6)
@@ -245,6 +245,10 @@
 
 - Add security policy [\#12](https://github.com/2ndWatch/cloudendure-python/issues/12)
 - Add fire [\#14](https://github.com/2ndWatch/cloudendure-python/pull/14) ([mbeacom](https://github.com/mbeacom))
+
+**Merged pull requests:**
+
+- v0.0.6 [\#22](https://github.com/2ndWatch/cloudendure-python/pull/22) ([mbeacom](https://github.com/mbeacom))
 
 ## [v0.0.4](https://github.com/2ndWatch/cloudendure-python/tree/v0.0.4) (2019-06-28)
 [Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.0.3...v0.0.4)

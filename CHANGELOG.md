@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.2.1](https://github.com/2ndWatch/cloudendure-python/tree/v0.2.1) (2020-03-24)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.2.0...v0.2.1)
+
+**Implemented enhancements:**
+
+- Adjust project configs and update deps [\#104](https://github.com/2ndWatch/cloudendure-python/pull/104) ([mbeacom](https://github.com/mbeacom))
+
+**Fixed bugs:**
+
+- Docker build errors [\#102](https://github.com/2ndWatch/cloudendure-python/issues/102)
+- Adjust Docker image [\#103](https://github.com/2ndWatch/cloudendure-python/pull/103) ([mbeacom](https://github.com/mbeacom))
+
 ## [v0.2.0](https://github.com/2ndWatch/cloudendure-python/tree/v0.2.0) (2020-03-24)
 [Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.10...v0.2.0)
 
@@ -220,6 +232,7 @@
 - Upgrade docker images and drop py3.6 support [\#38](https://github.com/2ndWatch/cloudendure-python/pull/38) ([mbeacom](https://github.com/mbeacom))
 - update-encryption-key added [\#25](https://github.com/2ndWatch/cloudendure-python/pull/25) ([twarnock](https://github.com/twarnock))
 - made image names not 'test' [\#23](https://github.com/2ndWatch/cloudendure-python/pull/23) ([twarnock](https://github.com/twarnock))
+- v0.0.6 [\#22](https://github.com/2ndWatch/cloudendure-python/pull/22) ([mbeacom](https://github.com/mbeacom))
 
 ## [v0.0.6](https://github.com/2ndWatch/cloudendure-python/tree/v0.0.6) (2019-08-06)
 [Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.0.5...v0.0.6)
@@ -245,10 +258,6 @@
 
 - Add security policy [\#12](https://github.com/2ndWatch/cloudendure-python/issues/12)
 - Add fire [\#14](https://github.com/2ndWatch/cloudendure-python/pull/14) ([mbeacom](https://github.com/mbeacom))
-
-**Merged pull requests:**
-
-- v0.0.6 [\#22](https://github.com/2ndWatch/cloudendure-python/pull/22) ([mbeacom](https://github.com/mbeacom))
 
 ## [v0.0.4](https://github.com/2ndWatch/cloudendure-python/tree/v0.0.4) (2019-06-28)
 [Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.0.3...v0.0.4)

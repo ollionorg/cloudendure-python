@@ -1,5 +1,47 @@
 # Change Log
 
+## [v0.2.0](https://github.com/2ndWatch/cloudendure-python/tree/v0.2.0) (2020-03-24)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.10...v0.2.0)
+
+**Implemented enhancements:**
+
+- Converted project from using pipenv to poetry [\#98](https://github.com/2ndWatch/cloudendure-python/pull/98) ([selpan](https://github.com/selpan))
+
+**Merged pull requests:**
+
+- Bump bleach from 3.1.1 to 3.1.2 [\#101](https://github.com/2ndWatch/cloudendure-python/pull/101) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [v0.1.10](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.10) (2020-03-24)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.9...v0.1.10)
+
+**Implemented enhancements:**
+
+- Update API explorer to use Bravado [\#64](https://github.com/2ndWatch/cloudendure-python/issues/64)
+
+**Fixed bugs:**
+
+- Missing depedency [\#99](https://github.com/2ndWatch/cloudendure-python/issues/99)
+- Adjust setup.py to conform to pipfile [\#100](https://github.com/2ndWatch/cloudendure-python/pull/100) ([mbeacom](https://github.com/mbeacom))
+
+## [v0.1.9](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.9) (2020-03-20)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.8...v0.1.9)
+
+**Fixed bugs:**
+
+- YAML module missing after pipenv install [\#94](https://github.com/2ndWatch/cloudendure-python/issues/94)
+- Added pyyaml package to Pipfile [\#95](https://github.com/2ndWatch/cloudendure-python/pull/95) ([selpan](https://github.com/selpan))
+
+**Closed issues:**
+
+- Migrate environment management from pipenv to poetry [\#96](https://github.com/2ndWatch/cloudendure-python/issues/96)
+
+## [v0.1.8](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.8) (2019-11-26)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.7...v0.1.8)
+
+**Implemented enhancements:**
+
+- Update CE to handle instance type updates [\#93](https://github.com/2ndWatch/cloudendure-python/pull/93) ([mbeacom](https://github.com/mbeacom))
+
 ## [v0.1.7](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.7) (2019-11-21)
 [Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.6...v0.1.7)
 
@@ -21,10 +63,16 @@
 [Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.4...v0.1.5)
 
 ## [v0.1.4](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.4) (2019-10-22)
-[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.3...v0.1.4)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/0.1.4...v0.1.4)
+
+## [0.1.4](https://github.com/2ndWatch/cloudendure-python/tree/0.1.4) (2019-10-22)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.3...0.1.4)
 
 ## [v0.1.3](https://github.com/2ndWatch/cloudendure-python/tree/v0.1.3) (2019-10-22)
-[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.2...v0.1.3)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/0.1.3...v0.1.3)
+
+## [0.1.3](https://github.com/2ndWatch/cloudendure-python/tree/0.1.3) (2019-10-22)
+[Full Changelog](https://github.com/2ndWatch/cloudendure-python/compare/v0.1.2...0.1.3)
 
 **Implemented enhancements:**
 

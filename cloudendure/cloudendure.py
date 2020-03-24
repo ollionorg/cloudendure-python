@@ -21,6 +21,7 @@ from .constants import get_aws_regions
 from .events import Event, EventHandler
 from .exceptions import CloudEndureHTTPException, CloudEndureMisconfigured
 from .templates import TerraformTemplate
+from .utils import get_user_agent
 
 HOST: str = "https://console.cloudendure.com"
 headers: Dict[str, str] = {"Content-Type": "application/json"}
@@ -106,6 +107,25 @@ class CloudEndure:
             print(
                 "Failed to authenticate with CloudEndure! Please check your credentials and try again!"
             )
+
+    def __repr__(self) -> str:
+        """Provide the representation for the CloudEndure object.
+
+        Returns:
+            str: The string representation of the CloudEndure object.
+
+        """
+        return f"<CloudEndure - Project: {self.project_name}>"
+
+    @property
+    def version(self) -> str:
+        """Display the CloudEndure module version.
+
+        Returns:
+            str: The CloudEndure Python module version.
+
+        """
+        return get_user_agent()
 
     def _get_role_credentials(self, name: str, role: str) -> Dict[str, Any]:
         _sts_client: boto_client = boto3.client("sts")

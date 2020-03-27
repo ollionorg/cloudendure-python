@@ -347,15 +347,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#poetry" class="md-nav__link">
-    poetry
+  <a href="#basic-installation-pip" class="md-nav__link">
+    Basic Installation / pip
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#pip" class="md-nav__link">
-    pip
+  <a href="#local-development-with-poetry" class="md-nav__link">
+    Local Development with Poetry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-development-with-docker" class="md-nav__link">
+    Local Development with Docker
   </a>
   
 </li>
@@ -1905,15 +1912,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#poetry" class="md-nav__link">
-    poetry
+  <a href="#basic-installation-pip" class="md-nav__link">
+    Basic Installation / pip
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#pip" class="md-nav__link">
-    pip
+  <a href="#local-development-with-poetry" class="md-nav__link">
+    Local Development with Poetry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-development-with-docker" class="md-nav__link">
+    Local Development with Docker
   </a>
   
 </li>
@@ -1996,13 +2010,18 @@
 <h2 id="requirements">Requirements</h2>
 <p><a href="https://www.python.org/downloads/">Python 3.7+</a></p>
 <h2 id="installation-usage">Installation &amp; Usage</h2>
-<h3 id="poetry">poetry</h3>
-<pre><code class="sh">brew install poetry # if not installed
-poetry install cloudendure
+<h3 id="basic-installation-pip">Basic Installation / pip</h3>
+<pre><code class="sh">pip install cloudendure
+cloudendure version
 </code></pre>
 
-<h3 id="pip">pip</h3>
-<pre><code class="sh">pip install cloudendure
+<h3 id="local-development-with-poetry">Local Development with Poetry</h3>
+<pre><code class="sh">brew install poetry # if not installed
+poetry install
+</code></pre>
+
+<h3 id="local-development-with-docker">Local Development with Docker</h3>
+<pre><code class="sh">docker run --rm -it cloudendurepy/cloudendure bash
 </code></pre>
 
 <h3 id="usage">Usage</h3>

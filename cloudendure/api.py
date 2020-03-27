@@ -147,8 +147,16 @@ class CloudEndureAPI:
         return True
 
     @staticmethod
-    def get_endpoint(path: str, api_version: str = "latest", host: str = "https://console.cloudendure.com",) -> str:
+    def get_endpoint(path: str, api_version: str = "latest", host: str = "https://console.cloudendure.com") -> str:
         """Build the endpoint path.
+
+        Args:
+            path (str): The path to be requested.
+            api_version (str): The API version to be used.
+                For example: v5
+                Defaults to: latest
+            host (str): The API URL to be used.
+                Defaults to: https://console.cloudendure.com
 
         Returns:
             str: The CloudEndure API endpoint to be used.

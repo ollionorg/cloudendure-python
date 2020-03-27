@@ -10,17 +10,24 @@ Python wrapper and CLI for [CloudEndure](https://www.cloudendure.com/)
 
 ## Installation & Usage
 
-### poetry
-
-```sh
-brew install poetry # if not installed
-poetry install cloudendure
-```
-
-### pip
+### Basic Installation / pip
 
 ```sh
 pip install cloudendure
+cloudendure version
+```
+
+### Local Development with Poetry
+
+```sh
+brew install poetry # if not installed
+poetry install
+```
+
+### Local Development with Docker
+
+```sh
+docker run --rm -it cloudendurepy/cloudendure bash
 ```
 
 ### Usage

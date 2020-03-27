@@ -8,10 +8,13 @@ SHA1 := $$(git log -1 --pretty=%h)
 CURRENT_BRANCH := $$(git symbolic-ref -q --short HEAD)
 LATEST_TAG := ${REPO_NAME}:latest
 GIT_TAG := ${REPO_NAME}:${SHA1}
-VERSION := v0.2.2
+VERSION := v0.2.4
 
 info: ## Show information about the current git state.
 	@echo "Github Project: https://github.com/${REPO_NAME}\nCurrent Branch: ${CURRENT_BRANCH}\nSHA1: ${SHA1}\n"
+
+run-docker: ## Run the local development environment docker shell.
+	@docker run -v $(pwd):/app --rm -it airproducts /bin/bash
 
 build: ## Build the release docker image.
 	@docker build \

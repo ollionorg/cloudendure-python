@@ -390,7 +390,7 @@ description = "A library for automatically generating command line interfaces."
 name = "fire"
 optional = false
 python-versions = "*"
-version = "0.2.1"
+version = "0.3.0"
 
 [package.dependencies]
 six = "*"
@@ -1502,7 +1502,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "f038921da80477f00310e29f74a685918b8a7422a855f6de1615c6e8cc6f6f13"
+content-hash = "3972a991ca394a984241d80121758465d74dcc636431ab5c34ddad4e8747a572"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -1700,7 +1700,7 @@ entrypoints = [
     {file = "entrypoints-0.3.tar.gz", hash = "sha256:c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"},
 ]
 fire = [
-    {file = "fire-0.2.1.tar.gz", hash = "sha256:6865fefc6981a713d2ce56a2a2c92c56c729269f74a6cddd6f4b94d16ae084c9"},
+    {file = "fire-0.3.0.tar.gz", hash = "sha256:96c372096afcf33ddbadac8a7ca5b7e829e8d7157d0030bd964bf959afde5c2c"},
 ]
 flake8 = [
     {file = "flake8-3.7.9-py2.py3-none-any.whl", hash = "sha256:49356e766643ad15072a789a20915d3c91dc89fd313ccd71802303fd67e4deca"},

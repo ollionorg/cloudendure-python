@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cloudendure"
-version = "0.2.3"
+version = "0.2.4"
 description = "Python wrapper and CLI for CloudEndure"
 authors = ["Mark Beacom <mark@markbeacom.com>", "Tom Warnock <twarnock@2ndwatch.com>"]
 maintainers = ["Evan Lucchesi <evan@2ndwatch.com>", "Nick Selpa <nselpa@2ndwatch.com>"]
@@ -49,14 +49,14 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-requests = "^2.23.0"
-boto3 = "^1.12.4"
-fire = "^0.2.1"
 six = "^1.14.0"
 certifi = "^2019.11.28"
 python-dateutil = "^2.8.1"
 setuptools = "^45.2.0"
 urllib3 = "^1.25.8"
+fire = "^0.3.0"
+requests = "^2.23.0"
+boto3 = "^1.12.30"
 cookiecutter = "^1.7.0"
 
 [tool.poetry.dev-dependencies]

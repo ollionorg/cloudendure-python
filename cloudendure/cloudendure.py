@@ -429,6 +429,7 @@ class CloudEndure:
             license_data: Dict[str, Any] = machine.get("license", {})
             license_use: str = license_data.get("startOfUseDateTime")
             license_date: datetime = datetime.datetime.strptime(license_use, "%Y-%m-%dT%H:%M:%S.%f%z")
+            print(f"{machine_name} agent install: {license_date}")
             delta: timedelta = now - license_date
             if expirationday < delta:
                 response_dict[machine_name] = {
@@ -534,13 +535,14 @@ class CloudEndure:
             for machine in json.loads(machines_response.text).get("items", []):
                 source_props: Dict[str, Any] = machine.get("sourceProperties", {})
                 machine_data: Dict[str, Any] = {}
-                if _machine == source_props.get("name", "NONE"):
+                ce_name = source_props.get("name","NONE")
+                if _machine == ce_name.upper():
                     if machine.get("replica"):
                         print("Target machine already launched")
                         self.event_handler.add_event(Event.EVENT_ALREADY_LAUNCHED, machine_name=_machine)
                         continue
                     machine_data = {
-                        "items": [{"machineId": machine["id"]}],
+                        "items": [{"machineId": ce_name}],
                         "launchType": "TEST",
                     }
 
@@ -563,7 +565,7 @@ class CloudEndure:
                         print("ERROR: Launch target machine failed!")
                         self.event_handler.add_event(Event.EVENT_FAILED, machine_name=_machine)
                 else:
-                    print(f"Machine: ({source_props['name']}) - Not a machine we want to launch...")
+                    #print(f"Machine: ({source_props['name']}) - Not a machine we want to launch...")
                     self.event_handler.add_event(Event.EVENT_IGNORED, machine_name=_machine)
         return response_dict
 

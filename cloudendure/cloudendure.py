@@ -535,7 +535,7 @@ class CloudEndure:
             for machine in json.loads(machines_response.text).get("items", []):
                 source_props: Dict[str, Any] = machine.get("sourceProperties", {})
                 machine_data: Dict[str, Any] = {}
-                ce_name = source_props.get("name","NONE")
+                ce_name = source_props.get("name", "NONE")
                 if _machine == ce_name.upper():
                     if machine.get("replica"):
                         print("Target machine already launched")
@@ -565,7 +565,7 @@ class CloudEndure:
                         print("ERROR: Launch target machine failed!")
                         self.event_handler.add_event(Event.EVENT_FAILED, machine_name=_machine)
                 else:
-                    #print(f"Machine: ({source_props['name']}) - Not a machine we want to launch...")
+                    # print(f"Machine: ({source_props['name']}) - Not a machine we want to launch...")
                     self.event_handler.add_event(Event.EVENT_IGNORED, machine_name=_machine)
         return response_dict
 

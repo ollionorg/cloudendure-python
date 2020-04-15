@@ -542,10 +542,9 @@ class CloudEndure:
                         self.event_handler.add_event(Event.EVENT_ALREADY_LAUNCHED, machine_name=_machine)
                         continue
                     machine_data = {
-                        "items": [{"machineId": ce_name}],
+                        "items": [{"machineId": machine["id"]}],
                         "launchType": "TEST",
                     }
-
                 if machine_data:
                     result: Response = self.api.api_call(
                         f"projects/{self.project_id}/launchMachines", method="post", data=json.dumps(machine_data),

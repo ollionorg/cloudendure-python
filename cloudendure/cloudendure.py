@@ -446,6 +446,64 @@ class CloudEndure:
 
         return response_dict
 
+    def get_machine_sync_details(self) -> Dict[str, Any]:
+        """Checks if machine name is in CloudEndure inventory and returns
+        machine's replication state.
+        """
+        response_dict: Dict[str, Any] = {}
+        # **NOTE**: Still up in the air about implementing this to accept a
+        #           list of values to query.  Assuming a single query per run.
+        
+        print(f"Auditing CloudEndure Project: ({self.project_name})")
+        print(f"Checking CloudEndure Machine Status - Query: ({self.config.active_config.get('machines', '')})")
+        machines_response: Response = self.api.api_call(
+            f"projects/{self.project_id}/machines"
+        )
+        if not machines_response.ok:
+            print(f"ERROR: API response did not return a 2XX status; Returned {machines_response.status_code} ...")
+            return {}
+        for _query_value in self.target_machines.split(","):
+            response_dict[_query_value] = {
+                "in_inventory": "false",
+                "replication_status": "",
+                "last_seen_utc": "",
+                "total_storage_bytes": "",
+                "replicated_storage_bytes": "",
+                "rescanned_storage_bytes" : "",
+                "backlogged_storage_bytes": ""
+            }
+            machine_inventory = json.loads(machines_response.text).get("items", [])
+            for machine in machine_inventory:
+                # forcing evaluation to be case-insensitive
+                if _query_value.lower() in machine['sourceProperties']['name'].lower():
+                    if 'rescannedStorageBytes' in machine['replicationInfo']:
+                        response_dict[_query_value] = {
+                            "in_inventory": machine['isAgentInstalled'],
+                            "replication_status": machine['replicationStatus'],
+                            "last_seen_utc": machine['replicationInfo']['lastSeenDateTime'],
+                            "total_storage_bytes": machine['replicationInfo']['totalStorageBytes'],
+                            "replicated_storage_bytes": machine['replicationInfo']['replicatedStorageBytes'],
+                            "rescanned_storage_bytes": machine['replicationInfo']['rescannedStorageBytes'],
+                            "backlogged_storage_bytes": machine['replicationInfo']['backloggedStorageBytes']
+                        }
+                        break
+                    else:
+                        response_dict[_query_value] = {
+                            "in_inventory": machine['isAgentInstalled'],
+                            "replication_status": machine['replicationStatus'],
+                            "last_seen_utc": machine['replicationInfo']['lastSeenDateTime'],
+                            "total_storage_bytes": machine['replicationInfo']['totalStorageBytes'],
+                            "replicated_storage_bytes": machine['replicationInfo']['replicatedStorageBytes'],
+                            "rescanned_storage_bytes": 0,
+                            "backlogged_storage_bytes": machine['replicationInfo']['backloggedStorageBytes']
+                        }
+                        break
+                    # It's assumed a projected does not have duplicate machine names
+                    # for source systems
+            # Project is still printing to console as a convention; Emitting an
+            # output to stdout for interactive usage
+        return response_dict
+
     def update_blueprint(self) -> bool:
         """Update the blueprint associated with the specified machines."""
         print(f"Updating CloudEndure Blueprints - Name: ({self.project_name}) - Dry Run: ({self.dry_run})")

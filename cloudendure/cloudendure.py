@@ -7,6 +7,7 @@ import base64
 import datetime
 import json
 import os
+import pprint
 from typing import Any, Dict, List
 
 import boto3
@@ -502,6 +503,10 @@ class CloudEndure:
                 ]
 
                 blueprint["publicIPAction"] = self.config.active_config.get("public_ip", "DONT_ALLOCATE")
+
+                print(f"Updated blueprint for {_machine_name}")
+                pprint.pprint(blueprint)
+
                 if self.dry_run:
                     print("This is a dry run! Not updating blueprints!")
                     return True

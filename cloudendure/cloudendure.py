@@ -67,6 +67,7 @@ class CloudEndure:
             self.private_ip_action = "CREATE_NEW"
         self.security_group_id: str = self.config.active_config.get("security_group_id", "")
         self.target_machines: List[str] = self.config.active_config.get("machines", "").split(",")
+        self.target_machines = [x.upper() for x in self.target_machines]
         self.target_instance_types: List[str] = self.config.active_config.get("instance_types", "").split(",")
         if len(self.target_machines) == len(self.target_instance_types):
             self.target_instances: Dict[str, str] = dict(zip(self.target_machines, self.target_instance_types))
@@ -345,9 +346,7 @@ class CloudEndure:
             for machine in json.loads(machines_response.text).get("items", []):
                 source_props: Dict[str, Any] = machine.get("sourceProperties", {})
                 ref_name: str = source_props.get("name") or source_props.get("machineCloudId", "NONE")
-                if _machine == source_props.get("name", "NONE") or _machine == source_props.get(
-                    "machineCloudId", "NONE"
-                ):
+                if ref_name.upper() == _machine:
                     machine_exist = True
 
                     if "lastConsistencyDateTime" not in machine["replicationInfo"]:
@@ -456,8 +455,8 @@ class CloudEndure:
         for machine in json.loads(machines_response.text).get("items", []):
             source_props: Dict[str, Any] = machine.get("sourceProperties", {})
             machine_id: str = machine.get("id")
-            machine_name: str = source_props.get("name")
-            if machine_name in self.target_machines or machine_name.upper() in self.target_machines:
+            machine_name: str = source_props.get("name", "").upper()
+            if machine_name in self.target_machines:
                 machine_data_dict[machine_id] = machine_name
 
         if not machine_data_dict:

@@ -8,7 +8,7 @@ SHA1 := $$(git log -1 --pretty=%h)
 CURRENT_BRANCH := $$(git symbolic-ref -q --short HEAD)
 LATEST_TAG := ${REPO_NAME}:latest
 GIT_TAG := ${REPO_NAME}:${SHA1}
-VERSION := v0.2.7
+VERSION := v0.2.8
 
 info: ## Show information about the current git state.
 	@echo "Github Project: https://github.com/${REPO_NAME}\nCurrent Branch: ${CURRENT_BRANCH}\nSHA1: ${SHA1}\n"

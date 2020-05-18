@@ -508,7 +508,7 @@ class CloudEndure:
             if item['backlogged_storage_bytes'] > 0 or item['rescanned_storage_bytes'] > 0:
                 backlogged_machines.append(item)
         if len(backlogged_machines) > 0:
-            print(f"INFO: The following machines are backlogged in Project: ({self.project_name})")
+            print(f"INFO: {len(backlogged_machines)} machines are backlogged in Project: ({self.project_name})")
             return backlogged_machines
         else:
             print(f"INFO: All machines are in Continuous Data Replication in Project: ({self.project_name})")
@@ -521,7 +521,7 @@ class CloudEndure:
             if item['replication_status'] != "STARTED":
                 not_started_machines.append(item)
         if len(not_started_machines) > 0:
-            print(f"INFO: Machines not STARTED found in Project: ({self.project_name})")
+            print(f"INFO: {len(not_started_machines)} machines not STARTED found in Project: ({self.project_name})")
             return not_started_machines
         else:
             print(f"INFO: All machines are STARTED in Project: ({self.project_name})")
@@ -538,10 +538,10 @@ class CloudEndure:
             if int(last_seen_delta.total_seconds()) >= delta_seconds:
                 stale_machines.append(item)
         if len(stale_machines) > 0:
-            print(f"INFO: Machines not seen for {delta_seconds} seconds found in Project: ({self.project_name})")
+            print(f"INFO: {len(stale_machines)} machines not seen for {delta_seconds} seconds found in Project: ({self.project_name})")
             return stale_machines
         else:
-            print(f"INFO: No machines in Project: ({self.project_name})")
+            print(f"INFO: All machines have been seen at least {delta_seconds} seconds ago in Project: ({self.project_name})")
             
     def update_blueprint(self) -> bool:
         """Update the blueprint associated with the specified machines."""

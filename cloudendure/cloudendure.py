@@ -446,24 +446,23 @@ class CloudEndure:
 
         return response_dict
 
-    def get_machine_sync_details(self) -> Dict[str, Any]:
-        """Checks if machine name is in CloudEndure inventory and returns
-        machine's replication state.
+    def get_machine_sync_details(self) -> List[Any]:
+        """Checks CloudEndure Project inventory and returns register machine's
+        replication state.
         """
-        response_dict: Dict[str, Any] = {}
-        # **NOTE**: Still up in the air about implementing this to accept a
-        #           list of values to query.  Assuming a single query per run.
-        
-        print(f"Auditing CloudEndure Project: ({self.project_name})")
-        print(f"Checking CloudEndure Machine Status - Query: ({self.config.active_config.get('machines', '')})")
+        response_list: List[Any] = []
+        print(f"INFO: Retreiving sync status for all machines in Project: ({self.project_name})")
         machines_response: Response = self.api.api_call(
             f"projects/{self.project_id}/machines"
         )
         if not machines_response.ok:
             print(f"ERROR: API response did not return a 2XX status; Returned {machines_response.status_code} ...")
             return {}
-        for _query_value in self.target_machines.split(","):
-            response_dict[_query_value] = {
+        ce_project_inventory = json.loads(machines_response.text).get("items", [])
+        for _query_value in ce_project_inventory:
+            machine_name: str = _query_value['sourceProperties']['name']
+            sync_details: Dict[str, Any] = {
+                "machine_name": machine_name,
                 "in_inventory": "false",
                 "replication_status": "",
                 "last_seen_utc": "",
@@ -472,37 +471,48 @@ class CloudEndure:
                 "rescanned_storage_bytes" : "",
                 "backlogged_storage_bytes": ""
             }
-            machine_inventory = json.loads(machines_response.text).get("items", [])
-            for machine in machine_inventory:
-                # forcing evaluation to be case-insensitive
-                if _query_value.lower() in machine['sourceProperties']['name'].lower():
-                    if 'rescannedStorageBytes' in machine['replicationInfo']:
-                        response_dict[_query_value] = {
-                            "in_inventory": machine['isAgentInstalled'],
-                            "replication_status": machine['replicationStatus'],
-                            "last_seen_utc": machine['replicationInfo']['lastSeenDateTime'],
-                            "total_storage_bytes": machine['replicationInfo']['totalStorageBytes'],
-                            "replicated_storage_bytes": machine['replicationInfo']['replicatedStorageBytes'],
-                            "rescanned_storage_bytes": machine['replicationInfo']['rescannedStorageBytes'],
-                            "backlogged_storage_bytes": machine['replicationInfo']['backloggedStorageBytes']
-                        }
-                        break
-                    else:
-                        response_dict[_query_value] = {
-                            "in_inventory": machine['isAgentInstalled'],
-                            "replication_status": machine['replicationStatus'],
-                            "last_seen_utc": machine['replicationInfo']['lastSeenDateTime'],
-                            "total_storage_bytes": machine['replicationInfo']['totalStorageBytes'],
-                            "replicated_storage_bytes": machine['replicationInfo']['replicatedStorageBytes'],
-                            "rescanned_storage_bytes": 0,
-                            "backlogged_storage_bytes": machine['replicationInfo']['backloggedStorageBytes']
-                        }
-                        break
-                    # It's assumed a projected does not have duplicate machine names
-                    # for source systems
-            # Project is still printing to console as a convention; Emitting an
-            # output to stdout for interactive usage
-        return response_dict
+            if 'rescannedStorageBytes' in _query_value['replicationInfo']:
+                sync_details = {
+                    "machine_name": machine_name,
+                    "in_inventory": _query_value['isAgentInstalled'],
+                    "replication_status": _query_value['replicationStatus'],
+                    "last_seen_utc": _query_value['replicationInfo']['lastSeenDateTime'],
+                    "total_storage_bytes": _query_value['replicationInfo']['totalStorageBytes'],
+                    "replicated_storage_bytes": _query_value['replicationInfo']['replicatedStorageBytes'],
+                    "rescanned_storage_bytes": _query_value['replicationInfo']['rescannedStorageBytes'],
+                    "backlogged_storage_bytes": _query_value['replicationInfo']['backloggedStorageBytes']
+                }
+                response_list.append(sync_details)
+            else:
+                sync_details = {
+                    "machine_name": machine_name,
+                    "in_inventory": _query_value['isAgentInstalled'],
+                    "replication_status": _query_value['replicationStatus'],
+                    "last_seen_utc": _query_value['replicationInfo']['lastSeenDateTime'],
+                    "total_storage_bytes": _query_value['replicationInfo']['totalStorageBytes'],
+                    "replicated_storage_bytes": _query_value['replicationInfo']['replicatedStorageBytes'],
+                    "rescanned_storage_bytes": 0,
+                    "backlogged_storage_bytes": _query_value['replicationInfo']['backloggedStorageBytes']
+                }
+                response_list.append(sync_details)
+        # Project is still printing to console as a convention; Emitting an
+        # output to stdout for interactive usage
+        return response_list
+    
+    def get_backlogged_synced_machines(self) -> List[Any]:
+        backlogged_machines: List[Any] = []
+        sync_report: List[Any] = self.get_machine_sync_details()
+        print(f"INFO: Filtering for backlogged servers in Project: ({self.project_name})")
+        for item in sync_report:
+            if item['backlogged_storage_bytes'] > 0:
+                backlogged_machines.append(item)
+        if len(backlogged_machines) > 0:
+            print(f"INFO: The following machines are backlogged in Project: ({self.project_name})")
+            return backlogged_machines
+        else:
+            print(f"INFO: All machines are in Continuous Data Replication in Project: ({self.project_name})")
+        
+
 
     def update_blueprint(self) -> bool:
         """Update the blueprint associated with the specified machines."""

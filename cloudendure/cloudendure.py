@@ -499,18 +499,31 @@ class CloudEndure:
         # output to stdout for interactive usage
         return response_list
     
-    def get_backlogged_synced_machines(self) -> List[Any]:
+    def get_machines_not_synced(self) -> List[Any]:
         backlogged_machines: List[Any] = []
         sync_report: List[Any] = self.get_machine_sync_details()
         print(f"INFO: Filtering for backlogged servers in Project: ({self.project_name})")
         for item in sync_report:
-            if item['backlogged_storage_bytes'] > 0:
+            if item['backlogged_storage_bytes'] > 0 or item['rescanned_storage_bytes'] > 0:
                 backlogged_machines.append(item)
         if len(backlogged_machines) > 0:
             print(f"INFO: The following machines are backlogged in Project: ({self.project_name})")
             return backlogged_machines
         else:
             print(f"INFO: All machines are in Continuous Data Replication in Project: ({self.project_name})")
+    
+    def get_machines_not_started(self) -> List[Any]:
+        not_started_machines: List[Any] = []
+        sync_report: List[Any] = self.get_machine_sync_details()
+        print(f"INFO: Getting replication not STARTED for machines in Project: ({self.project_name})")
+        for item in sync_report:
+            if item['replication_status'] != "STARTED":
+                not_started_machines.append(item)
+        if len(not_started_machines) > 0:
+            print(f"INFO: Machines not STARTED found in Project: ({self.project_name})")
+            return not_started_machines
+        else:
+            print(f"INFO: All machines are STARTED in Project: ({self.project_name})")
         
 
 

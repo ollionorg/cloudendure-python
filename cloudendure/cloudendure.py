@@ -501,6 +501,9 @@ class CloudEndure:
         return response_list
     
     def get_machines_not_synced(self) -> List[Any]:
+        """Returns machines in a CloudEndure project which are either rescanning or
+        backlogged for replication data.
+        """
         backlogged_machines: List[Any] = []
         sync_report: List[Any] = self.get_machine_sync_details()
         print(f"INFO: Filtering for backlogged servers in Project: ({self.project_name})")
@@ -514,6 +517,9 @@ class CloudEndure:
             print(f"INFO: All machines are in Continuous Data Replication in Project: ({self.project_name})")
     
     def get_machines_not_started(self) -> List[Any]:
+        """Returns machines in a CloudEndure project which are not in a STARTED
+        state.
+        """
         not_started_machines: List[Any] = []
         sync_report: List[Any] = self.get_machine_sync_details()
         print(f"INFO: Getting replication not STARTED for machines in Project: ({self.project_name})")
@@ -527,6 +533,9 @@ class CloudEndure:
             print(f"INFO: All machines are STARTED in Project: ({self.project_name})")
 
     def get_stale_machines(self, delta_seconds: int = 86400) -> List[Any]:
+        """Returns machines in a CloudEndure project which have not been seen by
+        the CloudEndure console for greater than 24 hours (86400 seconds [default]).
+        """
         stale_machines: List[Any] = []
         sync_report: List[Any] = self.get_machine_sync_details()
         print(f"INFO: Getting stale machines (not seen for {delta_seconds} seconds or later) in Project: ({self.project_name})")

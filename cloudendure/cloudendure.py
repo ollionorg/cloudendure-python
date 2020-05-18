@@ -8,8 +8,8 @@ import datetime
 import json
 import os
 import pprint
-from typing import Any, Dict, List
 from datetime import datetime, timezone
+from typing import Any, Dict, List
 
 import boto3
 import fire
@@ -453,15 +453,13 @@ class CloudEndure:
         """
         response_list: List[Any] = []
         print(f"INFO: Retreiving sync status for all machines in Project: ({self.project_name})")
-        machines_response: Response = self.api.api_call(
-            f"projects/{self.project_id}/machines"
-        )
+        machines_response: Response = self.api.api_call(f"projects/{self.project_id}/machines")
         if not machines_response.ok:
             print(f"ERROR: API response did not return a 2XX status; Returned {machines_response.status_code} ...")
             return {}
         ce_project_inventory = json.loads(machines_response.text).get("items", [])
         for _query_value in ce_project_inventory:
-            machine_name: str = _query_value['sourceProperties']['name']
+            machine_name: str = _query_value["sourceProperties"]["name"]
             sync_details: Dict[str, Any] = {
                 "machine_name": machine_name,
                 "in_inventory": "false",
@@ -469,37 +467,37 @@ class CloudEndure:
                 "last_seen_utc": "",
                 "total_storage_bytes": "",
                 "replicated_storage_bytes": "",
-                "rescanned_storage_bytes" : "",
-                "backlogged_storage_bytes": ""
+                "rescanned_storage_bytes": "",
+                "backlogged_storage_bytes": "",
             }
-            if 'rescannedStorageBytes' in _query_value['replicationInfo']:
+            if "rescannedStorageBytes" in _query_value["replicationInfo"]:
                 sync_details = {
                     "machine_name": machine_name,
-                    "in_inventory": _query_value['isAgentInstalled'],
-                    "replication_status": _query_value['replicationStatus'],
-                    "last_seen_utc": _query_value['replicationInfo']['lastSeenDateTime'],
-                    "total_storage_bytes": _query_value['replicationInfo']['totalStorageBytes'],
-                    "replicated_storage_bytes": _query_value['replicationInfo']['replicatedStorageBytes'],
-                    "rescanned_storage_bytes": _query_value['replicationInfo']['rescannedStorageBytes'],
-                    "backlogged_storage_bytes": _query_value['replicationInfo']['backloggedStorageBytes']
+                    "in_inventory": _query_value["isAgentInstalled"],
+                    "replication_status": _query_value["replicationStatus"],
+                    "last_seen_utc": _query_value["replicationInfo"]["lastSeenDateTime"],
+                    "total_storage_bytes": _query_value["replicationInfo"]["totalStorageBytes"],
+                    "replicated_storage_bytes": _query_value["replicationInfo"]["replicatedStorageBytes"],
+                    "rescanned_storage_bytes": _query_value["replicationInfo"]["rescannedStorageBytes"],
+                    "backlogged_storage_bytes": _query_value["replicationInfo"]["backloggedStorageBytes"],
                 }
                 response_list.append(sync_details)
             else:
                 sync_details = {
                     "machine_name": machine_name,
-                    "in_inventory": _query_value['isAgentInstalled'],
-                    "replication_status": _query_value['replicationStatus'],
-                    "last_seen_utc": _query_value['replicationInfo']['lastSeenDateTime'],
-                    "total_storage_bytes": _query_value['replicationInfo']['totalStorageBytes'],
-                    "replicated_storage_bytes": _query_value['replicationInfo']['replicatedStorageBytes'],
+                    "in_inventory": _query_value["isAgentInstalled"],
+                    "replication_status": _query_value["replicationStatus"],
+                    "last_seen_utc": _query_value["replicationInfo"]["lastSeenDateTime"],
+                    "total_storage_bytes": _query_value["replicationInfo"]["totalStorageBytes"],
+                    "replicated_storage_bytes": _query_value["replicationInfo"]["replicatedStorageBytes"],
                     "rescanned_storage_bytes": 0,
-                    "backlogged_storage_bytes": _query_value['replicationInfo']['backloggedStorageBytes']
+                    "backlogged_storage_bytes": _query_value["replicationInfo"]["backloggedStorageBytes"],
                 }
                 response_list.append(sync_details)
         # Project is still printing to console as a convention; Emitting an
         # output to stdout for interactive usage
         return response_list
-    
+
     def get_machines_not_synced(self) -> List[Any]:
         """Returns machines in a CloudEndure project which are either rescanning or
         backlogged for replication data.
@@ -508,14 +506,14 @@ class CloudEndure:
         sync_report: List[Any] = self.get_machine_sync_details()
         print(f"INFO: Filtering for backlogged servers in Project: ({self.project_name})")
         for item in sync_report:
-            if item['backlogged_storage_bytes'] > 0 or item['rescanned_storage_bytes'] > 0:
+            if item["backlogged_storage_bytes"] > 0 or item["rescanned_storage_bytes"] > 0:
                 backlogged_machines.append(item)
         if len(backlogged_machines) > 0:
             print(f"INFO: {len(backlogged_machines)} machines are backlogged in Project: ({self.project_name})")
             return backlogged_machines
         else:
             print(f"INFO: All machines are in Continuous Data Replication in Project: ({self.project_name})")
-    
+
     def get_machines_not_started(self) -> List[Any]:
         """Returns machines in a CloudEndure project which are not in a STARTED
         state.
@@ -524,7 +522,7 @@ class CloudEndure:
         sync_report: List[Any] = self.get_machine_sync_details()
         print(f"INFO: Getting replication not STARTED for machines in Project: ({self.project_name})")
         for item in sync_report:
-            if item['replication_status'] != "STARTED":
+            if item["replication_status"] != "STARTED":
                 not_started_machines.append(item)
         if len(not_started_machines) > 0:
             print(f"INFO: {len(not_started_machines)} machines not STARTED found in Project: ({self.project_name})")
@@ -538,20 +536,26 @@ class CloudEndure:
         """
         stale_machines: List[Any] = []
         sync_report: List[Any] = self.get_machine_sync_details()
-        print(f"INFO: Getting stale machines (not seen for {delta_seconds} seconds or later) in Project: ({self.project_name})")
+        print(
+            f"INFO: Getting stale machines (not seen for {delta_seconds} seconds or later) in Project: ({self.project_name})"
+        )
         now: datetime = datetime.now(timezone.utc)
         for item in sync_report:
-            item_last_seen: datetime = datetime.fromisoformat(item['last_seen_utc'])
+            item_last_seen: datetime = datetime.fromisoformat(item["last_seen_utc"])
             last_seen_delta: datetime = now - item_last_seen
             # If you're exceeding the size of int, you have bigger problems
             if int(last_seen_delta.total_seconds()) >= delta_seconds:
                 stale_machines.append(item)
         if len(stale_machines) > 0:
-            print(f"INFO: {len(stale_machines)} machines not seen for {delta_seconds} seconds found in Project: ({self.project_name})")
+            print(
+                f"INFO: {len(stale_machines)} machines not seen for {delta_seconds} seconds found in Project: ({self.project_name})"
+            )
             return stale_machines
         else:
-            print(f"INFO: All machines have been seen at least {delta_seconds} seconds ago in Project: ({self.project_name})")
-            
+            print(
+                f"INFO: All machines have been seen at least {delta_seconds} seconds ago in Project: ({self.project_name})"
+            )
+
     def update_blueprint(self) -> bool:
         """Update the blueprint associated with the specified machines."""
         print(f"Updating CloudEndure Blueprints - Name: ({self.project_name}) - Dry Run: ({self.dry_run})")

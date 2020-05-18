@@ -460,18 +460,8 @@ class CloudEndure:
         ce_project_inventory = json.loads(machines_response.text).get("items", [])
         for _query_value in ce_project_inventory:
             machine_name: str = _query_value["sourceProperties"]["name"]
-            sync_details: Dict[str, Any] = {
-                "machine_name": machine_name,
-                "in_inventory": "false",
-                "replication_status": "",
-                "last_seen_utc": "",
-                "total_storage_bytes": "",
-                "replicated_storage_bytes": "",
-                "rescanned_storage_bytes": "",
-                "backlogged_storage_bytes": "",
-            }
             if "rescannedStorageBytes" in _query_value["replicationInfo"]:
-                sync_details = {
+                sync_details: Dict[str, Any] = {
                     "machine_name": machine_name,
                     "in_inventory": _query_value["isAgentInstalled"],
                     "replication_status": _query_value["replicationStatus"],
@@ -483,7 +473,7 @@ class CloudEndure:
                 }
                 response_list.append(sync_details)
             else:
-                sync_details = {
+                sync_details: Dict[str, Any] = {
                     "machine_name": machine_name,
                     "in_inventory": _query_value["isAgentInstalled"],
                     "replication_status": _query_value["replicationStatus"],

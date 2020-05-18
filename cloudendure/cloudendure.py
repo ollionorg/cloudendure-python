@@ -490,7 +490,9 @@ class CloudEndure:
 
     def inspect_ce_project(self, check_type: str) -> List[Any]:
         if not check_type:
-            print(f"ERROR: Unknown check_type of '{check_type}'; Please use 'not_synced', 'not_started', or 'not_current' ...")
+            print(
+                f"ERROR: Unknown check_type of '{check_type}'; Please use 'not_synced', 'not_started', or 'not_current' ..."
+            )
             return
         result: List[Any] = []
         sync_report: List[Any] = self.get_machine_sync_details()
@@ -514,8 +516,8 @@ class CloudEndure:
             return False
         else:
             return True
-    
-    def not_current(self, machine, delta_seconds: int=86400) -> bool:
+
+    def not_current(self, machine, delta_seconds: int = 86400) -> bool:
         now: datetime = datetime.now(timezone.utc)
         machine_last_seen: datetime = datetime.fromisoformat(machine["last_seen_utc"])
         last_seen_delta: datetime = now - machine_last_seen

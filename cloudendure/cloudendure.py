@@ -9,6 +9,7 @@ import json
 import os
 import pprint
 from typing import Any, Dict, List
+from datetime import datetime, timezone
 
 import boto3
 import fire
@@ -524,9 +525,24 @@ class CloudEndure:
             return not_started_machines
         else:
             print(f"INFO: All machines are STARTED in Project: ({self.project_name})")
-        
 
-
+    def get_stale_machines(self, delta_seconds: int = 86400) -> List[Any]:
+        stale_machines: List[Any] = []
+        sync_report: List[Any] = self.get_machine_sync_details()
+        print(f"INFO: Getting stale machines (not seen for {delta_seconds} seconds or later) in Project: ({self.project_name})")
+        now: datetime = datetime.now(timezone.utc)
+        for item in sync_report:
+            item_last_seen: datetime = datetime.fromisoformat(item['last_seen_utc'])
+            last_seen_delta: datetime = now - item_last_seen
+            # If you're exceeding the size of int, you have bigger problems
+            if int(last_seen_delta.total_seconds()) >= delta_seconds:
+                stale_machines.append(item)
+        if len(stale_machines) > 0:
+            print(f"INFO: Machines not seen for {delta_seconds} seconds found in Project: ({self.project_name})")
+            return stale_machines
+        else:
+            print(f"INFO: No machines in Project: ({self.project_name})")
+            
     def update_blueprint(self) -> bool:
         """Update the blueprint associated with the specified machines."""
         print(f"Updating CloudEndure Blueprints - Name: ({self.project_name}) - Dry Run: ({self.dry_run})")

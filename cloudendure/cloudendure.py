@@ -488,63 +488,42 @@ class CloudEndure:
         # output to stdout for interactive usage
         return response_list
 
-    def get_machines_not_synced(self) -> List[Any]:
-        """Returns machines in a CloudEndure project which are either rescanning or
-        backlogged for replication data.
-        """
-        backlogged_machines: List[Any] = []
+    def inspect_ce_project(self, check_type: str) -> List[Any]:
+        if not check_type:
+            print(f"ERROR: Unknown check_type of '{check_type}'; Please use 'not_synced', 'not_started', or 'not_current' ...")
+            return
+        result: List[Any] = []
         sync_report: List[Any] = self.get_machine_sync_details()
-        print(f"INFO: Filtering for backlogged servers in Project: ({self.project_name})")
+        print(f"INFO: Using check '{check_type}' on Project: ({self.project_name})")
+        inspector = getattr(self, check_type)
         for item in sync_report:
-            if item["backlogged_storage_bytes"] > 0 or item["rescanned_storage_bytes"] > 0:
-                backlogged_machines.append(item)
-        if len(backlogged_machines) > 0:
-            print(f"INFO: {len(backlogged_machines)} machines are backlogged in Project: ({self.project_name})")
-            return backlogged_machines
-        else:
-            print(f"INFO: All machines are in Continuous Data Replication in Project: ({self.project_name})")
+            mcheck = inspector(machine=item)
+            if mcheck:
+                result.append(item)
+        print(f"INFO: Check '{check_type}' completed; {len(result)} machines matched in Project: ({self.project_name})")
+        return result
 
-    def get_machines_not_started(self) -> List[Any]:
-        """Returns machines in a CloudEndure project which are not in a STARTED
-        state.
-        """
-        not_started_machines: List[Any] = []
-        sync_report: List[Any] = self.get_machine_sync_details()
-        print(f"INFO: Getting replication not STARTED for machines in Project: ({self.project_name})")
-        for item in sync_report:
-            if item["replication_status"] != "STARTED":
-                not_started_machines.append(item)
-        if len(not_started_machines) > 0:
-            print(f"INFO: {len(not_started_machines)} machines not STARTED found in Project: ({self.project_name})")
-            return not_started_machines
+    def not_synced(self, machine) -> bool:
+        if machine["backlogged_storage_bytes"] > 0 or machine["rescanned_storage_bytes"] > 0:
+            return True
         else:
-            print(f"INFO: All machines are STARTED in Project: ({self.project_name})")
+            return False
 
-    def get_stale_machines(self, delta_seconds: int = 86400) -> List[Any]:
-        """Returns machines in a CloudEndure project which have not been seen by
-        the CloudEndure console for greater than 24 hours (86400 seconds [default]).
-        """
-        stale_machines: List[Any] = []
-        sync_report: List[Any] = self.get_machine_sync_details()
-        print(
-            f"INFO: Getting stale machines (not seen for {delta_seconds} seconds or later) in Project: ({self.project_name})"
-        )
+    def not_started(self, machine) -> bool:
+        if machine["replication_status"] == "STARTED":
+            return False
+        else:
+            return True
+    
+    def not_current(self, machine, delta_seconds: int=86400) -> bool:
         now: datetime = datetime.now(timezone.utc)
-        for item in sync_report:
-            item_last_seen: datetime = datetime.fromisoformat(item["last_seen_utc"])
-            last_seen_delta: datetime = now - item_last_seen
-            # If you're exceeding the size of int, you have bigger problems
-            if int(last_seen_delta.total_seconds()) >= delta_seconds:
-                stale_machines.append(item)
-        if len(stale_machines) > 0:
-            print(
-                f"INFO: {len(stale_machines)} machines not seen for {delta_seconds} seconds found in Project: ({self.project_name})"
-            )
-            return stale_machines
+        machine_last_seen: datetime = datetime.fromisoformat(machine["last_seen_utc"])
+        last_seen_delta: datetime = now - machine_last_seen
+        # If you're exceeding the size of int, you have bigger problems
+        if int(last_seen_delta.total_seconds()) >= delta_seconds:
+            return True
         else:
-            print(
-                f"INFO: All machines have been seen at least {delta_seconds} seconds ago in Project: ({self.project_name})"
-            )
+            return False
 
     def update_blueprint(self) -> bool:
         """Update the blueprint associated with the specified machines."""

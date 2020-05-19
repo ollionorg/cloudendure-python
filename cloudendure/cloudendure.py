@@ -460,30 +460,19 @@ class CloudEndure:
         ce_project_inventory = json.loads(machines_response.text).get("items", [])
         for _query_value in ce_project_inventory:
             machine_name: str = _query_value["sourceProperties"]["name"]
+            sync_details: Dict[str, Any] = {
+                "machine_name": machine_name,
+                "in_inventory": _query_value["isAgentInstalled"],
+                "replication_status": _query_value["replicationStatus"],
+                "last_seen_utc": _query_value["replicationInfo"]["lastSeenDateTime"],
+                "total_storage_bytes": _query_value["replicationInfo"]["totalStorageBytes"],
+                "replicated_storage_bytes": _query_value["replicationInfo"]["replicatedStorageBytes"],
+                "rescanned_storage_bytes": 0,
+                "backlogged_storage_bytes": _query_value["replicationInfo"]["backloggedStorageBytes"],
+            }
             if "rescannedStorageBytes" in _query_value["replicationInfo"]:
-                sync_details: Dict[str, Any] = {
-                    "machine_name": machine_name,
-                    "in_inventory": _query_value["isAgentInstalled"],
-                    "replication_status": _query_value["replicationStatus"],
-                    "last_seen_utc": _query_value["replicationInfo"]["lastSeenDateTime"],
-                    "total_storage_bytes": _query_value["replicationInfo"]["totalStorageBytes"],
-                    "replicated_storage_bytes": _query_value["replicationInfo"]["replicatedStorageBytes"],
-                    "rescanned_storage_bytes": _query_value["replicationInfo"]["rescannedStorageBytes"],
-                    "backlogged_storage_bytes": _query_value["replicationInfo"]["backloggedStorageBytes"],
-                }
-                response_list.append(sync_details)
-            else:
-                sync_details: Dict[str, Any] = {
-                    "machine_name": machine_name,
-                    "in_inventory": _query_value["isAgentInstalled"],
-                    "replication_status": _query_value["replicationStatus"],
-                    "last_seen_utc": _query_value["replicationInfo"]["lastSeenDateTime"],
-                    "total_storage_bytes": _query_value["replicationInfo"]["totalStorageBytes"],
-                    "replicated_storage_bytes": _query_value["replicationInfo"]["replicatedStorageBytes"],
-                    "rescanned_storage_bytes": 0,
-                    "backlogged_storage_bytes": _query_value["replicationInfo"]["backloggedStorageBytes"],
-                }
-                response_list.append(sync_details)
+                sync_details["recanned_storage_bytes"] = _query_value["replicationInfo"]["rescannedStorageBytes"]
+            response_list.append(sync_details)
         # Project is still printing to console as a convention; Emitting an
         # output to stdout for interactive usage
         return response_list

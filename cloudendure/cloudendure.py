@@ -8,7 +8,6 @@ import datetime
 import json
 import os
 import pprint
-from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 import boto3
@@ -67,6 +66,7 @@ class CloudEndure:
         if self.subnet_id and not self.private_ip_action:
             self.private_ip_action = "CREATE_NEW"
         self.security_group_id: str = self.config.active_config.get("security_group_id", "")
+        self.iam_role: str = self.config.active_config.get("iam_role", "")
         self.target_machines: List[str] = self.config.active_config.get("machines", "").split(",")
         self.target_machines = [x.upper() for x in self.target_machines]
         self.target_instance_types: List[str] = self.config.active_config.get("instance_types", "").split(",")
@@ -448,8 +448,7 @@ class CloudEndure:
         return response_dict
 
     def get_machine_sync_details(self) -> List[Any]:
-        """Checks CloudEndure Project inventory and returns register machine's
-        replication state.
+        """Checks CloudEndure Project inventory and returns register machine replication state.
         """
         response_list: List[Any] = []
         print(f"INFO: Retreiving sync status for all machines in Project: ({self.project_name})")
@@ -557,6 +556,8 @@ class CloudEndure:
                     blueprint["privateIPAction"] = self.private_ip_action
                 if self.security_group_id:
                     blueprint["securityGroupIDs"] = [self.security_group_id]
+                if self.iam_role:
+                    blueprint["iamRole"] = self.iam_role
 
                 instance_type = self.target_instances.get(_machine_name, "")
                 if instance_type:

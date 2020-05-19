@@ -559,7 +559,7 @@ class CloudEndure:
                 if self.iam_role:
                     blueprint["iamRole"] = self.iam_role
 
-                instance_type = self.target_instances.get(_machine_name, "")
+                instance_type = self.target_instances.get(_machine_name.upper(), "")
                 if instance_type:
                     blueprint["instanceType"] = instance_type
 

@@ -447,34 +447,35 @@ class CloudEndure:
 
         return response_dict
 
-    def get_machine_sync_details(self) -> List[Any]:
+    def get_machine_sync_details(self) -> Dict[Any]:
         """Checks CloudEndure Project inventory and returns register machine replication state.
         """
-        response_list: List[Any] = []
         print(f"INFO: Retreiving sync status for all machines in Project: ({self.project_name})")
         machines_response: Response = self.api.api_call(f"projects/{self.project_id}/machines")
         if not machines_response.ok:
             print(f"ERROR: API response did not return a 2XX status; Returned {machines_response.status_code} ...")
             return {}
+        response_dict: Dict[str, Any] = {}
         ce_project_inventory = json.loads(machines_response.text).get("items", [])
         for _query_value in ce_project_inventory:
-            machine_name: str = _query_value["sourceProperties"]["name"]
-            sync_details: Dict[str, Any] = {
-                "machine_name": machine_name,
+            machine_id: str = _query_value["id"]
+            response_dict[machine_id] = {
+                "machine_name": _query_value["sourceProperties"]["name"],
                 "in_inventory": _query_value["isAgentInstalled"],
                 "replication_status": _query_value["replicationStatus"],
-                "last_seen_utc": _query_value["replicationInfo"]["lastSeenDateTime"],
+                "last_seen_utc": "N/A",
                 "total_storage_bytes": _query_value["replicationInfo"]["totalStorageBytes"],
                 "replicated_storage_bytes": _query_value["replicationInfo"]["replicatedStorageBytes"],
                 "rescanned_storage_bytes": 0,
                 "backlogged_storage_bytes": _query_value["replicationInfo"]["backloggedStorageBytes"],
             }
-            if "rescannedStorageBytes" in _query_value["replicationInfo"]:
-                sync_details["recanned_storage_bytes"] = _query_value["replicationInfo"]["rescannedStorageBytes"]
-            response_list.append(sync_details)
+            if "lastSeenDateTime" in _query_value["replicationInfo"].keys():
+                response_dict[machine_id]["last_seen_utc"] = _query_value["replicationInfo"]["lastSeenDateTime"]
+            if "rescannedStorageBytes" in _query_value["replicationInfo"].keys():
+                response_dict[machine_id]["rescanned_storage_bytes"] = _query_value["replicationInfo"]["rescannedStorageBytes"]
         # Project is still printing to console as a convention; Emitting an
         # output to stdout for interactive usage
-        return response_list
+        return response_dict
 
     def inspect_ce_project(self, check_type: str) -> List[Any]:
         if not check_type:

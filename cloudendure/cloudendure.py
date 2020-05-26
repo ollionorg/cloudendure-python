@@ -447,49 +447,49 @@ class CloudEndure:
 
         return response_dict
 
-    def get_machine_sync_details(self) -> List[Any]:
+    def get_machine_sync_details(self) -> Dict[Any]:
         """Checks CloudEndure Project inventory and returns register machine replication state.
         """
-        response_list: List[Any] = []
         print(f"INFO: Retreiving sync status for all machines in Project: ({self.project_name})")
         machines_response: Response = self.api.api_call(f"projects/{self.project_id}/machines")
         if not machines_response.ok:
             print(f"ERROR: API response did not return a 2XX status; Returned {machines_response.status_code} ...")
             return {}
+        response_dict: Dict[str, Any] = {}
         ce_project_inventory = json.loads(machines_response.text).get("items", [])
         for _query_value in ce_project_inventory:
-            machine_name: str = _query_value["sourceProperties"]["name"]
-            sync_details: Dict[str, Any] = {
-                "machine_name": machine_name,
+            machine_id: str = _query_value["id"]
+            replication_info: Dict[str, Any] = _query_value.get("replicationInfo", {})
+            response_dict[machine_id] = {
+                "machine_name": _query_value.get("sourceProperties", {}).get("name", ""),
                 "in_inventory": _query_value["isAgentInstalled"],
                 "replication_status": _query_value["replicationStatus"],
-                "last_seen_utc": _query_value["replicationInfo"]["lastSeenDateTime"],
-                "total_storage_bytes": _query_value["replicationInfo"]["totalStorageBytes"],
-                "replicated_storage_bytes": _query_value["replicationInfo"]["replicatedStorageBytes"],
-                "rescanned_storage_bytes": 0,
-                "backlogged_storage_bytes": _query_value["replicationInfo"]["backloggedStorageBytes"],
+                "total_storage_bytes": replication_info.get("totalStorageBytes", -1),
+                "replicated_storage_bytes": replication_info.get("replicatedStorageBytes", -1),
+                "rescanned_storage_bytes": replication_info.get("rescannedStorageBytes", 0),
+                "backlogged_storage_bytes": replication_info.get("backloggedStorageBytes", -1),
             }
-            if "rescannedStorageBytes" in _query_value["replicationInfo"]:
-                sync_details["recanned_storage_bytes"] = _query_value["replicationInfo"]["rescannedStorageBytes"]
-            response_list.append(sync_details)
+            if replication_info.get("lastSeenDateTime"):
+                response_dict[machine_id]["last_seen_utc"] = replication_info.get("lastSeenDateTime")
         # Project is still printing to console as a convention; Emitting an
         # output to stdout for interactive usage
-        return response_list
+        return response_dict
 
-    def inspect_ce_project(self, check_type: str) -> List[Any]:
-        if not check_type:
+    def inspect_ce_project(self, check_type: str) -> Dict[str, Any]:
+        valid_check_types: List[str] = ["not_synced", "not_started", "not_current"]
+        if check_type not in valid_check_types:
             print(
-                f"ERROR: Unknown check_type of '{check_type}'; Please use 'not_synced', 'not_started', or 'not_current' ..."
+                f'ERROR: Unknown check_type of "{check_type}"; Please use a valid check_type: [ {", ".join(valid_check_types)} ] ...'
             )
             return
-        result: List[Any] = []
-        sync_report: List[Any] = self.get_machine_sync_details()
+        result: Dict[str, Any] = {}
+        sync_report: Dict[str, Any] = self.get_machine_sync_details()
         print(f"INFO: Using check '{check_type}' on Project: ({self.project_name})")
         inspector = getattr(self, check_type)
-        for item in sync_report:
-            mcheck = inspector(machine=item)
+        for item in sync_report.keys():
+            mcheck = inspector(machine=sync_report[item])
             if mcheck:
-                result.append(item)
+                result[item] = sync_report[item]
         print(f"INFO: Check '{check_type}' completed; {len(result)} machines matched in Project: ({self.project_name})")
         return result
 
@@ -506,12 +506,12 @@ class CloudEndure:
             return True
 
     def not_current(self, machine, delta_seconds: int = 86400) -> bool:
-        now: datetime = datetime.now(timezone.utc)
-        machine_last_seen: datetime = datetime.fromisoformat(machine["last_seen_utc"])
-        last_seen_delta: datetime = now - machine_last_seen
-        # If you're exceeding the size of int, you have bigger problems
-        if int(last_seen_delta.total_seconds()) >= delta_seconds:
-            return True
+        if machine.get("last_seen_utc"):
+            now: datetime = datetime.datetime.now(datetime.timezone.utc)
+            machine_last_seen: datetime = datetime.datetime.fromisoformat(machine["last_seen_utc"])
+            last_seen_delta: datetime = now - machine_last_seen
+            if int(last_seen_delta.total_seconds()) >= delta_seconds:
+                return True
         else:
             return False
 

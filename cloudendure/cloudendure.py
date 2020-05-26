@@ -472,7 +472,9 @@ class CloudEndure:
             if "lastSeenDateTime" in _query_value["replicationInfo"].keys():
                 response_dict[machine_id]["last_seen_utc"] = _query_value["replicationInfo"]["lastSeenDateTime"]
             if "rescannedStorageBytes" in _query_value["replicationInfo"].keys():
-                response_dict[machine_id]["rescanned_storage_bytes"] = _query_value["replicationInfo"]["rescannedStorageBytes"]
+                response_dict[machine_id]["rescanned_storage_bytes"] = _query_value["replicationInfo"][
+                    "rescannedStorageBytes"
+                ]
         # Project is still printing to console as a convention; Emitting an
         # output to stdout for interactive usage
         return response_dict

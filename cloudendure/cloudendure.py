@@ -459,22 +459,18 @@ class CloudEndure:
         ce_project_inventory = json.loads(machines_response.text).get("items", [])
         for _query_value in ce_project_inventory:
             machine_id: str = _query_value["id"]
+            replication_info: Dict[str, Any] = _query_value.get("replicationInfo", {})
             response_dict[machine_id] = {
-                "machine_name": _query_value["sourceProperties"]["name"],
+                "machine_name": _query_value.get("sourceProperties",{}).get("name",""),
                 "in_inventory": _query_value["isAgentInstalled"],
                 "replication_status": _query_value["replicationStatus"],
-                "last_seen_utc": "N/A",
-                "total_storage_bytes": _query_value["replicationInfo"]["totalStorageBytes"],
-                "replicated_storage_bytes": _query_value["replicationInfo"]["replicatedStorageBytes"],
-                "rescanned_storage_bytes": 0,
-                "backlogged_storage_bytes": _query_value["replicationInfo"]["backloggedStorageBytes"],
+                "total_storage_bytes": replication_info.get("totalStorageBytes", -1),
+                "replicated_storage_bytes": replication_info.get("replicatedStorageBytes", -1),
+                "rescanned_storage_bytes": replication_info.get("rescannedStorageBytes", 0),
+                "backlogged_storage_bytes": replication_info.get("backloggedStorageBytes", -1),
             }
-            if "lastSeenDateTime" in _query_value["replicationInfo"].keys():
-                response_dict[machine_id]["last_seen_utc"] = _query_value["replicationInfo"]["lastSeenDateTime"]
-            if "rescannedStorageBytes" in _query_value["replicationInfo"].keys():
-                response_dict[machine_id]["rescanned_storage_bytes"] = _query_value["replicationInfo"][
-                    "rescannedStorageBytes"
-                ]
+            if replication_info.get("lastSeenDateTime"):
+                response_dict[machine_id]["last_seen_utc"] = replication_info.get("lastSeenDateTime")
         # Project is still printing to console as a convention; Emitting an
         # output to stdout for interactive usage
         return response_dict
@@ -509,12 +505,12 @@ class CloudEndure:
             return True
 
     def not_current(self, machine, delta_seconds: int = 86400) -> bool:
-        now: datetime = datetime.now(timezone.utc)
-        machine_last_seen: datetime = datetime.fromisoformat(machine["last_seen_utc"])
-        last_seen_delta: datetime = now - machine_last_seen
-        # If you're exceeding the size of int, you have bigger problems
-        if int(last_seen_delta.total_seconds()) >= delta_seconds:
-            return True
+        if machine.get("last_seen_utc"):
+            now: datetime = datetime.now(datetime.timezone.utc)
+            machine_last_seen: datetime = datetime.datetime.fromisoformat(machine["last_seen_utc"])
+            last_seen_delta: datetime = now - machine_last_seen
+            if int(last_seen_delta.total_seconds()) >= delta_seconds:
+                return True
         else:
             return False
 

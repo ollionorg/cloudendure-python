@@ -475,20 +475,21 @@ class CloudEndure:
         # output to stdout for interactive usage
         return response_dict
 
-    def inspect_ce_project(self, check_type: str) -> List[Any]:
-        if not check_type:
+    def inspect_ce_project(self, check_type: str) -> Dict[str, Any]:
+        valid_check_types: List[str] = ['not_synced', 'not_started', 'not_current']
+        if check_type not in valid_check_types:
             print(
-                f"ERROR: Unknown check_type of '{check_type}'; Please use 'not_synced', 'not_started', or 'not_current' ..."
+                f'ERROR: Unknown check_type of "{check_type}"; Please use a valid check_type: [ {", ".join(valid_check_types)} ] ...'
             )
             return
-        result: List[Any] = []
-        sync_report: List[Any] = self.get_machine_sync_details()
+        result: Dict[str, Any] = {}
+        sync_report: Dict[str, Any] = self.get_machine_sync_details()
         print(f"INFO: Using check '{check_type}' on Project: ({self.project_name})")
         inspector = getattr(self, check_type)
-        for item in sync_report:
-            mcheck = inspector(machine=item)
+        for item in sync_report.keys():
+            mcheck = inspector(machine=sync_report[item])
             if mcheck:
-                result.append(item)
+                result[item] = sync_report[item]
         print(f"INFO: Check '{check_type}' completed; {len(result)} machines matched in Project: ({self.project_name})")
         return result
 
@@ -506,7 +507,7 @@ class CloudEndure:
 
     def not_current(self, machine, delta_seconds: int = 86400) -> bool:
         if machine.get("last_seen_utc"):
-            now: datetime = datetime.now(datetime.timezone.utc)
+            now: datetime = datetime.datetime.now(datetime.timezone.utc)
             machine_last_seen: datetime = datetime.datetime.fromisoformat(machine["last_seen_utc"])
             last_seen_delta: datetime = now - machine_last_seen
             if int(last_seen_delta.total_seconds()) >= delta_seconds:

@@ -461,7 +461,7 @@ class CloudEndure:
             machine_id: str = _query_value["id"]
             replication_info: Dict[str, Any] = _query_value.get("replicationInfo", {})
             response_dict[machine_id] = {
-                "machine_name": _query_value.get("sourceProperties",{}).get("name",""),
+                "machine_name": _query_value.get("sourceProperties", {}).get("name", ""),
                 "in_inventory": _query_value["isAgentInstalled"],
                 "replication_status": _query_value["replicationStatus"],
                 "total_storage_bytes": replication_info.get("totalStorageBytes", -1),
@@ -476,7 +476,7 @@ class CloudEndure:
         return response_dict
 
     def inspect_ce_project(self, check_type: str) -> Dict[str, Any]:
-        valid_check_types: List[str] = ['not_synced', 'not_started', 'not_current']
+        valid_check_types: List[str] = ["not_synced", "not_started", "not_current"]
         if check_type not in valid_check_types:
             print(
                 f'ERROR: Unknown check_type of "{check_type}"; Please use a valid check_type: [ {", ".join(valid_check_types)} ] ...'

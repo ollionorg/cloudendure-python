@@ -471,12 +471,16 @@ class CloudEndure:
             }
             if replication_info.get("lastSeenDateTime"):
                 response_dict[machine_id]["last_seen_utc"] = replication_info.get("lastSeenDateTime")
+            if replication_info.get("lastConsistencyDateTime"):
+                response_dict[machine_id]["last_consistency_utc"] = replication_info.get("lastConsistencyDateTime")
         # Project is still printing to console as a convention; Emitting an
         # output to stdout for interactive usage
         return response_dict
 
     def inspect_ce_project(self, check_type: str) -> Dict[str, Any]:
-        valid_check_types: List[str] = ["not_synced", "not_started", "not_current"]
+        state_check_types: List[str] = ["not_synced", "not_started"]
+        time_check_types: List[str] = ["not_current", "is_lagged"]
+        valid_check_types: List[str] = state_check_types + time_check_types
         if check_type not in valid_check_types:
             print(
                 f'ERROR: Unknown check_type of "{check_type}"; Please use a valid check_type: [ {", ".join(valid_check_types)} ] ...'
@@ -485,9 +489,15 @@ class CloudEndure:
         result: Dict[str, Any] = {}
         sync_report: Dict[str, Any] = self.get_machine_sync_details()
         print(f"INFO: Using check '{check_type}' on Project: ({self.project_name})")
-        inspector = getattr(self, check_type)
+        if check_type in state_check_types:
+            inspector1 = getattr(self, check_type)
+        else:
+            inspector2 = getattr(self, "time_delta_context")
         for item in sync_report.keys():
-            mcheck = inspector(machine=sync_report[item])
+            if inspector2:
+                mcheck = inspector2(machine=sync_report[item], check_type=check_type)
+            else:
+                mcheck = inspector1(machine=sync_report[item])
             if mcheck:
                 result[item] = sync_report[item]
         print(f"INFO: Check '{check_type}' completed; {len(result)} machines matched in Project: ({self.project_name})")
@@ -505,15 +515,18 @@ class CloudEndure:
         else:
             return True
 
-    def not_current(self, machine, delta_seconds: int = 86400) -> bool:
-        if machine.get("last_seen_utc"):
+    def time_delta_context(self, machine: Dict[str, Any], check_type: str) -> bool:
+        time_contexts: Dict[str, dict] = {
+            "not_current": {"delta_seconds": 86400, "property": "last_seen_utc"},
+            "is_lagged": {"delta_seconds": 120, "property": "last_consistency_utc"},
+        }
+        if machine.get(time_contexts[check_type].get("property")):
             now: datetime = datetime.datetime.now(datetime.timezone.utc)
-            machine_last_seen: datetime = datetime.datetime.fromisoformat(machine["last_seen_utc"])
-            last_seen_delta: datetime = now - machine_last_seen
-            if int(last_seen_delta.total_seconds()) >= delta_seconds:
+            last_seen: datetime = datetime.datetime.fromisoformat(machine[time_contexts[check_type].get("property")])
+            last_seen_delta: datetime = now - last_seen
+            if int(last_seen_delta.total_seconds()) >= time_contexts[check_type].get("delta_seconds"):
                 return True
-        else:
-            return False
+        return False
 
     def update_blueprint(self) -> bool:
         """Update the blueprint associated with the specified machines."""

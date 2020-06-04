@@ -477,8 +477,6 @@ class CloudEndure:
         # output to stdout for interactive usage
         return response_dict
 
-    
-    
     def inspect_ce_project(self, check_type: str) -> Dict[str, Any]:
         valid_check_types: List[str] = ["not_synced", "not_started", "not_current", "is_lagged"]
         if check_type not in valid_check_types:
@@ -505,8 +503,10 @@ class CloudEndure:
             elif "not_started" in kwargs.values():
                 return self._not_started(machine=kwargs.get("machine"))
             else:
-                return self._time_delta_context(machine=kwargs.get("machine", {}), check_type=kwargs.get("check_type", ""))
-    
+                return self._time_delta_context(
+                    machine=kwargs.get("machine", {}), check_type=kwargs.get("check_type", "")
+                )
+
     def _not_synced(self, machine) -> bool:
         if machine["backlogged_storage_bytes"] > 0 or machine["rescanned_storage_bytes"] > 0:
             return True

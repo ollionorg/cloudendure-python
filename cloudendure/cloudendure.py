@@ -419,8 +419,8 @@ class CloudEndure:
         print(f"Checking CloudEndure Licenses - Name: ({self.project_name})")
 
         now: datetime = datetime.datetime.now(datetime.timezone.utc)
-        expirationday: timedelta = datetime.timedelta(days=90)
-        expirationwarn: timedelta = datetime.timedelta(days=60)
+        expirationday: timedelta = datetime.timedelta(days=135)
+        expirationwarn: timedelta = datetime.timedelta(days=90)
         machine_data_dict: Dict[str, Any] = {}
         machines_response: Response = self.api.api_call(f"projects/{self.project_id}/machines")
         for machine in json.loads(machines_response.text).get("items", []):
@@ -478,9 +478,7 @@ class CloudEndure:
         return response_dict
 
     def inspect_ce_project(self, check_type: str) -> Dict[str, Any]:
-        state_check_types: List[str] = ["not_synced", "not_started"]
-        time_check_types: List[str] = ["not_current", "is_lagged"]
-        valid_check_types: List[str] = state_check_types + time_check_types
+        valid_check_types: List[str] = ["not_synced", "not_started", "not_current", "is_lagged"]
         if check_type not in valid_check_types:
             print(
                 f'ERROR: Unknown check_type of "{check_type}"; Please use a valid check_type: [ {", ".join(valid_check_types)} ] ...'
@@ -489,33 +487,39 @@ class CloudEndure:
         result: Dict[str, Any] = {}
         sync_report: Dict[str, Any] = self.get_machine_sync_details()
         print(f"INFO: Using check '{check_type}' on Project: ({self.project_name})")
-        if check_type in state_check_types:
-            inspector1 = getattr(self, check_type)
-        else:
-            inspector2 = getattr(self, "time_delta_context")
-        for item in sync_report.keys():
-            if inspector2:
-                mcheck = inspector2(machine=sync_report[item], check_type=check_type)
-            else:
-                mcheck = inspector1(machine=sync_report[item])
-            if mcheck:
-                result[item] = sync_report[item]
+        if check_type in valid_check_types:
+            for item in sync_report.keys():
+                mcheck = self._inspector(machine=sync_report[item], check_type=check_type)
+                if mcheck:
+                    result[item] = sync_report[item]
         print(f"INFO: Check '{check_type}' completed; {len(result)} machines matched in Project: ({self.project_name})")
         return result
 
-    def not_synced(self, machine) -> bool:
+    def _inspector(self, **kwargs):
+        # this could probably be a switch but I'll just elif this
+        if "machine" in kwargs.keys():
+            if "not_synced" in kwargs.values():
+                return self._not_synced(machine=kwargs.get("machine"))
+            elif "not_started" in kwargs.values():
+                return self._not_started(machine=kwargs.get("machine"))
+            else:
+                return self._time_delta_context(
+                    machine=kwargs.get("machine", {}), check_type=kwargs.get("check_type", "")
+                )
+
+    def _not_synced(self, machine) -> bool:
         if machine["backlogged_storage_bytes"] > 0 or machine["rescanned_storage_bytes"] > 0:
             return True
         else:
             return False
 
-    def not_started(self, machine) -> bool:
+    def _not_started(self, machine) -> bool:
         if machine["replication_status"] == "STARTED":
             return False
         else:
             return True
 
-    def time_delta_context(self, machine: Dict[str, Any], check_type: str) -> bool:
+    def _time_delta_context(self, machine: Dict[str, Any], check_type: str) -> bool:
         time_contexts: Dict[str, dict] = {
             "not_current": {"delta_seconds": 86400, "property": "last_seen_utc"},
             "is_lagged": {"delta_seconds": 120, "property": "last_consistency_utc"},

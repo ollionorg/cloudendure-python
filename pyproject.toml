@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cloudendure"
-version = "0.3.4"
+version = "0.3.5"
 description = "Python wrapper and CLI for CloudEndure"
 authors = ["Mark Beacom <mark@markbeacom.com>", "Tom Warnock <twarnock@2ndwatch.com>"]
 maintainers = ["Evan Lucchesi <evan@2ndwatch.com>", "Nick Selpa <nselpa@2ndwatch.com>"]

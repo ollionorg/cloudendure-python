@@ -508,7 +508,11 @@ class CloudEndure:
                 )
 
     def _not_synced(self, machine) -> bool:
-        if machine["backlogged_storage_bytes"] > 0 or machine["rescanned_storage_bytes"] > 0:
+        if (
+            machine["backlogged_storage_bytes"] > 0
+            or machine["rescanned_storage_bytes"] > 0
+            or machine["replicated_storage_bytes"] != machine["total_storage_bytes"]
+        ):
             return True
         else:
             return False

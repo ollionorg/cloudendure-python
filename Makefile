@@ -1,120 +1,81 @@
-# Define make entry and help functionality
-.DEFAULT_GOAL := help
-
 .PHONY: help
+help: ## print out this help
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-REPO_NAME := mbeacom/cloudendure-python
-SHA1 := $$(git log -1 --pretty=%h)
-CURRENT_BRANCH := $$(git symbolic-ref -q --short HEAD)
-LATEST_TAG := ${REPO_NAME}:latest
-GIT_TAG := ${REPO_NAME}:${SHA1}
-VERSION := v0.3.5
+.PHONY: generator-help
+generator-help: ## openapi-generator help generate | less
+	openapi-generator help generate | less
 
-info: ## Show information about the current git state.
-	@echo "Github Project: https://github.com/${REPO_NAME}\nCurrent Branch: ${CURRENT_BRANCH}\nSHA1: ${SHA1}\n"
+.PHONY: init
+init:
+	poetry init
 
-run-docker: ## Run the local development environment docker shell.
-	@docker run -v $(pwd):/app --rm -it airproducts /bin/bash
+.PHONY: install
+install:
+	poetry install
 
-build: ## Build the release docker image.
-	@docker build \
-		--stream \
-		--pull \
-		--build-arg BUILD_DATETIME=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-		--build-arg "SHA1=${SHA1}" \
-		--build-arg "VERSION=${VERSION}" \
-		-t "${GIT_TAG}" .
-	@docker tag "${GIT_TAG}" "${LATEST_TAG}"
-	@docker tag "${GIT_TAG}" "${VERSION}"
+.PHONY: test
+test: ## execute pytest in the poetry environment
+	#poetry run pytest
+	#poetry run python my-test.py
 
-build_py38: ## Build the Python 3.8 docker image.
-	@docker build \
-		--stream \
-		--pull \
-		--build-arg BUILD_DATETIME=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-		--build-arg "SHA1=${SHA1}" \
-		--build-arg "VERSION=${VERSION}" \
-		-t "${GIT_TAG}-py38" --file Dockerfile-py38 .
-	@docker tag "${GIT_TAG}-py38" "${LATEST_TAG}-py38"
-	@docker tag "${GIT_TAG}-py38" "${VERSION}-py38"
 
-gh_push: ## Push the release Docker image to Github.
-	@docker tag ${GIT_TAG} docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}
-	@docker push docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}
+.PHONY: isort
+isort: ## run isort (order import statements) on our py code
+	poetry run isort tests/ cloudendure/
 
-gh_push_py38: ## Push the Python 3.8  Docker image to Github.
-	@docker tag ${GIT_TAG}-py38 docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}-py38
-	@docker push docker.pkg.github.com/mbeacom/cloudendure-python/cloudendure:${VERSION}-py38
+.PHONY: black
+black: ## run black (linter) agaist our python code
+	poetry run black cloudendure/
 
-login: ## Login to Docker Hub.
-	@docker login -u "${DOCKER_USER}" -p "${DOCKER_PASS}"
+.PHONY: lint
+lint: isort black ## run isort and black against our python code
 
-gh_login: ## Login to Docker Hub.
-	@docker login docker.pkg.github.com -u "${DOCKER_GH_USER}" -p "${DOCKER_GH_TOKEN}"
+.PHONY: rebuild-api
+rebuild-api: pull-api fix-api-definition regenerate-api fix-generated-code lint ## regenerates the client code (deletes old code): pull fix-json delete gen fix-code and lint
 
-push: ## Push the Docker image to the Docker Hub repository.
-	@docker push "${REPO_NAME}"
+.PHONY: build-api
+build-api: pull-api fix-api-definition generate-api fix-generated-code lint ## does the whole shebang: pull fix-json gen fix-code and lint
 
-docker: build build_py38 ## Build and publish Docker images.
+.PHONY: generate-api
+generate-api:  ## builds the cloudendure api code from the fixed openapi definition stored in ./build
+	openapi-generator generate -i build/cloudendure-api-fixed.json -g python --package-name cloudendure --git-host 'github.com' --git-repo-id '2ndWatch/python-cloudendure' --git-user-id craigmonson -t openapi-generator/templates
 
-lint: isort ## Lint the CloudEndure project with Black.
-	@poetry run black .
+.PHONY: regenerate-api
+regenerate-api: generate-delete generate-api ## deletes generated code: README.md, cloudendure/, docs/, setup.py, test/, test-requirements.txt
 
-update_prereqs: ## Update the local development pre-requisite packages.
-	@pip install --upgrade wheel setuptools pip
+.PHONY: pull-api
+pull-api: ## pull and store the api json in the build dir
+	curl https://console.cloudendure.com/api_doc/apis.json > build/cloudendure-api.json
 
-install-py-deps: update_prereqs ## Install the Python dependencies specified in the Pipfile.lock.
-	@echo "Installing Python project dependencies..."
-	@poetry install
-	@echo "Python dependencies installed!"
+.PHONY: fix-api-definition
+fix-api-definition: ## fix any problematic api defs from the cloudendure def if possible.
+	cd build && python fix-api.py
 
-init: ## Initialize the project.
-	@pip install --upgrade wheel setuptools pip
-	@curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-	@source $HOME/.poetry/env
-	@poetry install
+.PHONY: fix-generated-code
+fix-generated-code: ## There are some cases where the api def is wrong, and can't be fixed in the swagger def, so we can fix it in the code.
+	cd build && python fix-generated-code.py
 
-ci: ## Run the CI specific tests.
-	@poetry run py.test -n 8 --boxed --junitxml=report.xml
+.PHONY: generate-missing-docs
+generate-missing-docs: ## there's some top level docs missing... this will generate them.
+	poetry run pydoc
 
-flake8: ## Run Flake8 against the project.
-	@poetry run flake8 --ignore=E501,F401,E128,E402,E731,F821 cloudendure
+.PHONY: generate-delete
+generate-delete: clean-api ## delete all the generated code
+	rm -rf README.md cloudendure docs test
 
-yapf: ## Run YAPF against the project.
-	@poetry run yapf cloudendure
+.PHONY: clean-api
+clean-api: ## get rid of unnecessary files
+	rm -f git_push.sh requirements.txt setup.cfg setup.py test-requirements.txt tox.ini
 
-isort: ## Run isort against the project.
-	@poetry run isort -sp=setup.cfg -rc .
-
-coverage: ## Generate a test coverage report.
-	poetry run py.test --cov-config .coveragerc --verbose --cov-report term --cov-report xml --cov=cloudendure tests
-
-publish: ## Publish the package to PyPi.
+.PHONY: build
+build: ## build the packages
 	poetry build
-	poetry publish
 
-docs: ## Build the documentation.
-	poetry run pydocmd build
-
-update_fork: ## Update the current fork master branch with upstream master.
-	@echo "Updating the current fork with the upstream master branch..."
-	@git checkout master
-	@git fetch upstream
-	@git merge upstream/master
-	@git push origin master
-	@echo "Updated!"
-
-gen_client: ## Generate the swagger client from the API config.
-	@swagger-codegen generate -i https://console.cloudendure.com/api_doc/apis.json -l python --model-name-prefix CloudEndure --git-user-id mbeacom --git-repo-id cloudendure-python -c reference/swagger_config.json -o gen/
-
-update_deps: update_prereqs ## Update the package dependencies via poetry.
-	@poetry update
-
-install: isort build_py ## Install the local development version of the module.
-	@poetry install .
-
-build_py: update_deps ## Build and package the project for PyPi source and wheel distribution.
-	@poetry build
-
-help: ## Show this help information.
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[33m%-25s\033[0m %s\n", $$1, $$2}'
+.PHONY: tag
+tag: ## tag this repo with $TAG (and mark the pyproject version as the same)
+	poetry version $(TAG)
+	git commit -am "Bumping version to $(TAG)"
+	git push
+	git tag -a $(TAG) -m "Rebuilding and Retagging to $(TAG)"
+	git push --tags

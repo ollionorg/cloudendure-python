@@ -1,0 +1,153 @@
+```python
+import cloudendure
+from cloudendure.api import authentication_api
+from cloudendure.api import project_api
+# since the api def doesn't have this defined, we'll rename it.
+from cloudendure.models import InlineObject1 as LoginModel
+
+# bare, base api client
+api_client = cloudendure.ApiClient()
+
+# we need to auth before anything else... if we don't have a session...
+auth_client = authentication_api.AuthenticationApi(api_client)
+# your token can be found in the 'Setup & Info' page, in the 'OTHER SETTINGS' tab under the 'API Token' section.
+login_model = LoginModel(user_api_token="xxxx-yyyy-zzzz...")
+auth_client.login_post(login_model)
+# In order to set the proper session cookie and headers:
+api_client.set_auth_from_last_response()
+
+# you can get both parts of the auth to store for later use (so you don't have to log in again)
+# stored in the header as 'X-XSRF-TOKEN'
+xsrf_token = api_client.xsrf_token
+
+# the session cookie
+cookie = api_client.cookie
+
+# no need to log back in if you've got valid token and session cookie
+new_api_client = cloudendure.ApiClient()
+new_api_client.set_session_auth(xsrf_token, cookie)
+
+# now... do something useful
+project_client = project_api.ProjectApi(new_api_client) # or api_client
+response = project_client.projects_get()
+print(response.items)
+project_id = response.items[0].id
+
+machine_client = machines_api.MachinesApi(api_client) # or new_api_client
+response = machine_client.projects_project_id_machinies_get(project_id)
+print(response.items)
+```
+
+## Documentation for API Endpoints
+
+
+
+All URIs are relative to *{{basePath}}*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}*{{classname}}* | [**{{operationId}}**]({{apiDocPath}}{{classname}}.md#{{operationIdLowerCase}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}}
+{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
+
+## Documentation For Models
+
+{{#models}}{{#model}} - [{{{classname}}}]({{modelDocPath}}{{{classname}}}.md)
+{{/model}}{{/models}}
+
+## Documentation For Authorization
+
+{{^authMethods}}
+ See the above example for authorization.
+{{/authMethods}}
+{{#authMethods}}
+{{#last}} Authentication schemes defined for the API:{{/last}}
+## {{{name}}}
+
+{{#isApiKey}}
+- **Type**: API key
+- **API key parameter name**: {{{keyParamName}}}
+- **Location**: {{#isKeyInQuery}}URL query string{{/isKeyInQuery}}{{#isKeyInHeader}}HTTP header{{/isKeyInHeader}}
+{{/isApiKey}}
+{{#isBasic}}
+{{#isBasicBasic}}
+- **Type**: HTTP basic authentication
+{{/isBasicBasic}}
+{{#isBasicBearer}}
+- **Type**: Bearer authentication{{#bearerFormat}} ({{{.}}}){{/bearerFormat}}
+{{/isBasicBearer}}
+{{#isHttpSignature}}
+- **Type**: HTTP signature authentication
+{{/isHttpSignature}}
+{{/isBasic}}
+{{#isOAuth}}
+- **Type**: OAuth
+- **Flow**: {{{flow}}}
+- **Authorization URL**: {{{authorizationUrl}}}
+- **Scopes**: {{^scopes}}N/A{{/scopes}}
+{{#scopes}} - **{{{scope}}}**: {{{description}}}
+{{/scopes}}
+{{/isOAuth}}
+
+{{/authMethods}}
+
+## Author
+
+(2nd Watch)[https://www.2ndwatch.com]
+{{#apiInfo}}{{#apis}}{{#-last}}{{infoEmail}}
+{{/-last}}{{/apis}}{{/apiInfo}}
+
+## Notes for Large OpenAPI documents
+If the OpenAPI document is large, imports in {{{packageName}}}.apis and {{{packageName}}}.models may fail with a
+RecursionError indicating the maximum recursion limit has been exceeded. In that case, there are a couple of solutions:
+
+Solution 1:
+Use specific imports for apis and models like:
+- `from {{{packageName}}}.api.default_api import DefaultApi`
+- `from {{{packageName}}}.model.pet import Pet`
+
+Solution 2:
+Before importing the package, adjust the maximum recursion limit as shown below:
+```
+import sys
+sys.setrecursionlimit(1500)
+import {{{packageName}}}
+from {{{packageName}}}.apis import *
+from {{{packageName}}}.models import *
+```
+
+## Generating the API
+
+### Dependencies
+First things first, you'll need these tools installed in order to build this
+projects client code:
+  * `curl`
+  * `python`
+  * (Poetry)[https://python-poetry.org/]
+  * (openapi-generator)[https://github.com/OpenAPITools/openapi-generator]
+
+### `Makefile`, Build / Rebuild
+This project makes extensive use of `GNU make`.  You can view all the available
+make commands by just typing the `make` command, or `make help`.  Each of the
+components used to build this project are their own command, but the two that
+we're looking for to do everything for us are:
+  * `make build-api`
+  * `make rebuild-api`
+
+Both of these commands do all the things.  The only difference is that
+`rebuild-api` deletes all the generated code first.  I prefer this method to
+make sure any cruft that's different between the apis from cloudendure is
+removed.  So, simply run:
+
+```bash
+%> make rebuild-api
+```
+
+... and boom!  it's built!
+
+Now, commit the changes, then tag using the `make tag` command.  Do note that
+the actual API version from CE is "5", so the versions here will not entirely
+match up.  Given that this needed to be regenerated, it was likely a breaking
+change, but we at _least_ want to stick with the "5", so we'll bump the MINOR
+version.ie: the `X` in `v5.X.0`
+
+once this step is done we should be complete.

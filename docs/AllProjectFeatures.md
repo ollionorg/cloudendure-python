@@ -1,0 +1,50 @@
+# AllProjectFeatures
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**google** | **bool** |  | [optional] 
+**no_public_ips** | **bool** |  | [optional] 
+**enable_ubuntu18_converter** | **bool** |  | [optional] 
+**windows_converters** | **bool** |  | [optional] 
+**force_reversed_handshake_direction** | **bool** |  | [optional] 
+**no_converters** | **bool** |  | [optional] 
+**vio** | **bool** |  | [optional] 
+**aws_pending_snapshots_for_consistent_snapshot** | **int** |  | [optional] 
+**no_cloud** | **bool** |  | [optional] 
+**consistent_snapshot_creation_interval_min** | **int** |  | [optional] 
+**is_demo** | **bool** |  | [optional] 
+**mtu_size** | **int** |  | [optional] 
+**allow_byol_on_dedicated_instance** | **bool** |  | [optional] 
+**force_no_rescan_after_reboot** | **bool** |  | [optional] 
+**max_converter_volumes** | **int** |  | [optional] 
+**azurearm** | **bool** |  | [optional] 
+**vcenter** | **bool** |  | [optional] 
+**allowed_az_ids** | **str** |  | [optional] 
+**subnet_filter** | **str** |  | [optional] 
+**disable_target_region_cleanup_protection** | **bool** |  | [optional] 
+**no_snapshot_considered_lag_milliseconds** | **int** |  | [optional] 
+**aws_pending_snapshots_for_disconnection** | **int** |  | [optional] 
+**no_converters_windows** | **bool** |  | [optional] 
+**disable_replica_creation** | **bool** |  | [optional] 
+**aws_pending_snapshots_for_consistency_lost** | **int** |  | [optional] 
+**aws** | **bool** |  | [optional] 
+**aws_pending_snapshots_for_inconsistent_snapshot** | **int** |  | [optional] 
+**max_replicator_volumes** | **int** |  | [optional] 
+**allow_recovery_plans** | **bool** |  | [optional] 
+**snapshot_creation_interval_min** | **int** |  | [optional] 
+**snapshot_on_demand_timeout** | **int** |  | [optional] 
+**allow_archiving** | **bool** |  | [optional] 
+**allow_no_rescan_after_reboot** | **bool** |  | [optional] 
+**custom_replicator_instance_type** | **str** |  | [optional] 
+**disable_snapshot_on_demand** | **bool** |  | [optional] 
+**disable_install** | **bool** |  | [optional] 
+**hdd** | **bool** |  | [optional] 
+**snapshot_creation_interval_max** | **int** |  | [optional] 
+**ce_admin_properties** | [**ProjectCeAdminProperties**](ProjectCeAdminProperties.md) |  | [optional] 
+**azure** | **bool** |  | [optional] 
+**aws_pending_snapshots_for_user_initiated** | **int** |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

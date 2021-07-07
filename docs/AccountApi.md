@@ -1,4 +1,4 @@
-# cloudendure.cloudendure_api.AccountApi
+# cloudendure.AccountApi
 
 All URIs are relative to *https://console.cloudendure.com/api/latest*
 
@@ -6,35 +6,40 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accounts_account_id_get**](AccountApi.md#accounts_account_id_get) | **GET** /accounts/{accountId} | Get Account information
 
-## **accounts_account_id_get**
 
-> CloudEndureAccount accounts_account_id_get(account_id)
+# **accounts_account_id_get**
+> Account accounts_account_id_get(account_id)
 
 Get Account information
 
 ### Example
 
 ```python
-from __future__ import print_function
-
 import time
-
+import cloudendure
+from cloudendure.api import account_api
+from cloudendure.model.account import Account
 from pprint import pprint
+# Defining the host is optional and defaults to https://console.cloudendure.com/api/latest
+# See configuration.py for a list of all supported configuration parameters.
+configuration = cloudendure.Configuration(
+    host = "https://console.cloudendure.com/api/latest"
+)
 
-from cloudendure import cloudendure_api
-from cloudendure.cloudendure_api.rest import ApiException
 
+# Enter a context with an instance of the API client
+with cloudendure.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = account_api.AccountApi(api_client)
+    account_id = "accountId_example" # str | 
 
-# create an instance of the API class
-api_instance = cloudendure_api.AccountApi()
-account_id = 'account_id_example' # str |
-
-try:
-    # Get Account information
-    api_response = api_instance.accounts_account_id_get(account_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AccountApi->accounts_account_id_get: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Get Account information
+        api_response = api_instance.accounts_account_id_get(account_id)
+        pprint(api_response)
+    except cloudendure.ApiException as e:
+        print("Exception when calling AccountApi->accounts_account_id_get: %s\n" % e)
 ```
 
 ### Parameters
@@ -45,7 +50,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CloudEndureAccount**](CloudEndureAccount.md)
+[**Account**](Account.md)
 
 ### Authorization
 
@@ -56,5 +61,10 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](API_README.md#documentation-for-api-endpoints) [[Back to Model list]](API_README.md#documentation-for-models) [[Back to README]](API_README.md)
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Information successfully retrieved. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

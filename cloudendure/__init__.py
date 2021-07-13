@@ -19,11 +19,9 @@ from cloudendure.api_client import ApiClient
 from cloudendure.configuration import Configuration
 
 # import exceptions
-from cloudendure.exceptions import (
-    ApiAttributeError,
-    ApiException,
-    ApiKeyError,
-    ApiTypeError,
-    ApiValueError,
-    OpenApiException,
-)
+from cloudendure.exceptions import OpenApiException
+from cloudendure.exceptions import ApiAttributeError
+from cloudendure.exceptions import ApiTypeError
+from cloudendure.exceptions import ApiValueError
+from cloudendure.exceptions import ApiKeyError
+from cloudendure.exceptions import ApiException

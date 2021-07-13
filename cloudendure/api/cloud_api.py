@@ -11,13 +11,9 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.api_client import ApiClient
-from cloudendure.api_client import Endpoint as _Endpoint
-from cloudendure.model.clouds_list import CloudsList
-from cloudendure.model.region import Region
-from cloudendure.model.regions_list import RegionsList
-from cloudendure.model_utils import (
-    check_allowed_values,  # noqa: F401
+from cloudendure.api_client import ApiClient, Endpoint as _Endpoint
+from cloudendure.model_utils import (  # noqa: F401
+    check_allowed_values,
     check_validations,
     date,
     datetime,
@@ -25,6 +21,9 @@ from cloudendure.model_utils import (
     none_type,
     validate_and_convert_types,
 )
+from cloudendure.model.clouds_list import CloudsList
+from cloudendure.model.region import Region
+from cloudendure.model.regions_list import RegionsList
 
 
 class CloudApi(object):
@@ -50,7 +49,7 @@ class CloudApi(object):
             >>> result = thread.get()
 
             Args:
-                creds_id (str): UUID of the credentials to use. In case of on-premise, you should use the null UUID \"00000000-0000-0000-0000-000000000000\".
+                creds_id (str): UUID of the credentials to use. In case of on-premise, you should use the null UUID \"00000000-0000-0000-0000-000000000000\". 
 
             Keyword Args:
                 offset (int): With which item to start (0 based).. [optional] if omitted the server will use the default value of 0
@@ -102,30 +101,16 @@ class CloudApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "creds_id",
-                    "offset",
-                    "limit",
-                ],
-                "required": [
-                    "creds_id",
-                ],
+                "all": ["creds_id", "offset", "limit",],
+                "required": ["creds_id",],
                 "nullable": [],
                 "enum": [],
-                "validation": [
-                    "offset",
-                    "limit",
-                ],
+                "validation": ["offset", "limit",],
             },
             root_map={
                 "validations": {
-                    ("offset",): {
-                        "inclusive_minimum": 0,
-                    },
-                    ("limit",): {
-                        "inclusive_maximum": 1500,
-                        "inclusive_minimum": 0,
-                    },
+                    ("offset",): {"inclusive_minimum": 0,},
+                    ("limit",): {"inclusive_maximum": 1500, "inclusive_minimum": 0,},
                 },
                 "allowed_values": {},
                 "openapi_types": {
@@ -145,10 +130,7 @@ class CloudApi(object):
                 },
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__cloud_credentials_creds_id_regions_get,
         )
@@ -165,7 +147,7 @@ class CloudApi(object):
             >>> result = thread.get()
 
             Args:
-                creds_id (str): UUID of the credentials to use. In case of on-premise, you should use the null UUID \"00000000-0000-0000-0000-000000000000\".
+                creds_id (str): UUID of the credentials to use. In case of on-premise, you should use the null UUID \"00000000-0000-0000-0000-000000000000\". 
                 region_id (str):
 
             Keyword Args:
@@ -217,14 +199,8 @@ class CloudApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "creds_id",
-                    "region_id",
-                ],
-                "required": [
-                    "creds_id",
-                    "region_id",
-                ],
+                "all": ["creds_id", "region_id",],
+                "required": ["creds_id", "region_id",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -232,24 +208,12 @@ class CloudApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "creds_id": (str,),
-                    "region_id": (str,),
-                },
-                "attribute_map": {
-                    "creds_id": "credsId",
-                    "region_id": "regionId",
-                },
-                "location_map": {
-                    "creds_id": "path",
-                    "region_id": "path",
-                },
+                "openapi_types": {"creds_id": (str,), "region_id": (str,),},
+                "attribute_map": {"creds_id": "credsId", "region_id": "regionId",},
+                "location_map": {"creds_id": "path", "region_id": "path",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": [],
-                "content_type": [],
-            },
+            headers_map={"accept": [], "content_type": [],},
             api_client=api_client,
             callable=__cloud_credentials_creds_id_regions_region_id_delete,
         )
@@ -266,7 +230,7 @@ class CloudApi(object):
             >>> result = thread.get()
 
             Args:
-                creds_id (str): UUID of the credentials to use. In case of on-premise, you should use the null UUID \"00000000-0000-0000-0000-000000000000\".
+                creds_id (str): UUID of the credentials to use. In case of on-premise, you should use the null UUID \"00000000-0000-0000-0000-000000000000\". 
                 region_id (str):
 
             Keyword Args:
@@ -318,14 +282,8 @@ class CloudApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "creds_id",
-                    "region_id",
-                ],
-                "required": [
-                    "creds_id",
-                    "region_id",
-                ],
+                "all": ["creds_id", "region_id",],
+                "required": ["creds_id", "region_id",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -333,24 +291,12 @@ class CloudApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "creds_id": (str,),
-                    "region_id": (str,),
-                },
-                "attribute_map": {
-                    "creds_id": "credsId",
-                    "region_id": "regionId",
-                },
-                "location_map": {
-                    "creds_id": "path",
-                    "region_id": "path",
-                },
+                "openapi_types": {"creds_id": (str,), "region_id": (str,),},
+                "attribute_map": {"creds_id": "credsId", "region_id": "regionId",},
+                "location_map": {"creds_id": "path", "region_id": "path",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__cloud_credentials_creds_id_regions_region_id_get,
         )
@@ -367,7 +313,7 @@ class CloudApi(object):
             >>> result = thread.get()
 
             Args:
-                creds_id (str): UUID of the credentials to use. In case of on-premise, you should use the null UUID \"00000000-0000-0000-0000-000000000000\".
+                creds_id (str): UUID of the credentials to use. In case of on-premise, you should use the null UUID \"00000000-0000-0000-0000-000000000000\". 
                 region_id (str):
                 region (Region):
 
@@ -421,16 +367,8 @@ class CloudApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "creds_id",
-                    "region_id",
-                    "region",
-                ],
-                "required": [
-                    "creds_id",
-                    "region_id",
-                    "region",
-                ],
+                "all": ["creds_id", "region_id", "region",],
+                "required": ["creds_id", "region_id", "region",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -443,10 +381,7 @@ class CloudApi(object):
                     "region_id": (str,),
                     "region": (Region,),
                 },
-                "attribute_map": {
-                    "creds_id": "credsId",
-                    "region_id": "regionId",
-                },
+                "attribute_map": {"creds_id": "credsId", "region_id": "regionId",},
                 "location_map": {
                     "creds_id": "path",
                     "region_id": "path",
@@ -522,47 +457,24 @@ class CloudApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "offset",
-                    "limit",
-                ],
+                "all": ["offset", "limit",],
                 "required": [],
                 "nullable": [],
                 "enum": [],
-                "validation": [
-                    "offset",
-                    "limit",
-                ],
+                "validation": ["offset", "limit",],
             },
             root_map={
                 "validations": {
-                    ("offset",): {
-                        "inclusive_minimum": 0,
-                    },
-                    ("limit",): {
-                        "inclusive_maximum": 1500,
-                        "inclusive_minimum": 0,
-                    },
+                    ("offset",): {"inclusive_minimum": 0,},
+                    ("limit",): {"inclusive_maximum": 1500, "inclusive_minimum": 0,},
                 },
                 "allowed_values": {},
-                "openapi_types": {
-                    "offset": (int,),
-                    "limit": (int,),
-                },
-                "attribute_map": {
-                    "offset": "offset",
-                    "limit": "limit",
-                },
-                "location_map": {
-                    "offset": "query",
-                    "limit": "query",
-                },
+                "openapi_types": {"offset": (int,), "limit": (int,),},
+                "attribute_map": {"offset": "offset", "limit": "limit",},
+                "location_map": {"offset": "query", "limit": "query",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__clouds_get,
         )

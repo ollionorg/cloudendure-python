@@ -11,9 +11,9 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.model_utils import (
+from cloudendure.model_utils import (  # noqa: F401
     ApiTypeError,
-    ModelComposed,  # noqa: F401
+    ModelComposed,
     ModelNormal,
     ModelSimple,
     cached_property,
@@ -69,12 +69,8 @@ class License(ModelNormal):
     }
 
     validations = {
-        ("count",): {
-            "inclusive_minimum": 0,
-        },
-        ("used",): {
-            "inclusive_minimum": 0,
-        },
+        ("count",): {"inclusive_minimum": 0,},
+        ("used",): {"inclusive_minimum": 0,},
     }
 
     additional_properties_type = None
@@ -185,10 +181,7 @@ class License(ModelNormal):
         if args:
             raise ApiTypeError(
                 "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments."
-                % (
-                    args,
-                    self.__class__.__name__,
-                ),
+                % (args, self.__class__.__name__,),
                 path_to_item=_path_to_item,
                 valid_classes=(self.__class__,),
             )

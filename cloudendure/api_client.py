@@ -8,25 +8,25 @@
 """
 
 
-import atexit
-import io
 import json
+import atexit
 import mimetypes
+from multiprocessing.pool import ThreadPool
+import io
 import os
 import re
 import typing
-from multiprocessing.pool import ThreadPool
 from urllib.parse import quote
-
 from urllib3.fields import RequestField
+
 
 from cloudendure import rest
 from cloudendure.configuration import Configuration
-from cloudendure.exceptions import ApiException, ApiTypeError, ApiValueError
+from cloudendure.exceptions import ApiTypeError, ApiValueError, ApiException
 from cloudendure.model_utils import (
-    ModelComposed,
     ModelNormal,
     ModelSimple,
+    ModelComposed,
     check_allowed_values,
     check_validations,
     date,
@@ -101,7 +101,7 @@ class ApiClient(object):
     @property
     def pool(self):
         """Create thread pool on first request
-        avoids instantiating unused threadpool for blocking clients.
+         avoids instantiating unused threadpool for blocking clients.
         """
         if self._pool is None:
             atexit.register(self.close)
@@ -857,7 +857,7 @@ class Endpoint(object):
         return params
 
     def __call__(self, *args, **kwargs):
-        """This method is invoked when endpoints are called
+        """ This method is invoked when endpoints are called
         Example:
 
         api_instance = AccountApi()
@@ -880,11 +880,9 @@ class Endpoint(object):
                 if kwargs["_host_index"] is None
                 else kwargs["_host_index"]
             )
-            server_variables = (
-                self.api_client.configuration.server_operation_variables.get(
-                    self.settings["operation_id"],
-                    self.api_client.configuration.server_variables,
-                )
+            server_variables = self.api_client.configuration.server_operation_variables.get(
+                self.settings["operation_id"],
+                self.api_client.configuration.server_variables,
             )
             _host = self.api_client.configuration.get_host_from_settings(
                 index, variables=server_variables, servers=self.settings["servers"]

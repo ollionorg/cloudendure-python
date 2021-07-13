@@ -12,11 +12,11 @@ import copy
 import logging
 import multiprocessing
 import sys
-from http import client as http_client
-
 import urllib3
 
+from http import client as http_client
 from cloudendure.exceptions import ApiValueError
+
 
 JSON_SCHEMA_VALIDATION_KEYWORDS = {
     "multipleOf",
@@ -81,7 +81,7 @@ class Configuration(object):
     :param server_operation_variables: Mapping from operation ID to a mapping with
       string values to replace variables in templated server configuration.
       The validation of enums is performed for variables with defined enum values before.
-    :param ssl_ca_cert: str - the path to a file of concatenated CA certificates
+    :param ssl_ca_cert: str - the path to a file of concatenated CA certificates 
       in PEM format
 
     """
@@ -104,7 +104,8 @@ class Configuration(object):
         server_operation_variables=None,
         ssl_ca_cert=None,
     ):
-        """Constructor"""
+        """Constructor
+        """
         self._base_path = (
             "https://console.cloudendure.com/api/latest" if host is None else host
         )

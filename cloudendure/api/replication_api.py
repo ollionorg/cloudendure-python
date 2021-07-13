@@ -11,23 +11,22 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.api_client import ApiClient
-from cloudendure.api_client import Endpoint as _Endpoint
-from cloudendure.model.bandwidth_throttling import BandwidthThrottling
-from cloudendure.model.error import Error
-from cloudendure.model.point_in_time_list import PointInTimeList
-from cloudendure.model.replication_configuration import ReplicationConfiguration
-from cloudendure.model.replication_configuration_list import (
-    ReplicationConfigurationList,
-)
-from cloudendure.model_utils import (
-    check_allowed_values,  # noqa: F401
+from cloudendure.api_client import ApiClient, Endpoint as _Endpoint
+from cloudendure.model_utils import (  # noqa: F401
+    check_allowed_values,
     check_validations,
     date,
     datetime,
     file_type,
     none_type,
     validate_and_convert_types,
+)
+from cloudendure.model.bandwidth_throttling import BandwidthThrottling
+from cloudendure.model.error import Error
+from cloudendure.model.point_in_time_list import PointInTimeList
+from cloudendure.model.replication_configuration import ReplicationConfiguration
+from cloudendure.model.replication_configuration_list import (
+    ReplicationConfigurationList,
 )
 
 
@@ -107,14 +106,8 @@ class ReplicationApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                    "machine_id",
-                ],
-                "required": [
-                    "project_id",
-                    "machine_id",
-                ],
+                "all": ["project_id", "machine_id",],
+                "required": ["project_id", "machine_id",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -122,24 +115,15 @@ class ReplicationApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "project_id": (str,),
-                    "machine_id": (str,),
-                },
+                "openapi_types": {"project_id": (str,), "machine_id": (str,),},
                 "attribute_map": {
                     "project_id": "projectId",
                     "machine_id": "machineId",
                 },
-                "location_map": {
-                    "project_id": "path",
-                    "machine_id": "path",
-                },
+                "location_map": {"project_id": "path", "machine_id": "path",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__projects_project_id_machines_machine_id_bandwidth_throttling_get,
         )
@@ -210,16 +194,8 @@ class ReplicationApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                    "machine_id",
-                    "bandwidth_throttling",
-                ],
-                "required": [
-                    "project_id",
-                    "machine_id",
-                    "bandwidth_throttling",
-                ],
+                "all": ["project_id", "machine_id", "bandwidth_throttling",],
+                "required": ["project_id", "machine_id", "bandwidth_throttling",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -316,14 +292,8 @@ class ReplicationApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                    "machine_id",
-                ],
-                "required": [
-                    "project_id",
-                    "machine_id",
-                ],
+                "all": ["project_id", "machine_id",],
+                "required": ["project_id", "machine_id",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -331,24 +301,15 @@ class ReplicationApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "project_id": (str,),
-                    "machine_id": (str,),
-                },
+                "openapi_types": {"project_id": (str,), "machine_id": (str,),},
                 "attribute_map": {
                     "project_id": "projectId",
                     "machine_id": "machineId",
                 },
-                "location_map": {
-                    "project_id": "path",
-                    "machine_id": "path",
-                },
+                "location_map": {"project_id": "path", "machine_id": "path",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": [],
-                "content_type": [],
-            },
+            headers_map={"accept": [], "content_type": [],},
             api_client=api_client,
             callable=__projects_project_id_machines_machine_id_delete,
         )
@@ -420,32 +381,16 @@ class ReplicationApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                    "machine_id",
-                    "offset",
-                    "limit",
-                ],
-                "required": [
-                    "project_id",
-                    "machine_id",
-                ],
+                "all": ["project_id", "machine_id", "offset", "limit",],
+                "required": ["project_id", "machine_id",],
                 "nullable": [],
                 "enum": [],
-                "validation": [
-                    "offset",
-                    "limit",
-                ],
+                "validation": ["offset", "limit",],
             },
             root_map={
                 "validations": {
-                    ("offset",): {
-                        "inclusive_minimum": 0,
-                    },
-                    ("limit",): {
-                        "inclusive_maximum": 1500,
-                        "inclusive_minimum": 0,
-                    },
+                    ("offset",): {"inclusive_minimum": 0,},
+                    ("limit",): {"inclusive_maximum": 1500, "inclusive_minimum": 0,},
                 },
                 "allowed_values": {},
                 "openapi_types": {
@@ -468,10 +413,7 @@ class ReplicationApi(object):
                 },
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__projects_project_id_machines_machine_id_pointsintime_get,
         )
@@ -541,30 +483,16 @@ class ReplicationApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                    "offset",
-                    "limit",
-                ],
-                "required": [
-                    "project_id",
-                ],
+                "all": ["project_id", "offset", "limit",],
+                "required": ["project_id",],
                 "nullable": [],
                 "enum": [],
-                "validation": [
-                    "offset",
-                    "limit",
-                ],
+                "validation": ["offset", "limit",],
             },
             root_map={
                 "validations": {
-                    ("offset",): {
-                        "inclusive_minimum": 0,
-                    },
-                    ("limit",): {
-                        "inclusive_maximum": 1500,
-                        "inclusive_minimum": 0,
-                    },
+                    ("offset",): {"inclusive_minimum": 0,},
+                    ("limit",): {"inclusive_maximum": 1500, "inclusive_minimum": 0,},
                 },
                 "allowed_values": {},
                 "openapi_types": {
@@ -584,10 +512,7 @@ class ReplicationApi(object):
                 },
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__projects_project_id_replication_configurations_get,
         )
@@ -657,14 +582,8 @@ class ReplicationApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                    "replication_configuration",
-                ],
-                "required": [
-                    "project_id",
-                    "replication_configuration",
-                ],
+                "all": ["project_id", "replication_configuration",],
+                "required": ["project_id", "replication_configuration",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -676,9 +595,7 @@ class ReplicationApi(object):
                     "project_id": (str,),
                     "replication_configuration": (ReplicationConfiguration,),
                 },
-                "attribute_map": {
-                    "project_id": "projectId",
-                },
+                "attribute_map": {"project_id": "projectId",},
                 "location_map": {
                     "project_id": "path",
                     "replication_configuration": "body",

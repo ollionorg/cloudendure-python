@@ -11,9 +11,9 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.model_utils import (
+from cloudendure.model_utils import (  # noqa: F401
     ApiTypeError,
-    ModelComposed,  # noqa: F401
+    ModelComposed,
     ModelNormal,
     ModelSimple,
     cached_property,
@@ -69,14 +69,8 @@ class Blueprint(ModelNormal):
             "DONT_ALLOCATE": "DONT_ALLOCATE",
             "AS_SUBNET": "AS_SUBNET",
         },
-        ("security_group_action",): {
-            "FROM_POLICY": "FROM_POLICY",
-        },
-        ("tenancy",): {
-            "SHARED": "SHARED",
-            "DEDICATED": "DEDICATED",
-            "HOST": "HOST",
-        },
+        ("security_group_action",): {"FROM_POLICY": "FROM_POLICY",},
+        ("tenancy",): {"SHARED": "SHARED", "DEDICATED": "DEDICATED", "HOST": "HOST",},
         ("private_ip_action",): {
             "CREATE_NEW": "CREATE_NEW",
             "COPY_ORIGIN": "COPY_ORIGIN",
@@ -282,10 +276,7 @@ class Blueprint(ModelNormal):
         if args:
             raise ApiTypeError(
                 "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments."
-                % (
-                    args,
-                    self.__class__.__name__,
-                ),
+                % (args, self.__class__.__name__,),
                 path_to_item=_path_to_item,
                 valid_classes=(self.__class__,),
             )

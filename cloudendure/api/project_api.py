@@ -11,15 +11,9 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.api_client import ApiClient
-from cloudendure.api_client import Endpoint as _Endpoint
-from cloudendure.model.cloud_credentials_request import CloudCredentialsRequest
-from cloudendure.model.error import Error
-from cloudendure.model.inline_response200 import InlineResponse200
-from cloudendure.model.project import Project
-from cloudendure.model.projects_list import ProjectsList
-from cloudendure.model_utils import (
-    check_allowed_values,  # noqa: F401
+from cloudendure.api_client import ApiClient, Endpoint as _Endpoint
+from cloudendure.model_utils import (  # noqa: F401
+    check_allowed_values,
     check_validations,
     date,
     datetime,
@@ -27,6 +21,11 @@ from cloudendure.model_utils import (
     none_type,
     validate_and_convert_types,
 )
+from cloudendure.model.cloud_credentials_request import CloudCredentialsRequest
+from cloudendure.model.error import Error
+from cloudendure.model.inline_response200 import InlineResponse200
+from cloudendure.model.project import Project
+from cloudendure.model.projects_list import ProjectsList
 
 
 class ProjectApi(object):
@@ -101,47 +100,24 @@ class ProjectApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "offset",
-                    "limit",
-                ],
+                "all": ["offset", "limit",],
                 "required": [],
                 "nullable": [],
                 "enum": [],
-                "validation": [
-                    "offset",
-                    "limit",
-                ],
+                "validation": ["offset", "limit",],
             },
             root_map={
                 "validations": {
-                    ("offset",): {
-                        "inclusive_minimum": 0,
-                    },
-                    ("limit",): {
-                        "inclusive_maximum": 1500,
-                        "inclusive_minimum": 0,
-                    },
+                    ("offset",): {"inclusive_minimum": 0,},
+                    ("limit",): {"inclusive_maximum": 1500, "inclusive_minimum": 0,},
                 },
                 "allowed_values": {},
-                "openapi_types": {
-                    "offset": (int,),
-                    "limit": (int,),
-                },
-                "attribute_map": {
-                    "offset": "offset",
-                    "limit": "limit",
-                },
-                "location_map": {
-                    "offset": "query",
-                    "limit": "query",
-                },
+                "openapi_types": {"offset": (int,), "limit": (int,),},
+                "attribute_map": {"offset": "offset", "limit": "limit",},
+                "location_map": {"offset": "query", "limit": "query",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__projects_get,
         )
@@ -207,12 +183,8 @@ class ProjectApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project",
-                ],
-                "required": [
-                    "project",
-                ],
+                "all": ["project",],
+                "required": ["project",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -220,13 +192,9 @@ class ProjectApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "project": (Project,),
-                },
+                "openapi_types": {"project": (Project,),},
                 "attribute_map": {},
-                "location_map": {
-                    "project": "body",
-                },
+                "location_map": {"project": "body",},
                 "collection_format_map": {},
             },
             headers_map={
@@ -297,12 +265,8 @@ class ProjectApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                ],
-                "required": [
-                    "project_id",
-                ],
+                "all": ["project_id",],
+                "required": ["project_id",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -310,21 +274,12 @@ class ProjectApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "project_id": (str,),
-                },
-                "attribute_map": {
-                    "project_id": "projectId",
-                },
-                "location_map": {
-                    "project_id": "path",
-                },
+                "openapi_types": {"project_id": (str,),},
+                "attribute_map": {"project_id": "projectId",},
+                "location_map": {"project_id": "path",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": [],
-                "content_type": [],
-            },
+            headers_map={"accept": [], "content_type": [],},
             api_client=api_client,
             callable=__projects_project_id_delete,
         )
@@ -389,12 +344,8 @@ class ProjectApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                ],
-                "required": [
-                    "project_id",
-                ],
+                "all": ["project_id",],
+                "required": ["project_id",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -402,21 +353,12 @@ class ProjectApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "project_id": (str,),
-                },
-                "attribute_map": {
-                    "project_id": "projectId",
-                },
-                "location_map": {
-                    "project_id": "path",
-                },
+                "openapi_types": {"project_id": (str,),},
+                "attribute_map": {"project_id": "projectId",},
+                "location_map": {"project_id": "path",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__projects_project_id_get,
         )
@@ -484,14 +426,8 @@ class ProjectApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                    "project",
-                ],
-                "required": [
-                    "project_id",
-                    "project",
-                ],
+                "all": ["project_id", "project",],
+                "required": ["project_id", "project",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -499,17 +435,9 @@ class ProjectApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "project_id": (str,),
-                    "project": (Project,),
-                },
-                "attribute_map": {
-                    "project_id": "projectId",
-                },
-                "location_map": {
-                    "project_id": "path",
-                    "project": "body",
-                },
+                "openapi_types": {"project_id": (str,), "project": (Project,),},
+                "attribute_map": {"project_id": "projectId",},
+                "location_map": {"project_id": "path", "project": "body",},
                 "collection_format_map": {},
             },
             headers_map={
@@ -583,30 +511,16 @@ class ProjectApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                    "offset",
-                    "limit",
-                ],
-                "required": [
-                    "project_id",
-                ],
+                "all": ["project_id", "offset", "limit",],
+                "required": ["project_id",],
                 "nullable": [],
                 "enum": [],
-                "validation": [
-                    "offset",
-                    "limit",
-                ],
+                "validation": ["offset", "limit",],
             },
             root_map={
                 "validations": {
-                    ("offset",): {
-                        "inclusive_minimum": 0,
-                    },
-                    ("limit",): {
-                        "inclusive_maximum": 1500,
-                        "inclusive_minimum": 0,
-                    },
+                    ("offset",): {"inclusive_minimum": 0,},
+                    ("limit",): {"inclusive_maximum": 1500, "inclusive_minimum": 0,},
                 },
                 "allowed_values": {},
                 "openapi_types": {
@@ -626,10 +540,7 @@ class ProjectApi(object):
                 },
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__projects_project_id_tags_get,
         )
@@ -699,14 +610,8 @@ class ProjectApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "project_id",
-                    "cloud_credentials",
-                ],
-                "required": [
-                    "project_id",
-                    "cloud_credentials",
-                ],
+                "all": ["project_id", "cloud_credentials",],
+                "required": ["project_id", "cloud_credentials",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -718,13 +623,8 @@ class ProjectApi(object):
                     "project_id": (str,),
                     "cloud_credentials": (CloudCredentialsRequest,),
                 },
-                "attribute_map": {
-                    "project_id": "projectId",
-                },
-                "location_map": {
-                    "project_id": "path",
-                    "cloud_credentials": "body",
-                },
+                "attribute_map": {"project_id": "projectId",},
+                "location_map": {"project_id": "path", "cloud_credentials": "body",},
                 "collection_format_map": {},
             },
             headers_map={

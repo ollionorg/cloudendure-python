@@ -11,13 +11,9 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.api_client import ApiClient
-from cloudendure.api_client import Endpoint as _Endpoint
-from cloudendure.model.error import Error
-from cloudendure.model.inline_object1 import InlineObject1
-from cloudendure.model.user import User
-from cloudendure.model_utils import (
-    check_allowed_values,  # noqa: F401
+from cloudendure.api_client import ApiClient, Endpoint as _Endpoint
+from cloudendure.model_utils import (  # noqa: F401
+    check_allowed_values,
     check_validations,
     date,
     datetime,
@@ -25,6 +21,9 @@ from cloudendure.model_utils import (
     none_type,
     validate_and_convert_types,
 )
+from cloudendure.model.error import Error
+from cloudendure.model.inline_object1 import InlineObject1
+from cloudendure.model.user import User
 
 
 class AuthenticationApi(object):
@@ -100,12 +99,8 @@ class AuthenticationApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "login_info",
-                ],
-                "required": [
-                    "login_info",
-                ],
+                "all": ["login_info",],
+                "required": ["login_info",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -113,13 +108,9 @@ class AuthenticationApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "login_info": (InlineObject1,),
-                },
+                "openapi_types": {"login_info": (InlineObject1,),},
                 "attribute_map": {},
-                "location_map": {
-                    "login_info": "body",
-                },
+                "location_map": {"login_info": "body",},
                 "collection_format_map": {},
             },
             headers_map={
@@ -202,10 +193,7 @@ class AuthenticationApi(object):
                 "location_map": {},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": [],
-                "content_type": [],
-            },
+            headers_map={"accept": [], "content_type": [],},
             api_client=api_client,
             callable=__logout_post,
         )

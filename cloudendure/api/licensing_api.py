@@ -11,12 +11,9 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.api_client import ApiClient
-from cloudendure.api_client import Endpoint as _Endpoint
-from cloudendure.model.license import License
-from cloudendure.model.license_list import LicenseList
-from cloudendure.model_utils import (
-    check_allowed_values,  # noqa: F401
+from cloudendure.api_client import ApiClient, Endpoint as _Endpoint
+from cloudendure.model_utils import (  # noqa: F401
+    check_allowed_values,
     check_validations,
     date,
     datetime,
@@ -24,6 +21,8 @@ from cloudendure.model_utils import (
     none_type,
     validate_and_convert_types,
 )
+from cloudendure.model.license import License
+from cloudendure.model.license_list import LicenseList
 
 
 class LicensingApi(object):
@@ -98,47 +97,24 @@ class LicensingApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "offset",
-                    "limit",
-                ],
+                "all": ["offset", "limit",],
                 "required": [],
                 "nullable": [],
                 "enum": [],
-                "validation": [
-                    "offset",
-                    "limit",
-                ],
+                "validation": ["offset", "limit",],
             },
             root_map={
                 "validations": {
-                    ("offset",): {
-                        "inclusive_minimum": 0,
-                    },
-                    ("limit",): {
-                        "inclusive_maximum": 1500,
-                        "inclusive_minimum": 0,
-                    },
+                    ("offset",): {"inclusive_minimum": 0,},
+                    ("limit",): {"inclusive_maximum": 1500, "inclusive_minimum": 0,},
                 },
                 "allowed_values": {},
-                "openapi_types": {
-                    "offset": (int,),
-                    "limit": (int,),
-                },
-                "attribute_map": {
-                    "offset": "offset",
-                    "limit": "limit",
-                },
-                "location_map": {
-                    "offset": "query",
-                    "limit": "query",
-                },
+                "openapi_types": {"offset": (int,), "limit": (int,),},
+                "attribute_map": {"offset": "offset", "limit": "limit",},
+                "location_map": {"offset": "query", "limit": "query",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__licenses_get,
         )
@@ -203,12 +179,8 @@ class LicensingApi(object):
                 "servers": None,
             },
             params_map={
-                "all": [
-                    "license_id",
-                ],
-                "required": [
-                    "license_id",
-                ],
+                "all": ["license_id",],
+                "required": ["license_id",],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -216,21 +188,12 @@ class LicensingApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {
-                    "license_id": (str,),
-                },
-                "attribute_map": {
-                    "license_id": "licenseId",
-                },
-                "location_map": {
-                    "license_id": "path",
-                },
+                "openapi_types": {"license_id": (str,),},
+                "attribute_map": {"license_id": "licenseId",},
+                "location_map": {"license_id": "path",},
                 "collection_format_map": {},
             },
-            headers_map={
-                "accept": ["application/json"],
-                "content_type": [],
-            },
+            headers_map={"accept": ["application/json"], "content_type": [],},
             api_client=api_client,
             callable=__licenses_license_id_get,
         )

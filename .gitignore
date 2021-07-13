@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+build/
 develop-eggs/
 dist/
 downloads/
@@ -63,9 +64,3 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
-
-# vim saves
-*.sw*
-my-test.py
-
-.openapi-generator/

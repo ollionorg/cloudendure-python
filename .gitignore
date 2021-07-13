@@ -64,3 +64,8 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+.openapi-generator/*
+
+.gitlab-ci.yml
+git_push.sh

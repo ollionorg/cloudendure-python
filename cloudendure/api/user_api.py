@@ -99,8 +99,12 @@ class UserApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["password_params",],
-                "required": ["password_params",],
+                "all": [
+                    "password_params",
+                ],
+                "required": [
+                    "password_params",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -108,9 +112,13 @@ class UserApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"password_params": (InlineObject,),},
+                "openapi_types": {
+                    "password_params": (InlineObject,),
+                },
                 "attribute_map": {},
-                "location_map": {"password_params": "body",},
+                "location_map": {
+                    "password_params": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={
@@ -193,7 +201,10 @@ class UserApi(object):
                 "location_map": {},
                 "collection_format_map": {},
             },
-            headers_map={"accept": ["application/json"], "content_type": [],},
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__me_get,
         )
@@ -258,8 +269,12 @@ class UserApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["user_id",],
-                "required": ["user_id",],
+                "all": [
+                    "user_id",
+                ],
+                "required": [
+                    "user_id",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -267,12 +282,21 @@ class UserApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"user_id": (str,),},
-                "attribute_map": {"user_id": "userId",},
-                "location_map": {"user_id": "path",},
+                "openapi_types": {
+                    "user_id": (str,),
+                },
+                "attribute_map": {
+                    "user_id": "userId",
+                },
+                "location_map": {
+                    "user_id": "path",
+                },
                 "collection_format_map": {},
             },
-            headers_map={"accept": [], "content_type": [],},
+            headers_map={
+                "accept": [],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__users_user_id_delete,
         )
@@ -340,8 +364,14 @@ class UserApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["user_id", "user",],
-                "required": ["user_id", "user",],
+                "all": [
+                    "user_id",
+                    "user",
+                ],
+                "required": [
+                    "user_id",
+                    "user",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -349,9 +379,17 @@ class UserApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"user_id": (str,), "user": (User,),},
-                "attribute_map": {"user_id": "userId",},
-                "location_map": {"user_id": "path", "user": "body",},
+                "openapi_types": {
+                    "user_id": (str,),
+                    "user": (User,),
+                },
+                "attribute_map": {
+                    "user_id": "userId",
+                },
+                "location_map": {
+                    "user_id": "path",
+                    "user": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={

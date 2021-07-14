@@ -111,16 +111,30 @@ class ActionsApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "offset", "limit",],
-                "required": ["project_id",],
+                "all": [
+                    "project_id",
+                    "offset",
+                    "limit",
+                ],
+                "required": [
+                    "project_id",
+                ],
                 "nullable": [],
                 "enum": [],
-                "validation": ["offset", "limit",],
+                "validation": [
+                    "offset",
+                    "limit",
+                ],
             },
             root_map={
                 "validations": {
-                    ("offset",): {"inclusive_minimum": 0,},
-                    ("limit",): {"inclusive_maximum": 1500, "inclusive_minimum": 0,},
+                    ("offset",): {
+                        "inclusive_minimum": 0,
+                    },
+                    ("limit",): {
+                        "inclusive_maximum": 1500,
+                        "inclusive_minimum": 0,
+                    },
                 },
                 "allowed_values": {},
                 "openapi_types": {
@@ -140,7 +154,10 @@ class ActionsApi(object):
                 },
                 "collection_format_map": {},
             },
-            headers_map={"accept": ["application/json"], "content_type": [],},
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__projects_project_id_jobs_get,
         )
@@ -207,8 +224,14 @@ class ActionsApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "job_id",],
-                "required": ["project_id", "job_id",],
+                "all": [
+                    "project_id",
+                    "job_id",
+                ],
+                "required": [
+                    "project_id",
+                    "job_id",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -216,12 +239,24 @@ class ActionsApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"project_id": (str,), "job_id": (str,),},
-                "attribute_map": {"project_id": "projectId", "job_id": "jobId",},
-                "location_map": {"project_id": "path", "job_id": "path",},
+                "openapi_types": {
+                    "project_id": (str,),
+                    "job_id": (str,),
+                },
+                "attribute_map": {
+                    "project_id": "projectId",
+                    "job_id": "jobId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "job_id": "path",
+                },
                 "collection_format_map": {},
             },
-            headers_map={"accept": ["application/json"], "content_type": [],},
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__projects_project_id_jobs_job_id_get,
         )
@@ -291,8 +326,14 @@ class ActionsApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "launch_machines",],
-                "required": ["project_id", "launch_machines",],
+                "all": [
+                    "project_id",
+                    "launch_machines",
+                ],
+                "required": [
+                    "project_id",
+                    "launch_machines",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -304,8 +345,13 @@ class ActionsApi(object):
                     "project_id": (str,),
                     "launch_machines": (LaunchMachinesParameters,),
                 },
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path", "launch_machines": "body",},
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "launch_machines": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={
@@ -381,8 +427,14 @@ class ActionsApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "move_machines_params",],
-                "required": ["project_id", "move_machines_params",],
+                "all": [
+                    "project_id",
+                    "move_machines_params",
+                ],
+                "required": [
+                    "project_id",
+                    "move_machines_params",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -394,8 +446,13 @@ class ActionsApi(object):
                     "project_id": (str,),
                     "move_machines_params": (InlineObject4,),
                 },
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path", "move_machines_params": "body",},
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "move_machines_params": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={
@@ -471,8 +528,14 @@ class ActionsApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "machine_ids",],
-                "required": ["project_id", "machine_ids",],
+                "all": [
+                    "project_id",
+                    "machine_ids",
+                ],
+                "required": [
+                    "project_id",
+                    "machine_ids",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -484,8 +547,13 @@ class ActionsApi(object):
                     "project_id": (str,),
                     "machine_ids": (InlineObject9,),
                 },
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path", "machine_ids": "body",},
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "machine_ids": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={
@@ -561,8 +629,14 @@ class ActionsApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "replica_ids",],
-                "required": ["project_id", "replica_ids",],
+                "all": [
+                    "project_id",
+                    "replica_ids",
+                ],
+                "required": [
+                    "project_id",
+                    "replica_ids",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -574,8 +648,13 @@ class ActionsApi(object):
                     "project_id": (str,),
                     "replica_ids": (InlineObject5,),
                 },
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path", "replica_ids": "body",},
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "replica_ids": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={
@@ -646,8 +725,12 @@ class ActionsApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id",],
-                "required": ["project_id",],
+                "all": [
+                    "project_id",
+                ],
+                "required": [
+                    "project_id",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -655,12 +738,21 @@ class ActionsApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"project_id": (str,),},
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path",},
+                "openapi_types": {
+                    "project_id": (str,),
+                },
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                },
                 "collection_format_map": {},
             },
-            headers_map={"accept": ["application/json"], "content_type": [],},
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__projects_project_id_reverse_replication_post,
         )
@@ -730,8 +822,14 @@ class ActionsApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "machine_ids",],
-                "required": ["project_id", "machine_ids",],
+                "all": [
+                    "project_id",
+                    "machine_ids",
+                ],
+                "required": [
+                    "project_id",
+                    "machine_ids",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -743,8 +841,13 @@ class ActionsApi(object):
                     "project_id": (str,),
                     "machine_ids": (InlineObject3,),
                 },
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path", "machine_ids": "body",},
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "machine_ids": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={
@@ -820,8 +923,14 @@ class ActionsApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "machine_ids",],
-                "required": ["project_id", "machine_ids",],
+                "all": [
+                    "project_id",
+                    "machine_ids",
+                ],
+                "required": [
+                    "project_id",
+                    "machine_ids",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -833,8 +942,13 @@ class ActionsApi(object):
                     "project_id": (str,),
                     "machine_ids": (InlineObject7,),
                 },
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path", "machine_ids": "body",},
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "machine_ids": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={

@@ -11,9 +11,9 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
+from cloudendure.model_utils import ModelComposed  # noqa: F401
 from cloudendure.model_utils import (
     ApiTypeError,
-    ModelComposed,  # noqa: F401
     ModelNormal,
     ModelSimple,
     cached_property,
@@ -52,7 +52,9 @@ class AccountRequest(ModelNormal):
     """
 
     allowed_values = {
-        ("flow",): {"MIGRATION_REGISTER": "MIGRATION_REGISTER",},
+        ("flow",): {
+            "MIGRATION_REGISTER": "MIGRATION_REGISTER",
+        },
         ("request_type",): {
             "REGISTER": "REGISTER",
             "RESET_PASSWORD": "RESET_PASSWORD",
@@ -168,7 +170,10 @@ class AccountRequest(ModelNormal):
         if args:
             raise ApiTypeError(
                 "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments."
-                % (args, self.__class__.__name__,),
+                % (
+                    args,
+                    self.__class__.__name__,
+                ),
                 path_to_item=_path_to_item,
                 valid_classes=(self.__class__,),
             )

@@ -100,8 +100,12 @@ class AuthenticationApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["login_info",],
-                "required": ["login_info",],
+                "all": [
+                    "login_info",
+                ],
+                "required": [
+                    "login_info",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -109,9 +113,13 @@ class AuthenticationApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"login_info": (InlineObject1,),},
+                "openapi_types": {
+                    "login_info": (InlineObject1,),
+                },
                 "attribute_map": {},
-                "location_map": {"login_info": "body",},
+                "location_map": {
+                    "login_info": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={
@@ -194,7 +202,10 @@ class AuthenticationApi(object):
                 "location_map": {},
                 "collection_format_map": {},
             },
-            headers_map={"accept": [], "content_type": [],},
+            headers_map={
+                "accept": [],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__logout_post,
         )

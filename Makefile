@@ -22,11 +22,11 @@ test: ## execute pytest in the poetry environment
 
 .PHONY: isort
 isort: ## run isort (order import statements) on our py code
-	poetry run isort -rc test/ cloudendure/
+	poetry run isort --profile=black  test/ cloudendure/
 
 .PHONY: isort-test
 isort-test: ## run isort to test import linting
-	poetry run isort -rc --check-only --quiet test/ cloudendure/
+	poetry run isort --profile=black --check-only --quiet test/ cloudendure/
 
 .PHONY: black
 black: ## run black (linter) agaist our python code

@@ -97,8 +97,12 @@ class AccountApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["account_id",],
-                "required": ["account_id",],
+                "all": [
+                    "account_id",
+                ],
+                "required": [
+                    "account_id",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -106,12 +110,21 @@ class AccountApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"account_id": (str,),},
-                "attribute_map": {"account_id": "accountId",},
-                "location_map": {"account_id": "path",},
+                "openapi_types": {
+                    "account_id": (str,),
+                },
+                "attribute_map": {
+                    "account_id": "accountId",
+                },
+                "location_map": {
+                    "account_id": "path",
+                },
                 "collection_format_map": {},
             },
-            headers_map={"accept": ["application/json"], "content_type": [],},
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__accounts_account_id_get,
         )

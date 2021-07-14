@@ -101,7 +101,7 @@ class ApiClient(object):
     @property
     def pool(self):
         """Create thread pool on first request
-         avoids instantiating unused threadpool for blocking clients.
+        avoids instantiating unused threadpool for blocking clients.
         """
         if self._pool is None:
             atexit.register(self.close)
@@ -857,7 +857,7 @@ class Endpoint(object):
         return params
 
     def __call__(self, *args, **kwargs):
-        """ This method is invoked when endpoints are called
+        """This method is invoked when endpoints are called
         Example:
 
         api_instance = AccountApi()
@@ -880,9 +880,11 @@ class Endpoint(object):
                 if kwargs["_host_index"] is None
                 else kwargs["_host_index"]
             )
-            server_variables = self.api_client.configuration.server_operation_variables.get(
-                self.settings["operation_id"],
-                self.api_client.configuration.server_variables,
+            server_variables = (
+                self.api_client.configuration.server_operation_variables.get(
+                    self.settings["operation_id"],
+                    self.api_client.configuration.server_variables,
+                )
             )
             _host = self.api_client.configuration.get_host_from_settings(
                 index, variables=server_variables, servers=self.settings["servers"]

@@ -102,8 +102,14 @@ class BlueprintApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "blueprint_id",],
-                "required": ["project_id", "blueprint_id",],
+                "all": [
+                    "project_id",
+                    "blueprint_id",
+                ],
+                "required": [
+                    "project_id",
+                    "blueprint_id",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -111,15 +117,24 @@ class BlueprintApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"project_id": (str,), "blueprint_id": (str,),},
+                "openapi_types": {
+                    "project_id": (str,),
+                    "blueprint_id": (str,),
+                },
                 "attribute_map": {
                     "project_id": "projectId",
                     "blueprint_id": "blueprintId",
                 },
-                "location_map": {"project_id": "path", "blueprint_id": "path",},
+                "location_map": {
+                    "project_id": "path",
+                    "blueprint_id": "path",
+                },
                 "collection_format_map": {},
             },
-            headers_map={"accept": ["application/json"], "content_type": [],},
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__projects_project_id_blueprints_blueprint_id_get,
         )
@@ -191,8 +206,16 @@ class BlueprintApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "blueprint_id", "blueprint",],
-                "required": ["project_id", "blueprint_id", "blueprint",],
+                "all": [
+                    "project_id",
+                    "blueprint_id",
+                    "blueprint",
+                ],
+                "required": [
+                    "project_id",
+                    "blueprint_id",
+                    "blueprint",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -287,16 +310,30 @@ class BlueprintApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "offset", "limit",],
-                "required": ["project_id",],
+                "all": [
+                    "project_id",
+                    "offset",
+                    "limit",
+                ],
+                "required": [
+                    "project_id",
+                ],
                 "nullable": [],
                 "enum": [],
-                "validation": ["offset", "limit",],
+                "validation": [
+                    "offset",
+                    "limit",
+                ],
             },
             root_map={
                 "validations": {
-                    ("offset",): {"inclusive_minimum": 0,},
-                    ("limit",): {"inclusive_maximum": 1500, "inclusive_minimum": 0,},
+                    ("offset",): {
+                        "inclusive_minimum": 0,
+                    },
+                    ("limit",): {
+                        "inclusive_maximum": 1500,
+                        "inclusive_minimum": 0,
+                    },
                 },
                 "allowed_values": {},
                 "openapi_types": {
@@ -316,7 +353,10 @@ class BlueprintApi(object):
                 },
                 "collection_format_map": {},
             },
-            headers_map={"accept": ["application/json"], "content_type": [],},
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__projects_project_id_blueprints_get,
         )
@@ -386,8 +426,14 @@ class BlueprintApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "blueprint",],
-                "required": ["project_id", "blueprint",],
+                "all": [
+                    "project_id",
+                    "blueprint",
+                ],
+                "required": [
+                    "project_id",
+                    "blueprint",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -395,9 +441,17 @@ class BlueprintApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"project_id": (str,), "blueprint": (Blueprint,),},
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path", "blueprint": "body",},
+                "openapi_types": {
+                    "project_id": (str,),
+                    "blueprint": (Blueprint,),
+                },
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "blueprint": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={

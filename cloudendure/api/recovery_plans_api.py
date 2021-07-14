@@ -100,8 +100,12 @@ class RecoveryPlansApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id",],
-                "required": ["project_id",],
+                "all": [
+                    "project_id",
+                ],
+                "required": [
+                    "project_id",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -109,12 +113,21 @@ class RecoveryPlansApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"project_id": (str,),},
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path",},
+                "openapi_types": {
+                    "project_id": (str,),
+                },
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                },
                 "collection_format_map": {},
             },
-            headers_map={"accept": ["application/json"], "content_type": [],},
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__projects_project_id_recovery_plans_get,
         )
@@ -183,8 +196,14 @@ class RecoveryPlansApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "recovery_plan",],
-                "required": ["project_id", "recovery_plan",],
+                "all": [
+                    "project_id",
+                    "recovery_plan",
+                ],
+                "required": [
+                    "project_id",
+                    "recovery_plan",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -196,8 +215,13 @@ class RecoveryPlansApi(object):
                     "project_id": (str,),
                     "recovery_plan": (RecoveryPlan,),
                 },
-                "attribute_map": {"project_id": "projectId",},
-                "location_map": {"project_id": "path", "recovery_plan": "body",},
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
+                "location_map": {
+                    "project_id": "path",
+                    "recovery_plan": "body",
+                },
                 "collection_format_map": {},
             },
             headers_map={
@@ -272,8 +296,14 @@ class RecoveryPlansApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "recovery_plan_id",],
-                "required": ["project_id", "recovery_plan_id",],
+                "all": [
+                    "project_id",
+                    "recovery_plan_id",
+                ],
+                "required": [
+                    "project_id",
+                    "recovery_plan_id",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -281,15 +311,24 @@ class RecoveryPlansApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"project_id": (str,), "recovery_plan_id": (str,),},
+                "openapi_types": {
+                    "project_id": (str,),
+                    "recovery_plan_id": (str,),
+                },
                 "attribute_map": {
                     "project_id": "projectId",
                     "recovery_plan_id": "recoveryPlanId",
                 },
-                "location_map": {"project_id": "path", "recovery_plan_id": "path",},
+                "location_map": {
+                    "project_id": "path",
+                    "recovery_plan_id": "path",
+                },
                 "collection_format_map": {},
             },
-            headers_map={"accept": [], "content_type": [],},
+            headers_map={
+                "accept": [],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__projects_project_id_recovery_plans_recovery_plan_id_delete,
         )
@@ -358,8 +397,14 @@ class RecoveryPlansApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "recovery_plan_id",],
-                "required": ["project_id", "recovery_plan_id",],
+                "all": [
+                    "project_id",
+                    "recovery_plan_id",
+                ],
+                "required": [
+                    "project_id",
+                    "recovery_plan_id",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -367,15 +412,24 @@ class RecoveryPlansApi(object):
             root_map={
                 "validations": {},
                 "allowed_values": {},
-                "openapi_types": {"project_id": (str,), "recovery_plan_id": (str,),},
+                "openapi_types": {
+                    "project_id": (str,),
+                    "recovery_plan_id": (str,),
+                },
                 "attribute_map": {
                     "project_id": "projectId",
                     "recovery_plan_id": "recoveryPlanId",
                 },
-                "location_map": {"project_id": "path", "recovery_plan_id": "path",},
+                "location_map": {
+                    "project_id": "path",
+                    "recovery_plan_id": "path",
+                },
                 "collection_format_map": {},
             },
-            headers_map={"accept": ["application/json"], "content_type": [],},
+            headers_map={
+                "accept": ["application/json"],
+                "content_type": [],
+            },
             api_client=api_client,
             callable=__projects_project_id_recovery_plans_recovery_plan_id_get,
         )
@@ -446,8 +500,16 @@ class RecoveryPlansApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "recovery_plan_id", "recovery_plan",],
-                "required": ["project_id", "recovery_plan_id", "recovery_plan",],
+                "all": [
+                    "project_id",
+                    "recovery_plan_id",
+                    "recovery_plan",
+                ],
+                "required": [
+                    "project_id",
+                    "recovery_plan_id",
+                    "recovery_plan",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -543,8 +605,14 @@ class RecoveryPlansApi(object):
                 "servers": None,
             },
             params_map={
-                "all": ["project_id", "init_recovery_plan_params",],
-                "required": ["project_id", "init_recovery_plan_params",],
+                "all": [
+                    "project_id",
+                    "init_recovery_plan_params",
+                ],
+                "required": [
+                    "project_id",
+                    "init_recovery_plan_params",
+                ],
                 "nullable": [],
                 "enum": [],
                 "validation": [],
@@ -556,7 +624,9 @@ class RecoveryPlansApi(object):
                     "project_id": (str,),
                     "init_recovery_plan_params": (InlineObject10,),
                 },
-                "attribute_map": {"project_id": "projectId",},
+                "attribute_map": {
+                    "project_id": "projectId",
+                },
                 "location_map": {
                     "project_id": "path",
                     "init_recovery_plan_params": "body",

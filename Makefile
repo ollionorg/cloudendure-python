@@ -82,7 +82,7 @@ build: ## build the packages
 
 .PHONY: publish
 publish: build ## build and publish to pypi using the $PYPI_TOKEN for authentication
-	poetry publish --username "__token__" --password "$(PYPI_TOKEN)" --dry-run
+	poetry publish --username "__token__" --password "$(PYPI_TOKEN)"
 
 .PHONY: tag
 tag: ## tag this repo with $TAG (and mark the pyproject version as the same)

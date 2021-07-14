@@ -14,9 +14,12 @@ import unittest
 import cloudendure
 from cloudendure.model.job import Job
 from cloudendure.model.machine import Machine
-globals()['Job'] = Job
-globals()['Machine'] = Machine
-from cloudendure.model.machines_list_invalid_ids_and_job import MachinesListInvalidIDsAndJob
+from cloudendure.model.machines_list_invalid_ids_and_job import (
+    MachinesListInvalidIDsAndJob,
+)
+
+globals()["Job"] = Job
+globals()["Machine"] = Machine
 
 
 class TestMachinesListInvalidIDsAndJob(unittest.TestCase):
@@ -35,5 +38,5 @@ class TestMachinesListInvalidIDsAndJob(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

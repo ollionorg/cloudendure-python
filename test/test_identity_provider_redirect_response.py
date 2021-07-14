@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.identity_provider_redirect_response import IdentityProviderRedirectResponse
+from cloudendure.model.identity_provider_redirect_response import (
+    IdentityProviderRedirectResponse,
+)
 
 
 class TestIdentityProviderRedirectResponse(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestIdentityProviderRedirectResponse(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

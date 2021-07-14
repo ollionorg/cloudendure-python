@@ -13,10 +13,17 @@ import unittest
 
 import cloudendure
 from cloudendure.model.disk_config import DiskConfig
-from cloudendure.model.replication_configuration_replication_tags import ReplicationConfigurationReplicationTags
-globals()['DiskConfig'] = DiskConfig
-globals()['ReplicationConfigurationReplicationTags'] = ReplicationConfigurationReplicationTags
-from cloudendure.model.machine_replication_configuration import MachineReplicationConfiguration
+from cloudendure.model.machine_replication_configuration import (
+    MachineReplicationConfiguration,
+)
+from cloudendure.model.replication_configuration_replication_tags import (
+    ReplicationConfigurationReplicationTags,
+)
+
+globals()["DiskConfig"] = DiskConfig
+globals()[
+    "ReplicationConfigurationReplicationTags"
+] = ReplicationConfigurationReplicationTags
 
 
 class TestMachineReplicationConfiguration(unittest.TestCase):
@@ -35,5 +42,5 @@ class TestMachineReplicationConfiguration(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

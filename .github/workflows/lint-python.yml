@@ -12,26 +12,20 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: ['3.8']
+        poetry-version: ['1.1.7']
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
         architecture: x64
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine
-        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-        source $HOME/.poetry/env
-        poetry export -f requirements.txt -o requirements.txt --dev
-        pip install -r requirements.txt
+    - name: Run image
+      uses: abatilo/actions-poetry@v2.0.0
+      with:
+        poetry-version: ${{ matrix.poetry-version }}
+    - name: Get dependencies
+      run: poetry install
     - name: Check python imports with isort
-      run: |
-        isort --version-number
-        isort -rc --check-only --quiet .
+      run: make isort-test
     - name: Lint with Black
-      run: |
-        black --version
-        black --check .
+      run: make black-test

@@ -12,11 +12,12 @@ import sys
 import unittest
 
 import cloudendure
+from cloudendure.model.license import License
 from cloudendure.model.license_ce_admin_properties import LicenseCeAdminProperties
 from cloudendure.model.license_features import LicenseFeatures
-globals()['LicenseCeAdminProperties'] = LicenseCeAdminProperties
-globals()['LicenseFeatures'] = LicenseFeatures
-from cloudendure.model.license import License
+
+globals()["LicenseCeAdminProperties"] = LicenseCeAdminProperties
+globals()["LicenseFeatures"] = LicenseFeatures
 
 
 class TestLicense(unittest.TestCase):
@@ -35,5 +36,5 @@ class TestLicense(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

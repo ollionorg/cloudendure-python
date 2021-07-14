@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.project import Project
-globals()['Project'] = Project
 from cloudendure.model.projects_list import ProjectsList
+
+globals()["Project"] = Project
 
 
 class TestProjectsList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestProjectsList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

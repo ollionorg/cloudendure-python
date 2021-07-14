@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.cslp_item import CSLPItem
-globals()['CSLPItem'] = CSLPItem
 from cloudendure.model.cslp_result import CSLPResult
+
+globals()["CSLPItem"] = CSLPItem
 
 
 class TestCSLPResult(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestCSLPResult(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

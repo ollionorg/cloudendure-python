@@ -13,10 +13,13 @@ import unittest
 
 import cloudendure
 from cloudendure.model.audit_log_changed_field import AuditLogChangedField
-from cloudendure.model.audit_log_entry_participating_machines import AuditLogEntryParticipatingMachines
-globals()['AuditLogChangedField'] = AuditLogChangedField
-globals()['AuditLogEntryParticipatingMachines'] = AuditLogEntryParticipatingMachines
 from cloudendure.model.audit_log_entry import AuditLogEntry
+from cloudendure.model.audit_log_entry_participating_machines import (
+    AuditLogEntryParticipatingMachines,
+)
+
+globals()["AuditLogChangedField"] = AuditLogChangedField
+globals()["AuditLogEntryParticipatingMachines"] = AuditLogEntryParticipatingMachines
 
 
 class TestAuditLogEntry(unittest.TestCase):
@@ -35,5 +38,5 @@ class TestAuditLogEntry(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

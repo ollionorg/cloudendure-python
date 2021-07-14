@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.user_settings_send_notifications import UserSettingsSendNotifications
+from cloudendure.model.user_settings_send_notifications import (
+    UserSettingsSendNotifications,
+)
 
 
 class TestUserSettingsSendNotifications(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestUserSettingsSendNotifications(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

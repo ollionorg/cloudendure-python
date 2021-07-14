@@ -12,11 +12,14 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.launch_machines_parameters_debug_scripts import LaunchMachinesParametersDebugScripts
-from cloudendure.model.machine_and_point_in_time import MachineAndPointInTime
-globals()['LaunchMachinesParametersDebugScripts'] = LaunchMachinesParametersDebugScripts
-globals()['MachineAndPointInTime'] = MachineAndPointInTime
 from cloudendure.model.launch_machines_parameters import LaunchMachinesParameters
+from cloudendure.model.launch_machines_parameters_debug_scripts import (
+    LaunchMachinesParametersDebugScripts,
+)
+from cloudendure.model.machine_and_point_in_time import MachineAndPointInTime
+
+globals()["LaunchMachinesParametersDebugScripts"] = LaunchMachinesParametersDebugScripts
+globals()["MachineAndPointInTime"] = MachineAndPointInTime
 
 
 class TestLaunchMachinesParameters(unittest.TestCase):
@@ -35,5 +38,5 @@ class TestLaunchMachinesParameters(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

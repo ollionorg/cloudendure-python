@@ -65,7 +65,9 @@ class TestReplicationApi(unittest.TestCase):
         """
         pass
 
-    def test_projects_project_id_replication_configurations_replication_configuration_id_patch(self):
+    def test_projects_project_id_replication_configurations_replication_configuration_id_patch(
+        self,
+    ):
         """Test case for projects_project_id_replication_configurations_replication_configuration_id_patch
 
         Modify Replication Configuration  # noqa: E501
@@ -73,5 +75,5 @@ class TestReplicationApi(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

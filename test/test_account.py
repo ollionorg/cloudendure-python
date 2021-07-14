@@ -12,11 +12,12 @@ import sys
 import unittest
 
 import cloudendure
+from cloudendure.model.account import Account
 from cloudendure.model.account_ce_admin_properties import AccountCeAdminProperties
 from cloudendure.model.saml_settings import SamlSettings
-globals()['AccountCeAdminProperties'] = AccountCeAdminProperties
-globals()['SamlSettings'] = SamlSettings
-from cloudendure.model.account import Account
+
+globals()["AccountCeAdminProperties"] = AccountCeAdminProperties
+globals()["SamlSettings"] = SamlSettings
 
 
 class TestAccount(unittest.TestCase):
@@ -35,5 +36,5 @@ class TestAccount(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

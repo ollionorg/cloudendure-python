@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.list_users_result import ListUsersResult
-globals()['ListUsersResult'] = ListUsersResult
 from cloudendure.model.list_users_results import ListUsersResults
+
+globals()["ListUsersResult"] = ListUsersResult
 
 
 class TestListUsersResults(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestListUsersResults(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.launch_machines_parameters_debug_scripts import LaunchMachinesParametersDebugScripts
+from cloudendure.model.launch_machines_parameters_debug_scripts import (
+    LaunchMachinesParametersDebugScripts,
+)
 
 
 class TestLaunchMachinesParametersDebugScripts(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestLaunchMachinesParametersDebugScripts(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

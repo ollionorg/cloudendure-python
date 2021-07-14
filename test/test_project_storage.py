@@ -12,9 +12,12 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.project_storage_working_storage import ProjectStorageWorkingStorage
-globals()['ProjectStorageWorkingStorage'] = ProjectStorageWorkingStorage
 from cloudendure.model.project_storage import ProjectStorage
+from cloudendure.model.project_storage_working_storage import (
+    ProjectStorageWorkingStorage,
+)
+
+globals()["ProjectStorageWorkingStorage"] = ProjectStorageWorkingStorage
 
 
 class TestProjectStorage(unittest.TestCase):
@@ -33,5 +36,5 @@ class TestProjectStorage(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

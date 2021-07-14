@@ -11,9 +11,9 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.model_utils import (  # noqa: F401
+from cloudendure.model_utils import (
     ApiTypeError,
-    ModelComposed,
+    ModelComposed,  # noqa: F401
     ModelNormal,
     ModelSimple,
     cached_property,

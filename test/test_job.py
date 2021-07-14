@@ -12,11 +12,12 @@ import sys
 import unittest
 
 import cloudendure
+from cloudendure.model.job import Job
 from cloudendure.model.job_log import JobLog
 from cloudendure.model.job_target_machine import JobTargetMachine
-globals()['JobLog'] = JobLog
-globals()['JobTargetMachine'] = JobTargetMachine
-from cloudendure.model.job import Job
+
+globals()["JobLog"] = JobLog
+globals()["JobTargetMachine"] = JobTargetMachine
 
 
 class TestJob(unittest.TestCase):
@@ -35,5 +36,5 @@ class TestJob(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

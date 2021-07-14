@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.account import Account
-globals()['Account'] = Account
 from cloudendure.model.accounts_list import AccountsList
+
+globals()["Account"] = Account
 
 
 class TestAccountsList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestAccountsList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

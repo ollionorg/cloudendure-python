@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.cloud_credentials import CloudCredentials
-globals()['CloudCredentials'] = CloudCredentials
 from cloudendure.model.cloud_credentials_list import CloudCredentialsList
+
+globals()["CloudCredentials"] = CloudCredentials
 
 
 class TestCloudCredentialsList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestCloudCredentialsList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

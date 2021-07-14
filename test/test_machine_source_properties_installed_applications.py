@@ -12,9 +12,16 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.machine_source_properties_installed_applications_items import MachineSourcePropertiesInstalledApplicationsItems
-globals()['MachineSourcePropertiesInstalledApplicationsItems'] = MachineSourcePropertiesInstalledApplicationsItems
-from cloudendure.model.machine_source_properties_installed_applications import MachineSourcePropertiesInstalledApplications
+from cloudendure.model.machine_source_properties_installed_applications import (
+    MachineSourcePropertiesInstalledApplications,
+)
+from cloudendure.model.machine_source_properties_installed_applications_items import (
+    MachineSourcePropertiesInstalledApplicationsItems,
+)
+
+globals()[
+    "MachineSourcePropertiesInstalledApplicationsItems"
+] = MachineSourcePropertiesInstalledApplicationsItems
 
 
 class TestMachineSourcePropertiesInstalledApplications(unittest.TestCase):
@@ -33,5 +40,5 @@ class TestMachineSourcePropertiesInstalledApplications(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

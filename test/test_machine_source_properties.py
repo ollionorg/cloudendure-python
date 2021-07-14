@@ -12,15 +12,26 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.machine_source_properties_cpu import MachineSourcePropertiesCpu
-from cloudendure.model.machine_source_properties_disks import MachineSourcePropertiesDisks
-from cloudendure.model.machine_source_properties_installed_applications import MachineSourcePropertiesInstalledApplications
-from cloudendure.model.machine_source_properties_running_services import MachineSourcePropertiesRunningServices
-globals()['MachineSourcePropertiesCpu'] = MachineSourcePropertiesCpu
-globals()['MachineSourcePropertiesDisks'] = MachineSourcePropertiesDisks
-globals()['MachineSourcePropertiesInstalledApplications'] = MachineSourcePropertiesInstalledApplications
-globals()['MachineSourcePropertiesRunningServices'] = MachineSourcePropertiesRunningServices
 from cloudendure.model.machine_source_properties import MachineSourceProperties
+from cloudendure.model.machine_source_properties_cpu import MachineSourcePropertiesCpu
+from cloudendure.model.machine_source_properties_disks import (
+    MachineSourcePropertiesDisks,
+)
+from cloudendure.model.machine_source_properties_installed_applications import (
+    MachineSourcePropertiesInstalledApplications,
+)
+from cloudendure.model.machine_source_properties_running_services import (
+    MachineSourcePropertiesRunningServices,
+)
+
+globals()["MachineSourcePropertiesCpu"] = MachineSourcePropertiesCpu
+globals()["MachineSourcePropertiesDisks"] = MachineSourcePropertiesDisks
+globals()[
+    "MachineSourcePropertiesInstalledApplications"
+] = MachineSourcePropertiesInstalledApplications
+globals()[
+    "MachineSourcePropertiesRunningServices"
+] = MachineSourcePropertiesRunningServices
 
 
 class TestMachineSourceProperties(unittest.TestCase):
@@ -39,5 +50,5 @@ class TestMachineSourceProperties(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

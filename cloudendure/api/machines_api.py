@@ -11,9 +11,15 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.api_client import ApiClient, Endpoint as _Endpoint
-from cloudendure.model_utils import (  # noqa: F401
-    check_allowed_values,
+from cloudendure.api_client import ApiClient
+from cloudendure.api_client import Endpoint as _Endpoint
+from cloudendure.model.error import Error
+from cloudendure.model.inline_object8 import InlineObject8
+from cloudendure.model.machine import Machine
+from cloudendure.model.machines_list import MachinesList
+from cloudendure.model.replica import Replica
+from cloudendure.model_utils import check_allowed_values  # noqa: F401
+from cloudendure.model_utils import (
     check_validations,
     date,
     datetime,
@@ -21,11 +27,6 @@ from cloudendure.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types,
 )
-from cloudendure.model.error import Error
-from cloudendure.model.inline_object8 import InlineObject8
-from cloudendure.model.machine import Machine
-from cloudendure.model.machines_list import MachinesList
-from cloudendure.model.replica import Replica
 
 
 class MachinesApi(object):

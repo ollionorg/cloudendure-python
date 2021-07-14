@@ -30,9 +30,6 @@ from cloudendure.model.bandwidth_throttling import BandwidthThrottling
 from cloudendure.model.blueprint import Blueprint
 from cloudendure.model.blueprint_disks import BlueprintDisks
 from cloudendure.model.blueprint_list import BlueprintList
-from cloudendure.model.cslp_item import CSLPItem
-from cloudendure.model.cslp_request import CSLPRequest
-from cloudendure.model.cslp_result import CSLPResult
 from cloudendure.model.cloud import Cloud
 from cloudendure.model.cloud_credentials import CloudCredentials
 from cloudendure.model.cloud_credentials_list import CloudCredentialsList
@@ -41,6 +38,9 @@ from cloudendure.model.clouds_list import CloudsList
 from cloudendure.model.compute_location import ComputeLocation
 from cloudendure.model.configurations import Configurations
 from cloudendure.model.configurations_list import ConfigurationsList
+from cloudendure.model.cslp_item import CSLPItem
+from cloudendure.model.cslp_request import CSLPRequest
+from cloudendure.model.cslp_result import CSLPResult
 from cloudendure.model.disk_config import DiskConfig
 from cloudendure.model.dynamic_configuration import DynamicConfiguration
 from cloudendure.model.error import Error
@@ -52,7 +52,6 @@ from cloudendure.model.identity_provider_redirect_response import (
 from cloudendure.model.initialization_step import InitializationStep
 from cloudendure.model.inline_object import InlineObject
 from cloudendure.model.inline_object1 import InlineObject1
-from cloudendure.model.inline_object10 import InlineObject10
 from cloudendure.model.inline_object2 import InlineObject2
 from cloudendure.model.inline_object3 import InlineObject3
 from cloudendure.model.inline_object4 import InlineObject4
@@ -61,6 +60,7 @@ from cloudendure.model.inline_object6 import InlineObject6
 from cloudendure.model.inline_object7 import InlineObject7
 from cloudendure.model.inline_object8 import InlineObject8
 from cloudendure.model.inline_object9 import InlineObject9
+from cloudendure.model.inline_object10 import InlineObject10
 from cloudendure.model.inline_response200 import InlineResponse200
 from cloudendure.model.inline_response2001 import InlineResponse2001
 from cloudendure.model.inline_response2002 import InlineResponse2002

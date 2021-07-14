@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.user_report import UserReport
-globals()['UserReport'] = UserReport
 from cloudendure.model.user_reports import UserReports
+
+globals()["UserReport"] = UserReport
 
 
 class TestUserReports(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestUserReports(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

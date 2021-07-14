@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.updateable_scripts_result_on_premise_volumes import UpdateableScriptsResultOnPremiseVolumes
+from cloudendure.model.updateable_scripts_result_on_premise_volumes import (
+    UpdateableScriptsResultOnPremiseVolumes,
+)
 
 
 class TestUpdateableScriptsResultOnPremiseVolumes(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestUpdateableScriptsResultOnPremiseVolumes(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

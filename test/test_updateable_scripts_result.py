@@ -12,9 +12,14 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.updateable_scripts_result_on_premise_volumes import UpdateableScriptsResultOnPremiseVolumes
-globals()['UpdateableScriptsResultOnPremiseVolumes'] = UpdateableScriptsResultOnPremiseVolumes
 from cloudendure.model.updateable_scripts_result import UpdateableScriptsResult
+from cloudendure.model.updateable_scripts_result_on_premise_volumes import (
+    UpdateableScriptsResultOnPremiseVolumes,
+)
+
+globals()[
+    "UpdateableScriptsResultOnPremiseVolumes"
+] = UpdateableScriptsResultOnPremiseVolumes
 
 
 class TestUpdateableScriptsResult(unittest.TestCase):
@@ -33,5 +38,5 @@ class TestUpdateableScriptsResult(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

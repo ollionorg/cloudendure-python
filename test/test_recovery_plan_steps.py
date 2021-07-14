@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.recovery_plan_step import RecoveryPlanStep
-globals()['RecoveryPlanStep'] = RecoveryPlanStep
 from cloudendure.model.recovery_plan_steps import RecoveryPlanSteps
+
+globals()["RecoveryPlanStep"] = RecoveryPlanStep
 
 
 class TestRecoveryPlanSteps(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestRecoveryPlanSteps(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

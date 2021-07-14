@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.point_in_time import PointInTime
-globals()['PointInTime'] = PointInTime
 from cloudendure.model.point_in_time_list import PointInTimeList
+
+globals()["PointInTime"] = PointInTime
 
 
 class TestPointInTimeList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestPointInTimeList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

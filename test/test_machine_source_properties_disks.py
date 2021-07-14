@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.machine_source_properties_disks import MachineSourcePropertiesDisks
+from cloudendure.model.machine_source_properties_disks import (
+    MachineSourcePropertiesDisks,
+)
 
 
 class TestMachineSourcePropertiesDisks(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestMachineSourcePropertiesDisks(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

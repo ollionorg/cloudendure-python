@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.blueprint import Blueprint
-globals()['Blueprint'] = Blueprint
 from cloudendure.model.blueprint_list import BlueprintList
+
+globals()["Blueprint"] = Blueprint
 
 
 class TestBlueprintList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestBlueprintList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

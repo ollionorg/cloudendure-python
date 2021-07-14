@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.replication_configuration_replication_tags import ReplicationConfigurationReplicationTags
+from cloudendure.model.replication_configuration_replication_tags import (
+    ReplicationConfigurationReplicationTags,
+)
 
 
 class TestReplicationConfigurationReplicationTags(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestReplicationConfigurationReplicationTags(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

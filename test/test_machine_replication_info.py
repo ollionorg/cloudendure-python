@@ -12,9 +12,14 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.machine_replication_info_initiation_states import MachineReplicationInfoInitiationStates
-globals()['MachineReplicationInfoInitiationStates'] = MachineReplicationInfoInitiationStates
 from cloudendure.model.machine_replication_info import MachineReplicationInfo
+from cloudendure.model.machine_replication_info_initiation_states import (
+    MachineReplicationInfoInitiationStates,
+)
+
+globals()[
+    "MachineReplicationInfoInitiationStates"
+] = MachineReplicationInfoInitiationStates
 
 
 class TestMachineReplicationInfo(unittest.TestCase):
@@ -33,5 +38,5 @@ class TestMachineReplicationInfo(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

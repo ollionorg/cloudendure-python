@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.machine_and_path_and_point_in_time import MachineAndPathAndPointInTime
+from cloudendure.model.machine_and_path_and_point_in_time import (
+    MachineAndPathAndPointInTime,
+)
 
 
 class TestMachineAndPathAndPointInTime(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestMachineAndPathAndPointInTime(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

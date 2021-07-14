@@ -16,17 +16,18 @@ from cloudendure.model.compute_location import ComputeLocation
 from cloudendure.model.logical_location import LogicalLocation
 from cloudendure.model.network_interface import NetworkInterface
 from cloudendure.model.outpost import Outpost
+from cloudendure.model.region import Region
 from cloudendure.model.security_group import SecurityGroup
 from cloudendure.model.storage_location import StorageLocation
 from cloudendure.model.subnet import Subnet
-globals()['ComputeLocation'] = ComputeLocation
-globals()['LogicalLocation'] = LogicalLocation
-globals()['NetworkInterface'] = NetworkInterface
-globals()['Outpost'] = Outpost
-globals()['SecurityGroup'] = SecurityGroup
-globals()['StorageLocation'] = StorageLocation
-globals()['Subnet'] = Subnet
-from cloudendure.model.region import Region
+
+globals()["ComputeLocation"] = ComputeLocation
+globals()["LogicalLocation"] = LogicalLocation
+globals()["NetworkInterface"] = NetworkInterface
+globals()["Outpost"] = Outpost
+globals()["SecurityGroup"] = SecurityGroup
+globals()["StorageLocation"] = StorageLocation
+globals()["Subnet"] = Subnet
 
 
 class TestRegion(unittest.TestCase):
@@ -45,5 +46,5 @@ class TestRegion(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -12,9 +12,12 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.user_report_gcp_machines_finance_data import UserReportGcpMachinesFinanceData
-globals()['UserReportGcpMachinesFinanceData'] = UserReportGcpMachinesFinanceData
 from cloudendure.model.user_report import UserReport
+from cloudendure.model.user_report_gcp_machines_finance_data import (
+    UserReportGcpMachinesFinanceData,
+)
+
+globals()["UserReportGcpMachinesFinanceData"] = UserReportGcpMachinesFinanceData
 
 
 class TestUserReport(unittest.TestCase):
@@ -33,5 +36,5 @@ class TestUserReport(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

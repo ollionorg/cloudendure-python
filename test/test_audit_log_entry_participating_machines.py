@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.audit_log_entry_participating_machines import AuditLogEntryParticipatingMachines
+from cloudendure.model.audit_log_entry_participating_machines import (
+    AuditLogEntryParticipatingMachines,
+)
 
 
 class TestAuditLogEntryParticipatingMachines(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestAuditLogEntryParticipatingMachines(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

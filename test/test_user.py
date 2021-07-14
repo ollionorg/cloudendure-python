@@ -12,9 +12,10 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.user_settings import UserSettings
-globals()['UserSettings'] = UserSettings
 from cloudendure.model.user import User
+from cloudendure.model.user_settings import UserSettings
+
+globals()["UserSettings"] = UserSettings
 
 
 class TestUser(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestUser(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

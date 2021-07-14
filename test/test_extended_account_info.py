@@ -14,19 +14,22 @@ import unittest
 import cloudendure
 from cloudendure.model.account import Account
 from cloudendure.model.clouds_list import CloudsList
+from cloudendure.model.extended_account_info import ExtendedAccountInfo
 from cloudendure.model.projects_list import ProjectsList
 from cloudendure.model.region import Region
-from cloudendure.model.replication_configuration_list import ReplicationConfigurationList
+from cloudendure.model.replication_configuration_list import (
+    ReplicationConfigurationList,
+)
 from cloudendure.model.time import Time
 from cloudendure.model.user import User
-globals()['Account'] = Account
-globals()['CloudsList'] = CloudsList
-globals()['ProjectsList'] = ProjectsList
-globals()['Region'] = Region
-globals()['ReplicationConfigurationList'] = ReplicationConfigurationList
-globals()['Time'] = Time
-globals()['User'] = User
-from cloudendure.model.extended_account_info import ExtendedAccountInfo
+
+globals()["Account"] = Account
+globals()["CloudsList"] = CloudsList
+globals()["ProjectsList"] = ProjectsList
+globals()["Region"] = Region
+globals()["ReplicationConfigurationList"] = ReplicationConfigurationList
+globals()["Time"] = Time
+globals()["User"] = User
 
 
 class TestExtendedAccountInfo(unittest.TestCase):
@@ -45,5 +48,5 @@ class TestExtendedAccountInfo(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

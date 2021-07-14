@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.account_link import AccountLink
-globals()['AccountLink'] = AccountLink
 from cloudendure.model.account_link_list import AccountLinkList
+
+globals()["AccountLink"] = AccountLink
 
 
 class TestAccountLinkList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestAccountLinkList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

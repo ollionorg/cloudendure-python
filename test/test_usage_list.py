@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.usage import Usage
-globals()['Usage'] = Usage
 from cloudendure.model.usage_list import UsageList
+
+globals()["Usage"] = Usage
 
 
 class TestUsageList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestUsageList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -12,11 +12,12 @@ import sys
 import unittest
 
 import cloudendure
+from cloudendure.model.project import Project
 from cloudendure.model.project_ce_admin_properties import ProjectCeAdminProperties
 from cloudendure.model.project_features import ProjectFeatures
-globals()['ProjectCeAdminProperties'] = ProjectCeAdminProperties
-globals()['ProjectFeatures'] = ProjectFeatures
-from cloudendure.model.project import Project
+
+globals()["ProjectCeAdminProperties"] = ProjectCeAdminProperties
+globals()["ProjectFeatures"] = ProjectFeatures
 
 
 class TestProject(unittest.TestCase):
@@ -35,5 +36,5 @@ class TestProject(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

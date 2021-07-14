@@ -13,8 +13,11 @@ import unittest
 
 import cloudendure
 from cloudendure.model.replication_configuration import ReplicationConfiguration
-globals()['ReplicationConfiguration'] = ReplicationConfiguration
-from cloudendure.model.replication_configuration_list import ReplicationConfigurationList
+from cloudendure.model.replication_configuration_list import (
+    ReplicationConfigurationList,
+)
+
+globals()["ReplicationConfiguration"] = ReplicationConfiguration
 
 
 class TestReplicationConfigurationList(unittest.TestCase):
@@ -33,5 +36,5 @@ class TestReplicationConfigurationList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

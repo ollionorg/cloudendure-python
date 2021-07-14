@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.job import Job
-globals()['Job'] = Job
 from cloudendure.model.jobs_list import JobsList
+
+globals()["Job"] = Job
 
 
 class TestJobsList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestJobsList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

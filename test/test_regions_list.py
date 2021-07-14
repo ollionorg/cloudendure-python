@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.region import Region
-globals()['Region'] = Region
 from cloudendure.model.regions_list import RegionsList
+
+globals()["Region"] = Region
 
 
 class TestRegionsList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestRegionsList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

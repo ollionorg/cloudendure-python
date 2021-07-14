@@ -12,9 +12,10 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.projects_and_users_items import ProjectsAndUsersItems
-globals()['ProjectsAndUsersItems'] = ProjectsAndUsersItems
 from cloudendure.model.projects_and_users import ProjectsAndUsers
+from cloudendure.model.projects_and_users_items import ProjectsAndUsersItems
+
+globals()["ProjectsAndUsersItems"] = ProjectsAndUsersItems
 
 
 class TestProjectsAndUsers(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestProjectsAndUsers(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

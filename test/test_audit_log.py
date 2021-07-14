@@ -12,9 +12,10 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.audit_log_entry import AuditLogEntry
-globals()['AuditLogEntry'] = AuditLogEntry
 from cloudendure.model.audit_log import AuditLog
+from cloudendure.model.audit_log_entry import AuditLogEntry
+
+globals()["AuditLogEntry"] = AuditLogEntry
 
 
 class TestAuditLog(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestAuditLog(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

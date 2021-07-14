@@ -12,9 +12,10 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.updateable_scripts_result import UpdateableScriptsResult
-globals()['UpdateableScriptsResult'] = UpdateableScriptsResult
 from cloudendure.model.updateable_scripts import UpdateableScripts
+from cloudendure.model.updateable_scripts_result import UpdateableScriptsResult
+
+globals()["UpdateableScriptsResult"] = UpdateableScriptsResult
 
 
 class TestUpdateableScripts(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestUpdateableScripts(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

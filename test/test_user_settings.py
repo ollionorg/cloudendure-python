@@ -12,9 +12,12 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.user_settings_send_notifications import UserSettingsSendNotifications
-globals()['UserSettingsSendNotifications'] = UserSettingsSendNotifications
 from cloudendure.model.user_settings import UserSettings
+from cloudendure.model.user_settings_send_notifications import (
+    UserSettingsSendNotifications,
+)
+
+globals()["UserSettingsSendNotifications"] = UserSettingsSendNotifications
 
 
 class TestUserSettings(unittest.TestCase):
@@ -33,5 +36,5 @@ class TestUserSettings(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

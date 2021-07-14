@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.configurations import Configurations
-globals()['Configurations'] = Configurations
 from cloudendure.model.configurations_list import ConfigurationsList
+
+globals()["Configurations"] = Configurations
 
 
 class TestConfigurationsList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestConfigurationsList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

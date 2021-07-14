@@ -12,11 +12,16 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.blueprint_disks import BlueprintDisks
-from cloudendure.model.replication_configuration_replication_tags import ReplicationConfigurationReplicationTags
-globals()['BlueprintDisks'] = BlueprintDisks
-globals()['ReplicationConfigurationReplicationTags'] = ReplicationConfigurationReplicationTags
 from cloudendure.model.blueprint import Blueprint
+from cloudendure.model.blueprint_disks import BlueprintDisks
+from cloudendure.model.replication_configuration_replication_tags import (
+    ReplicationConfigurationReplicationTags,
+)
+
+globals()["BlueprintDisks"] = BlueprintDisks
+globals()[
+    "ReplicationConfigurationReplicationTags"
+] = ReplicationConfigurationReplicationTags
 
 
 class TestBlueprint(unittest.TestCase):
@@ -35,5 +40,5 @@ class TestBlueprint(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.license import License
-globals()['License'] = License
 from cloudendure.model.license_list import LicenseList
+
+globals()["License"] = License
 
 
 class TestLicenseList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestLicenseList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

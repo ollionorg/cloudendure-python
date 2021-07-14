@@ -12,9 +12,14 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.replication_configuration_replication_tags import ReplicationConfigurationReplicationTags
-globals()['ReplicationConfigurationReplicationTags'] = ReplicationConfigurationReplicationTags
 from cloudendure.model.key_value_list import KeyValueList
+from cloudendure.model.replication_configuration_replication_tags import (
+    ReplicationConfigurationReplicationTags,
+)
+
+globals()[
+    "ReplicationConfigurationReplicationTags"
+] = ReplicationConfigurationReplicationTags
 
 
 class TestKeyValueList(unittest.TestCase):
@@ -33,5 +38,5 @@ class TestKeyValueList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

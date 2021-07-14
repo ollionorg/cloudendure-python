@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.machine_source_properties_running_services_items import MachineSourcePropertiesRunningServicesItems
+from cloudendure.model.machine_source_properties_running_services_items import (
+    MachineSourcePropertiesRunningServicesItems,
+)
 
 
 class TestMachineSourcePropertiesRunningServicesItems(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestMachineSourcePropertiesRunningServicesItems(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

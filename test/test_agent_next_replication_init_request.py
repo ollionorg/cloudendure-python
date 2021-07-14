@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.agent_next_replication_init_request import AgentNextReplicationInitRequest
+from cloudendure.model.agent_next_replication_init_request import (
+    AgentNextReplicationInitRequest,
+)
 
 
 class TestAgentNextReplicationInitRequest(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestAgentNextReplicationInitRequest(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

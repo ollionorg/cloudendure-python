@@ -11,16 +11,8 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from cloudendure.api_client import ApiClient, Endpoint as _Endpoint
-from cloudendure.model_utils import (  # noqa: F401
-    check_allowed_values,
-    check_validations,
-    date,
-    datetime,
-    file_type,
-    none_type,
-    validate_and_convert_types,
-)
+from cloudendure.api_client import ApiClient
+from cloudendure.api_client import Endpoint as _Endpoint
 from cloudendure.model.audit_log import AuditLog
 from cloudendure.model.error import Error
 from cloudendure.model.extended_account_info import ExtendedAccountInfo
@@ -33,6 +25,15 @@ from cloudendure.model.projects_and_users import ProjectsAndUsers
 from cloudendure.model.user import User
 from cloudendure.model.users_and_roles import UsersAndRoles
 from cloudendure.model.users_list import UsersList
+from cloudendure.model_utils import check_allowed_values  # noqa: F401
+from cloudendure.model_utils import (
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types,
+)
 
 
 class DefaultApi(object):

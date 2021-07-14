@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.cloud import Cloud
-globals()['Cloud'] = Cloud
 from cloudendure.model.clouds_list import CloudsList
+
+globals()["Cloud"] = Cloud
 
 
 class TestCloudsList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestCloudsList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

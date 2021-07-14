@@ -13,8 +13,9 @@ import unittest
 
 import cloudendure
 from cloudendure.model.machine import Machine
-globals()['Machine'] = Machine
 from cloudendure.model.machines_list import MachinesList
+
+globals()["Machine"] = Machine
 
 
 class TestMachinesList(unittest.TestCase):
@@ -33,5 +34,5 @@ class TestMachinesList(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

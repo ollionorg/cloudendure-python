@@ -12,19 +12,22 @@ import sys
 import unittest
 
 import cloudendure
+from cloudendure.model.machine import Machine
 from cloudendure.model.machine_license import MachineLicense
 from cloudendure.model.machine_life_cycle import MachineLifeCycle
-from cloudendure.model.machine_replication_configuration import MachineReplicationConfiguration
+from cloudendure.model.machine_replication_configuration import (
+    MachineReplicationConfiguration,
+)
 from cloudendure.model.machine_replication_info import MachineReplicationInfo
 from cloudendure.model.machine_source_properties import MachineSourceProperties
 from cloudendure.model.point_in_time import PointInTime
-globals()['MachineLicense'] = MachineLicense
-globals()['MachineLifeCycle'] = MachineLifeCycle
-globals()['MachineReplicationConfiguration'] = MachineReplicationConfiguration
-globals()['MachineReplicationInfo'] = MachineReplicationInfo
-globals()['MachineSourceProperties'] = MachineSourceProperties
-globals()['PointInTime'] = PointInTime
-from cloudendure.model.machine import Machine
+
+globals()["MachineLicense"] = MachineLicense
+globals()["MachineLifeCycle"] = MachineLifeCycle
+globals()["MachineReplicationConfiguration"] = MachineReplicationConfiguration
+globals()["MachineReplicationInfo"] = MachineReplicationInfo
+globals()["MachineSourceProperties"] = MachineSourceProperties
+globals()["PointInTime"] = PointInTime
 
 
 class TestMachine(unittest.TestCase):
@@ -43,5 +46,5 @@ class TestMachine(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

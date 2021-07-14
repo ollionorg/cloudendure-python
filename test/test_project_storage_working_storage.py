@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import cloudendure
-from cloudendure.model.project_storage_working_storage import ProjectStorageWorkingStorage
+from cloudendure.model.project_storage_working_storage import (
+    ProjectStorageWorkingStorage,
+)
 
 
 class TestProjectStorageWorkingStorage(unittest.TestCase):
@@ -31,5 +33,5 @@ class TestProjectStorageWorkingStorage(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

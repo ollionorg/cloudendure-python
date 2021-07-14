@@ -80,10 +80,16 @@ clean-api: ## get rid of unnecessary files
 build: ## build the packages
 	poetry build
 
+.PHONY: publish
+publish: build ## build and publish to pypi using the $PYPI_TOKEN for authentication
+	poetry publish --username "__token__" --password "$(PYPI_TOKEN)" --dry-run
+
 .PHONY: tag
 tag: ## tag this repo with $TAG (and mark the pyproject version as the same)
+	git checkout main
+	git pull
 	poetry version $(TAG)
 	git commit -am "Bumping version to $(TAG)"
 	git push
-	git tag -a $(TAG) -m "Rebuilding and Retagging to $(TAG)"
+	git tag -a $(TAG) -m "Tagging for release. $(TAG)"
 	git push --tags
